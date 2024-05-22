@@ -1,8 +1,8 @@
 # TrekTempo
 
 # TrekTempo
+![project-10](https://github.com/naamiahmed/TrekTempo/assets/139569329/505be357-987d-4e56-a72a-49c122030858)
 
-(https://drive.google.com/file/d/1A8Tqe2SCcuHh--oowIeK3vJlMq-x0WSB/view?usp=drive_link))
 
 ## About TrekTempo
 
