@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,13 +25,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color.fromARGB(
+        color: const Color.fromARGB(
             255, 66, 96, 110), // Set background color to light blue
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'TrekTempo',
                 style: TextStyle(
                   color: Colors.white, // Change fontcolor to color
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              Text(
+              const Text(
                 'Find your dream Destination with us',
                 style: TextStyle(
                   color: Colors.white, // Change fontcolor to color
@@ -56,7 +57,7 @@ class HomePage extends StatelessWidget {
                   backgroundColor: Colors.black,
                   fixedSize: Size(200, 50),
                 ),
-                child: Text(
+                child: const Text(
                   'GET STARTED',
                   style: TextStyle(
                     color: Colors.white,

@@ -1,0 +1,50 @@
+# Miscellaneous
+*.log
+*.lock
+*.cache
+*.tmp
+*.swp
+
+# Flutter/Dart/Pub related files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Android specific files
+.android/
+local.properties
+*.iml
+
+# iOS specific files
+ios/Flutter/.generated/
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/.symlinks/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/Generated.xcconfig.debug
+ios/Flutter/Generated.xcconfig.release
+
+# Flutter build output directory
+build/
+
+# Web specific files
+web/manifest.json
+
+# IntelliJ related files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code related files
+.vscode/
+
+# Mac specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
