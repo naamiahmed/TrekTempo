@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                 'TrekTempo',
                 style: TextStyle(
                   color: Colors.white, // Change font color to white
-                  fontSize: 64,
+                  fontSize: 50,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -35,8 +35,9 @@ class HomePage extends StatelessWidget {
                 'Find your dream Destination with us',
                 style: TextStyle(
                   color: Colors.white, // Change font color to white
-                  fontSize: 24,
+                  fontSize: 20,
                   fontStyle: FontStyle.italic,
+                 
                 ),
               ),
               // Removed ElevatedButton and its SizedBox
