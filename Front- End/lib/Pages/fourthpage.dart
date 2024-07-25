@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
+import 'package:travel_app/Pages/Sign-In-Up/SignIn.dart';
 
 void main() => runApp(const Fourthpage());
 
@@ -76,6 +78,8 @@ class Fourthpage extends StatelessWidget {
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {
+                    Navigator.push(
+                      context,MaterialPageRoute(builder: (context) => SignUpPage()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
