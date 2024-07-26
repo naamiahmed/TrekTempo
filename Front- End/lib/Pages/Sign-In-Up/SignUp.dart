@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:travel_app/Pages/Sign-In-Up/signIn.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class SignUpPage extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5), // Adjust opacity as needed
+              color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.5), // Adjust opacity as needed
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -36,7 +37,7 @@ class SignUpPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -44,19 +45,23 @@ class SignUpPage extends StatelessWidget {
                           'Please fill the details and create account',
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
                         const SizedBox(height: 16),
-                        _buildTextField(Icons.person, 'Username'),
+                        _buildTextField(Icons.person, 'Username',Color.fromARGB(255, 60, 60, 60)),
                         const SizedBox(height: 8),
-                        _buildTextField(Icons.email, 'Email'),
+                        _buildTextField(Icons.email, 'Email',Color.fromARGB(255, 60, 60, 60)),
                         const SizedBox(height: 8),
-                        _buildPasswordField(Icons.lock, 'Password'),
+                        _buildPasswordField(Icons.lock, 'Password',Color.fromARGB(255, 60, 60, 60)),
                         const SizedBox(height: 8),
-                        _buildPasswordField(Icons.lock, 'Confirm Password'),
+                        _buildPasswordField(Icons.lock, 'Confirm Password',Color.fromARGB(255, 60, 60, 60)),
                         const SizedBox(height: 16),
-                        ElevatedButton(
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                              ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -79,6 +84,9 @@ class SignUpPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                          ],
+                        ),
+                        
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +94,7 @@ class SignUpPage extends StatelessWidget {
                             const Text(
                               'Already have an account? ',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Color.fromARGB(255, 0, 0, 0),
                               ),
                             ),
                             GestureDetector(
@@ -96,20 +104,27 @@ class SignUpPage extends StatelessWidget {
                               child: const Text(
                                 'Sign in',
                                 style: TextStyle(
-                                  color: Colors.blue,
+                                  color: Color.fromARGB(255, 51, 96, 241),
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Or connect',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
+                        const SizedBox(height: 8),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                             'Or connect',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                                     ),
+                            ),
+                          ],
+                              ),
+                        
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -145,14 +160,14 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(IconData icon, String hintText) {
+  Widget _buildTextField(IconData icon, String hintText, Color color) {
     return TextField(
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.white),
+        prefixIcon: Icon(icon, color: const Color.fromARGB(255, 0, 0, 0)),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.2),
+        fillColor: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
@@ -162,15 +177,15 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPasswordField(IconData icon, String hintText) {
+  Widget _buildPasswordField(IconData icon, String hintText, Color color) {
     return TextField(
       obscureText: true,
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.white),
+        prefixIcon: Icon(icon, color: const Color.fromARGB(255, 0, 0, 0)),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.2),
+        fillColor: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
