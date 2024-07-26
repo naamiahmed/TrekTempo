@@ -57,7 +57,11 @@ class SignUpPage extends StatelessWidget {
                         const SizedBox(height: 8),
                         _buildPasswordField(Icons.lock, 'Confirm Password',Color.fromARGB(255, 60, 60, 60)),
                         const SizedBox(height: 16),
-                        ElevatedButton(
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                              ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -80,6 +84,9 @@ class SignUpPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                          ],
+                        ),
+                        
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -104,13 +111,20 @@ class SignUpPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Or connect',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ),
+                        const SizedBox(height: 8),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                             'Or connect',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                                     ),
+                            ),
+                          ],
+                              ),
+                        
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
