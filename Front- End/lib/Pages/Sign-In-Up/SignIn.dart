@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-EnterMail.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -73,7 +74,10 @@ class SignInPage extends StatelessWidget {
                           children: [
                             ElevatedButton(
                           onPressed: () {
-                            // Handle sign in
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgotPasswordPage()));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
