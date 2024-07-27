@@ -48,11 +48,30 @@ class SignInPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 16),
+                         const Text(
+                          'Email',
+                          style: TextStyle(
+                            fontSize: 16,
+                            
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ),
                         _buildTextField(Icons.email, 'Email'),
                         const SizedBox(height: 8),
+                         const Text(
+                          'Password',
+                          style: TextStyle(
+                            fontSize: 16,
+                          
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ),
                         _buildPasswordField(Icons.lock, 'Password'),
                         const SizedBox(height: 16),
-                        ElevatedButton(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
                           onPressed: () {
                             // Handle sign in
                           },
@@ -71,6 +90,10 @@ class SignInPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        ],
+                        ),
+          
+                        
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
