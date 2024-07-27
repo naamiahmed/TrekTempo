@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-CheckMail.dart';
+import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-OTP.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordCheckMail extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
 
   @override
@@ -35,7 +35,7 @@ class ForgotPasswordPage extends StatelessWidget {
                       child: Center(
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/ForgotPassword-01.png', // Replace with your image path
+                            'assets/images/Forgotpassword-01.png', // Replace with your image path
                             fit: BoxFit.cover,
                             width: 180,
                             height: 180,
@@ -58,18 +58,18 @@ class ForgotPasswordPage extends StatelessWidget {
                       'Email',
                       emailController,
                     ),
-                    const SizedBox(height: 26),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
+                        _showEmailSentDialog(context);
                          Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ForgotPasswordCheckMail()));
-                        // Handle send email
+                                    builder: (context) => ForgotPasswordOTPPage()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(horizontal: 110, vertical: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -118,10 +118,51 @@ class ForgotPasswordPage extends StatelessWidget {
       style: const TextStyle(color: Colors.black),
     );
   }
+
+  void _showEmailSentDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          contentPadding: const EdgeInsets.all(20),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'assets/images/CheckMail.png', // Replace with your image path
+                width: 100,
+                height: 100,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Check your email',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'We have sent a Verification Code to your email',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
 
 void main() {
   runApp(MaterialApp(
-    home: ForgotPasswordPage(),
+    home: ForgotPasswordCheckMail(),
   ));
 }

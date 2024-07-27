@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-CheckMail.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ResetPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
 
   @override
@@ -18,7 +17,7 @@ class ForgotPasswordPage extends StatelessWidget {
                   children: [
                     const SizedBox(height: 0), // Add some space at the top
                     const Text(
-                      'Forgot password?',
+                      'Reset password',
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
@@ -35,7 +34,7 @@ class ForgotPasswordPage extends StatelessWidget {
                       child: Center(
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/ForgotPassword-01.png', // Replace with your image path
+                            'assets/images/ForgotPassword-03.png', // Replace with your image path
                             fit: BoxFit.cover,
                             width: 180,
                             height: 180,
@@ -54,17 +53,20 @@ class ForgotPasswordPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     _buildTextField(
-                      Icons.email,
-                      'Email',
+                      Icons.lock,
+                      'Enter New Password',
+                      emailController,
+                    ),
+                     const SizedBox(height: 16),
+                    _buildTextField(
+                      Icons.lock,
+                      'Confirm New Password',
                       emailController,
                     ),
                     const SizedBox(height: 26),
                     ElevatedButton(
                       onPressed: () {
-                         Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ForgotPasswordCheckMail()));
+                         
                         // Handle send email
                       },
                       style: ElevatedButton.styleFrom(
@@ -122,6 +124,6 @@ class ForgotPasswordPage extends StatelessWidget {
 
 void main() {
   runApp(MaterialApp(
-    home: ForgotPasswordPage(),
+    home: ResetPasswordPage(),
   ));
 }
