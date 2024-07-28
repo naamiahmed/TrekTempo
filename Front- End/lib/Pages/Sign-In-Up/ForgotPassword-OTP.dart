@@ -100,13 +100,13 @@ class ForgotPasswordOTPPage extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
                       child: const Text(
-                        'Send',
+                        'Verify',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

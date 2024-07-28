@@ -69,7 +69,7 @@ class ForgotPasswordPage extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(horizontal: 110, vertical: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),

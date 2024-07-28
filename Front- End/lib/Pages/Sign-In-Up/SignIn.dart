@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-EnterMail.dart';
+import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -94,10 +95,10 @@ class SignInPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        ],
-                        ),
-          
                         
+                      ],
+                        ),
+
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -108,20 +109,84 @@ class SignInPage extends StatelessWidget {
                                 color: Color.fromARGB(255, 0, 0, 0),
                               ),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                // Navigate to sign up page
-                              },
+                            GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignUpPage()),
+                            );
+                          },
                               child: const Text(
-                                'Sign Up',
+                                ' Sign Up',
                                 style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  color: Color.fromARGB(255, 51, 96, 241),
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                           ],
                         ),
+                        const SizedBox(height: 8),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                             'Or connect',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                                     ),
+                            ),
+                          ],
+                              ),
+
+                          const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                          onPressed: () {
+                            // Handle Google sign in
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: const Image(
+                            image: AssetImage('assets/images/Connect-Google.png'), // Ensure this path is correct
+                            width: 24,
+                            height: 24,
+                          ),
+                          
+                        ),
+                        const SizedBox(width: 16),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Handle Facebook sign in
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: const Image(
+                            image: AssetImage('assets/images/Connect-FB.png'), // Ensure this path is correct
+                            width: 24,
+                            height: 24,
+                          ),
+                        )
+                        
+                          ],
+                          
+
+                                
+                        ), 
+                        
                       ],
                     ),
                   ),
