@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:travel_app/Pages/Sign-In-Up/signIn.dart';
@@ -30,28 +31,28 @@ class SignUpPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: SingleChildScrollView(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
                           'Sign up now',
                           style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 40,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 0),
                         const Text(
                           'Please fill the details and create account',
                           style: TextStyle(
                             fontSize: 16,
-                            color: Color.fromARGB(255, 0, 0, 0),
+                            color: Color.fromARGB(255, 81, 80, 80),
                           ),
                         ),
                         const SizedBox(height: 16),
-                        _buildTextField(Icons.person, 'Username',Color.fromARGB(255, 60, 60, 60)),
+                        _buildTextField(Icons.person, 'Username',const Color.fromARGB(255, 60, 60, 60)),
                         const SizedBox(height: 8),
-                        _buildTextField(Icons.email, 'Email',Color.fromARGB(255, 60, 60, 60)),
+                        _buildTextField(Icons.email, 'Email',const Color.fromARGB(255, 60, 60, 60)),
                         const SizedBox(height: 8),
                         _buildPasswordField(Icons.lock, 'Password',Color.fromARGB(255, 60, 60, 60)),
                         const SizedBox(height: 8),
@@ -98,13 +99,17 @@ class SignUpPage extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
-                                // Navigate to sign in page
-                              },
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignInPage()),
+                            );
+                          },
                               child: const Text(
                                 'Sign in',
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 51, 96, 241),
+                                  fontWeight: FontWeight.bold,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
@@ -125,28 +130,51 @@ class SignUpPage extends StatelessWidget {
                           ],
                               ),
                         
-                        const SizedBox(height: 16),
+                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                // Handle Google sign in
-                              },
-                              icon: const Icon(
-                                  Icons.account_circle, color: Colors.white),
-                              iconSize: 40,
+                            ElevatedButton(
+                          onPressed: () {
+                            // Handle Google sign in
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            const SizedBox(width: 16),
-                            IconButton(
-                              onPressed: () {
-                                // Handle Facebook sign in
-                              },
-                              icon:
-                                  const Icon(Icons.facebook, color: Colors.white),
-                              iconSize: 40,
+                          ),
+                          child: const Image(
+                            image: AssetImage('assets/images/Connect-Google.png'), // Ensure this path is correct
+                            width: 24,
+                            height: 24,
+                          ),
+                          
+                        ),
+                        const SizedBox(width: 16),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Handle Facebook sign in
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
+                          ),
+                          child: const Image(
+                            image: AssetImage('assets/images/Connect-FB.png'), // Ensure this path is correct
+                            width: 24,
+                            height: 24,
+                          ),
+                        )
+                        
                           ],
+                          
+
+                                
                         ),
                       ],
                     ),
