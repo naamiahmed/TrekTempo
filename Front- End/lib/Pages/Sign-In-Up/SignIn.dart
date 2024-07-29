@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-EnterMail.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
+import 'package:travel_app/auth_service.dart';
 
 class SignInPage extends StatelessWidget {
   @override

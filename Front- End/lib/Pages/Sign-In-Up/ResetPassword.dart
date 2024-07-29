@@ -36,8 +36,8 @@ class ResetPasswordPage extends StatelessWidget {
                           child: Image.asset(
                             'assets/images/ForgotPassword-03.png', // Replace with your image path
                             fit: BoxFit.cover,
-                            width: 180,
-                            height: 180,
+                            width: 200,
+                            height: 200,
                           ),
                         ),
                       ),

@@ -7,6 +7,25 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'TrekTempo',
+          style: TextStyle(
+            fontFamily: 'CuteEaster', // Change to the desired funky font
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blue,
+         // Change the background color if needed
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Stack(
         children: [
           Center(
@@ -37,8 +56,8 @@ class ForgotPasswordPage extends StatelessWidget {
                           child: Image.asset(
                             'assets/images/ForgotPassword-01.png', // Replace with your image path
                             fit: BoxFit.cover,
-                            width: 180,
-                            height: 180,
+                            width: 200,
+                            height: 200,
                           ),
                         ),
                       ),
@@ -61,11 +80,10 @@ class ForgotPasswordPage extends StatelessWidget {
                     const SizedBox(height: 26),
                     ElevatedButton(
                       onPressed: () {
-                         Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ForgotPasswordCheckMail()));
-                        // Handle send email
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPasswordCheckMail()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -85,16 +103,6 @@ class ForgotPasswordPage extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ),
-          Positioned(
-            top: 50,
-            left: 16,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () {
-                Navigator.pop(context);
-              },
             ),
           ),
         ],
