@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:travel_app/Pages/Sign-In-Up/signIn.dart';
+import 'package:travel_app/auth_service.dart';
 
 class SignUpPage extends StatelessWidget {
   @override
