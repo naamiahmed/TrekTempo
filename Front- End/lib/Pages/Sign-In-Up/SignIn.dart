@@ -7,6 +7,24 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'TrekTempo',
+          style: TextStyle(
+            fontFamily: 'ShortBaby', // Change to the desired funky font
+            fontSize: 40,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blue,
+         // Change the background color if needed
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Column(
         children: [
           // First column for image
@@ -37,12 +55,12 @@ class SignInPage extends StatelessWidget {
                         const Text(
                           'Sign In',
                           style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 40,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height:0),
                         const Text(
                           '',
                           style: TextStyle(
@@ -85,7 +103,7 @@ class SignInPage extends StatelessWidget {
                             backgroundColor: Colors.blue,
                             padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(18),
                             ),
                           ),
                           child: const Text(
@@ -204,6 +222,7 @@ class SignInPage extends StatelessWidget {
     return TextField(
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: const Color.fromARGB(255, 0, 0, 0)),
+        
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),
         filled: true,

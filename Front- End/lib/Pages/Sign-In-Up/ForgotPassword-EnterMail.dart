@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-CheckMail.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
@@ -11,11 +12,11 @@ class ForgotPasswordPage extends StatelessWidget {
         title: const Text(
           'TrekTempo',
           style: TextStyle(
-            fontFamily: 'CuteEaster', // Change to the desired funky font
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
+            fontFamily: 'ShortBaby', // Change to the desired funky font
+            fontSize: 40,
             color: Colors.white,
           ),
+          textAlign: TextAlign.start,
         ),
         backgroundColor: Colors.blue,
          // Change the background color if needed
@@ -89,7 +90,7 @@ class ForgotPasswordPage extends StatelessWidget {
                         backgroundColor: Colors.blue,
                         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(18),
                         ),
                       ),
                       child: const Text(
