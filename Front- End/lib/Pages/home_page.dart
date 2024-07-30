@@ -25,12 +25,13 @@ class HomePage extends StatelessWidget {
               Text(
                 'TrekTempo',
                 style: TextStyle(
+                  fontFamily: 'ShortBaby',
                   color: Colors.white, // Change font color to white
                   fontSize: 50,
-                  fontWeight: FontWeight.bold,
+                  
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 0),
               Text(
                 'Find your dream Destination with us',
                 style: TextStyle(

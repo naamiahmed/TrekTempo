@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -6,6 +7,24 @@ class ResetPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'TrekTempo',
+          style: TextStyle(
+            fontFamily: 'ShortBaby', // Change to the desired funky font
+            fontSize: 40,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blue,
+         // Change the background color if needed
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Stack(
         children: [
           Center(
@@ -66,6 +85,12 @@ class ResetPasswordPage extends StatelessWidget {
                     const SizedBox(height: 26),
                     ElevatedButton(
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Notifications_Home(),
+                          ),
+                        );
                          
                         // Handle send email
                       },
@@ -73,7 +98,7 @@ class ResetPasswordPage extends StatelessWidget {
                         backgroundColor: Colors.blue,
                         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(18),
                         ),
                       ),
                       child: const Text(
@@ -89,16 +114,7 @@ class ResetPasswordPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 50,
-            left: 16,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
+          
         ],
       ),
     );

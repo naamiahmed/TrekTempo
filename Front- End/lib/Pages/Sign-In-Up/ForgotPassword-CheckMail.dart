@@ -11,9 +11,8 @@ class ForgotPasswordCheckMail extends StatelessWidget {
         title: const Text(
           'TrekTempo',
           style: TextStyle(
-            fontFamily: 'ComicSans', // Change to the desired funky font
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
+            fontFamily: 'ShortBaby', // Change to the desired funky font
+            fontSize: 40,
             color: Colors.white,
           ),
         ),
@@ -90,7 +89,7 @@ class ForgotPasswordCheckMail extends StatelessWidget {
                         backgroundColor: Colors.blue,
                         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(18),
                         ),
                       ),
                       child: const Text(
@@ -137,7 +136,7 @@ class ForgotPasswordCheckMail extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          contentPadding: const EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.all(10),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -146,7 +145,7 @@ class ForgotPasswordCheckMail extends StatelessWidget {
                 width: 100,
                 height: 100,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 0),
               const Text(
                 'Check your email',
                 style: TextStyle(
