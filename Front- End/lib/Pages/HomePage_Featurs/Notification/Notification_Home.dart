@@ -35,7 +35,7 @@ class Notifications_Home extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.all(8),
-        children: [
+        children: const [
           NotificationTile(
             title: 'New Event Update',
             subtitle: 'A camping event organized by TrackTempo',

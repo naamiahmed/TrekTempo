@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -88,7 +88,7 @@ class ResetPasswordPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Notifications_Home(),
+                            builder: (context) => const MainHomePage(),
                           ),
                         );
                          
