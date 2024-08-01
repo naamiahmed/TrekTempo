@@ -22,26 +22,29 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center, // Center horizontally
             children: [
+              Image(
+                image: AssetImage('assets/images/Logo.png'), // Ensure this path is correct
+                height: 200, // Set height as needed
+                width: 200, // Set width as needed
+              ),
+              SizedBox(height: 20), // Add some space between the image and text
               Text(
                 'TrekTempo',
                 style: TextStyle(
                   fontFamily: 'ShortBaby',
                   color: Colors.white, // Change font color to white
                   fontSize: 50,
-                  
                 ),
               ),
-              SizedBox(height: 0),
+              SizedBox(height: 10), // Add space between title and subtitle
               Text(
                 'Find your dream Destination with us',
                 style: TextStyle(
                   color: Colors.white, // Change font color to white
                   fontSize: 20,
                   fontStyle: FontStyle.italic,
-                 
                 ),
               ),
-              // Removed ElevatedButton and its SizedBox
             ],
           ),
         ),
