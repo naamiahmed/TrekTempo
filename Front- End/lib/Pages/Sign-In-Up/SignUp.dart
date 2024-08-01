@@ -31,13 +31,12 @@ class SignUpPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            flex: 1,
-            child: Container(
-              height: height * 0.4,
-              width: width,
+             child: Container(
+              height: height *0.25,
+              width:width,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/SignUp.png'), // Ensure this path is correct
+                  image: AssetImage('assets/images/SignUp-2.png'), // Ensure this path is correct
                   fit: BoxFit.cover,
                 ),
               ),
