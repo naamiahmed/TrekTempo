@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-OTP.dart';
+import 'package:travel_app/Pages/ForgotPW/ResetPassword.dart';
 
-class ForgotPasswordCheckMail extends StatelessWidget {
+class ForgotPasswordOTPPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
+      appBar: AppBar(
         title: const Text(
           'TrekTempo',
           style: TextStyle(
@@ -53,7 +53,7 @@ class ForgotPasswordCheckMail extends StatelessWidget {
                       child: Center(
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/Forgotpassword-01.png', // Replace with your image path
+                            'assets/images/ForgotPassword-02.png', // Replace with your image path
                             fit: BoxFit.cover,
                             width: 200,
                             height: 200,
@@ -63,7 +63,7 @@ class ForgotPasswordCheckMail extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     const Text(
-                      'Please enter your email address to receive a Verification Code',
+                      'Please enter your email www.TrekTempo@gmail.com to see the verification code',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -71,19 +71,50 @@ class ForgotPasswordCheckMail extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    _buildTextField(
-                      Icons.email,
-                      'Email',
-                      emailController,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: _buildTextField(
+                            Icons.email,
+                            'Email',
+                            emailController,
+                          ),
+                        ),
+                        SizedBox(width: 15), // Add space between text fields
+                        Expanded(
+                          child: _buildTextField(
+                            Icons.email,
+                            'Email',
+                            emailController,
+                          ),
+                        ),
+                        SizedBox(width: 15), // Add space between text fields
+                        Expanded(
+                          child: _buildTextField(
+                            Icons.email,
+                            'Email',
+                            emailController,
+                          ),
+                        ),
+                        SizedBox(width: 15), // Add space between text fields
+                        Expanded(
+                          child: _buildTextField(
+                            Icons.email,
+                            'Email',
+                            emailController,
+                          ),
+                        ),
+                      ],
                     ),
+            
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        _showEmailSentDialog(context);
                          Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ForgotPasswordOTPPage()));
+                                    builder: (context) => ResetPasswordPage()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -93,7 +124,7 @@ class ForgotPasswordCheckMail extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        'Send',
+                        'Verify',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -105,7 +136,7 @@ class ForgotPasswordCheckMail extends StatelessWidget {
               ),
             ),
           ),
-          
+         
         ],
       ),
     );
@@ -115,10 +146,9 @@ class ForgotPasswordCheckMail extends StatelessWidget {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.black),
-        hintText: hintText,
+        constraints: BoxConstraints.expand(width: 50, height: 50),
         filled: true,
-        fillColor: Colors.grey[200],
+        fillColor: Colors.grey[300],
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
@@ -136,16 +166,16 @@ class ForgotPasswordCheckMail extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(20),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/images/CheckMail.png', // Replace with your image path
-                width: 100,
+                'assets/images/email_sent.png', // Replace with your image path
+                width: 150,
                 height: 100,
               ),
-              const SizedBox(height: 0),
+              const SizedBox(height: 20),
               const Text(
                 'Check your email',
                 style: TextStyle(
@@ -172,6 +202,6 @@ class ForgotPasswordCheckMail extends StatelessWidget {
 
 void main() {
   runApp(MaterialApp(
-    home: ForgotPasswordCheckMail(),
+    home: ForgotPasswordOTPPage(),
   ));
 }

@@ -38,7 +38,7 @@ class _MainHomePageState extends State<MainHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
         leading: const Padding(
           padding: EdgeInsets.all(8.0),
@@ -116,6 +116,7 @@ class HomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 image: const DecorationImage(
                   image: AssetImage('assets/images/MainHome/skydiving.png'),
+                  
                   fit: BoxFit.cover,
                 ),
               ),
@@ -215,6 +216,7 @@ class HomePage extends StatelessWidget {
 }
 
 class DestinationsPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Center(child: Text('Destinations Page'));
@@ -231,12 +233,6 @@ class SearchPage extends StatelessWidget {
 class MessagesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    onpressed() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MessagesPage()),
-      );
-    } 
     return Center(child: Text('Messages Page'));
   }
 }
