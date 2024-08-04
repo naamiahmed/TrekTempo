@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:travel_app/Pages/ForgotPW/ForgotPassword-CheckMail.dart';
+import 'package:travel_app/Pages/ForgotPW/Components/Button.dart'; // Import the custom button
 
 class ForgotPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -79,27 +79,14 @@ class ForgotPasswordPage extends StatelessWidget {
                       emailController,
                     ),
                     const SizedBox(height: 26),
-                    ElevatedButton(
+                    Button(
+                      text: 'Send',
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => ForgotPasswordCheckMail()));
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                      ),
-                      child: const Text(
-                        'Send',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
                     ),
                   ],
                 ),

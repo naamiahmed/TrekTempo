@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/ForgotPW/ForgotPassword-OTP.dart';
+import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
 
 class ForgotPasswordCheckMail extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -77,7 +78,8 @@ class ForgotPasswordCheckMail extends StatelessWidget {
                       emailController,
                     ),
                     const SizedBox(height: 16),
-                    ElevatedButton(
+                    Button(
+                      text: 'Send',
                       onPressed: () {
                         _showEmailSentDialog(context);
                          Navigator.push(
@@ -85,20 +87,7 @@ class ForgotPasswordCheckMail extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => ForgotPasswordOTPPage()));
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                      ),
-                      child: const Text(
-                        'Send',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
+                      
                     ),
                   ],
                 ),
