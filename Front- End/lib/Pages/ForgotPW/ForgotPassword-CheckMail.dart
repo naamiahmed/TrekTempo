@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:travel_app/Pages/Sign-In-Up/ForgotPassword-CheckMail.dart';
+import 'package:travel_app/Pages/ForgotPW/ForgotPassword-OTP.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordCheckMail extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+            appBar: AppBar(
         title: const Text(
           'TrekTempo',
           style: TextStyle(
@@ -16,7 +15,6 @@ class ForgotPasswordPage extends StatelessWidget {
             fontSize: 40,
             color: Colors.white,
           ),
-          textAlign: TextAlign.start,
         ),
         backgroundColor: Colors.blue,
          // Change the background color if needed
@@ -55,7 +53,7 @@ class ForgotPasswordPage extends StatelessWidget {
                       child: Center(
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/ForgotPassword-01.png', // Replace with your image path
+                            'assets/images/Forgotpassword-01.png', // Replace with your image path
                             fit: BoxFit.cover,
                             width: 200,
                             height: 200,
@@ -78,13 +76,14 @@ class ForgotPasswordPage extends StatelessWidget {
                       'Email',
                       emailController,
                     ),
-                    const SizedBox(height: 26),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ForgotPasswordCheckMail()));
+                        _showEmailSentDialog(context);
+                         Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgotPasswordOTPPage()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -106,6 +105,7 @@ class ForgotPasswordPage extends StatelessWidget {
               ),
             ),
           ),
+          
         ],
       ),
     );
@@ -127,10 +127,51 @@ class ForgotPasswordPage extends StatelessWidget {
       style: const TextStyle(color: Colors.black),
     );
   }
+
+  void _showEmailSentDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          contentPadding: const EdgeInsets.all(10),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'assets/images/CheckMail.png', // Replace with your image path
+                width: 100,
+                height: 100,
+              ),
+              const SizedBox(height: 0),
+              const Text(
+                'Check your email',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'We have sent a Verification Code to your email',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
 
 void main() {
   runApp(MaterialApp(
-    home: ForgotPasswordPage(),
+    home: ForgotPasswordCheckMail(),
   ));
 }

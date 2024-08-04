@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Pages/home_page.dart';
-import 'Pages/fourthpage.dart';
+import 'Pages/IntroPage/home_page.dart';
+import 'Pages/IntroPage/fourthpage.dart';
 
 void main() {
   runApp(const TravelApp());

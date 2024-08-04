@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/fourthpage.dart';
+import 'package:travel_app/Pages/IntroPage/fourthpage.dart';
 
 void main() => runApp(const ThirdPage());
 
