@@ -21,10 +21,7 @@ class Notifications_Home extends StatelessWidget {
           TextButton(
             onPressed: () {
               // Handle clear all action
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MessagesPage()),
-              );
+          
             },
             child: const Text(
               'Clear all',

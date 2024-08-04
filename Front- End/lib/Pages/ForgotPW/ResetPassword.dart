@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -83,7 +84,8 @@ class ResetPasswordPage extends StatelessWidget {
                       emailController,
                     ),
                     const SizedBox(height: 26),
-                    ElevatedButton(
+                    Button(
+                      text: 'Submit',
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -94,20 +96,7 @@ class ResetPasswordPage extends StatelessWidget {
                          
                         // Handle send email
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                      ),
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
+                
                     ),
                   ],
                 ),

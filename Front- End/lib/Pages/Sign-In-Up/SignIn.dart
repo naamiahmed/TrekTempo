@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/ForgotPW/ForgotPassword-EnterMail.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
 import 'package:travel_app/auth_service.dart';
+import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -92,27 +93,15 @@ class SignInPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ElevatedButton(
+                            Button(
+                              text: 'Sign In',
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ForgotPasswordPage()));
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                          ),
-                          child: const Text(
-                            'Sign In',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          ),
+                         
                         ),
                         
                       ],

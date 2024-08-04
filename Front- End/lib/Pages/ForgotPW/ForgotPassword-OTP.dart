@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/ForgotPW/ResetPassword.dart';
+import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
 
 class ForgotPasswordOTPPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -109,27 +110,15 @@ class ForgotPasswordOTPPage extends StatelessWidget {
                     ),
             
                     const SizedBox(height: 16),
-                    ElevatedButton(
+                   Button(
+                      text: 'Verify',
                       onPressed: () {
                          Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ResetPasswordPage()));
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                      ),
-                      child: const Text(
-                        'Verify',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
+                     
                     ),
                   ],
                 ),
