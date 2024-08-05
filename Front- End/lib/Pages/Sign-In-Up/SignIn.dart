@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/ForgotPW/ForgotPassword-EnterMail.dart';
+import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
+import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
+import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart'; // Import the new widget
 
 class SignInPage extends StatelessWidget {
   @override
@@ -10,44 +13,18 @@ class SignInPage extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'TrekTempo',
-          style: TextStyle(
-            fontFamily: 'ShortBaby',
-            fontSize: 40,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.blue,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: TrekTempo_Appbar(),
+      extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
           children: [
+            TopImage(height: height, width: width, imagePath: 'assets/images/SignIn.png'),
             Container(
-              height: height * 0.175,
-              width: width,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/SignIn.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(height:26),
-            Container(
-              color: Colors.white.withOpacity(1),
+              color: Colors.white,
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   const Text(
                     'Sign In',
                     style: TextStyle(
@@ -57,23 +34,11 @@ class SignInPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Email',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
-                  _buildTextField(Icons.email, 'Email'),
+                 
+                  InputTextBox(icon: Icons.email, label: 'Email'),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Password',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
-                  _buildPasswordField(Icons.lock, 'Password'),
+                  
+                  InputTextBox(icon: Icons.lock, label: 'Password', isPassword: true),
                   const SizedBox(height: 16),
                   Center(
                     child: Button(
@@ -174,41 +139,6 @@ class SignInPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildTextField(IconData icon, String label) {
-    return TextField(
-      decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.black),
-        labelText: label,
-        labelStyle: const TextStyle(color: Colors.black),
-        filled: true,
-        fillColor: Colors.black.withOpacity(0.2),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      style: const TextStyle(color: Colors.white),
-    );
-  }
-
-  Widget _buildPasswordField(IconData icon, String label) {
-    return TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.black),
-        labelText: label,
-        labelStyle: const TextStyle(color: Colors.black),
-        filled: true,
-        fillColor: Colors.black.withOpacity(0.2),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      style: const TextStyle(color: Colors.white),
     );
   }
 }
