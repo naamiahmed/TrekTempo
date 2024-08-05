@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class TrekTempo_Appbar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -11,17 +12,26 @@ class TrekTempo_Appbar extends StatelessWidget implements PreferredSizeWidget {
         'TrekTempo',
         style: TextStyle(
           fontFamily: 'ShortBaby',
-          fontSize: 40,
+          fontSize: 30,
           color: Colors.white,
         ),
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.white),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+      leading: Container(
+        padding:EdgeInsets.all(4.0),
+        decoration: const BoxDecoration(
+          color: Colors.grey, 
+          shape: BoxShape.circle,
+
+        ),
+      
+        child: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
     );
   }
