@@ -21,8 +21,7 @@ class TrekTempo_Appbar extends StatelessWidget implements PreferredSizeWidget {
       leading: Container(
         padding:EdgeInsets.all(4.0),
         decoration: const BoxDecoration(
-          color: Colors.grey, 
-          shape: BoxShape.circle,
+          
 
         ),
       
