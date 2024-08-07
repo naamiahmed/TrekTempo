@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
 
 class ImageDesign extends StatelessWidget {
   final String imagePath;
@@ -36,15 +37,25 @@ class ImageDesign extends StatelessWidget {
                     height: double.infinity,
                   ),
                 ),
-                const Positioned(
-                  top: 50,
+
+                
+                Positioned(
+                  top: 20,
                   right: 20,
-                  child: Text(
+                  child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => SignUpPage()),
+                              );
+                  },
+                  child: const Text(
                     'Skip >',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 18,
                     ),
+                  ),
                   ),
                 ),
               ],
