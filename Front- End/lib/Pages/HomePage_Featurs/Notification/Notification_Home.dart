@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/Notification/MessagePage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart';
 import 'package:travel_app/Pages/Destinations/destinations_page.dart';
 class Notifications_Home extends StatelessWidget {
   const Notifications_Home({super.key});

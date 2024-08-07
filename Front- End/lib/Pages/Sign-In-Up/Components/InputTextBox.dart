@@ -9,7 +9,7 @@ class InputTextBox extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.label,
-    this.isPassword = false,
+    this.isPassword = false, required TextEditingController controller, required String? Function(String? value) validator,
   }) : super(key: key);
 
   @override

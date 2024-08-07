@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/Notification/MessagePage.dart'; // Import the MessagesPage
+import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart'; // Import the MessagesPage
 import 'package:travel_app/Pages/Destinations/destinations_page.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -37,31 +39,6 @@ class _MainHomePageState extends State<MainHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/images/naami.jpg'),
-          ),
-        ),
-        title: const Text(
-          'Naami Ahmed',
-          style: TextStyle(color: Colors.black),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.black),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Notifications_Home()),
-              );
-            },
-          ),
-        ],
-      ),
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -106,70 +83,97 @@ class _MainHomePageState extends State<MainHomePage> {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/MainHome/skydiving.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              height: 200,
-              child: Center(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Create trip plan'),
-                ),
-              ),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        elevation: 0,
+        leading: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundImage: AssetImage('assets/images/naami.jpg'),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildIconButton(Icons.map, 'Trip Plans'),
-                _buildIconButton(Icons.event, 'Events'),
-                _buildIconButton(Icons.translate, 'Translator'),
-                _buildIconButton(Icons.euro, 'Currency Converter'),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Best Destination',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text('View all'),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: 200,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                _buildDestinationCard('Galle Fort', 'assets/images/MainHome/Galle.png'),
-                _buildDestinationCard('Ella', 'assets/ella.jpg'),
-                // Add more destination cards here
-              ],
-            ),
+        ),
+        title: const Text(
+          'Naami Ahmed',
+          style: TextStyle(color: Colors.black),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications, color: Colors.black),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Notifications_Home()),
+              );
+            },
           ),
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/MainHome/skydiving.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                height: 200,
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Create trip plan'),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildIconButton(Icons.map, 'Trip Plans'),
+                  _buildIconButton(Icons.event, 'Events'),
+                  _buildIconButton(Icons.translate, 'Translator'),
+                  _buildIconButton(Icons.euro, 'Currency Converter'),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Best Destination',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text('View all'),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 200,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
+                  _buildDestinationCard('Galle Fort', 'assets/images/MainHome/Galle.png'),
+                  _buildDestinationCard('Ella', 'assets/ella.jpg'),
+                  // Add more destination cards here
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -215,18 +219,50 @@ class HomePage extends StatelessWidget {
   }
 }
 
-
+class DestinationsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Destinations'),
+      ),
+      body: Center(child: Text('Destinations Page')),
+    );
+  }
+}
 
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Search Page'));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search'),
+      ),
+      body: Center(child: Text('Search Page')),
+    );
+  }
+}
+
+class MessagesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Messages'),
+      ),
+      body: Center(child: Text('Messages Page')),
+    );
   }
 }
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Profile Page'));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
+      body: Center(child: Text('Profile Page')),
+    );
   }
 }
