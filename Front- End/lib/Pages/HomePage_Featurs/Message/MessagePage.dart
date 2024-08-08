@@ -6,6 +6,7 @@ class MessagesPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          SizedBox(height:30),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
@@ -18,6 +19,7 @@ class MessagesPage extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height:0),
           Expanded(
             child: ListView(
               children: const [
