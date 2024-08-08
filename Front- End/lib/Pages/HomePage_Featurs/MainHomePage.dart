@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart'; // Import the MessagesPage
+import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart';
 import 'package:travel_app/Pages/Destinations/destinations_page.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart'; // Import the MenuPage
 import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 
 void main() {
@@ -32,13 +34,17 @@ class _MainHomePageState extends State<MainHomePage> {
     HomePage(),
     DestinationsPage(),
     SearchPage(),
-    MessagesPage(), // Ensure MessagesPage is included here
-    ProfilePage(),
+    MessagesPage(),
+    MenuPage()
+  
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: MenuPage(), // Use the MenuPage here
+      ),
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -69,8 +75,8 @@ class _MainHomePageState extends State<MainHomePage> {
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.menu),
+            label: 'Menu',
           ),
         ],
         selectedItemColor: Colors.blue,
@@ -99,12 +105,18 @@ class HomePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications, color: Colors.black),
+            icon: Icon(Icons.notifications, color: const Color.fromARGB(255, 80, 46, 46)),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Notifications_Home()),
               );
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.menu, color: Colors.black),
+            onPressed: () {
+             Scaffold.of(context).openDrawer(); 
             },
           ),
         ],
@@ -140,7 +152,7 @@ class HomePage extends StatelessWidget {
                   _buildIconButton(Icons.map, 'Trip Plans'),
                   _buildIconButton(Icons.event, 'Events'),
                   _buildIconButton(Icons.translate, 'Translator'),
-                  _buildIconButton(Icons.euro, 'Currency Converter'),
+                  _buildIconButton(Icons.euro, 'Converter'),
                 ],
               ),
             ),
@@ -168,6 +180,9 @@ class HomePage extends StatelessWidget {
                   _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
                   _buildDestinationCard('Galle Fort', 'assets/images/MainHome/Galle.png'),
                   _buildDestinationCard('Ella', 'assets/ella.jpg'),
+                  _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
+                  _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
+                  
                   // Add more destination cards here
                 ],
               ),
@@ -219,18 +234,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class DestinationsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Destinations'),
-      ),
-      body: Center(child: Text('Destinations Page')),
-    );
-  }
-}
-
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -239,30 +242,6 @@ class SearchPage extends StatelessWidget {
         title: Text('Search'),
       ),
       body: Center(child: Text('Search Page')),
-    );
-  }
-}
-
-class MessagesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Messages'),
-      ),
-      body: Center(child: Text('Messages Page')),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
-      body: Center(child: Text('Profile Page')),
     );
   }
 }

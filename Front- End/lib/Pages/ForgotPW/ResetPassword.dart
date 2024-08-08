@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
+import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -8,24 +9,7 @@ class ResetPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'TrekTempo',
-          style: TextStyle(
-            fontFamily: 'ShortBaby', // Change to the desired funky font
-            fontSize: 40,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.blue,
-         // Change the background color if needed
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: TrekTempo_Appbar(),
       body: Stack(
         children: [
           Center(
