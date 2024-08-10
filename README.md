@@ -22,6 +22,6 @@ TrekTempo is a smart travel app designed to enhance the travel experience in Sri
    3. <a href= "">andhushi </a>
    4. <a href= "https://github.com/Fathir2001">Fathir</a>
    5. <a href= "https://github.com/rashidhamnf">Rashidha</a>
-    ```
+  
 
 
