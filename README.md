@@ -18,7 +18,7 @@ TrekTempo is a smart travel app designed to enhance the travel experience in Sri
 
 ## Team Members
    01. Naami Ahmed (Lead)
-   2. Raashid
+   2. <a  href="https://github.com/Raashi-d"> Raashid </a>
    3. sandhushi
    4. Fathir
    5. Rashidha
