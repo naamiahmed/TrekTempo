@@ -17,7 +17,7 @@ TrekTempo is a smart travel app designed to enhance the travel experience in Sri
 - 🚌 **Transport Options**: Compare and choose the best transportation methods.
 
 ## Team Members
-   01. <a href= "https://github.com/naamiahmed">Naami Ahmed (Lead)</a>
+   01. <a href= "https://github.com/naamiahmed">Naami Ahmed </a>(Lead)
    2. <a  href="https://github.com/Raashi-d"> Raashid </a>
    3. <a href= "">andhushi </a>
    4. <a href= "https://github.com/Fathir2001">Fathir</a>
