@@ -5,7 +5,6 @@ import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
-import 'package:travel_app/Pages/Sign-In-Up/Components/Validation.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -16,6 +15,27 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email cannot be empty';
+    }
+    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Enter a valid Gmail address';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password cannot be empty';
+    }
+    if (value.length < 6 || value.length > 12) {
+      return 'Password must be 6 to 12 characters long';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +70,7 @@ class _SignInPageState extends State<SignInPage> {
                       icon: Icons.email,
                       label: 'Email',
                       controller: _emailController,
-                      validator: Validation.validateEmail,
+                      validator: _validateEmail,
                     ),
                     const SizedBox(height: 8),
                     InputTextBox(
@@ -58,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                       label: 'Password',
                       isPassword: true,
                       controller: _passwordController,
-                      validator: Validation.validatePassword,
+                      validator: _validatePassword,
                     ),
                     const SizedBox(height: 16),
                     Center(

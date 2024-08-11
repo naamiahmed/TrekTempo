@@ -4,17 +4,22 @@ class InputTextBox extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool isPassword;
+  final TextEditingController controller;
+  final String? Function(String? value) validator;
 
   const InputTextBox({
     Key? key,
     required this.icon,
     required this.label,
-    this.isPassword = false, required TextEditingController controller, required String? Function(String? value) validator,
+    this.isPassword = false,
+    required this.controller,
+    required this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      controller: controller,
       obscureText: isPassword,
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.black),
@@ -31,6 +36,7 @@ class InputTextBox extends StatelessWidget {
           borderSide: BorderSide.none,
         ),
       ),
+      validator: validator,
       style: const TextStyle(color: Colors.black),
     );
   }

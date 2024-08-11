@@ -4,7 +4,6 @@ import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
-import 'package:travel_app/Pages/Sign-In-Up/Components/Validation.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -16,6 +15,37 @@ class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email cannot be empty';
+    }
+    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Enter a valid Gmail address';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password cannot be empty';
+    }
+    if (value.length < 6 || value.length > 12) {
+      return 'Password must be 6 to 12 characters long';
+    }
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? value, String? password) {
+    if (value == null || value.isEmpty) {
+      return 'Confirm Password cannot be empty';
+    }
+    if (value != password) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       icon: Icons.email,
                       label: 'Email',
                       controller: _emailController,
-                      validator: Validation.validateEmail,
+                      validator: _validateEmail,
                     ),
                     const SizedBox(height: 8),
                     InputTextBox(
@@ -78,7 +108,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       label: 'Password',
                       isPassword: true,
                       controller: _passwordController,
-                      validator: Validation.validatePassword,
+                      validator: _validatePassword,
                     ),
                     const SizedBox(height: 8),
                     InputTextBox(
@@ -86,7 +116,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       label: 'Confirm Password',
                       isPassword: true,
                       controller: _confirmPasswordController,
-                      validator: (value) => Validation.validateConfirmPassword(value, _passwordController.text),
+                      validator: (value) => _validateConfirmPassword(value, _passwordController.text),
                     ),
                     const SizedBox(height: 16),
                     Center(
@@ -106,79 +136,32 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Already have an account? ',
+                          'Already have an account?',
                           style: TextStyle(
                             color: Colors.black,
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage()));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignInPage()),
+                            );
                           },
                           child: const Text(
-                            'Sign in',
+                            ' Sign In',
                             style: TextStyle(
                               color: Color.fromARGB(255, 51, 96, 241),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
+                        ),          
                       ],
-                    ),
-                    const SizedBox(height: 8),
-                    const Center(
-                      child: Text(
-                        'Or connect',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            // Handle Google sign in
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: const Image(
-                            image: AssetImage('assets/images/Connect-Google.png'),
-                            width: 24,
-                            height: 24,
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Handle Facebook sign in
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: const Image(
-                            image: AssetImage('assets/images/Connect-FB.png'),
-                            width: 24,
-                            height: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                    ),                     
+                  ],                  
                 ),
               ),
+              
             ),
           ],
         ),
