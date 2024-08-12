@@ -20,6 +20,7 @@ class _SignInPageState extends State<SignInPage> {
     if (value == null || value.isEmpty) {
       return 'Email cannot be empty';
     }
+
     final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
     if (!emailRegex.hasMatch(value)) {
       return 'Enter a valid Gmail address';

@@ -19,6 +19,10 @@ class _SignUpPageState extends State<SignUpPage> {
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email cannot be empty';
+
+      var regBody = {
+        "email": _emailController.text,
+      };
     }
     final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
     if (!emailRegex.hasMatch(value)) {
