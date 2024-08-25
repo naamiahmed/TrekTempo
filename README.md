@@ -1,5 +1,5 @@
 
-# TrekTempo
+# TrekTempo (Mobile Application)
 ![project-10](https://github.com/naamiahmed/TrekTempo/assets/139569329/505be357-987d-4e56-a72a-49c122030858)
 
 
