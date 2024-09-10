@@ -3,8 +3,8 @@ import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home
 import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart';
 import 'package:travel_app/Pages/Destinations/destinations_page.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart'; // Import the MenuPage
 import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart'; // Import the TripPlanningPage
 
 void main() {
   runApp(MyApp());
@@ -36,14 +36,13 @@ class _MainHomePageState extends State<MainHomePage> {
     SearchPage(),
     MessagesPage(),
     MenuPage()
-  
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: MenuPage(), // Use the MenuPage here
+        child: MenuPage(),
       ),
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -149,10 +148,10 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildIconButton(Icons.map, 'Trip Plans'),
-                  _buildIconButton(Icons.event, 'Events'),
-                  _buildIconButton(Icons.translate, 'Translator'),
-                  _buildIconButton(Icons.euro, 'Converter'),
+                  _buildIconButton(context, Icons.map, 'Trip Plans', TripPlanningPage()),
+                  _buildIconButton(context, Icons.event, 'Events', null),
+                  _buildIconButton(context, Icons.translate, 'Translator', null),        
+                  _buildIconButton(context, Icons.euro, 'Converter', null),
                 ],
               ),
             ),
@@ -182,8 +181,6 @@ class HomePage extends StatelessWidget {
                   _buildDestinationCard('Ella', 'assets/ella.jpg'),
                   _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
                   _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                  
-                  // Add more destination cards here
                 ],
               ),
             ),
@@ -193,12 +190,19 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildIconButton(IconData icon, String label) {
+  Widget _buildIconButton(BuildContext context, IconData icon, String label, Widget? page) {
     return Column(
       children: [
         IconButton(
           icon: Icon(icon, size: 30),
-          onPressed: () {},
+          onPressed: () {
+            if (page != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => page),
+              );
+            }
+          },
         ),
         Text(label),
       ],
