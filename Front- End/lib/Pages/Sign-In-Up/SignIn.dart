@@ -94,7 +94,7 @@ class _SignInPageState extends State<SignInPage> {
                           } else {
                             print("Validation failed");
                           }
-                        },
+                        }, textColor: Colors.white, buttonColor: Colors.blueAccent,
                       ),
                     ),
                     const SizedBox(height: 16),
