@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripDetails.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripDetails.dart'; 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class TripPlanningPage extends StatefulWidget {
   @override
@@ -8,12 +14,6 @@ class TripPlanningPage extends StatefulWidget {
 }
 
 class _TripPlanningPageState extends State<TripPlanningPage> {
-  final _formKey = GlobalKey<FormState>();
-  
-  final _tripNameController = TextEditingController();
-  final _startPointController = TextEditingController();
-  final _endPointController = TextEditingController();
-  
   int _duration = 1; // Duration in days
   int _personCount = 1;
   
@@ -24,6 +24,47 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
 
   final List<String> _interestOptions = ['Beach', 'Mountain', 'River', 'Desert'];
 
+  final _formKey = GlobalKey<FormState>();
+  final _tripNameController = TextEditingController();
+  final _startPointController = TextEditingController();
+  final _endPointController = TextEditingController();
+
+
+
+    Future<void> _submitTrip() async {
+    if (_formKey.currentState!.validate()) {
+      final tripDetails = {
+        'tripName': _tripNameController.text,
+        'startingPoint': _startPointController.text,
+        'endingPoint': _endPointController.text,
+        'days': _duration,
+        'places': _selectedInterests,
+        'restaurants': [], // Add restaurant data if available
+        'hotels': [] // Add hotel data if available
+      };
+
+      final response = await http.post(
+        Uri.parse('http://your-server-address/trip/save'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(tripDetails),
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        final tripId = responseData['tripId'];
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TripPlanDetailsPage(tripId: tripId),
+          ),
+        );
+      } else {
+        // Handle error
+        print('Failed to save trip');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -31,6 +72,16 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -42,7 +93,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                   width: width,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/TripPlanning.png'), // Replace with correct path
+                      image: AssetImage('assets/images/AppIcon.png'), // Replace with correct path
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -181,8 +232,8 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
 
                     // Budget Selection with Radio buttons and Icons
                     const Text('Budget', style: TextStyle(fontSize: 18)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Wrap(
+                      spacing: 45,
                       children: [
                         _buildRadioOption('Low', 'Low (0-100\$)', Icons.attach_money),
                         _buildRadioOption('Medium', 'Medium (100\$ - 500\$)', Icons.money),
@@ -193,8 +244,8 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
 
                     // Trip Person Type with icons
                     const Text('Trip Person Type', style: TextStyle(fontSize: 18)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    Wrap(
+                    spacing: 45,
                       children: [
                         _buildChoiceChip('Solo', Icons.person),
                         _buildChoiceChip('Couple', Icons.favorite),
@@ -209,10 +260,10 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                     Wrap(
                       spacing: 45,
                       children: [
-                        _buildChoiceChip('Spiritual', Icons.self_improvement),
-                        _buildChoiceChip('Adventure', Icons.hiking),
-                        _buildChoiceChip('Historical', Icons.history_edu),
-                        _buildChoiceChip('Other', Icons.category),
+                        _buildTripType('Spiritual', Icons.self_improvement),
+                        _buildTripType('Adventure', Icons.hiking),
+                        _buildTripType('Historical', Icons.history_edu),
+                        _buildTripType('Other', Icons.category),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -259,6 +310,16 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                           if (_formKey.currentState!.validate()) {
                             // Handle form submission
                             print("Trip details submitted");
+
+                            // Navigate to TripPlanDetailsPage
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TripPlanDetailsPage(
+                                  tripId: 'some_trip_id', // Replace with actual trip ID
+                                ),
+                              ),
+                            );
                           }
                         },
                         buttonColor: Colors.blueAccent,
@@ -323,7 +384,6 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
             });
           },
         ),
-        Icon(icon),
         const SizedBox(width: 5),
         Text(label),
       ],
@@ -334,15 +394,27 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
   Widget _buildChoiceChip(String label, IconData icon) {
     return ChoiceChip(
       label: Text(label),
-      avatar: Icon(icon, color: const Color.fromARGB(255, 71, 71, 71)),
+      avatar: Icon(icon, color: Color.fromARGB(255, 12, 38, 92)),
       selected: _tripPersonType == label,
       onSelected: (selected) {
         setState(() {
           _tripPersonType = label;
         });
       },
-      selectedColor: Colors.blue.shade300,
-      labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+    );
+  }
+
+  // Helper method to build TripType with icon
+  Widget _buildTripType(String label, IconData icon) {
+    return ChoiceChip(
+      label: Text(label),
+      avatar: Icon(icon, color: const Color.fromARGB(255, 71, 71, 71)),
+      selected: _tripType == label,
+      onSelected: (selected) {
+        setState(() {
+          _tripType = label;
+        });
+      },
     );
   }
 }
