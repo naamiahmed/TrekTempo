@@ -5,6 +5,8 @@ import 'package:travel_app/Pages/Destinations/destinations_page.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart'; // Import the TripPlanningPage
+import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart'; // Import the TranslationPage
+import 'package:travel_app/Pages/HomePage_Featurs/Convertor/CurrencyConverterPage.dart'; // Import the CurrencyConverterPage
 
 void main() {
   runApp(MyApp());
@@ -150,8 +152,8 @@ class HomePage extends StatelessWidget {
                 children: [
                   _buildIconButton(context, Icons.map, 'Trip Plans', TripPlanningPage()),
                   _buildIconButton(context, Icons.event, 'Events', null),
-                  _buildIconButton(context, Icons.translate, 'Translator', null),        
-                  _buildIconButton(context, Icons.euro, 'Converter', null),
+                  _buildIconButton(context, Icons.translate, 'Translator', TranslatorPage()),        
+                  _buildIconButton(context, Icons.euro, 'Converter', CurrencyConverterPage()),
                 ],
               ),
             ),
