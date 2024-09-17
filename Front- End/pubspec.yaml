@@ -34,7 +34,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/MainHome/
-    - assets/images/destinationsImages/
+    - assets/images/destinations_images/
+    - assets/images/destinations_images/districts/
 
   fonts:
     - family: CuteEaster
