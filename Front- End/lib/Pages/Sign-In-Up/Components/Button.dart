@@ -19,7 +19,7 @@ class Button extends StatelessWidget {
     this.textStyle = const TextStyle(
       color: Colors.white,
       fontSize: 18,
-    ),
+    ), required Color textColor, required MaterialAccentColor buttonColor,
   });
 
   @override

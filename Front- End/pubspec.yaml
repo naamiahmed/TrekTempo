@@ -10,7 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_maps_flutter: ^2.2.1
   http: ^0.13.3
+  googleapis: ^9.0.0
+  googleapis_auth: ^1.1.0
 
   cupertino_icons: ^1.0.6
 
@@ -31,7 +34,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/MainHome/
-    - assets/images/destinationsImages/
+    - assets/images/destinations_images/
+    - assets/images/destinations_images/districts/
 
   fonts:
     - family: CuteEaster

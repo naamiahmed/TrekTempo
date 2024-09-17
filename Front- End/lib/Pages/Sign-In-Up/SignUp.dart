@@ -132,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           } else {
                             print("Validation failed");
                           }
-                        },
+                        }, textColor: Colors.white, buttonColor: Colors.blueAccent,
                       ),
                     ),
                     const SizedBox(height: 16),
