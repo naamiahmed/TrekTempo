@@ -1,4 +1,4 @@
-// Import necessary packages
+// Creating a list of districts list and images to be displayed in the destinations page
 import 'package:flutter/material.dart';
 import 'district_conts.dart';
  
