@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class ImageDesign extends StatelessWidget {
   final String imagePath;
@@ -46,7 +48,7 @@ class ImageDesign extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignUpPage()),
+                                MaterialPageRoute(builder: (context) => MainHomePage()),
                               );
                   },
                   child: const Text(
