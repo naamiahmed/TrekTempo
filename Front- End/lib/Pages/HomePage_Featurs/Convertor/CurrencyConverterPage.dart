@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
+import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart' as SignInUpButton;
+import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart' as HomePageButton;
 
 class CurrencyConverterPage extends StatefulWidget {
   @override
@@ -104,14 +105,14 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
               ],
             ),
             SizedBox(height: 20),
-            ElevatedButton(
+            HomePageButton.Button(
+              text: 'Convert',
               onPressed: () {
                 if (_amountController.text.isNotEmpty) {
                   convertCurrency(
                       _amountController.text, _fromCurrency, _toCurrency);
                 }
               },
-              child: Text('Convert'),
             ),
             SizedBox(height: 20),
             _isLoading
