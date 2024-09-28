@@ -5,6 +5,8 @@ import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+import 'package:travel_app/auth_service.dart'; // Make sure this points to your ApiService
 
 class SignInPage extends StatefulWidget {
   @override
@@ -15,15 +17,15 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final ApiService apiService = ApiService(); // Create an instance of ApiService
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email cannot be empty';
     }
-
-    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
     if (!emailRegex.hasMatch(value)) {
-      return 'Enter a valid Gmail address';
+      return 'Enter a valid email address';
     }
     return null;
   }
@@ -85,16 +87,31 @@ class _SignInPageState extends State<SignInPage> {
                     Center(
                       child: Button(
                         text: 'Sign In',
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+                            // Call the sign-in method
+                            bool success = await apiService.signIn(
+                              _emailController.text,
+                              _passwordController.text,
                             );
+                            if (success) {
+                              // Navigate to the home page
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => MainHomePage()),
+                              );
+                            } else {
+                              // Show an error message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Sign in failed! Please try again.')),
+                              );
+                            }
                           } else {
                             print("Validation failed");
                           }
-                        }, textColor: Colors.white, buttonColor: Colors.blueAccent,
+                        },
+                        textColor: Colors.white,
+                        buttonColor: Colors.blueAccent,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -102,12 +119,7 @@ class _SignInPageState extends State<SignInPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'Don\'t have an account?',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
+                          const Text('Don\'t have an account? '),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -116,64 +128,11 @@ class _SignInPageState extends State<SignInPage> {
                               );
                             },
                             child: const Text(
-                              ' Sign Up',
+                              'Sign Up',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 51, 96, 241),
+                                color: Colors.blueAccent,
                                 fontWeight: FontWeight.bold,
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Center(
-                      child: Text(
-                        'Or connect',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              // Handle Google sign in
-                            },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: const Image(
-                              image: AssetImage('assets/images/Connect-Google.png'),
-                              width: 24,
-                              height: 24,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          ElevatedButton(
-                            onPressed: () {
-                              // Handle Facebook sign in
-                            },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: const Image(
-                              image: AssetImage('assets/images/Connect-FB.png'),
-                              width: 24,
-                              height: 24,
                             ),
                           ),
                         ],
