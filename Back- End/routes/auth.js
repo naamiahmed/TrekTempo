@@ -1,22 +1,57 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const authRoutes = require('./routes/auth');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const router = express.Router();
 
-const app = express();
+// Sign Up
+router.post('/signup', async (req, res) => {
+    const { name, email, password } = req.body;
 
-app.use(express.json());
-app.use(cors());
+    try {
+        // Check if user already exists
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({ msg: 'User already exists' });
+        }
 
-// MongoDB connection
-const dbURI = 'mongodb+srv://TrekTempo:<db_password>@userdb.tr2b3.mongodb.net/?retryWrites=true&w=majority&appName=UserDB';
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log('MongoDB connection error:', err));
+        // Create new user
+        user = new User({
+            name,
+            email,
+            password: await bcrypt.hash(password, 10), // Hash password
+        });
 
-// Routes
-app.use('/api', authRoutes);
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+        await user.save();
+        res.status(201).json({ msg: 'User registered successfully' });
+    } catch (err) {
+        res.status(500).json({ msg: 'Server error' });
+    }
 });
+
+// Sign In
+router.post('/signin', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Check for user
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ msg: 'Invalid credentials' });
+        }
+
+        // Compare passwords
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ msg: 'Invalid credentials' });
+        }
+
+        // Generate JWT
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token });
+    } catch (err) {
+        res.status(500).json({ msg: 'Server error' });
+    }
+});
+
+module.exports = router;
