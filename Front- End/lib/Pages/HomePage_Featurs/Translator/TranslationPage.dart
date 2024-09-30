@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
 
 class TranslatorPage extends StatefulWidget {
   @override
@@ -82,13 +83,13 @@ class _TranslatorPageState extends State<TranslatorPage> {
               }).toList(),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
+            Button(
+              text: 'Translate',
               onPressed: () {
                 if (_textController.text.isNotEmpty) {
                   translateText(_textController.text, _targetLanguage);
                 }
               },
-              child: Text('Translate'),
             ),
             SizedBox(height: 20),
             _isLoading

@@ -37,6 +37,7 @@ flutter:
     - assets/images/destinations_images/
     - assets/images/destinations_images/districts/
     - assets/images/destinations_images/colombo/
+    - assets/images/Events/
 
   fonts:
     - family: CuteEaster
