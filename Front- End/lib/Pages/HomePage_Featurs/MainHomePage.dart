@@ -3,7 +3,6 @@ import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home
 import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart';
 import 'package:travel_app/Pages/Destinations/destinations_page.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart'; // Import the TripPlanningPage
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart'; // Import the TranslationPage
 import 'package:travel_app/Pages/HomePage_Featurs/Convertor/CurrencyConverterPage.dart'; // Import the CurrencyConverterPage

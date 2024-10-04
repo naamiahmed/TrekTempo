@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class TripPlanDetailsPage extends StatefulWidget {
   final String tripId;
-  TripPlanDetailsPage({required this.tripId});
+  TripPlanDetailsPage({required this.tripId, required tripPlan});
 
   @override
   _TripPlanDetailsPageState createState() => _TripPlanDetailsPageState();
