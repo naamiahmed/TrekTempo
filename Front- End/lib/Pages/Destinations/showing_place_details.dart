@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 
 class PlaceDetailsPage extends StatelessWidget {
-  final String imagePath;
+  final List<String> imagePaths;
   final String title;
   final String location;
   final String description;
   final int likes;
 
   const PlaceDetailsPage({super.key, 
-    required this.imagePath,
+    required this.imagePaths,
     required this.title,
     required this.location,
     required this.description,
@@ -29,8 +29,9 @@ class PlaceDetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Display image
-            Image.asset(
-              imagePath,
+            Image.network(
+                //add slider to photos
+              imagePaths[0],
               height: 200,
               width: double.infinity,
               fit: BoxFit.cover,
