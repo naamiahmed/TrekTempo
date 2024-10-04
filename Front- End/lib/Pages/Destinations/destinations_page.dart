@@ -1,5 +1,6 @@
 // Creating a list of districts list and images to be displayed in the destinations page
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Destinations/show_district_places.dart';
 import 'district_conts.dart';
  
 void main() {
@@ -24,14 +25,14 @@ class DestinationsPage extends StatelessWidget {
         itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            // Navigate to the corresponding district page from the map
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => districtPages[districts[index]]!,
-              ),
-            );
-          },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DestinationCard(district: districts[index]), // Pass the district name here
+                  ),
+                );
+              },
+
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Stack(

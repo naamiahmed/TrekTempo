@@ -14,6 +14,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    address: {
+        type: String,
+        required: false,
+    },
+    profilePicURL: {
+        type: String,
+        required: false,
+    },
 });
 
 const User = mongoose.model('User', userSchema);
