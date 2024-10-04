@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'showing_place_details.dart';
 
 class PlacesCard extends StatelessWidget {
-  final String imagePath;
+  final List<String> imagePaths;
   final String title;
   final String location;
   final String description;
   final int likes;
 
   const PlacesCard({super.key, 
-    required this.imagePath,
+    required this.imagePaths,
     required this.title,
     required this.location,
     required this.description,
@@ -26,7 +26,7 @@ class PlacesCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => PlaceDetailsPage(
-              imagePath: imagePath,
+              imagePaths: imagePaths,
               title: title,
               location: location,
               description: description,
@@ -46,8 +46,8 @@ class PlacesCard extends StatelessWidget {
             // Image
             ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-              child: Image.asset(
-                imagePath,
+              child: Image.network(
+                imagePaths[0],
                 height: 150,
                 width: double.infinity,
                 fit: BoxFit.cover,
