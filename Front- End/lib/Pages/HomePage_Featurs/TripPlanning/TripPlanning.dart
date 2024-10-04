@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripDetails.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 
 class TripPlanningPage extends StatefulWidget {
   @override
@@ -15,7 +13,6 @@ class TripPlanningPage extends StatefulWidget {
 class _TripPlanningPageState extends State<TripPlanningPage> {
   int _duration = 1; // Duration in days
   int _personCount = 1;
-  
   String _budget = 'Low';
   String _tripPersonType = 'Solo';
   String _tripType = 'Spiritual';
@@ -28,9 +25,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
   final _startPointController = TextEditingController();
   final _endPointController = TextEditingController();
 
-
-
-    Future<void> _submitTrip() async {
+  Future<void> _submitTrip() async {
     if (_formKey.currentState!.validate()) {
       final tripDetails = {
         'tripName': _tripNameController.text,
@@ -128,67 +123,52 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Trip Name Input with icon
-                    Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.drive_file_rename_outline, color: Colors.blue),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: InputTextBox(
-                                icon: Icons.trip_origin,
-                                label: 'Trip Name',
-                                controller: _tripNameController, validator: (String? value) {  },
-                              ),
-                            ),
-                          ],
-                        ),
+                    _buildCard(
+                      color: Colors.blue,
+                      child: InputTextBox(
+                        icon: Icons.trip_origin,
+                        label: 'Trip Name',
+                        controller: _tripNameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a trip name';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(height: 8),
                     
                     // Starting Point Input
-                    Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.location_on, color: Colors.green),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: InputTextBox(
-                                icon: Icons.location_on,
-                                label: 'Starting Point',
-                                controller: _startPointController, validator: (String? value) {  },
-                              ),
-                            ),
-                          ],
-                        ),
+                    _buildCard(
+                      color: Colors.green,
+                      child: InputTextBox(
+                        icon: Icons.location_on,
+                        label: 'Starting Point',
+                        controller: _startPointController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a starting point';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(height: 8),
 
                     // Ending Point Input
-                    Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.location_off, color: Colors.red),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: InputTextBox(
-                                icon: Icons.location_on,
-                                label: 'Ending Point',
-                                controller: _endPointController, validator: (String? value) {  },
-                              ),
-                            ),
-                          ],
-                        ),
+                    _buildCard(
+                      color: Colors.red,
+                      child: InputTextBox(
+                        icon: Icons.location_on,
+                        label: 'Ending Point',
+                        controller: _endPointController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter an ending point';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -196,7 +176,6 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                     // Duration Field with Icon and Increment Buttons
                     _buildIncrementSection(
                       title: 'Duration (Days)',
-                      icon: Icons.timer,
                       value: _duration,
                       onDecrement: () {
                         setState(() {
@@ -211,40 +190,24 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                     ),
                     const SizedBox(height: 16),
 
-                    // Persons Count Field with Icon and Increment Buttons
-                    _buildIncrementSection(
-                      title: 'Persons Count',
-                      icon: Icons.group,
-                      value: _personCount,
-                      onDecrement: () {
-                        setState(() {
-                          if (_personCount > 1) _personCount--;
-                        });
-                      },
-                      onIncrement: () {
-                        setState(() {
-                          _personCount++;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 16),
-
                     // Budget Selection with Radio buttons and Icons
-                    const Text('Budget', style: TextStyle(fontSize: 18)),
+                    const Text('Budget', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Wrap(
-                      spacing: 45,
+                      spacing: 10,
+                      runSpacing: 10,
                       children: [
-                        _buildRadioOption('Low', 'Low (0-100\$)', Icons.attach_money),
-                        _buildRadioOption('Medium', 'Medium (100\$ - 500\$)', Icons.money),
-                        _buildRadioOption('High', 'High (500\$ +)', Icons.monetization_on),
+                        _buildRadioOption('Low', 'Low (0-100\$)'),
+                        _buildRadioOption('Medium', 'Medium (100\$ - 500\$)'),
+                        _buildRadioOption('High', 'High (500\$ +)'),
                       ],
                     ),
                     const SizedBox(height: 16),
 
                     // Trip Person Type with icons
-                    const Text('Trip Person Type', style: TextStyle(fontSize: 18)),
+                    const Text('Trip Person Type', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Wrap(
-                    spacing: 45,
+                      spacing: 10,
+                      runSpacing: 10,
                       children: [
                         _buildChoiceChip('Solo', Icons.person),
                         _buildChoiceChip('Couple', Icons.favorite),
@@ -254,10 +217,29 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                     ),
                     const SizedBox(height: 16),
 
+                    // Show Persons Count Field only if Friends or Family is selected
+                    if (_tripPersonType == 'Friends' || _tripPersonType == 'Family')
+                      _buildPersonIncrementSection(
+                        title: 'Persons Count',
+                        value: _personCount,
+                        onDecrement: () {
+                          setState(() {
+                            if (_personCount > 1) _personCount--;
+                          });
+                        },
+                        onIncrement: () {
+                          setState(() {
+                            _personCount++;
+                          });
+                        },
+                      ),
+                    const SizedBox(height: 16),
+
                     // Trip Type with icons
-                    const Text('Trip Type', style: TextStyle(fontSize: 18)),
+                    const Text('Trip Type', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Wrap(
-                      spacing: 45,
+                      spacing: 10,
+                      runSpacing: 10,
                       children: [
                         _buildTripType('Spiritual', Icons.self_improvement),
                         _buildTripType('Adventure', Icons.hiking),
@@ -268,9 +250,10 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                     const SizedBox(height: 16),
 
                     // Interests Selection with filter chips and icons
-                    const Text('Interested In', style: TextStyle(fontSize: 18)),
+                    const Text('Interested In', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Wrap(
-                      spacing: 45,
+                      spacing: 10,
+                      runSpacing: 10,
                       children: _interestOptions.map((interest) {
                         return FilterChip(
                           avatar: Icon(
@@ -305,24 +288,9 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                     Center(
                       child: Button(
                         text: 'Submit',
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Handle form submission
-                            print("Trip details submitted");
-
-                            // Navigate to TripPlanDetailsPage
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TripPlanDetailsPage(
-                                  tripId: 'some_trip_id', // Replace with actual trip ID
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                        buttonColor: Colors.blueAccent,
+                        onPressed: _submitTrip,
                         textColor: Colors.white,
+                        buttonColor: Colors.blueAccent,
                       ),
                     ),
                   ],
@@ -335,10 +303,25 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
     );
   }
 
+  // Helper method to build card with icon
+  Widget _buildCard({required Color color, required Widget child}) {
+    return Card(
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            const SizedBox(width: 10),
+            Expanded(child: child),
+          ],
+        ),
+      ),
+    );
+  }
+
   // Helper method to build increment/decrement section
   Widget _buildIncrementSection({
     required String title,
-    required IconData icon,
     required int value,
     required VoidCallback onDecrement,
     required VoidCallback onIncrement,
@@ -348,9 +331,41 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
       children: [
         Row(
           children: [
-            Icon(icon, color: Colors.blue),
+            const SizedBox(width: 0),
+            Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove_circle_outline),
+              onPressed: onDecrement,
+            ),
+            Text('$value', style: const TextStyle(fontSize: 18)),
+            IconButton(
+              icon: const Icon(Icons.add_circle_outline),
+              onPressed: onIncrement,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Helper method to build person increment/decrement section
+  Widget _buildPersonIncrementSection({
+    required String title,
+    required int value,
+    required VoidCallback onDecrement,
+    required VoidCallback onIncrement,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
             const SizedBox(width: 10),
-            Text(title, style: TextStyle(fontSize: 18)),
+            Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ],
         ),
         Row(
@@ -371,7 +386,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
   }
 
   // Helper method to build radio button with icon
-  Widget _buildRadioOption(String value, String label, IconData icon) {
+  Widget _buildRadioOption(String value, String label) {
     return Row(
       children: [
         Radio(
