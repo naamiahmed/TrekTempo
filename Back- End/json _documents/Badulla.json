@@ -1,146 +1,62 @@
 [
-    {
-      "placeName": "Dunhinda Falls",
-      "location": "Dunhinda Falls, Badulla, Sri Lanka",
-      "likes": 0,
-      "description": "Dunhinda Falls, located near Badulla, is one of Sri Lanka's most beautiful and iconic waterfalls, cascading from a height of 64 meters. The waterfall is popular for its breathtaking misty appearance, which creates a smoky effect that adds to its natural beauty. The surrounding lush greenery and the tranquil atmosphere make it a perfect spot for nature lovers and photographers. The best time to visit is during the rainy season, from May to July, when the waterfall is at its fullest. Tickets to access the viewpoint cost approximately LKR 200 per person.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Muthiyangana Raja Maha Viharaya",
-      "location": "Muthiyangana Raja Maha Viharaya, Badulla, Sri Lanka",
-      "likes": 0,
-      "description": "Muthiyangana Raja Maha Viharaya, located in the heart of Badulla, is one of the 16 sacred Buddhist sites in Sri Lanka. It is a popular pilgrimage destination because it is believed to enshrine relics of Lord Buddha, making it highly revered among Buddhists. The temple’s impressive architecture and the peaceful environment attract both pilgrims and tourists alike. The annual Esala Perahera, held in July or August, is a key highlight that showcases traditional Sri Lankan culture. Visitors are welcome throughout the year, but the Perahera season is an especially vibrant time to visit. Tickets are priced at LKR 300 for foreign visitors.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Nine Arches Bridge",
-      "location": "Nine Arches Bridge, Ella, Sri Lanka",
-      "likes": 0,
-      "description": "The Nine Arches Bridge, located in Ella, is a famous architectural marvel built during the British colonial period. This iconic stone bridge, with its nine arches, is popular for its scenic beauty, as it is surrounded by lush greenery and tea plantations. A key attraction is watching the trains pass over the bridge, which offers a stunning contrast to the natural surroundings. The early morning or late afternoon are ideal times to visit, as the soft light enhances the picturesque views. There is no ticket required to visit the bridge, making it a must-see spot for travelers in the area.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Ella Rock",
-      "location": "Ella Rock, Ella, Sri Lanka",
-      "likes": 0,
-      "description": "Ella Rock is a well-known hiking destination in Ella, offering stunning panoramic views of the surrounding countryside. Popular for its challenging yet rewarding trek, the trail leads hikers through tea plantations, forests, and rocky paths. The summit provides breathtaking views of Ella Gap, Little Adam’s Peak, and the distant hills. Early mornings are the best time to visit, as the weather is cooler and the views are often clearer. Hiking enthusiasts and nature lovers will find the journey up Ella Rock to be both adventurous and scenic.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Ravana Falls",
-      "location": "Ravana Falls, Ella, Sri Lanka",
-      "likes": 0,
-      "description": "Ravana Falls, located just outside of Ella, is a striking waterfall that cascades from a height of 25 meters, making it one of the widest waterfalls in Sri Lanka. The falls are popular for their association with the legendary King Ravana from the Ramayana, adding a historical and cultural charm to the site. Visitors are often captivated by the natural rock pools formed at the base of the falls, which are perfect for a refreshing dip. The best time to visit is during the rainy season, from October to December, when the waterfall is at its most powerful.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Lipton’s Seat",
-      "location": "Lipton’s Seat, Haputale, Sri Lanka",
-      "likes": 0,
-      "description": "Lipton’s Seat, located in Haputale, is a famous viewpoint that offers panoramic vistas of lush tea estates and the surrounding landscape. This spot is popular because it is where Sir Thomas Lipton, the renowned tea planter, used to sit and survey his plantations. The stunning views, stretching as far as the southern coast on a clear day, make it a favorite for visitors seeking peace and scenic beauty. Early morning is the best time to visit, as the skies are usually clear, and the sunrise adds a magical glow to the landscape. Tickets to access the viewpoint are priced at LKR 500 per person.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Diyaluma Falls",
-      "location": "Diyaluma Falls, Koslanda, Sri Lanka",
-      "likes": 0,
-      "description": "Diyaluma Falls, located near Koslanda, is the second-highest waterfall in Sri Lanka, dropping from a height of 220 meters. The waterfall is popular for its tiered rock pools, where visitors can swim and relax while enjoying the breathtaking views. The upper section of the falls offers a more secluded experience and is accessible via a short hike, making it an adventurous destination for nature lovers. The best time to visit is during the rainy season, from October to March, when the water flow is at its strongest.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Upper Diyaluma Waterfall",
-      "location": "Upper Diyaluma Waterfall, Koslanda, Sri Lanka",
-      "likes": 0,
-      "description": "The Upper Diyaluma Waterfall, located above the main Diyaluma Falls, is a hidden gem known for its stunning natural rock pools and serene atmosphere. It is popular among adventurous travelers who enjoy the scenic hike to the top, which rewards them with breathtaking views and the opportunity to swim in the refreshing pools. The peaceful environment and the relatively lesser crowd make it a perfect spot for those seeking tranquility. The best time to visit is between October and March, when the waterfall is most impressive.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Adisham Bungalow",
-      "location": "Adisham Bungalow, Haputale, Sri Lanka",
-      "likes": 0,
-      "description": "Adisham Bungalow, located in Haputale, is a charming colonial-era mansion built by a British planter in the early 20th century. This stone bungalow is popular for its beautiful English-style architecture and well-maintained gardens, offering visitors a glimpse into Sri Lanka’s colonial past. The surrounding scenery, with views of tea plantations and mist-covered hills, adds to the peaceful and scenic atmosphere. The bungalow is now a monastery, and visitors can explore its interior on weekends and public holidays. The best time to visit is during the cooler months from December to February. Tickets are priced at LKR 100 per person.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Ravana Cave",
-      "location": "Ravana Cave, Ella, Sri Lanka",
-      "likes": 0,
-      "description": "Ravana Cave, located near Ella, is a historical site believed to be linked to the legendary King Ravana from the ancient Indian epic, the Ramayana. The cave is popular for its intriguing history and the adventurous climb it offers, leading to a small but fascinating chamber with stunning views of the surrounding valley. The cave is thought to have been used as a hiding place by King Ravana. The best time to visit is early morning or late afternoon when the weather is cooler, making the climb more comfortable. Tickets to visit Ravana Cave cost around LKR 150 per person.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Bambarakanda Falls",
-      "location": "Bambarakanda Falls, Kalupahana, Sri Lanka",
-      "likes": 0,
-      "description": "Bambarakanda Falls, located in the Kalupahana area, is the tallest waterfall in Sri Lanka, plunging from a height of 263 meters. The waterfall is popular for its sheer height and the stunning natural beauty that surrounds it, offering a peaceful retreat for nature lovers. The base of the waterfall is a great spot to relax and enjoy the misty atmosphere, and adventurous visitors can also hike up to the top for even more spectacular views. The best time to visit is between October and March, when the water flow is strongest, making the falls even more impressive.",
-      "images": 
-      {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    },
-    {
-      "placeName": "Halpewatte Tea Factory",
-      "location": "Halpewatte Tea Factory, Ella, Sri Lanka",
-      "likes": 0,
-      "description": "Halpewatte Tea Factory, located in Ella, is one of the most popular tea factories in Sri Lanka, offering visitors a chance to explore the island’s renowned tea industry. The factory is famous for its high-quality Ceylon tea and provides guided tours where visitors can learn about the entire tea production process, from plucking the leaves to packaging the final product. The scenic surroundings of the factory, with views of lush tea plantations, make the experience even more enjoyable. The best time to visit is during the morning hours when the factory is in full operation. Tickets for the guided tour cost around LKR 500 per person.",
-      "images": {
-        "image1": "",
-        "image2": "",
-        "image3": ""
-      }
-    }
+  {
+    "district": "Badulla",
+    "name": "Bambarakanda Falls",
+    "location": "Bambarakanda Falls, Kalupahana, Sri Lanka",
+    "likes": 0,
+    "description": "Bambarakanda Falls, located in the Kalupahana area, is the tallest waterfall in Sri Lanka, plunging from a height of 263 meters. The waterfall is popular for its sheer height and the stunning natural beauty that surrounds it, offering a peaceful retreat for nature lovers. The base of the waterfall is a great spot to relax and enjoy the misty atmosphere, and adventurous visitors can also hike up to the top for even more spectacular views. The best time to visit is between October and March, when the water flow is strongest, making the falls even more impressive.",
+    "images": [
+      "http://localhost:5000/uploads/places/Thuparamaya1.jpg",
+      "http://localhost:5000/uploads/places/Thuparamaya2.jpg",
+      "http://localhost:5000/uploads/places/Thuparamaya3.jpg"
+    ]
+  },
+  {
+    "district": "Badulla",
+    "name": "Diyaluma Falls",
+    "location": "Diyaluma Falls, Koslanda, Sri Lanka",
+    "likes": 0,
+    "description": "Diyaluma Falls, located near Koslanda, is the second-highest waterfall in Sri Lanka, dropping from a height of 220 meters. The waterfall is popular for its tiered rock pools, where visitors can swim and relax while enjoying the breathtaking views. The upper section of the falls offers a more secluded experience and is accessible via a short hike, making it an adventurous destination for nature lovers. The best time to visit is during the rainy season, from October to March, when the water flow is at its strongest.",
+    "images": [
+      "http://localhost:5000/uploads/places/Diyaluma_Falls1.jpg",
+      "http://localhost:5000/uploads/places/Diyaluma_Falls2.jpg",
+      "http://localhost:5000/uploads/places/Diyaluma_Falls3.jpg"
+    ]
+  },
+  {
+    "district": "Badulla",
+    "name": "Ella Rock",
+    "location": "Ella Rock, Ella, Sri Lanka",
+    "likes": 0,
+    "description": "Ella Rock is a well-known hiking destination in Ella, offering stunning panoramic views of the surrounding countryside. Popular for its challenging yet rewarding trek, the trail leads hikers through tea plantations, forests, and rocky paths. The summit provides breathtaking views of Ella Gap, Little Adam’s Peak, and the distant hills. Early mornings are the best time to visit, as the weather is cooler and the views are often clearer. Hiking enthusiasts and nature lovers will find the journey up Ella Rock to be both adventurous and scenic.",
+    "images": [
+      "http://localhost:5000/uploads/places/Ella_Rock1.jpg",
+      "http://localhost:5000/uploads/places/Ella_Rock2.jpg",
+      "http://localhost:5000/uploads/places/Ella_Rock3.jpg"
+    ]
+  },
+  {
+    "district": "Badulla",
+    "name": "Nine Arches Bridge",
+    "location": "Nine Arches Bridge, Ella, Sri Lanka",
+    "likes": 0,
+    "description": "The Nine Arches Bridge, located in Ella, is a famous architectural marvel built during the British colonial period. This iconic stone bridge, with its nine arches, is popular for its scenic beauty, as it is surrounded by lush greenery and tea plantations. A key attraction is watching the trains pass over the bridge, which offers a stunning contrast to the natural surroundings. The early morning or late afternoon are ideal times to visit, as the soft light enhances the picturesque views. There is no ticket required to visit the bridge, making it a must-see spot for travelers in the area.",
+    "images": [
+  "http://localhost:5000/uploads/places/Nine_Arches_Bridge1.jpeg",
+  "http://localhost:5000/uploads/places/Nine_Arches_Bridge2.jpg",
+  "http://localhost:5000/uploads/places/Nine_Arches_Bridge3.jpeg"
+  ]
+  },
+  {
+    "district": "Badulla",
+    "name": "Ravana Falls",
+    "location": "Ravana Falls, Ella, Sri Lanka",
+    "likes": 0,
+    "description": "Ravana Falls, located just outside of Ella, is a striking waterfall that cascades from a height of 25 meters, making it one of the widest waterfalls in Sri Lanka. The falls are popular for their association with the legendary King Ravana from the Ramayana, adding a historical and cultural charm to the site. Visitors are often captivated by the natural rock pools formed at the base of the falls, which are perfect for a refreshing dip. The best time to visit is during the rainy season, from October to December, when the waterfall is at its most powerful.",
+    "images": [
+  "http://localhost:5000/uploads/places/Ravana_Falls1.jpg",
+  "http://localhost:5000/uploads/places/Ravana_Falls2.jpg",
+  "http://localhost:5000/uploads/places/Ravana_Falls3.jpg"
+  ]
+  }
 ]
-  
