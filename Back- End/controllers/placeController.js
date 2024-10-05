@@ -18,9 +18,9 @@ const getPlaces = async (req, res) => {
     try {
         const district = req.params.district;
 
-        // If district is provided in the URL parameters, find places in that district
+        // Case-insensitive exact match using regex with ^ and $
         if (district) {
-            const places = await Place.find({ district: { $regex: new RegExp(district, 'i') } });
+            const places = await Place.find({ district: { $regex: new RegExp('^' + district + '$', 'i') } });//ensure case-insensitive and exact matches
             return res.send({ success: true, places: places });
         }
 
@@ -31,6 +31,7 @@ const getPlaces = async (req, res) => {
         res.send({ success: false, message: error.message });
     }
 };
+
 
 const getOnePlace = async (req, res) => {
     try {
