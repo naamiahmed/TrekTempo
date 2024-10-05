@@ -27,43 +27,34 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
 
   Future<void> _submitTrip() async {
     if (_formKey.currentState!.validate()) {
-      // Create a human-readable prompt
-      final prompt = '''
-        I am planning a trip called "${_tripNameController.text}". 
-        The trip starts at "${_startPointController.text}" and ends at "${_endPointController.text}".
-        It will last for $_duration days with $_personCount people.
-        The budget is $_budget and the trip type is $_tripType. 
-        I am interested in the following: ${_selectedInterests.join(", ")}.
-        Can you suggest a detailed plan for each day of the trip, including places to visit, restaurants, and hotels?
-      ''';
+      final tripDetails = {
+        'tripName': _tripNameController.text,
+        'startingPoint': _startPointController.text,
+        'endingPoint': _endPointController.text,
+        'days': _duration,
+        'places': _selectedInterests,
+        'restaurants': [], // Add restaurant data if available
+        'hotels': [] // Add hotel data if available
+      };
 
-      // Send the prompt to GPT or any other API
       final response = await http.post(
-        Uri.parse('https://api.openai.com/v1/completions'), // Replace with OpenAI's API endpoint
-        headers: {
-          'Authorization': 'Bearer YOUR_API_KEY', // Insert your OpenAI API key
-          'Content-Type': 'application/json',
-        },
-        body: json.encode({
-          'model': 'text-davinci-003', // Use the appropriate GPT model
-          'prompt': prompt,
-          'max_tokens': 500, // Adjust based on the required output length
-        }),
+        Uri.parse('http://your-server-address/trip/save'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(tripDetails),
       );
 
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
-        final generatedTripPlan = responseData['choices'][0]['text'];
-        
-        // Navigate to a new page to display the trip plan
+        final tripId = responseData['tripId'];
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TripPlanDetailsPage(tripPlan: generatedTripPlan, tripId: '',),
+            builder: (context) => TripPlanDetails(tripPlan: tripDetails, tripId: tripId),
           ),
         );
       } else {
-        print('Failed to generate trip plan');
+        // Handle error
+        print('Failed to save trip');
       }
     }
   }

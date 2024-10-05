@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const placeRoutes = require('./routes/place');
+const tripRoutes = require('./routes/trip');
+//const connectDB = require('./config/db');
 require('dotenv').config();
 
 const app = express();
@@ -21,6 +23,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', placeRoutes);
+app.use('/api', tripRoutes);
 
 
 // Start the server
