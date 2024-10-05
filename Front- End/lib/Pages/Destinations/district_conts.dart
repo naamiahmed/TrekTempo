@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'district_destinations.dart';
+//import 'district_destinations.dart';
 
 
 
@@ -63,11 +63,11 @@ final List<String> districts_images = [
 
 // Mapping of district names to respective pages
  final Map<String, Widget> districtPages = {
-   'AMPARA': const AmparaPage(),
+  // 'AMPARA': const AmparaPage(),
   // 'ANURADHAPURA': AnuradhapuraPage(),
   // 'BADULLA': BadullaPage(),
   // 'BATTICALOA': BatticaloaPage(),
-   'COLOMBO': const ColomboPage(),
+  // 'COLOMBO': const ColomboPage(),
   // 'GALLE': GallePage(),
   // 'GAMPAHA': GampahaPage(),
   // 'HAMBANTOTA': HambantotaPage(),
