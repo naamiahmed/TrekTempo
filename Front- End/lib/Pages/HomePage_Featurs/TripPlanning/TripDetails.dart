@@ -1,88 +1,139 @@
 import 'package:flutter/material.dart';
 
 class TripPlanDetails extends StatelessWidget {
-  final Map<String, dynamic> tripPlan;
-  final String tripId;
+  final String tripName = 'Trip Plan Name';
+  final String day = 'Day 01';
+  final List<Map<String, String>> placesToVisit = [
+    {
+      'name': 'Place 01',
+      'description': 'Description of Place 01',
+      'weather': 'Weather Option',
+      'locationLink': 'https://locationlink01.com',
+    },
+    {
+      'name': 'Place 02',
+      'description': 'Description of Place 02',
+      'weather': 'Weather Option',
+      'locationLink': 'https://locationlink02.com',
+    },
+  ];
 
-  const TripPlanDetails({Key? key, required this.tripPlan, required this.tripId}) : super(key: key);
+  final List<Map<String, String>> foodAndAccommodation = [
+    {
+      'type': 'Restaurant',
+      'name': 'Restaurant 01',
+      'description': 'Description of Restaurant 01',
+      'locationLink': 'https://restaurantlink01.com',
+    },
+    {
+      'type': 'Hotel',
+      'name': 'Hotel 01',
+      'description': 'Description of Hotel 01',
+      'locationLink': 'https://hotellink01.com',
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Trip Plan Details'),
-        backgroundColor: Colors.blueAccent, // Match theme color here
+        title: Text(tripName),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
-            // Trip Plan Name
             Text(
-              tripPlan['tripName'] ?? 'Trip Plan',
+              day,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.blueAccent, // Match theme color
               ),
             ),
-            SizedBox(height: 16),
-            
-            // Starting Point and Ending Point
-            _buildDetailRow('Starting Point', tripPlan['startingPoint']),
-            _buildDetailRow('Ending Point', tripPlan['endingPoint']),
-            SizedBox(height: 10),
-            
-            // Duration
-            _buildDetailRow('Duration', '${tripPlan['duration']} days'),
-            SizedBox(height: 10),
-            
-            // Budget
-            _buildDetailRow('Budget', tripPlan['budget']),
-            SizedBox(height: 10),
-            
-            // Trip Person Type
-            _buildDetailRow('Trip Person Type', tripPlan['tripPersonType']),
-            SizedBox(height: 10),
-            
-            // Trip Type
-            _buildDetailRow('Trip Type', tripPlan['tripType']),
-            SizedBox(height: 10),
-            
-            // Interested Places
-            if (tripPlan['interested'] != null && tripPlan['interested'].isNotEmpty)
-              _buildDetailRow('Places of Interest', tripPlan['interested'].join(', ')),
-            
-            // Add more fields if needed
+            SizedBox(height: 20),
+            Text(
+              'Places to Visit',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            for (var place in placesToVisit)
+              PlaceCard(
+                name: place['name']!,
+                description: place['description']!,
+                weather: place['weather']!,
+                locationLink: place['locationLink']!,
+              ),
+            SizedBox(height: 20),
+            Text(
+              'Food and Accommodation',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            for (var item in foodAndAccommodation)
+              PlaceCard(
+                name: item['name']!,
+                description: item['description']!,
+                locationLink: item['locationLink']!,
+              ),
           ],
         ),
       ),
     );
   }
+}
 
-  // Helper widget to display detail rows
-  Widget _buildDetailRow(String label, String value) {
-    return Row(
-      children: [
-        Text(
-          '$label: ',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87, // Match theme color
-          ),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black54,
+class PlaceCard extends StatelessWidget {
+  final String name;
+  final String description;
+  final String weather;
+  final String locationLink;
+
+  PlaceCard({
+    required this.name,
+    required this.description,
+    this.weather = '',
+    required this.locationLink,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              name,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          ),
+            SizedBox(height: 5),
+            Text(description),
+            if (weather.isNotEmpty)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 5),
+                  Text('Weather: $weather'),
+                ],
+              ),
+            SizedBox(height: 5),
+            GestureDetector(
+              onTap: () {
+                // Handle location link tap
+              },
+              child: Text(
+                'Location Link',
+                style: TextStyle(
+                  color: Colors.blue,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
+
+void main() => runApp(MaterialApp(home: TripPlanDetails()));
