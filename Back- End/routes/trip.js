@@ -1,11 +1,10 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 const router = express.Router();
-const { createTripPlan, matchTripPlans } = require('../controllers/tripController');
+const { getTripPlaces } = require('../controllers/tripController');
 
-// Create a trip plan
-//router.post('/', createTripPlan);
-
-// Match trip plans
-router.post('/match', matchTripPlans);
+router.get("/getTripPlaces/:district?", getTripPlaces);
 
 module.exports = router;

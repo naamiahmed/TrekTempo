@@ -1,34 +1,36 @@
-const TripPlan = require('../models/Trip');
+const Trip = require('../models/Trip'); // Adjust the path according to your project structure
 
-// Create a new trip plan
+const getTripPlaces = async (req, res) => {
+    try {
+        const district = req.params.district;
 
-// exports.createTripPlan = async (req, res) => {
-//   try {
-//     const tripPlan = new TripPlan(req.body);
-//     await tripPlan.save();
-//     res.status(201).json(tripPlan);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
+        // Check if district is provided in the URL parameters
+        if (district) {
+            // Find places in the district (only 'Colombo' in this case, as per your schema)
+            if (district.toLowerCase() === 'colombo') {
+                const tripData = await Trip.findOne();
+                if (!tripData || !tripData.Colombo) {
+                    return res.send({ success: false, message: 'No places found in Colombo.' });
+                }
 
-// Match trip plans based on user input
-exports.matchTripPlans = async (req, res) => {
-  try {
-    const { starting_point, ending_point, duration, budget, trip_person_type, trip_type } = req.body;
+                // Send only the places in Colombo
+                return res.send({ success: true, places: tripData.Colombo });
+            } else {
+                return res.send({ success: false, message: `District ${district} is not available.` });
+            }
+        }
 
-    // Query for matching trip plans
-    const matchedPlans = await TripPlan.find({
-      starting_point: starting_point,
-      ending_point: ending_point,
-      duration: duration,
-      budget: budget,
-      trip_person_type: trip_person_type,
-      trip_type: trip_type
-    });
+        // If no district is provided, return all places in Colombo
+        const tripData = await Trip.findOne();
+        if (!tripData || !tripData.Colombo) {
+            return res.send({ success: false, message: 'No places found.' });
+        }
 
-    res.json(matchedPlans);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+        res.send({ success: true, places: tripData.Colombo });
+    } catch (error) {
+        res.send({ success: false, message: error.message });
+    }
 };
+
+module.exports = { getTripPlaces };
+
