@@ -16,7 +16,7 @@ const placeSchema = new mongoose.Schema({
     },
     likes: {
         type: Number,
-        required: true,
+        default: 0,
     },
     description: {
         type: String,
@@ -24,7 +24,7 @@ const placeSchema = new mongoose.Schema({
     },
     images: {
         type: Array,
-        required: false,
+        required: true,
     },
 });
 
