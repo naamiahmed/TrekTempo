@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Ready_plan.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
+
 
 class TripTypePage extends StatefulWidget {
   @override
@@ -32,15 +34,15 @@ class _TripTypePageState extends State<TripTypePage> {
                   _buildRadioCard('Relaxation', 'Relaxation', Icons.spa, Colors.green),
                   _buildRadioCard('Cultural', 'Cultural', Icons.museum, Colors.purple),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ReadyPlanPage()),
-                      );
-                    },
-                    child: Text('Plan Trip'),
-                  ),
+                   Button(
+                text: 'Plan Trip',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ReadyPlanPage()),
+                  );
+                },
+              ),
                 ],
               ),
             ),

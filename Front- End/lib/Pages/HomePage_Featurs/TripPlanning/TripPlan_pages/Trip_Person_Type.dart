@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Trip_Type.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
+
 
 class TripPersonTypePage extends StatefulWidget {
   @override
@@ -31,15 +33,15 @@ class _TripPersonTypePageState extends State<TripPersonTypePage> {
                   _buildRadioCard('Family', 'Family', Icons.group, Colors.orange),
                   _buildRadioCard('Friends', 'Friends', Icons.people, Colors.green),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TripTypePage()),
-                      );
-                    },
-                    child: Text('Next'),
-                  ),
+                   Button(
+                text: 'Next',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TripTypePage()),
+                  );
+                },
+              ),
                 ],
               ),
             ),
