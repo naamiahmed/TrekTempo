@@ -9,8 +9,8 @@ import 'package:http/http.dart' as http;
 class DestinationCard extends StatefulWidget {
   final String district; // Add a field to hold the district name
 
-  const DestinationCard({Key? key, required this.district})
-      : super(key: key); // Modify the constructor
+  const DestinationCard(
+      {super.key, required this.district}); // Modify the constructor
 
   @override
   State<DestinationCard> createState() => _DdestinationCardState();
@@ -53,32 +53,31 @@ class _DdestinationCardState extends State<DestinationCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  appBar: AppBar(
-    title: Text(widget.district),
-    centerTitle: true,
-  ),
-  body: fetchedPlaces.isEmpty 
-      ? Center(child: CircularProgressIndicator()) 
-      : ListView.builder(
-          padding: const EdgeInsets.all(16.0),
-          itemCount: fetchedPlaces.length, 
-          itemBuilder: (context, index) {
-            final place = fetchedPlaces[index]; 
-            return Column(
-              children: [
-                PlacesCard(
-                  imagePaths: place.images, 
-                  title: place.name,
-                  location: place.location,
-                  description: place.description,
-                  likes: place.likes, 
-                ),
-                const SizedBox(height: 16),
-              ],
-            );
-          },
-        ),
-);
-
+      appBar: AppBar(
+        title: Text(widget.district),
+        centerTitle: true,
+      ),
+      body: fetchedPlaces.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: fetchedPlaces.length,
+              itemBuilder: (context, index) {
+                final place = fetchedPlaces[index];
+                return Column(
+                  children: [
+                    PlacesCard(
+                      imagePaths: place.images,
+                      title: place.name,
+                      location: place.location,
+                      description: place.description,
+                      likes: place.likes,
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                );
+              },
+            ),
+    );
   }
 }

@@ -1,7 +1,6 @@
-//the card widget is used to display the details of the places in the district
-
+//the card widget of the places in the district
 import 'package:flutter/material.dart';
-import 'showing_place_details.dart';
+import 'place/showing_place_details.dart';
 
 class PlacesCard extends StatelessWidget {
   final List<String> imagePaths;
@@ -10,7 +9,8 @@ class PlacesCard extends StatelessWidget {
   final String description;
   final int likes;
 
-  const PlacesCard({super.key, 
+  const PlacesCard({
+    super.key,
     required this.imagePaths,
     required this.title,
     required this.location,
@@ -45,7 +45,8 @@ class PlacesCard extends StatelessWidget {
           children: [
             // Image
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(15)),
               child: Image.network(
                 imagePaths[0],
                 height: 150,
@@ -54,7 +55,8 @@ class PlacesCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(
+                  right: 16.0, left: 16.0, bottom: 16.0, top: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -101,7 +103,7 @@ class PlacesCard extends StatelessWidget {
                       ),
                       // Like Icon and Count
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Icon(
                             Icons.favorite,
@@ -111,8 +113,8 @@ class PlacesCard extends StatelessWidget {
                           const SizedBox(height: 4),
                           Text(
                             '$likes', // Display number of likes
-                            style: TextStyle(
-                              color: Colors.grey[700],
+                            style: const TextStyle(
+                              color: Colors.red,
                               fontSize: 12,
                             ),
                           ),
