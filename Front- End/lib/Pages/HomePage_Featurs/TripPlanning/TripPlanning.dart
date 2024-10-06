@@ -105,7 +105,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                   width: width,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/AppIcon.png'), // Replace with correct path
+                      image: AssetImage('assets/images/With_TrekTempo.png'), // Replace with correct path
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -114,7 +114,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                   bottom: 20,
                   left: 20,
                   child: Text(
-                    'Plan Your Trip',
+                    '',
                     style: TextStyle(
                       fontSize: 40,
                       color: const Color.fromARGB(255, 0, 0, 0),
