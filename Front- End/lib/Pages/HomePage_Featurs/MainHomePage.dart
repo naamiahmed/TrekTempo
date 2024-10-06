@@ -3,7 +3,8 @@ import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home
 import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart';
 import 'package:travel_app/Pages/Destinations/destinations_page.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart'; // Import the TripPlanningPage
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/intro_page.dart';
+//import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart'; // Import the TripPlanningPage
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart'; // Import the TranslationPage
 import 'package:travel_app/Pages/HomePage_Featurs/Convertor/CurrencyConverterPage.dart'; // Import the CurrencyConverterPage
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventPage.dart'; // Import the EventPage
@@ -150,7 +151,7 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildIconButton(context, Icons.map, 'Trip Plans', TripPlanningPage()),
+                  _buildIconButton(context, Icons.map, 'Trip Plans', IntroPage()),
                   _buildIconButton(context, Icons.event, 'Events', EventPage()),
                   _buildIconButton(context, Icons.translate, 'Translator', TranslatorPage()),        
                   _buildIconButton(context, Icons.euro, 'Converter', CurrencyConverterPage()),
