@@ -1,0 +1,62 @@
+[
+  {
+    "district": "Kandy",
+    "name": "Ambuluwawa Tower",
+    "location": "Ambuluwawa Tower, Central Province, Sri Lanka",
+    "likes": 0,
+    "description": "Ambuluwawa Tower in Gampola is a special monument that combines different religious symbols with a nature park. It sits on a mountain peak, offering great views of the area. The tower’s spiral staircase, which twists as you climb, is a popular feature because of its unique design. The best time to visit is from November to April when the weather is clear. Tickets cost LKR 1,000 for adults and LKR 500 for children for tourists, while locals pay LKR 90 for adults and LKR 30 for children.",
+    "images": [
+      "http://localhost:5000/uploads/places/Ambuluwawa_Tower1.jpg",
+      "http://localhost:5000/uploads/places/Ambuluwawa_Tower2.jpg",
+      "http://localhost:5000/uploads/places/Ambuluwawa_Tower3.jpg"
+    ]
+  },
+  {
+    "district": "Kandy",
+    "name": "Embekka Devalaya",
+    "location": "Embekka Devalaya, Central Province, Sri Lanka",
+    "likes": 0,
+    "description": "Embekka Devalaya, located in the village of Embekka in Sri Lanka's Kandy District, is a revered ancient temple renowned for its intricate wooden carvings and historical significance. Built during the 14th century by King Vikramabahu III, it stands out for its remarkable craftsmanship and beautifully preserved architecture. Visitors are captivated by the temple's unique wooden pillars, adorned with elaborate carvings depicting mythical stories and everyday life. The ideal time to visit is from December to April, when the weather is pleasant and dry. Entry to Embekka Devalaya is free of charge.",
+    "images": [
+      "http://localhost:5000/uploads/places/Embekka_Devalaya1.jpg",
+      "http://localhost:5000/uploads/places/Embekka_Devalaya2.jpg",
+      "http://localhost:5000/uploads/places/Embekka_Devalaya3.jpg"
+    ]
+  },
+  {
+    "district": "Kandy",
+    "name": "Nelligala International Buddhist Center",
+    "location": "Nelligala International Buddhist Center, Central Province, Sri Lanka",
+    "likes": 0,
+    "description": "Nelligala International Buddhist Center, located in Muruthalawa near Kandy, is a serene hilltop temple known for its panoramic views and spiritual ambiance. Established in 2015, the center has quickly gained popularity for its tranquil setting and stunning Buddha statues overlooking the scenic landscape. Visitors are captivated by the temple's peaceful atmosphere, unique architecture, and breathtaking sunset views. The best time to visit is during the dry season, from January to March. Entry is free, making it accessible to all.",
+    "images": [
+      "http://localhost:5000/uploads/places/Nelligala_International_Buddhist_Center1.jpg",
+      "http://localhost:5000/uploads/places/Nelligala_International_Buddhist_Center2.jpg",
+      "http://localhost:5000/uploads/places/Nelligala_International_Buddhist_Center3.jpg"
+    ]
+  },
+  {
+    "district": "Kandy",
+    "name": "Peradeniya Botanical Garden",
+    "location": "Peradeniya Botanical Garden, Sri Lanka",
+    "likes": 0,
+    "description": "The Peradeniya Botanical Garden, near Kandy, was established in 1821 and is famous for its large collection of over 4,000 plant species. Known for its beautiful orchids, tall palm trees, and a huge Javan fig tree, visitors can also enjoy the Royal Palm Avenue and a scenic suspension bridge over the Mahaweli River. The best time to visit is between November and April when the weather is nice. Tickets are required: LKR 300 for locals and LKR 1,500 for foreign visitors. Children can enter for free if they are local, or at a discounted rate of LKR 750 if they are foreign. The garden is open every day from 7:30 AM to 5:30 PM.",
+    "images": [
+      "http://localhost:5000/uploads/places/Peradeniya_Botanical_Garden1.jpg",
+      "http://localhost:5000/uploads/places/Peradeniya_Botanical_Garden2.jpg",
+      "http://localhost:5000/uploads/places/Peradeniya_Botanical_Garden3.jpg"
+    ]
+  },
+  {
+    "district": "Kandy",
+    "name": "Temple of the Tooth",
+    "location": "Temple of the Tooth, Central Province, Sri Lanka",
+    "likes": 0,
+    "description": "The Temple of the Tooth, located in the center of Kandy, is a famous and sacred place because it holds a relic of Lord Buddha's tooth. This UNESCO World Heritage Site is known for its beautiful architecture and important religious ceremonies. Key attractions include the Royal Palace nearby, traditional ceremonies, and the vibrant Esala Perahera festival. The best time to visit is during the cooler months from December to April, although the Esala Perahera in July/August offers a unique cultural experience. Tickets cost about LKR 1,500 for foreigners, while locals may get in for free. Visitors should dress modestly and remove their shoes before entering.",
+    "images": [
+      "http://localhost:5000/uploads/places/Temple_of_the_Tooth1.jpg",
+      "http://localhost:5000/uploads/places/Temple_of_the_Tooth2.jpg",
+      "http://localhost:5000/uploads/places/Temple_of_the_Tooth3.jpg"
+    ]
+  }
+]

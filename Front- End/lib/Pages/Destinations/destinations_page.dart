@@ -1,4 +1,4 @@
-// Creating a list of districts list and images to be displayed in the destinations page
+// Creating a list of districts with their image
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Destinations/show_district_places.dart';
 import 'district_conts.dart';

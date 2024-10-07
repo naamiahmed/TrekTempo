@@ -181,7 +181,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
                   _buildDestinationCard('Galle Fort', 'assets/images/MainHome/Galle.png'),
-                  _buildDestinationCard('Ella', 'assets/ella.jpg'),
+                 // _buildDestinationCard('Ella', 'assets/ella.jpg'),
                   _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
                   _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
                 ],

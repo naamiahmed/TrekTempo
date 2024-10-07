@@ -1,148 +1,62 @@
 [
   {
-        
-    "placeName": "Sri Maha Bodhi",
-    "location":"Sri Maha Bodhi, Anuradhapura, Sri Lanka",
+    "district": "Anuradhapura",
+    "name": "Sri Maha Bodhi",
+    "location": "Sri Maha Bodhi, Anuradhapura, Sri Lanka",
     "likes": 0,
     "description": "Sri Maha Bodhi, located in Anuradhapura, is one of the most sacred religious sites in Sri Lanka. It is believed to be a sapling from the original Bodhi tree in India under which Lord Buddha attained enlightenment. This ancient tree, over 2,000 years old, draws thousands of devotees and tourists who come to pay their respects. The serene surroundings, historical significance, and spiritual atmosphere make it a must-visit destination.",
-    "images":
-      {
-        "image1": "",
-        "image2": "",
-        "image3": "" 
-      }      
+    "images": [
+      "http://localhost:5000/uploads/places/Sri_Maha_Bodhi1.jpg",
+      "http://localhost:5000/uploads/places/Sri_Maha_Bodhi2.jpg",
+      "http://localhost:5000/uploads/places/Sri_Maha_Bodhi3.jpg"
+    ]
   },
   {
-    "placeName": "Ruwanwelisaya",
-    "location":"Ruwanwelisaya, Anuradhapura, Sri Lanka",
+    "district": "Anuradhapura",
+    "name": "Ruwanwelisaya",
+    "location": "Ruwanwelisaya, Anuradhapura, Sri Lanka",
     "likes": 0,
     "description": "Ruwanwelisaya is a magnificent stupa located in Anuradhapura, known for its grand architecture and deep historical and religious importance. Built by King Dutugemunu in the 2nd century BCE, it stands as a symbol of Sri Lanka's rich Buddhist heritage. Its massive white dome and intricate stone carvings attract visitors from around the world. The stupa is especially beautiful at sunrise or sunset when it is lit up against the sky.",
-    "images":
-      {
-        "image1": "",
-        "image2": "",
-        "image3": "" 
-      }
+    "images": [
+      "http://localhost:5000/uploads/places/Ruwanwelisaya1.jpg",
+      "http://localhost:5000/uploads/places/Ruwanwelisaya2.jpg",
+      "http://localhost:5000/uploads/places/Ruwanwelisaya3.jpg"
+    ]
   },
   {
-    "placeName": "Jetavanaramaya",
-    "location":"Jetavanaramaya, Anuradhapura, Sri Lanka",
+    "district": "Anuradhapura",
+    "name": "Jetavanaramaya",
+    "location": "Jetavanaramaya, Anuradhapura, Sri Lanka",
     "likes": 0,
     "description": "Jetavanaramaya, located in the heart of Anuradhapura, is one of the largest brick structures in the world and an iconic symbol of ancient Sri Lankan engineering. Built by King Mahasena in the 3rd century CE, this towering stupa once stood as the third tallest structure in the world. The vast size and historical significance of Jetavanaramaya attracts both history enthusiasts and pilgrims. Its peaceful surroundings make it an ideal spot for reflection and exploration.",
-    "images":
-      {
-        "image1": "",
-        "image2": "",
-        "image3": "" 
-      }
+    "images": [
+      "http://localhost:5000/uploads/places/Jetavanaramaya1.jpg",
+      "http://localhost:5000/uploads/places/Jetavanaramaya2.jpg",
+      "http://localhost:5000/uploads/places/Jetavanaramaya3.jpg"
+    ]
   },
   {
-    "placeName": "Abhayagiri Dagaba",
-    "location":"Abhayagiri Dagaba, Anuradhapura, Sri Lanka",
-    "likes": 0,
-    "description": "Abhayagiri Dagaba, situated in Anuradhapura, is one of the most prominent and historically significant stupas in Sri Lanka. Constructed by King Valagamba in the 1st century BCE, this massive stupa was part of the Abhayagiri Monastery, which was a major center for Buddhist learning. Its impressive size, ancient stone carvings, and serene atmosphere draw both pilgrims and tourists alike.",
-    "images":
-      {
-        "image1": "",
-        "image2": "",
-        "image3": "" 
-      }
-  },
-  {
-    "placeName": "Thuparamaya",
-    "location":"Thuparamaya, Anuradhapura, Sri Lanka",
-    "likes": 0,
-    "description": "Thuparamaya, located in the sacred city of Anuradhapura, is the oldest stupa in Sri Lanka, built during the reign of King Devanampiya Tissa in the 3rd century BCE. It holds significant religious importance as it is believed to enshrine the right collarbone relic of Lord Buddha. The stupa's unique bell-shaped design and the surrounding ancient ruins make it an attractive site for both history lovers and devotees."
-  },
-  {
-    "placeName": "Kuttam Pokuna",
-    "location":"Kuttam Pokuna, Anuradhapura, Sri Lanka",
-    "likes": 0,
-    "description": "Kuttam Pokuna, or the Twin Ponds, is an ancient set of bathing pools located in Anuradhapura. Built by Sri Lankan monks between the 6th and 8th centuries, these ponds showcase the advanced hydraulic engineering skills of the time. The intricately carved stone steps and the symmetrical design make the site visually stunning. Visitors are often captivated by the beauty and historical significance of these ancient pools.",
-    "images":
-      {
-        "image1": "",
-        "image2": "",
-        "image3": "" 
-      }
-  },
-  {
-    "placeName": "Isurumuniya Vihara",
-    "location":"Isurumuniya Vihara, Anuradhapura, Sri Lanka",
+    "district": "Anuradhapura",
+    "name": "Isurumuniya Vihara",
+    "location": "Isurumuniya Vihara, Anuradhapura, Sri Lanka",
     "likes": 0,
     "description": "Isurumuniya Vihara, nestled in Anuradhapura, is a remarkable ancient Buddhist temple known for its unique rock-cut architecture and historical significance. Built by King Devanampiya Tissa in the 3rd century BCE, the temple is renowned for its impressive rock carvings, including the famous \"Isurumuniya Lovers\" sculpture. The tranquil setting and the intricate artwork make it a fascinating destination for both tourists and devotees.",
-    "images":
-      {
-        "image1": "",
-        "image2": "",
-        "image3": "" 
-      }
+    "images": [
+      "http://localhost:5000/uploads/places/Isurumuniya_Vihara1.jpg",
+      "http://localhost:5000/uploads/places/Isurumuniya_Vihara2.jpg",
+      "http://localhost:5000/uploads/places/Isurumuniya_Vihara3.jpg"
+    ]
   },
   {
-    "placeName": "Lankarama Dagaba",
-    "location":"Lankarama Dagaba, Anuradhapura, Sri Lanka",
+    "district": "Anuradhapura",
+    "name": "Thuparamaya",
+    "location": "Thuparamaya, Anuradhapura, Sri Lanka",
     "likes": 0,
-    "description": "Lankarama Dagaba, situated in Anuradhapura, is a significant ancient stupa dating back to the 2nd century BCE. Built by King Vattagamani Abhaya, this stupa is renowned for its well-preserved structure and historical value. The serene setting and the stupa's architectural elegance attract many visitors. The surrounding ruins and tranquil environment provide a glimpse into ancient Sri Lankan culture and Buddhist practices.",
-    "images":
-      {
-        "image1": "",
-        "image2": "",
-        "image3": "" 
-      }
-  },
-  {
-    "placeName": "Mirisawetiya Stupa",
-    "location": "Mirisawetiya Stupa, Anuradhapura, Sri Lanka",
-    "likes": 0,
-    "description": "Mirisawetiya Stupa, located in Anuradhapura, is a historically significant Buddhist stupa built by King Dutugemunu in the 2nd century BCE. This ancient stupa is renowned for its association with the king's victory over the Tamil invaders and its architectural grandeur. The stupa's well-preserved structure and the serene environment make it a popular destination for both pilgrims and history enthusiasts.",
-    "images": {
-      "image1": "",
-      "image2": "",
-      "image3": ""
-    }
-  },
-  {
-    "placeName": "Mihintale",
-    "location": "Mihintale, Anuradhapura, Sri Lanka",
-    "likes": 0,
-    "description": "Mihintale, located near Anuradhapura, is a historic site with profound religious significance, often considered the cradle of Buddhism in Sri Lanka. It is renowned for being the place where Mahinda Thera, a Buddhist monk, introduced Buddhism to the island in the 3rd century BCE. The site features ancient rock inscriptions, a large stupa, and a series of stone steps leading to panoramic views of the surrounding landscape.",
-    "images": {
-      "image1": "",
-      "image2": "",
-      "image3": ""
-    }
-  },
-  {
-    "placeName": "Nuwara Wewa",
-    "location": "Nuwara Wewa, Anuradhapura, Sri Lanka",
-    "likes": 0,
-    "description": "Nuwara Wewa, located in Anuradhapura, is a vast man-made reservoir built in the 1st century BCE by King Vattagamani Abhaya. This impressive feat of ancient engineering was designed to support irrigation and water supply for the region. Surrounded by peaceful greenery, Nuwara Wewa offers a serene atmosphere perfect for leisurely walks and enjoying picturesque sunsets by the water.",
-    "images": {
-      "image1": "",
-      "image2": "",
-      "image3": ""
-    }
-  },
-  {
-    "placeName": "Samadhi Buddha Statue",
-    "location": "Samadhi Buddha Statue, Anuradhapura, Sri Lanka",
-    "likes": 0,
-    "description": "The Samadhi Buddha Statue, located in Anuradhapura, is one of Sri Lanka's most iconic and revered statues. Carved from a single block of stone in the 4th century, this statue portrays Lord Buddha in a deep state of meditation, reflecting serenity and spiritual calmness. The fine craftsmanship and lifelike details of the statue attract both pilgrims and tourists. The peaceful surroundings enhance the contemplative atmosphere, making it an ideal spot for reflection.",
-    "images": {
-      "image1": "",
-      "image2": "",
-      "image3": ""
-    }
-  },
-  {
-    "placeName": "Kaludiya Pokuna",
-    "location": "Kaludiya Pokuna, Mihintale, Sri Lanka",
-    "likes": 0,
-    "description": "Kaludiya Pokuna, located near Mihintale, is an ancient site known for its serene black-water pond and surrounding monastic ruins. Built during the Anuradhapura period, this site was once a meditation retreat for monks. The combination of historical ruins, lush greenery, and the calm, reflective waters of the pond creates a peaceful and scenic atmosphere. Visitors often come here to explore the ruins and enjoy the tranquil natural setting.",
-    "images": {
-      "image1": "",
-      "image2": "",
-      "image3": ""
-    }
+    "description": "Thuparamaya, located in the sacred city of Anuradhapura, is the oldest stupa in Sri Lanka, built during the reign of King Devanampiya Tissa in the 3rd century BCE. It holds significant religious importance as it is believed to enshrine the right collarbone relic of Lord Buddha. The stupa's unique bell-shaped design and the surrounding ancient ruins make it an attractive site for both history lovers and devotees.",
+    "images": [
+      "http://localhost:5000/uploads/places/Thuparamaya1.jpg",
+      "http://localhost:5000/uploads/places/Thuparamaya2.jpg",
+      "http://localhost:5000/uploads/places/Thuparamaya3.jpg"
+    ]
   }
 ]
