@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripDetails.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/DistrictNameList.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -22,21 +23,22 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
 
   final _formKey = GlobalKey<FormState>();
   final _tripNameController = TextEditingController();
-  final _startPointController = TextEditingController();
-  final _endPointController = TextEditingController();
+  var _startPointController = TextEditingController();
+  var _endPointController = TextEditingController();
 
   Future<void> _submitTrip() async {
-    if (_formKey.currentState!.validate()) {
-      final tripDetails = {
-        'tripName': _tripNameController.text,
-        'startingPoint': _startPointController.text,
-        'endingPoint': _endPointController.text,
-        'days': _duration,
-        'places': _selectedInterests,
-        'restaurants': [], // Add restaurant data if available
-        'hotels': [] // Add hotel data if available
-      };
+  if (_formKey.currentState!.validate()) {
+    final tripDetails = {
+      'tripName': _tripNameController.text,
+      'startingPoint': _startPointController.text,
+      'endingPoint': _endPointController.text,
+      'days': _duration,
+      'places': _selectedInterests,
+      'restaurants': [], // Add restaurant data if available
+      'hotels': [] // Add hotel data if available
+    };
 
+    try {
       final response = await http.post(
         Uri.parse('http://your-server-address/trip/save'),
         headers: {'Content-Type': 'application/json'},
@@ -46,18 +48,34 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         final tripId = responseData['tripId'];
+
+        // Success: Use the server response (e.g., tripId)
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TripPlanDetailsPage(tripId: tripId),
+            builder: (context) => TripPlanDetails( ),
           ),
         );
       } else {
-        // Handle error
-        print('Failed to save trip');
+        // Error but still navigate to TripPlanDetails with empty tripId
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TripPlanDetails( ),
+          ),
+        );
       }
+    } catch (e) {
+      // Handle connection or other errors, still navigate to TripPlanDetails
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TripPlanDetails( ),
+        ),
+      );
     }
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +105,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                   width: width,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/AppIcon.png'), // Replace with correct path
+                      image: AssetImage('assets/images/With_TrekTempo.png'), // Replace with correct path
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -96,7 +114,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                   bottom: 20,
                   left: 20,
                   child: Text(
-                    'Plan Your Trip',
+                    '',
                     style: TextStyle(
                       fontSize: 40,
                       color: const Color.fromARGB(255, 0, 0, 0),
@@ -141,36 +159,79 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                     
                     // Starting Point Input
                     _buildCard(
-                      color: Colors.green,
-                      child: InputTextBox(
-                        icon: Icons.location_on,
-                        label: 'Starting Point',
-                        controller: _startPointController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a starting point';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
+  color: Colors.green,
+  child: Autocomplete<String>(
+    optionsBuilder: (TextEditingValue textEditingValue) {
+      // If the input field is empty, return no options
+      if (textEditingValue.text.isEmpty) {
+        return const Iterable<String>.empty();
+      }
+      // Return suggestions based on user input
+      return itemList.where((String item) {
+        return item.toLowerCase().contains(textEditingValue.text.toLowerCase());
+      });
+    },
+    onSelected: (String selection) {
+      // Set the selected value to the controller
+      _startPointController.text = selection;
+    },
+    fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
+      // Assign the controller for the autocomplete widget
+      _startPointController = textEditingController;
+
+      // Create a TextField with a label and icon
+      return TextField(
+        controller: textEditingController,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          icon: Icon(Icons.location_on), // Location icon
+          labelText: 'Starting Point', // Label for the field
+          errorText: _startPointController.text.isEmpty ? 'Please enter a starting point' : null, // Error message
+        ),
+      );
+    },
+  ),
+),
+
                     const SizedBox(height: 8),
 
                     // Ending Point Input
-                    _buildCard(
-                      color: Colors.red,
-                      child: InputTextBox(
-                        icon: Icons.location_on,
-                        label: 'Ending Point',
-                        controller: _endPointController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter an ending point';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
+
+_buildCard(
+  color: Colors.red,
+  child: Autocomplete<String>(
+    optionsBuilder: (TextEditingValue textEditingValue) {
+      // If the input field is empty, return no options
+      if (textEditingValue.text.isEmpty) {
+        return const Iterable<String>.empty();
+      }
+      // Return suggestions based on user input
+      return itemList.where((String item) {
+        return item.toLowerCase().contains(textEditingValue.text.toLowerCase());
+      });
+    },
+    onSelected: (String selection) {
+      // Set the selected value to the controller
+      _endPointController.text = selection;
+    },
+    fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
+      // Assign the controller for the autocomplete widget
+      _endPointController = textEditingController;
+
+      // Create a TextField with a label and icon
+      return TextField(
+        controller: textEditingController,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          icon: Icon(Icons.location_on), // Location icon
+          labelText: 'Ending Point', // Label for the field
+          errorText: _endPointController.text.isEmpty ? 'Please enter an ending point' : null, // Error message
+        ),
+      );
+    },
+  ),
+),
+
                     const SizedBox(height: 16),
 
                     // Duration Field with Icon and Increment Buttons

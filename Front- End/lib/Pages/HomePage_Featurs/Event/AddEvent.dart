@@ -89,12 +89,6 @@ class _AddEventPageState extends State<AddEventPage> {
                   border: OutlineInputBorder(),
                 ),
                 onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101),
-                  );
                   // Set date field with the picked date
                 },
               ),
