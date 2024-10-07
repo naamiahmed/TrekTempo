@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const placeRoutes = require('./routes/place');
+const tripPlaceRoutes = require('./routes/tripPlace');
+const accommodationRoutes = require('./routes/accommodation');
+//const connectDB = require('./config/db');
 require('dotenv').config();
 
 const app = express();
@@ -21,6 +24,8 @@ mongoose.connect(process.env.MONGODB_URI)
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', placeRoutes);
+app.use('/api', tripPlaceRoutes);
+app.use('/api', accommodationRoutes);
 
 
 // Start the server
