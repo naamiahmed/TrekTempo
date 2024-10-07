@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart';
-import 'package:travel_app/Pages/Destinations/destinations_page.dart';
+import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart'; // Import the TripPlanningPage
