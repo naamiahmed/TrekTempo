@@ -75,159 +75,167 @@ class _HomeState extends State<EventPage> {
             motor = false;
             setState(() {});
           },
-          child: Material(
-            elevation: 5.0,
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: csfcover
-                    ? Color.fromARGB(255, 107, 193, 240)
-                    : Colors.white,
+         child: Material(
+                elevation: 5.0,
                 borderRadius: BorderRadius.circular(10),
+                 child: Container(
+                     decoration: BoxDecoration(color: csfcover? Color.fromARGB(255, 95, 198, 221): Colors.white,borderRadius: BorderRadius.circular(10)),
+
+
+                  padding: const EdgeInsets.all(8),
+                 
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:[ 
+                    Image.asset("images/CSF-Cover.png", height: 100, width: 300, fit: BoxFit.cover),
+                  
+                   
+
+                Text("COLOMBO SHOPPING FESTIVAL - CSF", style: AppWidget.semiBooldTextFieldStyle()),
+                
+                  Row(
+  children: [ 
+                  
+                 Text("Dec - 2024 , 05 06 & 07\n 10:00 a.m - 10:00 p.m | at BMICH ", style: AppWidget.LightTextFeildStyle()),
+                  Spacer(),
+
+
+
+                   Container(
+                padding: const EdgeInsets.all(3),
+              
+              decoration: BoxDecoration(color:Color.fromARGB(255, 126, 128, 125),borderRadius: BorderRadius.circular(8) ),
+              child: const Icon(Icons.bookmark, color:Color.fromARGB(255, 255, 255, 255),
               ),
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                    "assets/images/Events/CSF-Cover.png",
-                    height: 100,
-                    width: 300,
-                    fit: BoxFit.cover,
-                  ),
-                  Text(
-                    "COLOMBO SHOPPING FESTIVAL - CSF",
-                    style: AppWidget.semiBooldTextFieldStyle(),
-                  ),
-                  Text(
-                    "Dec - 2024 , 05 06 & 07, 10:00 a.m - 10:00 p.m | at BMICH ",
-                    style: AppWidget.LightTextFeildStyle(),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 115, 213, 109),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.save_alt_sharp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
+              
               ),
-            ),
-          ),
-        ),
-        SizedBox(height: 20.0),
-        GestureDetector(
-          onTap: () {
-            csfcover = false;
-            laksapana = true;
-            motor = false;
-            setState(() {});
-          },
-          child: Material(
-            elevation: 5.0,
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: laksapana
-                    ? Color.fromARGB(255, 94, 156, 207)
-                    : Colors.white,
+                  
+  ],
+)
+                  ],
+                  ),
+
+                           
+
+                 )
+                ),
+               ),
+               SizedBox(height: 20.0,),
+                     
+
+                    GestureDetector(
+              onTap: () {
+                  csfcover=false;
+                  laksapana=true;
+                  motor=false;
+                  setState(() {
+                    
+                  });
+
+              },
+                child: Material(
+                elevation: 5.0,
                 borderRadius: BorderRadius.circular(10),
+                 child: Container(
+                     decoration: BoxDecoration(color: laksapana?Color.fromARGB(255, 95, 198, 221): Colors.white,borderRadius: BorderRadius.circular(10)),
+
+
+                  padding: const EdgeInsets.all(8),
+                 
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  
+                  children:[ Image.asset("images/laksapana.jpeg", height: 100, width: 300, fit: BoxFit.cover),
+                        SizedBox(width: 20),
+
+                       
+                  Text("Lakshapana waterfall abseiling", style: AppWidget.semiBooldTextFieldStyle()),
+ Row(
+  children: [
+                  Text("Dec - 2024 , 05 06 & 07\n 10:00 a.m - 10:00 p.m | at BMICH ", style: AppWidget.LightTextFeildStyle()),
+                   Spacer(),
+                   
+                   
+                    Container(
+                padding: const EdgeInsets.all(3),
+              
+              decoration: BoxDecoration(color:Color.fromARGB(255, 126, 128, 125),borderRadius: BorderRadius.circular(8) ),
+              child: const Icon(Icons.bookmark, color:Color.fromARGB(255, 255, 254, 254),
               ),
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                    "assets/images/Events/laksapana.jpeg",
-                    height: 100,
-                    width: 300,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    "Lakshapana waterfall abseiling",
-                    style: AppWidget.semiBooldTextFieldStyle(),
-                  ),
-                  Text(
-                    "Dec - 2024 , 05 06 & 07, 10:00 a.m - 10:00 p.m | at BMICH ",
-                    style: AppWidget.LightTextFeildStyle(),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 107, 232, 128),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.save_alt_sharp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 20.0),
-        GestureDetector(
-          onTap: () {
-            csfcover = false;
-            laksapana = false;
-            motor = true;
-            setState(() {});
-          },
-          child: Material(
-            elevation: 5.0,
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: motor
-                    ? Color.fromARGB(255, 95, 198, 221)
-                    : Colors.white,
+              
+              )
+                 ],
+)    
+                  ],),
+
+
+                           
+
+                 ),
+                ),
+               ),
+
+                   SizedBox(height: 20.0,),
+                 GestureDetector(
+              onTap: () {
+                  csfcover=false;
+                  laksapana=false;
+                  motor=true;
+                  setState(() {
+                    
+                  });
+
+              },
+                child: Material(
+                elevation: 5.0,
                 borderRadius: BorderRadius.circular(10),
+                 child: Container(
+                     decoration: BoxDecoration(color: motor? Color.fromARGB(255, 95, 198, 221): Colors.white,borderRadius: BorderRadius.circular(10)),
+
+
+                  padding: const EdgeInsets.all(8),
+                 
+                  child:Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  
+                  children:[ Image.asset("images/motor.jpeg", height: 100, width: 300, fit: BoxFit.cover),
+                     
+                  Text("Colombo Motor Show 2024", style: AppWidget.semiBooldTextFieldStyle()),
+ Row(
+  children: [ 
+                  Text("Dec - 2024 , 05 06 & 07\n10:00 a.m - 10:00 p.m  | at BMICH ", style: AppWidget.LightTextFeildStyle()),
+                  
+                  Spacer(),
+                   Container(
+                padding: const EdgeInsets.all(3),
+              
+              decoration: BoxDecoration(color:Color.fromARGB(255, 126, 128, 125),borderRadius: BorderRadius.circular(8) ),
+              child: const Icon(Icons.bookmark, color:Color.fromARGB(255, 255, 255, 255),
               ),
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                    "assets/images/Events/motor.jpeg",
-                    height: 100,
-                    width: 300,
-                    fit: BoxFit.cover,
-                  ),
-                  Text(
-                    "Colombo Motor Show 2024",
-                    style: AppWidget.semiBooldTextFieldStyle(),
-                  ),
-                  Text(
-                    "Dec - 2024 , 05 06 & 07,10:00 a.m - 10:00 p.m  | at BMICH ",
-                    style: AppWidget.LightTextFeildStyle(),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 126, 219, 114),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.save_alt_outlined,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+              
+              )
+ ],
+)
+                  ],),
+
+ 
+ 
+
+
+                           
+
+                 ),
+                ),
+               ),
+
+           ],
+           
+           );
+
+   }
+
 }
