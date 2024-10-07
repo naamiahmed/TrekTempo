@@ -1,10 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'package:flutter/material.dart';
-import 'district_destinations.dart';
-
-
-
 final List<String> districts = [
     'AMPARA',
     'ANURADHAPURA',
@@ -59,34 +52,4 @@ final List<String> districts_images = [
   "assets/images/destinations_images/districts/Ratnapura.jpg",
   "assets/images/destinations_images/districts/Trincomale.jpg",
   "assets/images/destinations_images/districts/Vavuniya.jpg"
-]; 
-
-// Mapping of district names to respective pages
- final Map<String, Widget> districtPages = {
-   'AMPARA': const AmparaPage(),
-  // 'ANURADHAPURA': AnuradhapuraPage(),
-  // 'BADULLA': BadullaPage(),
-  // 'BATTICALOA': BatticaloaPage(),
-   'COLOMBO': const ColomboPage(),
-  // 'GALLE': GallePage(),
-  // 'GAMPAHA': GampahaPage(),
-  // 'HAMBANTOTA': HambantotaPage(),
-  // 'JAFFNA': JaffnaPage(),
-  // 'KALUTARA': KalutaraPage(),
-  // 'KANDY': KandyPage(),
-  // 'KEGALLE': KegallePage(),
-  // 'KILINOCHCHI': KilinochchiPage(),
-  // 'KURUNEGALA': KurunegalaPage(),
-  // 'MANNAR': MannarPage(),
-  // 'MATALE': MatalePage(),
-  // 'MATARA': MataraPage(),
-  // 'MONARAGALA': MonaragalaPage(),
-  // 'MULLAITIVU': MullaitivuPage(),
-  // 'NUWARA ELIYA': NuwaraEliyaPage(),
-  // 'POLONNARUWA': PolonnaruwaPage(),
-  // 'PUTTALAM': PuttalamPage(),
-  // 'RATNAPURA': RatnapuraPage(),
-  // 'TRINCOMALEE': TrincomaleePage(),
-  // 'VAVUNIYA': VavuniyaPage(),
-};
-  
+];
