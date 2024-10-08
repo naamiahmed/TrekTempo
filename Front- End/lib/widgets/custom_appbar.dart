@@ -10,7 +10,7 @@ class CustomAppBar extends StatelessWidget {
   final Function() actionOnPressed;
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.isLeading,
     required this.isAction,
@@ -18,7 +18,7 @@ class CustomAppBar extends StatelessWidget {
     required this.actionIcon,
     required this.leadingOnPressed,
     required this.actionOnPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'Trip_Cards/All_place_card.dart';
+import 'Trip_Cards/All_Hotel_Restaurant_card.dart';
 
 class TripPlanDetails extends StatelessWidget {
   final String tripName = 'Trip Plan Name';
@@ -9,12 +11,14 @@ class TripPlanDetails extends StatelessWidget {
       'description': 'Description of Place 01',
       'weather': 'Weather Option',
       'locationLink': 'https://locationlink01.com',
+      'imageUrl': 'https://example.com/image01.jpg',
     },
     {
       'name': 'Place 02',
       'description': 'Description of Place 02',
       'weather': 'Weather Option',
       'locationLink': 'https://locationlink02.com',
+      'imageUrl': 'https://example.com/image02.jpg',
     },
   ];
 
@@ -24,12 +28,14 @@ class TripPlanDetails extends StatelessWidget {
       'name': 'Restaurant 01',
       'description': 'Description of Restaurant 01',
       'locationLink': 'https://restaurantlink01.com',
+      'imageUrl': 'https://example.com/restaurant01.jpg',
     },
     {
       'type': 'Hotel',
       'name': 'Hotel 01',
       'description': 'Description of Hotel 01',
       'locationLink': 'https://hotellink01.com',
+      'imageUrl': 'https://example.com/hotel01.jpg',
     },
   ];
 
@@ -56,11 +62,12 @@ class TripPlanDetails extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             for (var place in placesToVisit)
-              PlaceCard(
+              AllPlaceCard(
                 name: place['name']!,
                 description: place['description']!,
                 weather: place['weather']!,
                 locationLink: place['locationLink']!,
+                imageUrl: place['imageUrl']!,
               ),
             SizedBox(height: 20),
             Text(
@@ -68,67 +75,12 @@ class TripPlanDetails extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             for (var item in foodAndAccommodation)
-              PlaceCard(
+              AllHotelRestaurantCard(
                 name: item['name']!,
                 description: item['description']!,
                 locationLink: item['locationLink']!,
+                imageUrl: item['imageUrl']!,
               ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class PlaceCard extends StatelessWidget {
-  final String name;
-  final String description;
-  final String weather;
-  final String locationLink;
-
-  PlaceCard({
-    required this.name,
-    required this.description,
-    this.weather = '',
-    required this.locationLink,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 5),
-            Text(description),
-            if (weather.isNotEmpty)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 5),
-                  Text('Weather: $weather'),
-                ],
-              ),
-            SizedBox(height: 5),
-            GestureDetector(
-              onTap: () {
-                // Handle location link tap
-              },
-              child: Text(
-                'Location Link',
-                style: TextStyle(
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
           ],
         ),
       ),
