@@ -41,4 +41,4 @@ const getOnetripPlace = async (req, res) => {
 
 
 
-module.exports = { getTripPlaces, createTripPlace , getOnetripPlace };
+module.exports = { getTripPlaces, createTripPlace , getOnetripPlace };
