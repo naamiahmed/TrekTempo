@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripDetails.dart'; // Replace with your actual next page import
-
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Tripplace_card/TripDetails_District.dart';
+import 'package:travel_app/pages/Destinations/show_district_places.dart';
 class ReadyPlanPage extends StatefulWidget {
   @override
   _ReadyPlanPageState createState() => _ReadyPlanPageState();
