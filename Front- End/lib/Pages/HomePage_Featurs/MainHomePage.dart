@@ -3,6 +3,7 @@ import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home
 import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart';
 import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Search/search.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/intro_page.dart';
 //import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart'; // Import the TripPlanningPage
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart'; // Import the TranslationPage
@@ -36,7 +37,7 @@ class _MainHomePageState extends State<MainHomePage> {
   final List<Widget> _pages = [
     HomePage(),
     DestinationsPage(),
-    SearchPage(),
+    Search(),
     MessagesPage(),
     MenuPage()
   ];
@@ -107,7 +108,8 @@ class HomePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications, color: const Color.fromARGB(255, 80, 46, 46)),
+            icon: Icon(Icons.notifications,
+                color: const Color.fromARGB(255, 80, 46, 46)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -118,7 +120,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.menu, color: Colors.black),
             onPressed: () {
-             Scaffold.of(context).openDrawer(); 
+              Scaffold.of(context).openDrawer();
             },
           ),
         ],
@@ -147,14 +149,18 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildIconButton(context, Icons.map, 'Trip Plans', IntroPage()),
+                  _buildIconButton(
+                      context, Icons.map, 'Trip Plans', IntroPage()),
                   _buildIconButton(context, Icons.event, 'Events', EventPage()),
-                  _buildIconButton(context, Icons.translate, 'Translator', TranslatorPage()),        
-                  _buildIconButton(context, Icons.euro, 'Converter', CurrencyConverterPage()),
+                  _buildIconButton(
+                      context, Icons.translate, 'Translator', TranslatorPage()),
+                  _buildIconButton(context, Icons.euro, 'Converter',
+                      CurrencyConverterPage()),
                 ],
               ),
             ),
@@ -179,11 +185,15 @@ class HomePage extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                  _buildDestinationCard('Galle Fort', 'assets/images/MainHome/Galle.png'),
-                 // _buildDestinationCard('Ella', 'assets/ella.jpg'),
-                  _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                  _buildDestinationCard('Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
+                  _buildDestinationCard(
+                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
+                  _buildDestinationCard(
+                      'Galle Fort', 'assets/images/MainHome/Galle.png'),
+                  // _buildDestinationCard('Ella', 'assets/ella.jpg'),
+                  _buildDestinationCard(
+                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
+                  _buildDestinationCard(
+                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
                 ],
               ),
             ),
@@ -193,7 +203,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildIconButton(BuildContext context, IconData icon, String label, Widget? page) {
+  Widget _buildIconButton(
+      BuildContext context, IconData icon, String label, Widget? page) {
     return Column(
       children: [
         IconButton(
@@ -237,18 +248,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class SearchPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Search'),
-      ),
-      body: Center(child: Text('Search Page')),
     );
   }
 }

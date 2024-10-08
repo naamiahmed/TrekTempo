@@ -6,17 +6,14 @@ import 'package:travel_app/Models/Place.dart';
 import 'package:travel_app/Pages/Destinations/places_card.dart';
 import 'package:http/http.dart' as http;
 
-class DestinationCard extends StatefulWidget {
-  final String district; // Add a field to hold the district name
-
-  const DestinationCard(
-      {super.key, required this.district}); // Modify the constructor
+class Search extends StatefulWidget {
+  const Search({super.key}); // Modify the constructor
 
   @override
-  State<DestinationCard> createState() => _DdestinationCardState();
+  State<Search> createState() => _SearchState();
 }
 
-class _DdestinationCardState extends State<DestinationCard> {
+class _SearchState extends State<Search> {
   TextEditingController searchController = TextEditingController();
   List<Place> fetchedPlaces = [];
   List<Place> filteredDestinations = [];
@@ -30,7 +27,7 @@ class _DdestinationCardState extends State<DestinationCard> {
   Future<String> fetchPlacesData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getPlaces/${widget.district}'),
+        Uri.parse('http://localhost:5000/api/getAllPlaces'),
         headers: {},
       );
       if (response.statusCode == 200) {
@@ -73,7 +70,7 @@ class _DdestinationCardState extends State<DestinationCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.district),
+        title: Text('All Places'),
         centerTitle: true,
       ),
       body: Column(
