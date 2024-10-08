@@ -11,10 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   google_maps_flutter: ^2.2.1
-  http: ^0.13.3
-  googleapis: ^9.0.0
+  http: ^1.2.2
+  googleapis: ^13.2.0
   googleapis_auth: ^1.1.0
   cupertino_icons: ^1.0.6
+  translator: ^1.0.0
 
 dev_dependencies:
   flutter_test:
