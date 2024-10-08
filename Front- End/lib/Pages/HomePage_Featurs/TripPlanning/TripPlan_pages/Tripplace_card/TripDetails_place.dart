@@ -1,80 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Models/weatherModel.dart';
-import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
-import 'package:travel_app/controller/api.dart';
 
-class PlaceDetailsPage extends StatefulWidget {
-  final String district;
+class TripPlaceDetailsPage extends StatefulWidget {
   final List<String> imagePaths;
   final String title;
   final String location;
   final String description;
-  final int likes;
+  final int weather;
 
-  const PlaceDetailsPage({
+  const  TripPlaceDetailsPage({
     super.key,
-    required this.district,
     required this.imagePaths,
     required this.title,
     required this.location,
     required this.description,
-    required this.likes,
+    required this.weather,
   });
 
   @override
-  _PlaceDetailsPageState createState() => _PlaceDetailsPageState();
+  _TripPlaceDetailsPageState createState() => _TripPlaceDetailsPageState();
 }
 
-class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
+class _TripPlaceDetailsPageState extends State<TripPlaceDetailsPage> {
   bool isLiked = false;
   bool isSaved = false;
-  bool isExpanded = false;
+  bool isExpanded = false; // Track whether the description is expanded
   int likesCount = 0;
 
-  // Weather data variables
-  ApiResponse? weatherData;
-  String? errorMessage;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   likesCount = widget.likes; // Initialize with the passed likes count
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    likesCount = widget.likes; // Initialize with the passed likes count
-    _getWeatherData(placeName: widget.district); // Fetch weather data
-  }
+  // void toggleLike() {
+  //   setState(() {
+  //     isLiked = !isLiked;
+  //     if (isLiked) {
+  //       likesCount++;
+  //     } else {
+  //       likesCount--;
+  //     }
+  //   });
+  // }
 
-  // Fetch weather data based on the place name
-  _getWeatherData({required String placeName}) async {
-    try {
-      ApiResponse response = await WeatherApi().getCurrentWeather(placeName);
-      setState(() {
-        weatherData = response;
-        errorMessage = null;
-      });
-    } catch (e) {
-      setState(() {
-        errorMessage = e.toString();
-      });
-    }
-  }
+  // void toggleSave() {
+  //   setState(() {
+  //     isSaved = !isSaved;
+  //   });
+  // }
 
-  void toggleLike() {
-    setState(() {
-      isLiked = !isLiked;
-      if (isLiked) {
-        likesCount++;
-      } else {
-        likesCount--;
-      }
-    });
-  }
-
-  void toggleSave() {
-    setState(() {
-      isSaved = !isSaved;
-    });
-  }
-
-  // Description toggle
+  //Description toggle
   void toggleDescription() {
     setState(() {
       isExpanded = !isExpanded;
@@ -88,11 +63,12 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image and Back button
+            // Stack to overlay the back button on the image
             Stack(
               children: [
+                // Adjust image aspect ratio to avoid stretching
                 AspectRatio(
-                  aspectRatio: 16 / 9,
+                  aspectRatio: 16 / 9, // Standard aspect ratio for images
                   child: Image.network(
                     widget.imagePaths[0],
                     width: double.infinity,
@@ -100,12 +76,12 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   ),
                 ),
                 Positioned(
-                  top: 20,
-                  left: 16,
+                  top: 20, // Move the button closer to the top
+                  left: 16, // Align it closer to the left corner
                   child: Container(
                     decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black26,
+                      shape: BoxShape.circle, // Circular shape
+                      color: Colors.black26, // Semi-transparent background
                     ),
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -130,14 +106,26 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(width: 4),
-                  Text(
-                    widget.location,
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 12,
-                    ),
-                    maxLines: null,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: Colors.red,
+                        size: 12,
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          widget.location,
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 12,
+                          ),
+                          maxLines: null,
+                        ),
+                      ),
+                    ],
                   ),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.start,
@@ -166,26 +154,9 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   //     ),
                   //   ],
                   // ),
-                  const SizedBox(height: 16),
+                  // const SizedBox(height: 16),
 
-                  // Weather
-                  const Text("Description",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  if (weatherData != null) ...[
-                    WeatherCard(weatherData: weatherData!),
-                  ] else if (errorMessage != null) ...[
-                    Text(
-                      errorMessage!,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
-
-                  const SizedBox(height: 16),
-
-                  // Description
+                  //Description
                   const Text("Description",
                       style: TextStyle(
                         fontSize: 18,
@@ -197,12 +168,12 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                       color: Colors.grey[700],
                       fontSize: 16,
                     ),
-                    maxLines: isExpanded ? null : 6,
+                    maxLines: isExpanded ? null : 6, // Show 6 lines or full text
                     overflow: isExpanded
                         ? TextOverflow.visible
-                        : TextOverflow.ellipsis,
+                        : TextOverflow.ellipsis, // Handle overflow
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 4), // Small space between text and Read more
                   GestureDetector(
                     onTap: toggleDescription,
                     child: Text(

@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/Destinations/show_district_places.dart';
+import 'package:travel_app/Pages/Destinations/district_places.dart';
 import 'district_conts.dart';
  
-void main() {
-  runApp( const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: DestinationsPage(),
-  ));
-}
-
 class DestinationsPage extends StatelessWidget {
    const DestinationsPage({super.key});
 
