@@ -16,6 +16,7 @@ dependencies:
   googleapis_auth: ^1.1.0
   cupertino_icons: ^1.0.6
   translator: ^1.0.0
+  another_carousel_pro: ^1.0.2
 
 dev_dependencies:
   flutter_test:
