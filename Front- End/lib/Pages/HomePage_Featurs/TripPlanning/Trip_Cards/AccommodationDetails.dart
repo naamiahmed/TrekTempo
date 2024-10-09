@@ -3,7 +3,7 @@ import 'package:travel_app/Models/weatherModel.dart';
 import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
 import 'package:travel_app/controller/api.dart';
 
-class TripPlanDetails extends StatefulWidget {
+class AccommodationDetails extends StatefulWidget {
   final String district;
   final List<String> imagePaths;
   final String title;
@@ -12,7 +12,7 @@ class TripPlanDetails extends StatefulWidget {
   final int likes;
   final String locationLink;
 
-  const TripPlanDetails({
+  const AccommodationDetails({
     super.key,
     required this.district,
     required this.imagePaths,
@@ -27,7 +27,7 @@ class TripPlanDetails extends StatefulWidget {
   _PlaceDetailsPageState createState() => _PlaceDetailsPageState();
 }
 
-class _PlaceDetailsPageState extends State<TripPlanDetails> {
+class _PlaceDetailsPageState extends State<AccommodationDetails> {
   bool isLiked = false;
   bool isSaved = false;
   bool isExpanded = false;

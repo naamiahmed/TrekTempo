@@ -98,6 +98,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
                       location: place.location,
                       description: place.description,
                       likes: place.likes,
+                      locationLink: place.locationLink,
                     ),
                     const SizedBox(height: 16),
                   ],

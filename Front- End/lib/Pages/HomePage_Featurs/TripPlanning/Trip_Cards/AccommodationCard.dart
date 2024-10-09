@@ -1,10 +1,11 @@
 //the card widget of the places in the district
 
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationDetails.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanDetails.dart';
 
 
-class TripPlanCard extends StatelessWidget {
+class AccommodationCard extends StatelessWidget {
   final String district;
   final List<String> imagePaths;
   final String title;
@@ -13,7 +14,7 @@ class TripPlanCard extends StatelessWidget {
   final int likes;
   final String locationLink;
 
-  const TripPlanCard({
+  const AccommodationCard({
     super.key,
     required this.district,
     required this.imagePaths,
@@ -31,7 +32,7 @@ class TripPlanCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TripPlanDetails(
+            builder: (context) => AccommodationDetails(
               district: district,
               imagePaths: imagePaths,
               title: title,

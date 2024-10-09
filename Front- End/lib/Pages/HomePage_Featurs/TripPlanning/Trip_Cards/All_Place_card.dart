@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/weatherModel.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/Morning.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/Place_card.dart';
 
 
