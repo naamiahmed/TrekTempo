@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Models/weatherModel.dart';
 import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
 import 'package:travel_app/controller/api.dart';
+import 'package:another_carousel_pro/another_carousel_pro.dart';
 
 class PlaceDetailsPage extends StatefulWidget {
   final String district;
@@ -91,14 +92,20 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             // Image and Back button
             Stack(
               children: [
-                AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.network(
-                    widget.imagePaths[0],
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                SizedBox(
+  height: 200.0, // You can adjust the height as needed
+  width: double.infinity, // Full width
+  child: AnotherCarousel(
+    images: widget.imagePaths.map((imagePath) {
+      return NetworkImage(imagePath);  // Using NetworkImage for online images
+    }).toList(),
+    boxFit: BoxFit.cover, // Ensures the images cover the available space
+    autoplay: true,  // Enables auto scrolling of the images
+    dotSize: 4.0,    // Size of the indicator dots
+    dotBgColor: Colors.transparent,  // Background color behind the dots
+    indicatorBgPadding: 8.0,  // Padding for the indicators
+  ),
+),
                 Positioned(
                   top: 20,
                   left: 16,
