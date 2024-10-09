@@ -1,23 +1,25 @@
 //the card widget of the places in the district
-//import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Tripplace_card/TripDetails_Place.dart'; 
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanDetails.dart';
 
-class PlacesCard extends StatelessWidget {
+
+class TripPlanCard extends StatelessWidget {
+  final String district;
   final List<String> imagePaths;
   final String title;
   final String location;
   final String description;
-  final int weather;
+  final int likes;
 
-  const PlacesCard({
+  const TripPlanCard({
     super.key,
+    required this.district,
     required this.imagePaths,
     required this.title,
     required this.location,
     required this.description,
-    required this.weather,
+    required this.likes,
   });
 
   @override
@@ -27,12 +29,13 @@ class PlacesCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TripPlaceDetailsPage(
+            builder: (context) => TripPlanDetails(
+              district: district,
               imagePaths: imagePaths,
               title: title,
               location: location,
               description: description,
-              weather: weather,
+              likes: likes,
             ),
           ),
         );
@@ -114,7 +117,7 @@ class PlacesCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '$weather', // Display number of likes
+                            '$likes', // Display number of likes
                             style: const TextStyle(
                               color: Colors.red,
                               fontSize: 12,

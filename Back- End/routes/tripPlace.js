@@ -7,7 +7,7 @@ const { getTripPlaces, createTripPlace ,getOnetripPlace } = require('../controll
 
 
 router.post("/createTripPlace", createTripPlace);
-router.get("/getTripPlaces/:district?", getTripPlaces);
+router.post("/getTripPlaces", getTripPlaces);
 router.post("/getOneTripPlace", getOnetripPlace);
 
 module.exports = router;

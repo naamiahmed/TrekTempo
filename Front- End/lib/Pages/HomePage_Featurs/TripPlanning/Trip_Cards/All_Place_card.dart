@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'place_card.dart';
-import 'Morining.dart';
-import 'Evening.dart';
-import 'Night.dart';
+import 'package:travel_app/Models/weatherModel.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/Morning.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/Place_card.dart';
+
+
 
 class AllPlaceCard extends StatelessWidget {
   final String name;
@@ -21,27 +22,29 @@ class AllPlaceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        MorningCard(
-          title: name,
-          subtitle: 'Morning',
-          description: description,
-          imageUrl: imageUrl,
+    return Card(
+      margin: EdgeInsets.all(10),  // Adjust margins as necessary
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Mornin',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),  // Add spacing before cards
+            // Morning Card
+            PlaceCard(
+              name: name,
+              description: description,
+              imageUrl: imageUrl,
+              weather: weather,
+              locationLink: locationLink,
+            ),
+          ],
         ),
-        EveningCard(
-          title: name,
-          subtitle: 'Evening',
-          description: description,
-          imageUrl: imageUrl,
-        ),
-        NightCard(
-          title: name,
-          subtitle: 'Night',
-          description: description,
-          imageUrl: imageUrl,
-        ),
-      ],
+      ),
     );
   }
 }

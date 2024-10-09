@@ -1,4 +1,5 @@
 const TripPlace = require('../models/TripPlace'); // Adjust the path according to your project structure
+const Place = require('../models/Place'); // Adjust the path according to your project structure
 
 const createTripPlace = async (req, res) => {
   try {
@@ -12,15 +13,10 @@ const createTripPlace = async (req, res) => {
 
 const getTripPlaces = async (req, res) => {
     try {
-        const district = req.params.district;
-        if (district) {
-            //ensure case-insensitive and exact matches and sort by name
-            const TripPlaces = await TripPlace.find({ district: { $regex: new RegExp('^' + district + '$', 'i') } }).sort({ name: 1 });
-            return res.send({ success: true, TripPlaces: TripPlaces });
-        }
-        // If no district is provided, return all places
-        const places = await Place.find();
-        res.send({ success: true, TripPlaces: TripPlaces });
+        const data = req.body;
+        const TripPlaces = await Place.find({district: data.endPoint, budget: data.budget, tripPersonType: data.tripPersonType, tripType: data.tripType});
+        return res.send({ success: true, TripPlaces: TripPlaces });
+
     } catch (error) {
         res.send({ success: false, message: error.message });
     }
