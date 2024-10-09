@@ -32,7 +32,7 @@ class DestinationsPage extends StatelessWidget {
 
                 //Background Image
                 Container(
-                  height: 100,
+                  height: 120,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
@@ -45,7 +45,7 @@ class DestinationsPage extends StatelessWidget {
                 Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5), // Transparent light black color
+                      color: Colors.black.withOpacity(0.2), // Transparent light black color
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),

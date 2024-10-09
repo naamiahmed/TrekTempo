@@ -9,12 +9,12 @@ class ThirdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageDesign(
+    return const ImageDesign(
       imagePath: 'assets/images/HomeImage02.png',
       titlePart1: 'Crafted',
       titlePart2: ' Adventures!',
       description: 'Enjoy tailor-made travel experiences and curated itineraries. Let TrackTempo help you discover Sri Lanka in your own unique way.',
-      nextPage: const Fourthpage(),
+      nextPage: Fourthpage(),
     );
   }
 }

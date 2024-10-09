@@ -93,17 +93,15 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             Stack(
               children: [
                 SizedBox(
-                  height: 200.0, 
+                  height: 200.0,
                   width: double.infinity, // get Full width
                   child: AnotherCarousel(
                     images: widget.imagePaths.map((imagePath) {
-                      return NetworkImage(
-                          imagePath); 
+                      return NetworkImage(imagePath);
                     }).toList(),
-                    boxFit: BoxFit
-                        .cover,
+                    boxFit: BoxFit.cover,
                     autoplay: true,
-                    dotSize: 4.0, 
+                    dotSize: 4.0,
                     dotBgColor:
                         Colors.transparent, // Background color behind the dots
                     indicatorBgPadding: 8.0, // Padding for the indicators
@@ -136,8 +134,15 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   Text(
                     widget.title,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 4.0,
+                          color: Colors.black45,
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(width: 4),
@@ -179,28 +184,22 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   const SizedBox(height: 16),
 
                   // Weather
-                  const Text("Weather",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  _buildUnderlinedTitle("Weather"),
+                  const SizedBox(height: 5),
                   if (weatherData != null) ...[
                     WeatherCard(weatherData: weatherData!),
                   ] else if (errorMessage != null) ...[
                     Text(
                       errorMessage!,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ],
 
                   const SizedBox(height: 16),
 
                   // Description
-                  const Text("Description",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  _buildUnderlinedTitle("Description"),
+                  const SizedBox(height: 5),
                   Text(
                     widget.description,
                     style: TextStyle(
@@ -232,4 +231,25 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
       ),
     );
   }
+}
+
+Widget _buildUnderlinedTitle(String title) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        title,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Container(
+        width: 40, // Small underline width
+        height: 2, // Small underline height
+        color: Colors.blue, // Underline color
+        
+      ),
+    ],
+  );
 }
