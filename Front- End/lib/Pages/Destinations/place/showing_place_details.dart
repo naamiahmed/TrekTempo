@@ -27,8 +27,8 @@ class PlaceDetailsPage extends StatefulWidget {
 }
 
 class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
-  bool isLiked = false;
-  bool isSaved = false;
+  // bool isLiked = false;
+  // bool isSaved = false;
   bool isExpanded = false;
   int likesCount = 0;
 
@@ -39,7 +39,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   @override
   void initState() {
     super.initState();
-    likesCount = widget.likes; // Initialize with the passed likes count
+    // likesCount = widget.likes; // Initialize with the passed likes count
     _getWeatherData(placeName: widget.district); // Fetch weather data
   }
 
@@ -58,22 +58,22 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
     }
   }
 
-  void toggleLike() {
-    setState(() {
-      isLiked = !isLiked;
-      if (isLiked) {
-        likesCount++;
-      } else {
-        likesCount--;
-      }
-    });
-  }
+  // void toggleLike() {
+  //   setState(() {
+  //     isLiked = !isLiked;
+  //     if (isLiked) {
+  //       likesCount++;
+  //     } else {
+  //       likesCount--;
+  //     }
+  //   });
+  // }
 
-  void toggleSave() {
-    setState(() {
-      isSaved = !isSaved;
-    });
-  }
+  // void toggleSave() {
+  //   setState(() {
+  //     isSaved = !isSaved;
+  //   });
+  // }
 
   // Description toggle
   void toggleDescription() {
@@ -93,19 +93,22 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             Stack(
               children: [
                 SizedBox(
-  height: 200.0, // You can adjust the height as needed
-  width: double.infinity, // Full width
-  child: AnotherCarousel(
-    images: widget.imagePaths.map((imagePath) {
-      return NetworkImage(imagePath);  // Using NetworkImage for online images
-    }).toList(),
-    boxFit: BoxFit.cover, // Ensures the images cover the available space
-    autoplay: true,  // Enables auto scrolling of the images
-    dotSize: 4.0,    // Size of the indicator dots
-    dotBgColor: Colors.transparent,  // Background color behind the dots
-    indicatorBgPadding: 8.0,  // Padding for the indicators
-  ),
-),
+                  height: 200.0, 
+                  width: double.infinity, // get Full width
+                  child: AnotherCarousel(
+                    images: widget.imagePaths.map((imagePath) {
+                      return NetworkImage(
+                          imagePath); 
+                    }).toList(),
+                    boxFit: BoxFit
+                        .cover,
+                    autoplay: true,
+                    dotSize: 4.0, 
+                    dotBgColor:
+                        Colors.transparent, // Background color behind the dots
+                    indicatorBgPadding: 8.0, // Padding for the indicators
+                  ),
+                ),
                 Positioned(
                   top: 20,
                   left: 16,
@@ -176,7 +179,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   const SizedBox(height: 16),
 
                   // Weather
-                  const Text("Description",
+                  const Text("Weather",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

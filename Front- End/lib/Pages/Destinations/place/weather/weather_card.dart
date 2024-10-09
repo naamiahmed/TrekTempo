@@ -20,23 +20,25 @@ class WeatherCard extends StatelessWidget {
             // Left side: Weather icon and condition
             Column(
               children: [
-                if (weatherData.current?.condition?.icon != null)
+                // Display the weather icon if available
+                if (weatherData.icon.isNotEmpty)
                   Image.network(
-                    'https:${weatherData.current?.condition?.icon}',
+                    weatherData.icon, // Use the icon directly from weatherData
                     width: 50,
                     height: 50,
                   ),
-                const SizedBox(width: 8),
+                   const SizedBox(width: 8),
                 // Text(
-                //   weatherData.location?.name ?? 'Unknown Location',
+                //   weatherData.location.isNotEmpty ? weatherData.location : 'No location',
                 //   style: const TextStyle(
                 //     fontSize: 16,
                 //     fontWeight: FontWeight.bold,
                 //   ),
                 // ),
-                // const SizedBox(height: 4),
+                // const SizedBox(width: 8),
+                // Display the weather condition text
                 Text(
-                  weatherData.current?.condition?.text ?? 'No condition',
+                  weatherData.condition.isNotEmpty ? weatherData.condition : 'No condition',
                   style: const TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
@@ -50,7 +52,7 @@ class WeatherCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  '${weatherData.current?.tempC?.toString()}°C',
+                  '${weatherData.temperature.toString()}°C', // Display temperature
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -58,7 +60,7 @@ class WeatherCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Wind: ${weatherData.current?.windKph?.toString() ?? '0'} kph',
+                  'Wind: ${weatherData.windSpeed.toString()} kph', // Display wind speed
                   style: const TextStyle(
                     fontSize: 12,
                     color: Colors.grey,
@@ -66,7 +68,7 @@ class WeatherCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Humidity: ${weatherData.current?.humidity?.toString() ?? '0'}%',
+                  'Humidity: ${weatherData.humidity.toString()}%', // Display humidity
                   style: const TextStyle(
                     fontSize: 12,
                     color: Colors.grey,
