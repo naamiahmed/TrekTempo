@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class ImageDesign extends StatelessWidget {
   final String imagePath;
@@ -36,15 +39,25 @@ class ImageDesign extends StatelessWidget {
                     height: double.infinity,
                   ),
                 ),
-                const Positioned(
-                  top: 50,
+
+                
+                Positioned(
+                  top: 20,
                   right: 20,
-                  child: Text(
+                  child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => MainHomePage()),
+                              );
+                  },
+                  child: const Text(
                     'Skip >',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 18,
                     ),
+                  ),
                   ),
                 ),
               ],
@@ -99,7 +112,7 @@ class ImageDesign extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(33, 150, 243, 1),
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 52, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

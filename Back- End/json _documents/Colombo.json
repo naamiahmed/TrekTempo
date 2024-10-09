@@ -1,0 +1,62 @@
+[
+  {
+    "district": "Colombo",
+    "name": "Colombo National Museum",
+    "location": "Colombo National Museum, Colombo, Sri Lanka",
+    "likes": 0,
+    "description": "The Colombo National Museum, situated in the heart of Colombo, is Sri Lanka's largest and oldest museum, renowned for its extensive collection of historical and cultural artifacts. It houses an impressive array of exhibits, including ancient royal regalia, traditional costumes, and relics from Sri Lanka's rich history. The museum is popular for its educational value and beautiful colonial architecture, offering a glimpse into the island's heritage. One of the most attractive features is the grandeur of the museum building itself, which reflects the colonial past of Sri Lanka. The best time to visit is during the morning hours to avoid crowds and fully appreciate the exhibits. Tickets are required, with the entrance fee approximately LKR 500.",
+    "images": [
+      "http://localhost:5000/uploads/places/Colombo_National_Museum1.jpg",
+      "http://localhost:5000/uploads/places/Colombo_National_Museum2.jpg",
+      "http://localhost:5000/uploads/places/Colombo_National_Museum3.jpg"
+    ]
+  },
+  {
+    "district": "Colombo",
+    "name": "Galle Face Green",
+    "location": "Galle Face Green, Colombo, Sri Lanka",
+    "likes": 0,
+    "description": "Galle Face Green is a popular ocean-side urban park in Colombo, stretching along the coast, offering stunning views of the Indian Ocean. It's a famous spot for both locals and tourists to relax, enjoy the sea breeze, and watch beautiful sunsets. The wide-open space makes it ideal for picnics, kite flying, and evening strolls. One of the most attractive features of Galle Face Green is its vibrant street food scene, where you can try a variety of local snacks. The best time to visit is in the late afternoon or early evening when the weather is cooler, and the sunset is breathtaking.",
+    "images": [
+      "http://localhost:5000/uploads/places/Galle_Face_Gree1.jpg",
+      "http://localhost:5000/uploads/places/Galle_Face_Gree2.jpg",
+      "http://localhost:5000/uploads/places/Galle_Face_Gree3.jpg"
+    ]
+  },
+  {
+    "district": "Colombo",
+    "name": "Lotus Tower",
+    "location": "Lotus Tower, Colombo, Sri Lanka",
+    "likes": 0,
+    "description": "The Lotus Tower, also known as the Colombo Lotus Tower, is a striking landmark in Colombo and the tallest structure in South Asia. This futuristic tower, shaped like a blooming lotus flower, stands out with its vibrant LED lights and panoramic observation deck. It’s popular for its breathtaking 360-degree views of the city and the Indian Ocean, making it a must-visit for those seeking a unique perspective of Colombo. The tower also features a revolving restaurant and a range of entertainment options. The best time to visit is in the late afternoon to catch the sunset and see the city lights come to life. Tickets for the observation deck are priced at LKR 500 for Sri Lankan adults, LKR 250 for Sri Lankan children, and LKR 1,500 for foreign tourists.",
+    "images": [
+      "http://localhost:5000/uploads/places/Lotus_Tower1.png",
+      "http://localhost:5000/uploads/places/Lotus_Tower2.jpg",
+      "http://localhost:5000/uploads/places/Lotus_Tower3.jpg"
+    ]
+  },
+  {
+    "district": "Colombo",
+    "name": "Mount Lavinia Beach",
+    "location": "Mount Lavinia Beach, Mount Lavinia, Sri Lanka",
+    "likes": 0,
+    "description": "Mount Lavinia Beach, located just south of Colombo, is one of the most popular and scenic beaches in Sri Lanka. Known for its long stretch of golden sand and clear blue waters, the beach is a favorite spot for both locals and tourists. It’s especially popular for swimming, sunbathing, and enjoying fresh seafood at the beachside restaurants. The view of the sunset is one of the most attractive features, drawing crowds every evening. The best time to visit is late afternoon to relax by the sea and enjoy the sunset.",
+    "images": [
+      "http://localhost:5000/uploads/places/Mount_Lavinia_Beach1.jpg",
+      "http://localhost:5000/uploads/places/Mount_Lavinia_Beach2.jpg",
+      "http://localhost:5000/uploads/places/Mount_Lavinia_Beach3.jpg"
+    ]
+  },
+  {
+    "district": "Colombo",
+    "name": "Viharamahadevi Park",
+    "location": "Viharamahadevi Park, Colombo, Sri Lanka",
+    "likes": 0,
+    "description": "Viharamahadevi Park, located in Colombo, is a serene and expansive urban park that offers a peaceful retreat from the city's hustle and bustle. Named after Queen Viharamahadevi, the park is popular for its lush greenery, well-maintained lawns, and large, tranquil ponds. It features beautiful walking paths, a children's play area, and several monuments, including a large Buddha statue. The park is especially attractive during the flowering seasons when the garden is in full bloom.",
+    "images": [
+      "http://localhost:5000/uploads/places/Viharamahadevi_Park1.jpg",
+      "http://localhost:5000/uploads/places/Viharamahadevi_Park2.jpg",
+      "http://localhost:5000/uploads/places/Viharamahadevi_Park3.jpg"
+    ]
+  }
+]

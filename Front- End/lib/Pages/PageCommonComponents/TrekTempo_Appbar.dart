@@ -13,16 +13,16 @@ class TrekTempo_Appbar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(
           fontFamily: 'ShortBaby',
           fontSize: 30,
-          color: Colors.white,
+          color: Color.fromARGB(255, 255, 255, 255),
+          
         ),
       ),
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.black.withOpacity(0.2),
       elevation: 0,
       leading: Container(
         padding:EdgeInsets.all(4.0),
         decoration: const BoxDecoration(
-          color: Colors.grey, 
-          shape: BoxShape.circle,
+          
 
         ),
       
