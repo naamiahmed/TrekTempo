@@ -10,7 +10,7 @@ class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ImageDesign(
-      imagePath: 'assets/images/HomeImage01.png',
+      imagePath: 'assets/images/home_image01.png',
       titlePart1: 'Explore',
       titlePart2: ' Sri Lanka!',
       description: 'Welcome to TrackTempo, your ultimate guide to exploring Sri Lanka\'s hidden gems and must-see destinations',

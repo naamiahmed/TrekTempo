@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
-import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class ImageDesign extends StatelessWidget {
   final String imagePath;
@@ -16,8 +14,8 @@ class ImageDesign extends StatelessWidget {
     required this.titlePart2,
     required this.description,
     required this.nextPage,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +40,16 @@ class ImageDesign extends StatelessWidget {
 
                 
                 Positioned(
-                  top: 20,
+                  top: 40,
                   right: 20,
                   child: GestureDetector(
                   onTap: () {
                     Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => MainHomePage()),
+                                MaterialPageRoute(builder: (context) => const MainHomePage()),
                               );
                   },
+                  
                   child: const Text(
                     'Skip >',
                     style: TextStyle(
@@ -89,7 +88,7 @@ class ImageDesign extends StatelessWidget {
                   ],
                 ),
                 Image.asset(
-                  'assets/images/HomeLine.png',
+                  'assets/images/home_line.png',
                   height: 20,
                   alignment: const Alignment(5, 0),
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripDetails.dart'; // Replace with your actual next page import
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Tripplace_card/TripDetails_District.dart';
-import 'package:travel_app/pages/Destinations/show_district_places.dart';
+//import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Tripplace_card/TripDetails_District.dart';
+//import 'package:travel_app/pages/Destinations/show_district_places.dart';
 class ReadyPlanPage extends StatefulWidget {
   @override
   _ReadyPlanPageState createState() => _ReadyPlanPageState();
@@ -22,14 +22,14 @@ class _ReadyPlanPageState extends State<ReadyPlanPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircularProgressIndicator(),
-            const SizedBox(height: 20),
-            const Text(
+            SizedBox(height: 20),
+            Text(
               'Your trip is creating, please wait...',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
