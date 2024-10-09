@@ -171,19 +171,19 @@ class _PlaceDetailsPageState extends State<TripPlanDetails> {
                   const SizedBox(height: 16),
 
                   // Weather
-                  const Text("Description",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  if (weatherData != null) ...[
-                    WeatherCard(weatherData: weatherData!),
-                  ] else if (errorMessage != null) ...[
-                    Text(
-                      errorMessage!,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
+                  // const Text("Description",
+                  //     style: TextStyle(
+                  //       fontSize: 18,
+                  //       fontWeight: FontWeight.bold,
+                  //     )),
+                  // if (weatherData != null) ...[
+                  //   WeatherCard(weatherData: weatherData!),
+                  // ] else if (errorMessage != null) ...[
+                  //   Text(
+                  //     errorMessage!,
+                  //     style: TextStyle(color: Colors.red),
+                  //   ),
+                  // ],
 
                   const SizedBox(height: 16),
 
@@ -216,6 +216,27 @@ class _PlaceDetailsPageState extends State<TripPlanDetails> {
                       ),
                     ),
                   ),
+
+                  const SizedBox(height: 16),
+                    GestureDetector(
+                    onTap: () {
+                      
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                      "View Accommodation place",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 14,
+                      ),
+                      ),
+                    ),
+                    )
                 ],
               ),
             ),
