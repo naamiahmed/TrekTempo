@@ -6,6 +6,8 @@ import 'package:travel_app/Models/Place.dart';
 import 'package:travel_app/Pages/Destinations/places_card.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart'; // Import MainHomePage
+
 class Search extends StatefulWidget {
   const Search({super.key}); // Modify the constructor
 
@@ -18,6 +20,7 @@ class _SearchState extends State<Search> {
   List<Place> fetchedPlaces = [];
   List<Place> filteredDestinations = [];
   late Future<String> futureData;
+  
   @override
   void initState() {
     super.initState();
@@ -72,6 +75,14 @@ class _SearchState extends State<Search> {
       appBar: AppBar(
         title: Text('All Places'),
         centerTitle: true,
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => MainHomePage()),
+            );
+          },
+        ),
       ),
       body: Column(
         children: [
