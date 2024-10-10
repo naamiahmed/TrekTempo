@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/weatherModel.dart';
 import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
 import 'package:travel_app/controller/api.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
 
 class TripPlanDetails extends StatefulWidget {
   final String district;
@@ -133,6 +135,7 @@ class _PlaceDetailsPageState extends State<TripPlanDetails> {
                     ),
                   ),
                   const SizedBox(width: 4),
+                  
                   Text(
                     widget.location,
                     style: TextStyle(
@@ -141,50 +144,6 @@ class _PlaceDetailsPageState extends State<TripPlanDetails> {
                     ),
                     maxLines: null,
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     IconButton(
-                  //       icon: Icon(
-                  //         isLiked ? Icons.favorite : Icons.favorite_border,
-                  //         color: Colors.red,
-                  //         size: 24,
-                  //       ),
-                  //       onPressed: toggleLike,
-                  //     ),
-                  //     Text(
-                  //       '$likesCount likes',
-                  //       style: TextStyle(
-                  //         color: Colors.grey[700],
-                  //         fontSize: 14,
-                  //       ),
-                  //     ),
-                  //     IconButton(
-                  //       icon: Icon(
-                  //         isSaved ? Icons.bookmark : Icons.bookmark_border,
-                  //         color: Colors.blue,
-                  //       ),
-                  //       onPressed: toggleSave,
-                  //     ),
-                  //   ],
-                  // ),
-                  const SizedBox(height: 16),
-
-                  // Weather
-                  // const Text("Description",
-                  //     style: TextStyle(
-                  //       fontSize: 18,
-                  //       fontWeight: FontWeight.bold,
-                  //     )),
-                  // if (weatherData != null) ...[
-                  //   WeatherCard(weatherData: weatherData!),
-                  // ] else if (errorMessage != null) ...[
-                  //   Text(
-                  //     errorMessage!,
-                  //     style: TextStyle(color: Colors.red),
-                  //   ),
-                  // ],
-
                   const SizedBox(height: 16),
 
                   // Description
@@ -218,25 +177,35 @@ class _PlaceDetailsPageState extends State<TripPlanDetails> {
                   ),
 
                   const SizedBox(height: 16),
-                    GestureDetector(
+                  GestureDetector(
                     onTap: () {
-                      
+                      // Handle tap event
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue),
-                      borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Text(
-                      "View Accommodation place",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 14,
-                      ),
+                        "View Accommodation place",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
-                    )
+                  ),
+                  const SizedBox(height: 16),
+                  AccommodationCard(
+                    district: widget.district,
+                    imagePaths: widget.imagePaths,
+                    title: widget.title,
+                    location: widget.location,
+                    description: widget.description,
+                    likes: widget.likes,
+                    locationLink: widget.locationLink,
+                  ),
                 ],
               ),
             ),

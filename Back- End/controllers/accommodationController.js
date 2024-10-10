@@ -12,24 +12,10 @@ const createAccommodation = async (req, res) => {
 
 const getAccommodation = async (req, res) => {
     try {
-        const district = req.params.district;
+        const data = req.body;
+        const TripPlaces = await Place.find({district: data.endPoint, budget: data.budget, tripType: data.tripType});
+        return res.send({ success: true, TripPlaces: TripPlaces });
 
-        // Check if district is provided in the URL parameters
-        if (district) {
-            const accommodations = await Accommodation.find({ district: district });
-            if (accommodations.length === 0) {
-                return res.send({ success: false, message: `No accommodations found in ${district}.` });
-            }
-            return res.send({ success: true, accommodations });
-        }
-
-        // If no district is provided, return all accommodations
-        const accommodations = await Accommodation.find();
-        if (accommodations.length === 0) {
-            return res.send({ success: false, message: 'No accommodations found.' });
-        }
-
-        res.send({ success: true, accommodations });
     } catch (error) {
         res.send({ success: false, message: error.message });
     }

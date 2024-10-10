@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Models/weatherModel.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/Place_card.dart';
-
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
 
 
 class AllPlaceCard extends StatelessWidget {
@@ -9,7 +7,7 @@ class AllPlaceCard extends StatelessWidget {
   final String description;
   final String weather;
   final String locationLink;
-  final String imageUrl;
+  final List<String> imageUrl;
 
   AllPlaceCard({
     required this.name,
@@ -34,13 +32,13 @@ class AllPlaceCard extends StatelessWidget {
             ),
             SizedBox(height: 10),  // Add spacing before cards
             // Morning Card
-            PlaceCard(
-              name: name,
-              description: description,
-              imageUrl: imageUrl,
-              weather: weather,
-              locationLink: locationLink,
-            ),
+            // TripPlanCard(
+            //   title: name,
+            //   description: description,
+            //   imagePaths: imageUrl,
+            //   locationLink: locationLink,
+              
+            // ),
           ],
         ),
       ),

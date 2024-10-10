@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Budget.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/DistrictNameList.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
-import 'package:travel_app/Models/TripPlace.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Tripplace_card/Tripcard.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class StartEndPage extends StatefulWidget {
   @override
@@ -59,39 +55,39 @@ class _StartEndPageState extends State<StartEndPage> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 15),
-                // _buildCard(
-                //   color: Colors.green,
-                //   child: Autocomplete<String>(
-                //     optionsBuilder: (TextEditingValue textEditingValue) {
-                //       if (textEditingValue.text.isEmpty) {
-                //         return const Iterable<String>.empty();
-                //       }
-                //       return itemList.where((String item) {
-                //         return item.toLowerCase().contains(textEditingValue.text.toLowerCase());
-                //       });
-                //     },
-                //     onSelected: (String selection) {
-                //       _startPointController.text = selection;
-                //     },
-                //     fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
-                //       _startPointController.text = textEditingController.text;
-                //       return TextFormField(
-                //         controller: textEditingController,
-                //         focusNode: focusNode,
-                //         decoration: const InputDecoration(
-                //           icon: Icon(Icons.location_on),
-                //           labelText: 'Starting Point',
-                //         ),
-                //         validator: (value) {
-                //           if (value == null || value.isEmpty) {
-                //             return 'Please enter a starting point';
-                //           }
-                //           return null;
-                //         },
-                //       );
-                //     },
-                //   ),
-                // ),
+                _buildCard(
+                  color: Colors.green,
+                  child: Autocomplete<String>(
+                    optionsBuilder: (TextEditingValue textEditingValue) {
+                      if (textEditingValue.text.isEmpty) {
+                        return const Iterable<String>.empty();
+                      }
+                      return itemList.where((String item) {
+                        return item.toLowerCase().contains(textEditingValue.text.toLowerCase());
+                      });
+                    },
+                    onSelected: (String selection) {
+                      _startPointController.text = selection;
+                    },
+                    fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
+                      _startPointController.text = textEditingController.text;
+                      return TextFormField(
+                        controller: textEditingController,
+                        focusNode: focusNode,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.location_on),
+                          labelText: 'Starting Point',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a starting point';
+                          }
+                          return null;
+                        },
+                      );
+                    },
+                  ),
+                ),
                 const SizedBox(height: 8),
                 _buildCard(
                   color: Colors.red,

@@ -1,9 +1,5 @@
-//the card widget of the places in the district
-
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationDetails.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanDetails.dart';
-
 
 class AccommodationCard extends StatelessWidget {
   final String district;
@@ -49,103 +45,90 @@ class AccommodationCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image
-            ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(15)),
-              child: Image.network(
-                imagePaths[0],
-                height: 150,
-                width: double.infinity,
-                fit: BoxFit.cover,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              // Image
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  imagePaths[0],
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  right: 16.0, left: 16.0, bottom: 16.0, top: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Row for Title, Location, and Like Icon
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Title (remains fully visible)
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              title,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.location_on,
-                                  color: Colors.red,
-                                  size: 12,
-                                ),
-                                const SizedBox(width: 4),
-                                // Location with ellipsis if too long
-                                Expanded(
-                                  child: Text(
-                                    location,
-                                    style: TextStyle(
-                                      color: Colors.grey[600],
-                                      fontSize: 12,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+              const SizedBox(width: 16),
+              // Title, Location, and Description
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
-                      // Like Icon and Count
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                            size: 24,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '$likes', // Display number of likes
-                            style: const TextStyle(
-                              color: Colors.red,
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: Colors.red,
+                          size: 12,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            location,
+                            style: TextStyle(
+                              color: Colors.grey[600],
                               fontSize: 12,
                             ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      description,
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 12,
                       ),
-                    ],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+              // Like Icon and Count
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                    size: 24,
                   ),
-                  const SizedBox(height: 8),
-                  // Description with two lines only and ellipsis if too long
+                  const SizedBox(height: 4),
                   Text(
-                    description,
-                    style: TextStyle(
-                      color: Colors.grey[700],
+                    '$likes', // Display number of likes
+                    style: const TextStyle(
+                      color: Colors.red,
                       fontSize: 12,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

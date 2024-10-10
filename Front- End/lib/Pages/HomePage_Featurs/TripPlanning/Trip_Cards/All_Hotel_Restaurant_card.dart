@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'hotel_restaurant_card.dart';
 
 class AllHotelRestaurantCard extends StatelessWidget {
   final String name;
@@ -18,17 +17,17 @@ class AllHotelRestaurantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HotelRestaurantCard(
-              name: name,
-              description: description,
-              locationLink: locationLink,
-              imageUrl: imageUrl,
-            ),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => HotelRestaurantCard(
+        //       name: name,
+        //       description: description,
+        //       locationLink: locationLink,
+        //       imageUrl: imageUrl,
+        //     ),
+        //   ),
+        // );
       },
       child: Card(
         margin: EdgeInsets.symmetric(vertical: 10),
