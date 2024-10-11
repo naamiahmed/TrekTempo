@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Models/weatherModel.dart';
 import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
 import 'package:travel_app/controller/api.dart';
+import 'package:another_carousel_pro/another_carousel_pro.dart';
 
 class PlaceDetailsPage extends StatefulWidget {
   final String district;
@@ -26,8 +27,8 @@ class PlaceDetailsPage extends StatefulWidget {
 }
 
 class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
-  bool isLiked = false;
-  bool isSaved = false;
+  // bool isLiked = false;
+  // bool isSaved = false;
   bool isExpanded = false;
   int likesCount = 0;
 
@@ -38,7 +39,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   @override
   void initState() {
     super.initState();
-    likesCount = widget.likes; // Initialize with the passed likes count
+    // likesCount = widget.likes; // Initialize with the passed likes count
     _getWeatherData(placeName: widget.district); // Fetch weather data
   }
 
@@ -57,22 +58,22 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
     }
   }
 
-  void toggleLike() {
-    setState(() {
-      isLiked = !isLiked;
-      if (isLiked) {
-        likesCount++;
-      } else {
-        likesCount--;
-      }
-    });
-  }
+  // void toggleLike() {
+  //   setState(() {
+  //     isLiked = !isLiked;
+  //     if (isLiked) {
+  //       likesCount++;
+  //     } else {
+  //       likesCount--;
+  //     }
+  //   });
+  // }
 
-  void toggleSave() {
-    setState(() {
-      isSaved = !isSaved;
-    });
-  }
+  // void toggleSave() {
+  //   setState(() {
+  //     isSaved = !isSaved;
+  //   });
+  // }
 
   // Description toggle
   void toggleDescription() {
@@ -91,12 +92,19 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             // Image and Back button
             Stack(
               children: [
-                AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.network(
-                    widget.imagePaths[0],
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                SizedBox(
+                  height: 200.0,
+                  width: double.infinity, // get Full width
+                  child: AnotherCarousel(
+                    images: widget.imagePaths.map((imagePath) {
+                      return NetworkImage(imagePath);
+                    }).toList(),
+                    boxFit: BoxFit.cover,
+                    autoplay: true,
+                    dotSize: 4.0,
+                    dotBgColor:
+                        Colors.transparent, // Background color behind the dots
+                    indicatorBgPadding: 8.0, // Padding for the indicators
                   ),
                 ),
                 Positioned(
@@ -126,8 +134,15 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   Text(
                     widget.title,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 4.0,
+                          color: Colors.black45,
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(width: 4),
@@ -169,28 +184,22 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   const SizedBox(height: 16),
 
                   // Weather
-                  const Text("Description",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  _buildUnderlinedTitle("Weather"),
+                  const SizedBox(height: 5),
                   if (weatherData != null) ...[
                     WeatherCard(weatherData: weatherData!),
                   ] else if (errorMessage != null) ...[
                     Text(
                       errorMessage!,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ],
 
                   const SizedBox(height: 16),
 
                   // Description
-                  const Text("Description",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  _buildUnderlinedTitle("Description"),
+                  const SizedBox(height: 5),
                   Text(
                     widget.description,
                     style: TextStyle(
@@ -222,4 +231,25 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
       ),
     );
   }
+}
+
+Widget _buildUnderlinedTitle(String title) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        title,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Container(
+        width: 40, // Small underline width
+        height: 2, // Small underline height
+        color: Colors.blue, // Underline color
+        
+      ),
+    ],
+  );
 }

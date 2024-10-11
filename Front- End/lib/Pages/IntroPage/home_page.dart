@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'secondPage.dart'; // Ensure this path is correct
+import 'second_page.dart'; // Ensure this path is correct
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,33 +16,34 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        color: const Color.fromARGB(255, 33, 150, 243), // Set background color to light blue
+        color: const Color.fromARGB(255, 33, 150, 243), 
         child: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center, // Center horizontally
+            crossAxisAlignment: CrossAxisAlignment.center, 
             children: [
               Image(
-                image: AssetImage('assets/images/Logo.png'), // Ensure this path is correct
-                height: 200, // Set height as needed
-                width: 200, // Set width as needed
+                image: AssetImage('assets/images/Logo.png'),
+                height: 100, 
+                width: 100, 
               ),
-              SizedBox(height: 20), // Add some space between the image and text
+              SizedBox(height: 20), 
               Text(
-                'TrekTempo',
+                'TrackTempo',
                 style: TextStyle(
                   fontFamily: 'ShortBaby',
-                  color: Colors.white, // Change font color to white
+                  color: Colors.white, 
                   fontSize: 50,
                 ),
               ),
-              SizedBox(height: 10), // Add space between title and subtitle
+              SizedBox(height: 5),
               Text(
-                'Find your dream Destination with us',
+                'Find your dream destination with us', 
+                textAlign: TextAlign.center, 
                 style: TextStyle(
-                  color: Colors.white, // Change font color to white
-                  fontSize: 20,
-                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                  fontSize: 16, 
+                  fontStyle: FontStyle.italic, 
                 ),
               ),
             ],

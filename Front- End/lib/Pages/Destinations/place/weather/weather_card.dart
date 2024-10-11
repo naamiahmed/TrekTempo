@@ -10,63 +10,59 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
-      //margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      elevation: 6, 
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15), 
+      ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+        padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Left side: Weather icon and condition
+            
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (weatherData.current?.condition?.icon != null)
+                if (weatherData.icon.isNotEmpty)
                   Image.network(
-                    'https:${weatherData.current?.condition?.icon}',
-                    width: 50,
-                    height: 50,
+                    weatherData.icon,
+                    width: 40, 
+                    height: 40,
                   ),
-                const SizedBox(width: 8),
-                // Text(
-                //   weatherData.location?.name ?? 'Unknown Location',
-                //   style: const TextStyle(
-                //     fontSize: 16,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
-                // const SizedBox(height: 4),
+                const SizedBox(height: 8), 
                 Text(
-                  weatherData.current?.condition?.text ?? 'No condition',
+                  weatherData.condition.isNotEmpty ? weatherData.condition : 'No condition',
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 12, 
                     color: Colors.grey,
                   ),
+                  textAlign: TextAlign.center, 
                 ),
               ],
             ),
-            // Right side: Temp, Wind, and Humidity
+            
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  '${weatherData.current?.tempC?.toString()}°C',
+                  '${weatherData.temperature.toString()}°C',
                   style: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 24, 
                     fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent, 
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 8), 
                 Text(
-                  'Wind: ${weatherData.current?.windKph?.toString() ?? '0'} kph',
+                  'Wind: ${weatherData.windSpeed.toString()} kph',
                   style: const TextStyle(
                     fontSize: 12,
                     color: Colors.grey,
                   ),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 4),
                 Text(
-                  'Humidity: ${weatherData.current?.humidity?.toString() ?? '0'}%',
+                  'Humidity: ${weatherData.humidity.toString()}%',
                   style: const TextStyle(
                     fontSize: 12,
                     color: Colors.grey,

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/Message/MessagePage.dart';
 import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Search/search.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/intro_page.dart';
-//import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart'; // Import the TripPlanningPage
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart'; // Import the TranslationPage
 import 'package:travel_app/Pages/HomePage_Featurs/Convertor/CurrencyConverterPage.dart'; // Import the CurrencyConverterPage
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventPage.dart'; // Import the EventPage
@@ -36,10 +34,8 @@ class _MainHomePageState extends State<MainHomePage> {
 
   final List<Widget> _pages = [
     HomePage(),
-    DestinationsPage(),
     Search(),
-    MessagesPage(),
-    MenuPage()
+    DestinationsPage()
   ];
 
   @override
@@ -64,22 +60,14 @@ class _MainHomePageState extends State<MainHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on),
-            label: 'Destinations',
-          ),
+          ),          
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Messages',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'Menu',
+            icon: Icon(Icons.location_on),
+            label: 'Destinations',
           ),
         ],
         selectedItemColor: Colors.blue,
