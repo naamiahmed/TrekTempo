@@ -4,11 +4,16 @@ import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
 
 
 class TripPersonTypePage extends StatefulWidget {
+  final String endPoint;
+  final String budget;
+  const TripPersonTypePage({Key? key, required this.endPoint, required this.budget}) : super(key: key);
+
   @override
   _TripPersonTypePageState createState() => _TripPersonTypePageState();
 }
 
 class _TripPersonTypePageState extends State<TripPersonTypePage> {
+ 
   String _tripPersonType = 'Solo';
 
   @override
@@ -38,7 +43,7 @@ class _TripPersonTypePageState extends State<TripPersonTypePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TripTypePage()),
+                    MaterialPageRoute(builder: (context) => TripTypePage(endPoint: widget.endPoint, budget: widget.budget, tripPersonType: _tripPersonType)),
                   );
                 },
               ),
