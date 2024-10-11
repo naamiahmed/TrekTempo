@@ -75,7 +75,8 @@ class _DestinationCardState extends State<DestinationCard> {
                 return Column(
                   children: [
                     PlacesCard(
-                      district: place.district,
+                      city: place.city,
+                      direction: place.direction,
                       imagePaths: place.images,
                       title: place.name,
                       location: place.location,
