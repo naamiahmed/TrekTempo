@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/weatherModel.dart';
-import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
 import 'package:travel_app/controller/api.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/AccommodationDetails.dart';
 
 class TripPlanDetails extends StatefulWidget {
   final String district;
@@ -197,15 +197,14 @@ class _PlaceDetailsPageState extends State<TripPlanDetails> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  AccommodationCard(
-                    district: widget.district,
-                    imagePaths: widget.imagePaths,
-                    title: widget.title,
-                    location: widget.location,
-                    description: widget.description,
-                    likes: widget.likes,
-                    locationLink: widget.locationLink,
-                  ),
+                  // AccommodationCard(
+                  //   district: widget.district,
+                  //   imagePaths: widget.imagePaths,
+                  //   title: widget.title,
+                  //   location: widget.location,
+                  //   description: widget.description,
+                  //   locationLink: widget.locationLink,
+                  // ),
                 ],
               ),
             ),

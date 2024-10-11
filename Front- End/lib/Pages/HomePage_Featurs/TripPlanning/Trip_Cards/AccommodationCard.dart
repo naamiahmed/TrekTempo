@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationDetails.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationPlanDetails.dart';
 
 class AccommodationCard extends StatelessWidget {
   final String district;
@@ -7,7 +7,6 @@ class AccommodationCard extends StatelessWidget {
   final String title;
   final String location;
   final String description;
-  final int likes;
   final String locationLink;
 
   const AccommodationCard({
@@ -17,7 +16,6 @@ class AccommodationCard extends StatelessWidget {
     required this.title,
     required this.location,
     required this.description,
-    required this.likes,
     required this.locationLink,
   });
 
@@ -34,7 +32,6 @@ class AccommodationCard extends StatelessWidget {
               title: title,
               location: location,
               description: description,
-              likes: likes,
               locationLink: locationLink,
             ),
           ),
@@ -109,22 +106,22 @@ class AccommodationCard extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               // Like Icon and Count
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.favorite,
                     color: Colors.red,
                     size: 24,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '$likes', // Display number of likes
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
-                    ),
-                  ),
+                  // const SizedBox(height: 4),
+                  // Text(
+                  //   '$likes', // Display number of likes
+                  //   style: const TextStyle(
+                  //     color: Colors.red,
+                  //     fontSize: 12,
+                  //   ),
+                  // ),
                 ],
               ),
             ],

@@ -7,6 +7,7 @@ const {createAccommodation, getAccommodation } = require('../controllers/accommo
 
 
 router.post("/createAccommodation", createAccommodation);
-router.get("/getTripPlaces/:district?", getAccommodation);
+router.post("/getAccommodation", getAccommodation);
+
 
 module.exports = router;

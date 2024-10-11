@@ -9,7 +9,6 @@ class AccommodationDetails extends StatefulWidget {
   final String title;
   final String location;
   final String description;
-  final int likes;
   final String locationLink;
 
   const AccommodationDetails({
@@ -19,15 +18,14 @@ class AccommodationDetails extends StatefulWidget {
     required this.title,
     required this.location,
     required this.description,
-    required this.likes,
     required this.locationLink,
   });
 
   @override
-  _PlaceDetailsPageState createState() => _PlaceDetailsPageState();
+  _AccommodationDetailsState createState() => _AccommodationDetailsState();
 }
 
-class _PlaceDetailsPageState extends State<AccommodationDetails> {
+class _AccommodationDetailsState extends State<AccommodationDetails> {
   bool isLiked = false;
   bool isSaved = false;
   bool isExpanded = false;
@@ -40,7 +38,6 @@ class _PlaceDetailsPageState extends State<AccommodationDetails> {
   @override
   void initState() {
     super.initState();
-    likesCount = widget.likes; // Initialize with the passed likes count
     _getWeatherData(placeName: widget.district); // Fetch weather data
   }
 
@@ -171,19 +168,19 @@ class _PlaceDetailsPageState extends State<AccommodationDetails> {
                   const SizedBox(height: 16),
 
                   // Weather
-                  const Text("Description",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  if (weatherData != null) ...[
-                    WeatherCard(weatherData: weatherData!),
-                  ] else if (errorMessage != null) ...[
-                    Text(
-                      errorMessage!,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
+                  // const Text("Description",
+                  //     style: TextStyle(
+                  //       fontSize: 18,
+                  //       fontWeight: FontWeight.bold,
+                  //     )),
+                  // if (weatherData != null) ...[
+                  //   WeatherCard(weatherData: weatherData!),
+                  // ] else if (errorMessage != null) ...[
+                  //   Text(
+                  //     errorMessage!,
+                  //     style: TextStyle(color: Colors.red),
+                  //   ),
+                  // ],
 
                   const SizedBox(height: 16),
 

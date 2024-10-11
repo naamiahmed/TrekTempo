@@ -13,8 +13,8 @@ const createAccommodation = async (req, res) => {
 const getAccommodation = async (req, res) => {
     try {
         const data = req.body;
-        const TripPlaces = await Place.find({district: data.endPoint, budget: data.budget, tripType: data.tripType});
-        return res.send({ success: true, TripPlaces: TripPlaces });
+        const Accommodations = await Accommodation.find({district: data.endPoint, budget: data.budget});
+        return res.send({ success: true, Accommodations: Accommodations });
 
     } catch (error) {
         res.send({ success: false, message: error.message });

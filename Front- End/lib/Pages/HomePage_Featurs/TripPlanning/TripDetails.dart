@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/Place.dart';
+import 'package:travel_app/Models/Accommodation.dart';
 import 'package:travel_app/Models/TripPlanInputs.dart';
-import 'package:travel_app/Pages/Destinations/district_places_card.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
-import 'Trip_Cards/All_place_card.dart';
-import 'Trip_Cards/All_Hotel_Restaurant_card.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
 import 'package:http/http.dart' as http;
 
 class TripPlanDetails extends StatefulWidget {
@@ -26,12 +25,14 @@ class TripPlanDetails extends StatefulWidget {
 
 class _TripPlanDetailsState extends State<TripPlanDetails> {
   List<Place> fetchedPlaces = [];
+  List<Accommodation> fetchedAccommodations = [];
 
   late Future<String> futureData;
   @override
   void initState() {
     super.initState();
     futureData = fetchPlacesData();
+    futureData = fetchAccommodationsData();
   }
 
   Future<String> fetchPlacesData() async {
@@ -69,6 +70,42 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
     return "done";
   }
 
+  Future<String> fetchAccommodationsData() async {
+    try {
+      final Map<String, dynamic> data = {
+        "endPoint": widget.endPoint,
+        "budget": widget.budget,
+        "tripPersonType": widget.tripPersonType,
+        "tripType": widget.tripType
+      };
+      final response = await http.post(
+        Uri.parse('http://localhost:5000/api/getAccommodation'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(data),
+      );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = json.decode(response.body);
+        print(jsonData);
+        List<dynamic> accommodationJson = jsonData['Accommodations'];
+        for (var accommodationJson in accommodationJson) {
+          Accommodation accommodation = Accommodation.fromJson(accommodationJson);
+          setState(() {
+            fetchedAccommodations.add(accommodation);
+          });
+        }
+      } else {
+        print('Failed to fetch data ${response.body}');
+      }
+    } catch (er) {
+      print(er);
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    return "done";
+  }
+
+
   final String tripName = 'Trip Plan Name';
 
   @override
@@ -79,32 +116,73 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
       ),
       body: fetchedPlaces.isEmpty
           ? const Center(
-              child: Text(
-                "No Results Found",
-                style: TextStyle(fontSize: 18),
-              ),
-            )
-          : ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: fetchedPlaces.length,
-              itemBuilder: (context, index) {
-                final place = fetchedPlaces[index];
-                return Column(
-                  children: [
-                    TripPlanCard(
-                      district: place.district,
-                      imagePaths: place.images,
-                      title: place.name,
-                      location: place.location,
-                      description: place.description,
-                      likes: place.likes,
-                      locationLink: place.locationLink,
+          child: Text(
+            "No Results Found",
+            style: TextStyle(fontSize: 18),
+          ),
+        )
+          : ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: [
+            const Text(
+                    'Trip Places',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 16),
-                  ],
-                );
-              },
+                  ),
+            ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: fetchedPlaces.length,
+          itemBuilder: (context, index) {
+            final place = fetchedPlaces[index];
+            return Column(
+              children: [
+            TripPlanCard(
+              district: place.district,
+              imagePaths: place.images,
+              title: place.name,
+              location: place.location,
+              description: place.description,
+              likes: place.likes,
+              locationLink: place.locationLink,
             ),
+            const SizedBox(height: 16),
+              ],
+            );
+          },
+            ),
+            const Text(
+                    'Accommodations',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+            ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: fetchedAccommodations.length,
+          itemBuilder: (context, index) {
+            final accommodation = fetchedAccommodations[index];
+            return Column(
+              children: [
+            AccommodationCard(
+              district: accommodation.district,
+              imagePaths: accommodation.images,
+              title: accommodation.name,
+              location: accommodation.location,
+              description: accommodation.description,
+              locationLink: accommodation.locationLink,
+            ),
+            const SizedBox(height: 16),
+              ],
+            );
+          },
+            ),
+          ],
+        ),
     );
   }
 }
