@@ -17,8 +17,12 @@ class _TranslatorPageState extends State<TranslatorPage> {
   String outputLanguage = 'Sinhala';
 
   final Map<String, String> languageCodes = {
-    'English': 'en',
     'Sinhala': 'si',
+    'Chinese': 'zh-cn',
+    'English': 'en',
+    'French': 'fr',
+    'Hindi': 'hi',
+    'Russian': 'ru',
     'Tamil': 'ta',
   };
 
@@ -64,6 +68,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
         child: Column(
           children: [
             Card(
+              color: Colors.white,
               elevation: 8,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -77,8 +82,9 @@ class _TranslatorPageState extends State<TranslatorPage> {
                             border: InputBorder.none,
                             hintText: "Enter text to translate",
                             hintStyle: TextStyle(
-                              color: Colors.grey, // Change hint text color
-                              fontSize: 15.0,
+                              color: Colors.grey,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400,
                             )),
                       ),
                     ),
@@ -100,11 +106,11 @@ class _TranslatorPageState extends State<TranslatorPage> {
               children: [
                 // Styled Input Language Dropdown
                 Container(
-                  width: 120, // Set a width to center the dropdown
+                  width: 90, // Set a width to center the dropdown
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12.0),
-                    border: Border.all(color: Colors.grey, width: 2),
+                    border: Border.all(color: Colors.grey, width: 1),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black26,
@@ -146,16 +152,16 @@ class _TranslatorPageState extends State<TranslatorPage> {
                     color: Colors.white,
                   ),
                   mini: true,
-                  backgroundColor: const Color.fromARGB(255, 16, 4, 76),
+                  backgroundColor: Colors.blueAccent,
                 ),
 
                 // Styled Output Language Dropdown
                 Container(
-                  width: 120, // Set a width to center the dropdown
+                  width: 90, // Set a width to center the dropdown
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12.0),
-                    border: Border.all(color: Colors.grey, width: 2),
+                    border: Border.all(color: Colors.grey, width: 1),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black26,
@@ -187,6 +193,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
             ),
             SizedBox(height: 16),
             Card(
+              color: Colors.white,
               elevation: 8,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -195,10 +202,11 @@ class _TranslatorPageState extends State<TranslatorPage> {
                   maxLines: 5,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: "Translation will appear here",
+                      hintText: "Result here...",
                       hintStyle: TextStyle(
                         color: Colors.grey, // Change hint text color
-                        fontSize: 15.0,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w400,
                       )),
                   readOnly: true,
                 ),
@@ -216,7 +224,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 16, 4, 76),
+                backgroundColor: Colors.blueAccent,
                 minimumSize: Size(150, 55),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),

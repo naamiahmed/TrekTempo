@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,7 +19,9 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => (MainHomePage()))); // Navigate to the MainHomePage
+          },
         ),
         title: Text('Profile'),
         actions: [
