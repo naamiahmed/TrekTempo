@@ -3,9 +3,11 @@ import 'package:travel_app/Models/weatherModel.dart';
 import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
 import 'package:travel_app/controller/api.dart';
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PlaceDetailsPage extends StatefulWidget {
-  final String district;
+  final String city;
+  final String direction;
   final List<String> imagePaths;
   final String title;
   final String location;
@@ -14,7 +16,8 @@ class PlaceDetailsPage extends StatefulWidget {
 
   const PlaceDetailsPage({
     super.key,
-    required this.district,
+    required this.city,
+    required this.direction,
     required this.imagePaths,
     required this.title,
     required this.location,
@@ -40,7 +43,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   void initState() {
     super.initState();
     // likesCount = widget.likes; // Initialize with the passed likes count
-    _getWeatherData(placeName: widget.district); // Fetch weather data
+    _getWeatherData(placeName: widget.city); // Fetch weather data
   }
 
   // Fetch weather data based on the place name
@@ -131,6 +134,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Title and Location
                   Text(
                     widget.title,
                     style: const TextStyle(
@@ -153,6 +157,37 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                       fontSize: 12,
                     ),
                     maxLines: null,
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Direction Link
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          var url =
+                              widget.direction; // Replace with your desired URL
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        icon: const Icon(Icons.directions,
+                            color: Colors.blueAccent), // Set icon color to blue
+                        label: const Text(
+                          'Direction',
+                          style: TextStyle(
+                              color: Colors.blueAccent), // Set text color to blue
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white, // Button background color
+                          foregroundColor:
+                              Colors.blue, // Splash and highlight color
+                        ),
+                      ),
+                    ],
                   ),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.start,
@@ -217,7 +252,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     child: Text(
                       isExpanded ? "Read less" : "Read more",
                       style: const TextStyle(
-                        color: Colors.blue,
+                        color: Colors.blueAccent,
                         fontSize: 14,
                         decoration: TextDecoration.underline,
                       ),
@@ -245,10 +280,9 @@ Widget _buildUnderlinedTitle(String title) {
         ),
       ),
       Container(
-        width: 40, // Small underline width
-        height: 2, // Small underline height
-        color: Colors.blue, // Underline color
-        
+        width: 40,
+        height: 2,
+        color: Colors.blueAccent,
       ),
     ],
   );

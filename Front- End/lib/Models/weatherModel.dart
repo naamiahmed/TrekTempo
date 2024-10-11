@@ -17,12 +17,12 @@ class ApiResponse {
 
   factory ApiResponse.fromJson(Map<String, dynamic> json) {
     return ApiResponse(
-      location: json['location']['name'], // Get the name of the location
-      temperature: json['current']['temp_c'].toDouble(), // Get temperature in Celsius
-      condition: json['current']['condition']['text'], // Get weather condition text
-      windSpeed: json['current']['wind_kph'].toDouble(), // Get wind speed in kph
-      humidity: json['current']['humidity'], // Get humidity level
-      icon: 'https:${json['current']['condition']['icon']}', // Get the icon URL
+      location: json['location']['name'], 
+      temperature: json['current']['temp_c'].toDouble(), 
+      condition: json['current']['condition']['text'],
+      windSpeed: json['current']['wind_kph'].toDouble(), 
+      humidity: json['current']['humidity'], 
+      icon: 'https:${json['current']['condition']['icon']}',
     );
   }
 
