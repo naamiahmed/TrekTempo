@@ -5,8 +5,6 @@ class Accommodation {
   final String description;
   final List<String> images;
   final String budget;
-  final String tripPersonType;
-  final String tripType;
   final String locationLink;
 
   Accommodation({
@@ -16,8 +14,6 @@ class Accommodation {
     required this.description,
     required this.images,
     required this.budget,
-    required this.tripPersonType,
-    required this.tripType,
     required this.locationLink,
   });
     factory Accommodation.fromJson(Map<String, dynamic> json) {
@@ -28,8 +24,6 @@ class Accommodation {
       description: json['description'],
       images: List<String>.from(json['images']),
       budget: json['budget'],
-      tripPersonType: json['tripPersonType'],
-      tripType: json['tripType'],
       locationLink: json['locationLink'],
     );
   }

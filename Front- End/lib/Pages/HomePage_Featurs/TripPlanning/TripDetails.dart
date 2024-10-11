@@ -137,16 +137,17 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: fetchedTripPlaces.length,
           itemBuilder: (context, index) {
-            final place = fetchedTripPlaces[index];
+            final tripplace = fetchedTripPlaces[index];
             return Column(
               children: [
             TripPlanCard(
-              district: place.district,
-              imagePaths: place.images,
-              title: place.name,
-              location: place.location,
-              description: place.description,
-              locationLink: place.locationLink,
+              district: tripplace.district,
+              imagePaths: tripplace.images,
+              title: tripplace.name,
+              location: tripplace.location,
+              description: tripplace.description,
+              locationLink: tripplace.locationLink,
+              
             ),
             const SizedBox(height: 16),
               ],

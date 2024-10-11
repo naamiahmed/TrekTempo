@@ -1,6 +1,4 @@
 const TripPlace = require('../models/TripPlace'); // Adjust the path according to your project structure
-const Place = require('../models/Place'); // Adjust the path according to your project structure
-
 const createTripPlace = async (req, res) => {
   try {
       const tripPlacesData = req.body; 
@@ -14,7 +12,7 @@ const createTripPlace = async (req, res) => {
 const getTripPlaces = async (req, res) => {
     try {
         const data = req.body;
-        const TripPlaces = await TripPlace.find({district: data.endPoint, budget: data.budget, tripType: data.tripType});
+        const TripPlaces = await TripPlace.find({district: data.endPoint, tripType: data.tripType});
         return res.send({ success: true, TripPlaces: TripPlaces });
 
     } catch (error) {
