@@ -11,7 +11,6 @@ class TripPlanDetails extends StatefulWidget {
   final String title;
   final String location;
   final String description;
-  final int likes;
   final String locationLink;
 
   const TripPlanDetails({
@@ -21,7 +20,6 @@ class TripPlanDetails extends StatefulWidget {
     required this.title,
     required this.location,
     required this.description,
-    required this.likes,
     required this.locationLink,
   });
 
@@ -42,7 +40,6 @@ class _PlaceDetailsPageState extends State<TripPlanDetails> {
   @override
   void initState() {
     super.initState();
-    likesCount = widget.likes; // Initialize with the passed likes count
     _getWeatherData(placeName: widget.district); // Fetch weather data
   }
 

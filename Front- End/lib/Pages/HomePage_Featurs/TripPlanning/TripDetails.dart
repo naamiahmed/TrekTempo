@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/Place.dart';
 import 'package:travel_app/Models/Accommodation.dart';
+import 'package:travel_app/Models/TripPlace.dart';
 import 'package:travel_app/Models/TripPlanInputs.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
@@ -24,7 +25,7 @@ class TripPlanDetails extends StatefulWidget {
 }
 
 class _TripPlanDetailsState extends State<TripPlanDetails> {
-  List<Place> fetchedPlaces = [];
+  List<TripPlace> fetchedTripPlaces = [];
   List<Accommodation> fetchedAccommodations = [];
 
   late Future<String> futureData;
@@ -53,11 +54,11 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = json.decode(response.body);
         print(jsonData);
-        List<dynamic> placesJson = jsonData['TripPlaces'];
-        for (var placeJson in placesJson) {
-          Place place = Place.fromJson(placeJson);
+        List<dynamic> tripplacesJson = jsonData['TripPlaces'];
+        for (var placeJson in tripplacesJson) {
+          TripPlace tripplace = TripPlace.fromJson(placeJson);
           setState(() {
-            fetchedPlaces.add(place);
+            fetchedTripPlaces.add(tripplace);
           });
         }
       } else {
@@ -114,7 +115,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
       appBar: AppBar(
         title: Text(tripName),
       ),
-      body: fetchedPlaces.isEmpty
+      body: fetchedTripPlaces.isEmpty
           ? const Center(
           child: Text(
             "No Results Found",
@@ -134,9 +135,9 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
             ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: fetchedPlaces.length,
+          itemCount: fetchedTripPlaces.length,
           itemBuilder: (context, index) {
-            final place = fetchedPlaces[index];
+            final place = fetchedTripPlaces[index];
             return Column(
               children: [
             TripPlanCard(
@@ -145,7 +146,6 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
               title: place.name,
               location: place.location,
               description: place.description,
-              likes: place.likes,
               locationLink: place.locationLink,
             ),
             const SizedBox(height: 16),
