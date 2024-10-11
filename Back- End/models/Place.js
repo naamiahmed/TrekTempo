@@ -26,26 +26,6 @@ const placeSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
-    weather: {
-        type: String,
-        required: false,
-    },
-    budget: {
-        type: String,
-        required: false,
-    },
-    tripPersonType: {
-        type: String,
-        required: false,
-    },
-    tripType: {
-        type: String,
-        required: false,
-    },
-    locationLink: {
-        type: String,
-        required: false,
-    },
 });
 
 const Place = mongoose.model('Place', placeSchema);

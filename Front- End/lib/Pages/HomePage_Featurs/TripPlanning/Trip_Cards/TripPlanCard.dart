@@ -7,7 +7,6 @@ class TripPlanCard extends StatelessWidget {
   final String title;
   final String location;
   final String description;
-  final int likes;
   final String locationLink;
 
   const TripPlanCard({
@@ -17,7 +16,6 @@ class TripPlanCard extends StatelessWidget {
     required this.title,
     required this.location,
     required this.description,
-    required this.likes,
     required this.locationLink,
   });
 
@@ -34,7 +32,6 @@ class TripPlanCard extends StatelessWidget {
               title: title,
               location: location,
               description: description,
-              likes: likes,
               locationLink: locationLink,
             ),
           ),
