@@ -14,7 +14,7 @@ const createTripPlace = async (req, res) => {
 const getTripPlaces = async (req, res) => {
     try {
         const data = req.body;
-        const TripPlaces = await TripPlace.find({district: data.endPoint, budget: data.budget, tripType: data.tripType});
+        const TripPlaces = await TripPlace.find({district: data.endPoint, tripType: data.tripType});
         return res.send({ success: true, TripPlaces: TripPlaces });
 
     } catch (error) {
