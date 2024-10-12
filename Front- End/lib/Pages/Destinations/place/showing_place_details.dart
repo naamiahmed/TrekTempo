@@ -97,7 +97,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
               children: [
                 SizedBox(
                   height: 200.0,
-                  width: double.infinity, // get Full width
+                  width: double.infinity,
                   child: AnotherCarousel(
                     images: widget.imagePaths.map((imagePath) {
                       return NetworkImage(imagePath);
@@ -106,7 +106,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     autoplay: true,
                     dotSize: 4.0,
                     dotBgColor:
-                        Colors.transparent, // Background color behind the dots
+                        Colors.transparent, 
                     indicatorBgPadding: 8.0, // Padding for the indicators
                   ),
                 ),
@@ -174,15 +174,19 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                             throw 'Could not launch $url';
                           }
                         },
-                        icon: const Icon(Icons.directions,
-                            color: Colors.blueAccent), // Set icon color to blue
+                        icon: const Icon(
+                          Icons.directions,
+                          color: Colors.blueAccent,
+                        ), // Set icon color to blue
                         label: const Text(
                           'Direction',
                           style: TextStyle(
-                              color: Colors.blueAccent), // Set text color to blue
+                            color: Colors.blueAccent,
+                          ), // Set text color to blue
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white, // Button background color
+                          backgroundColor:
+                              Colors.white, // Button background color
                           foregroundColor:
                               Colors.blue, // Splash and highlight color
                         ),
@@ -216,7 +220,6 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   //     ),
                   //   ],
                   // ),
-                  const SizedBox(height: 16),
 
                   // Weather
                   _buildUnderlinedTitle("Weather"),
@@ -226,7 +229,9 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   ] else if (errorMessage != null) ...[
                     Text(
                       errorMessage!,
-                      style: const TextStyle(color: Colors.red),
+                      style: const TextStyle(
+                        color: Colors.red,
+                      ),
                     ),
                   ],
 
