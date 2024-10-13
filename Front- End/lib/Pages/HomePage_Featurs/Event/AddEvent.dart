@@ -67,12 +67,15 @@ class _AddEventPageState extends State<AddEventPage> {
         title: Text('Add Event'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
+
+
             onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => EventPage()),
             );
             },
+
         ),
         backgroundColor: Colors.white,
       ),
