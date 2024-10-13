@@ -116,10 +116,11 @@ class _SearchState extends State<Search> {
                           return Column(
                             children: [
                               PlacesCard(
-                                district: place.district,
+                                city: place.city,
                                 imagePaths: place.images,
                                 title: place.name,
                                 location: place.location,
+                                direction: place.direction,
                                 description: place.description,
                                 likes: place.likes,
                               ),

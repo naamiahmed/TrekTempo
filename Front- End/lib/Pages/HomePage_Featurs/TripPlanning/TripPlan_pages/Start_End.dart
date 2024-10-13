@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Budget.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/DistrictNameList.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Tripplace_card/TripDetails_District.dart';
-import 'package:travel_app/Models/TripPlace.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Tripplace_card/Tripcard.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class StartEndPage extends StatefulWidget {
   @override
@@ -18,30 +13,30 @@ class _StartEndPageState extends State<StartEndPage> {
   final _endPointController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> fetchAndNavigate(String endPoint) async {
-    try {
-      final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getTripPlaces/$endPoint'),
-        headers: {},
-      );
-      if (response.statusCode == 200) {
-        Map<String, dynamic> jsonData = json.decode(response.body);
-        List<dynamic> placesJson = jsonData['TripPlaces'];
-        List<TripPlace> fetchedPlaces = placesJson.map((placeJson) => TripPlace.fromJson(placeJson)).toList();
+  // Future<void> fetchAndNavigate(String endPoint) async {
+  //   try {
+  //     final response = await http.get(
+  //       Uri.parse('http://localhost:5000/api/getTripPlaces/$endPoint'),
+  //       headers: {},
+  //     );
+  //     if (response.statusCode == 200) {
+  //       Map<String, dynamic> jsonData = json.decode(response.body);
+  //       List<dynamic> placesJson = jsonData['TripPlaces'];
+  //       List<TripPlace> fetchedPlaces = placesJson.map((placeJson) => TripPlace.fromJson(placeJson)).toList();
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TripPlaceCard(district: endPoint),
-          ),
-        );
-      } else {
-        print('Failed to fetch data ${response.body}');
-      }
-    } catch (er) {
-      print(er);
-    }
-  }
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => TripPlaceCard(district: endPoint),
+  //         ),
+  //       );
+  //     } else {
+  //       print('Failed to fetch data ${response.body}');
+  //     }
+  //   } catch (er) {
+  //     print(er);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +102,7 @@ class _StartEndPageState extends State<StartEndPage> {
                     },
                     onSelected: (String selection) async {
                       _endPointController.text = selection;
-                      await fetchAndNavigate(selection);
+ //                     await fetchAndNavigate(selection);
                     },
                     fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
                       _endPointController.text = textEditingController.text;
@@ -135,7 +130,7 @@ class _StartEndPageState extends State<StartEndPage> {
                     if (_formKey.currentState!.validate()) {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BudgetPage()),
+                        MaterialPageRoute(builder: (context) => BudgetPage(endPoint:_endPointController.text)),
                       );
                     }
                   },

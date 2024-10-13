@@ -3,9 +3,11 @@ import 'package:travel_app/Models/weatherModel.dart';
 import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
 import 'package:travel_app/controller/api.dart';
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PlaceDetailsPage extends StatefulWidget {
-  final String district;
+  final String city;
+  final String direction;
   final List<String> imagePaths;
   final String title;
   final String location;
@@ -14,7 +16,8 @@ class PlaceDetailsPage extends StatefulWidget {
 
   const PlaceDetailsPage({
     super.key,
-    required this.district,
+    required this.city,
+    required this.direction,
     required this.imagePaths,
     required this.title,
     required this.location,
@@ -27,8 +30,8 @@ class PlaceDetailsPage extends StatefulWidget {
 }
 
 class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
-  bool isLiked = false;
-  bool isSaved = false;
+  // bool isLiked = false;
+  // bool isSaved = false;
   bool isExpanded = false;
   int likesCount = 0;
 
@@ -39,8 +42,8 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   @override
   void initState() {
     super.initState();
-    likesCount = widget.likes; // Initialize with the passed likes count
-    _getWeatherData(placeName: widget.district); // Fetch weather data
+    // likesCount = widget.likes; // Initialize with the passed likes count
+    _getWeatherData(placeName: widget.city); // Fetch weather data
   }
 
   // Fetch weather data based on the place name
@@ -58,22 +61,22 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
     }
   }
 
-  void toggleLike() {
-    setState(() {
-      isLiked = !isLiked;
-      if (isLiked) {
-        likesCount++;
-      } else {
-        likesCount--;
-      }
-    });
-  }
+  // void toggleLike() {
+  //   setState(() {
+  //     isLiked = !isLiked;
+  //     if (isLiked) {
+  //       likesCount++;
+  //     } else {
+  //       likesCount--;
+  //     }
+  //   });
+  // }
 
-  void toggleSave() {
-    setState(() {
-      isSaved = !isSaved;
-    });
-  }
+  // void toggleSave() {
+  //   setState(() {
+  //     isSaved = !isSaved;
+  //   });
+  // }
 
   // Description toggle
   void toggleDescription() {
@@ -93,19 +96,20 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             Stack(
               children: [
                 SizedBox(
-  height: 200.0, // You can adjust the height as needed
-  width: double.infinity, // Full width
-  child: AnotherCarousel(
-    images: widget.imagePaths.map((imagePath) {
-      return NetworkImage(imagePath);  // Using NetworkImage for online images
-    }).toList(),
-    boxFit: BoxFit.cover, // Ensures the images cover the available space
-    autoplay: true,  // Enables auto scrolling of the images
-    dotSize: 4.0,    // Size of the indicator dots
-    dotBgColor: Colors.transparent,  // Background color behind the dots
-    indicatorBgPadding: 8.0,  // Padding for the indicators
-  ),
-),
+                  height: 200.0,
+                  width: double.infinity,
+                  child: AnotherCarousel(
+                    images: widget.imagePaths.map((imagePath) {
+                      return NetworkImage(imagePath);
+                    }).toList(),
+                    boxFit: BoxFit.cover,
+                    autoplay: true,
+                    dotSize: 4.0,
+                    dotBgColor:
+                        Colors.transparent, 
+                    indicatorBgPadding: 8.0, // Padding for the indicators
+                  ),
+                ),
                 Positioned(
                   top: 20,
                   left: 16,
@@ -130,11 +134,19 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Title and Location
                   Text(
                     widget.title,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 4.0,
+                          color: Colors.black45,
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(width: 4),
@@ -145,6 +157,41 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                       fontSize: 12,
                     ),
                     maxLines: null,
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Direction Link
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          var url =
+                              widget.direction; // Replace with your desired URL
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.directions,
+                          color: Colors.blueAccent,
+                        ), // Set icon color to blue
+                        label: const Text(
+                          'Direction',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                          ), // Set text color to blue
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Colors.white, // Button background color
+                          foregroundColor:
+                              Colors.blue, // Splash and highlight color
+                        ),
+                      ),
+                    ],
                   ),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.start,
@@ -173,31 +220,26 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   //     ),
                   //   ],
                   // ),
-                  const SizedBox(height: 16),
 
                   // Weather
-                  const Text("Description",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  _buildUnderlinedTitle("Weather"),
+                  const SizedBox(height: 5),
                   if (weatherData != null) ...[
                     WeatherCard(weatherData: weatherData!),
                   ] else if (errorMessage != null) ...[
                     Text(
                       errorMessage!,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(
+                        color: Colors.red,
+                      ),
                     ),
                   ],
 
                   const SizedBox(height: 16),
 
                   // Description
-                  const Text("Description",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  _buildUnderlinedTitle("Description"),
+                  const SizedBox(height: 5),
                   Text(
                     widget.description,
                     style: TextStyle(
@@ -215,7 +257,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     child: Text(
                       isExpanded ? "Read less" : "Read more",
                       style: const TextStyle(
-                        color: Colors.blue,
+                        color: Colors.blueAccent,
                         fontSize: 14,
                         decoration: TextDecoration.underline,
                       ),
@@ -229,4 +271,24 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
       ),
     );
   }
+}
+
+Widget _buildUnderlinedTitle(String title) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        title,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Container(
+        width: 40,
+        height: 2,
+        color: Colors.blueAccent,
+      ),
+    ],
+  );
 }

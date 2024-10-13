@@ -1,10 +1,9 @@
-//the card widget of the places in the district
-
 import 'package:flutter/material.dart';
 import 'place/showing_place_details.dart';
 
 class PlacesCard extends StatelessWidget {
-  final String district;
+  final String city;
+  final String direction;
   final List<String> imagePaths;
   final String title;
   final String location;
@@ -13,7 +12,8 @@ class PlacesCard extends StatelessWidget {
 
   const PlacesCard({
     super.key,
-    required this.district,
+    required this.city,
+    required this.direction,
     required this.imagePaths,
     required this.title,
     required this.location,
@@ -29,7 +29,8 @@ class PlacesCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => PlaceDetailsPage(
-              district: district,
+              city: city,
+              direction: direction,
               imagePaths: imagePaths,
               title: title,
               location: location,
@@ -59,8 +60,7 @@ class PlacesCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  right: 16.0, left: 16.0, bottom: 16.0, top: 8.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,7 +68,7 @@ class PlacesCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Title (remains fully visible)
+                      // Title and Location
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,10 +76,11 @@ class PlacesCard extends StatelessWidget {
                             Text(
                               title,
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            const SizedBox(height: 4),
                             Row(
                               children: [
                                 const Icon(
@@ -88,12 +89,11 @@ class PlacesCard extends StatelessWidget {
                                   size: 12,
                                 ),
                                 const SizedBox(width: 4),
-                                // Location with ellipsis if too long
                                 Expanded(
                                   child: Text(
                                     location,
-                                    style: TextStyle(
-                                      color: Colors.grey[600],
+                                    style: const TextStyle(
+                                      color: Colors.grey,
                                       fontSize: 12,
                                     ),
                                     maxLines: 1,
@@ -106,32 +106,31 @@ class PlacesCard extends StatelessWidget {
                         ),
                       ),
                       // Like Icon and Count
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                            size: 24,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '$likes', // Display number of likes
-                            style: const TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   children: [
+                      //     const Icon(
+                      //       Icons.favorite,
+                      //       color: Colors.red,
+                      //       size: 24,
+                      //     ),
+                      //     const SizedBox(height: 4),
+                      //     Text(
+                      //       '$likes',
+                      //       style: const TextStyle(
+                      //         color: Colors.red,
+                      //         fontSize: 12,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  // Description with two lines only and ellipsis if too long
+                  // Description
                   Text(
                     description,
-                    style: TextStyle(
-                      color: Colors.grey[700],
+                    style: const TextStyle(
+                      color: Colors.grey,
                       fontSize: 12,
                     ),
                     maxLines: 2,

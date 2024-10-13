@@ -3,16 +3,18 @@ class TripPlace {
   final String name;
   final String location;
   final String description;
-  final int weather;
   final List<String> images;
+  final String tripType;
+  final String locationLink;
 
   TripPlace({
     required this.district,
     required this.name,
     required this.location,
     required this.description,
-    required this.weather,
-    required this.images
+    required this.images,
+    required this.tripType,
+    required this.locationLink,
   });
     factory TripPlace.fromJson(Map<String, dynamic> json) {
     return TripPlace(
@@ -20,8 +22,10 @@ class TripPlace {
       name: json['name'],
       location: json['location'],
       description: json['description'],
-      weather: json['weather'],
-      images: List<String>.from(json['images'])
+      images: List<String>.from(json['images']),
+      tripType: json['tripType'],
+      locationLink: json['locationLink'],
+
     );
   }
 }
