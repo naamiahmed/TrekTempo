@@ -1,123 +1,239 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
+import 'package:translator/translator.dart';
 
 class TranslatorPage extends StatefulWidget {
+  const TranslatorPage({Key? key}) : super(key: key);
+
   @override
-  _TranslatorPageState createState() => _TranslatorPageState();
+  State<TranslatorPage> createState() => _TranslatorPageState();
 }
 
 class _TranslatorPageState extends State<TranslatorPage> {
-  TextEditingController _textController = TextEditingController();
-  String _translatedText = '';
-  String _targetLanguage = 'es'; // Default target language is Spanish
-  bool _isLoading = false;
+  final inputController = TextEditingController();
+  final outputController = TextEditingController();
+  final translator = GoogleTranslator();
 
-  final String _apiKey = 'AIzaSyCcp-n3pWlsKuIaYtzodL0AA-ZC4h9rqNw'; // Your API Key
+  String inputLanguage = 'English';
+  String outputLanguage = 'Sinhala';
 
-  Future<void> translateText(String text, String targetLanguage) async {
-    final url = Uri.parse(
-        'https://translation.googleapis.com/language/translate/v2?key=$_apiKey');
-    
-    setState(() {
-      _isLoading = true;
-    });
+  final Map<String, String> languageCodes = {
+    'Sinhala': 'si',
+    'Chinese': 'zh-cn',
+    'English': 'en',
+    'French': 'fr',
+    'Hindi': 'hi',
+    'Russian': 'ru',
+    'Tamil': 'ta',
+  };
+
+  Future<void> translateText() async {
+    final fromLangCode = languageCodes[inputLanguage] ?? 'en';
+    final toLangCode = languageCodes[outputLanguage] ?? 'en';
 
     try {
-      final response = await http.post(url, body: {
-        'q': text,
-        'target': targetLanguage,
+      final translated = await translator.translate(
+        inputController.text,
+        from: fromLangCode,
+        to: toLangCode,
+      );
+
+      setState(() {
+        outputController.text = translated.text;
       });
-
-      if (response.statusCode == 200) {
-        final responseData = json.decode(response.body);
-        setState(() {
-          _translatedText = responseData['data']['translations'][0]['translatedText'];
-        });
-      } else {
-        print('Translation failed with status: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error occurred: $error');
+    } catch (e) {
+      setState(() {
+        outputController.text = 'Error during translation: $e';
+      });
     }
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Translator'),
+        title: Text(
+          'Translator',
+          style: TextStyle(
+            fontSize: 30.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              controller: _textController,
-              decoration: InputDecoration(
-                labelText: 'Enter text to translate',
-                border: OutlineInputBorder(),
+            Card(
+              color: Colors.white,
+              elevation: 8,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: inputController,
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Enter text to translate",
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400,
+                            )),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete,
+                          color: Color.fromARGB(255, 62, 62, 66)),
+                      onPressed: () {
+                        inputController.clear();
+                        outputController.clear(); // Clear the input text field
+                      },
+                    ),
+                  ],
+                ),
               ),
-              maxLines: 3,
             ),
-            SizedBox(height: 20),
-            DropdownButton<String>(
-              value: _targetLanguage,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _targetLanguage = newValue!;
-                });
-              },
-              items: <String>['es', 'fr', 'de', 'ja', 'zh']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(getLanguageName(value)),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 20),
-            Button(
-              text: 'Translate',
-              onPressed: () {
-                if (_textController.text.isNotEmpty) {
-                  translateText(_textController.text, _targetLanguage);
-                }
-              },
-            ),
-            SizedBox(height: 20),
-            _isLoading
-                ? Center(child: CircularProgressIndicator())
-                : Text(
-                    _translatedText,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Styled Input Language Dropdown
+                Container(
+                  width: 90, // Set a width to center the dropdown
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12.0),
+                    border: Border.all(color: Colors.grey, width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
                   ),
+                  child: DropdownButton<String>(
+                    isExpanded: true, // Expand dropdown to fit the container
+                    value: inputLanguage,
+                    onChanged: (newValue) {
+                      setState(() {
+                        inputLanguage = newValue!;
+                      });
+                    },
+                    items: languageCodes.keys
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Center(
+                            child: Text(value)), // Center the dropdown item
+                      );
+                    }).toList(),
+                    underline: SizedBox(), // Remove underline
+                  ),
+                ),
+
+                FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      final temp = inputLanguage;
+                      inputLanguage = outputLanguage;
+                      outputLanguage = temp;
+                    });
+                  },
+                  child: Icon(
+                    Icons.swap_horiz,
+                    color: Colors.white,
+                  ),
+                  mini: true,
+                  backgroundColor: Colors.blueAccent,
+                ),
+
+                // Styled Output Language Dropdown
+                Container(
+                  width: 90, // Set a width to center the dropdown
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12.0),
+                    border: Border.all(color: Colors.grey, width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: DropdownButton<String>(
+                    isExpanded: true, // Expand dropdown to fit the container
+                    value: outputLanguage,
+                    onChanged: (newValue) {
+                      setState(() {
+                        outputLanguage = newValue!;
+                      });
+                    },
+                    items: languageCodes.keys
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Center(
+                            child: Text(value)), // Center the dropdown item
+                      );
+                    }).toList(),
+                    underline: SizedBox(), // Remove underline
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Card(
+              color: Colors.white,
+              elevation: 8,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: outputController,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Result here...",
+                      hintStyle: TextStyle(
+                        color: Colors.grey, // Change hint text color
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w400,
+                      )),
+                  readOnly: true,
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: translateText,
+              child: Text(
+                "Translate",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                minimumSize: Size(150, 55),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
-  }
-
-  String getLanguageName(String code) {
-    switch (code) {
-      case 'es':
-        return 'Spanish';
-      case 'fr':
-        return 'French';
-      case 'de':
-        return 'German';
-      case 'ja':
-        return 'Japanese';
-      case 'zh':
-        return 'Chinese';
-      default:
-        return 'Unknown';
-    }
   }
 }

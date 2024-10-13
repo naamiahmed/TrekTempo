@@ -6,6 +6,10 @@ const placeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    city: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
@@ -14,9 +18,13 @@ const placeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    direction: {
+        type: String,
+        required: true,
+    },
     likes: {
         type: Number,
-        required: true,
+        default: 0,
     },
     description: {
         type: String,
@@ -24,7 +32,7 @@ const placeSchema = new mongoose.Schema({
     },
     images: {
         type: Array,
-        required: false,
+        required: true,
     },
 });
 
