@@ -4,19 +4,21 @@ import 'package:flutter/material.dart';
 import 'place/showing_place_details.dart';
 
 class PlacesCard extends StatelessWidget {
-  final String district;
+  final String city;
   final List<String> imagePaths;
   final String title;
   final String location;
+  final String direction;
   final String description;
   final int likes;
 
   const PlacesCard({
     super.key,
-    required this.district,
+    required this.city,
     required this.imagePaths,
     required this.title,
     required this.location,
+    required this.direction,
     required this.description,
     required this.likes,
   });
@@ -29,10 +31,11 @@ class PlacesCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => PlaceDetailsPage(
-              district: district,
+              city: city,
               imagePaths: imagePaths,
               title: title,
               location: location,
+              direction: direction,
               description: description,
               likes: likes,
             ),

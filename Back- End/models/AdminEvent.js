@@ -1,12 +1,8 @@
 const mongoose = require('mongoose');
 
-const placeSchema = new mongoose.Schema({
+const EventSchema = new mongoose.Schema({
 
     district: {
-        type: String,
-        required: true,
-    },
-    city: {
         type: String,
         required: true,
     },
@@ -18,13 +14,9 @@ const placeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    direction: {
-        type: String,
+    date:{
+        type: Date,
         required: true,
-    },
-    likes: {
-        type: Number,
-        default: 0,
     },
     description: {
         type: String,
@@ -34,7 +26,11 @@ const placeSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
+    locationLink: {
+        type: String,
+        required: false,
+    },
 });
 
-const Place = mongoose.model('Place', placeSchema);
-module.exports = Place;
+const event = mongoose.model('event', EventSchema);
+module.exports = event;

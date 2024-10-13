@@ -1,6 +1,4 @@
 const TripPlace = require('../models/TripPlace'); // Adjust the path according to your project structure
-const Place = require('../models/Place'); // Adjust the path according to your project structure
-
 const createTripPlace = async (req, res) => {
   try {
       const tripPlacesData = req.body; 
