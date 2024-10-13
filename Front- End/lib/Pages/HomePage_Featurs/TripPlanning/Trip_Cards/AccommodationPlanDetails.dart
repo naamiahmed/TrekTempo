@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Models/weatherModel.dart';
 import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
 import 'package:travel_app/controller/api.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AccommodationDetails extends StatefulWidget {
   final String district;
@@ -138,49 +139,38 @@ class _AccommodationDetailsState extends State<AccommodationDetails> {
                     ),
                     maxLines: null,
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     IconButton(
-                  //       icon: Icon(
-                  //         isLiked ? Icons.favorite : Icons.favorite_border,
-                  //         color: Colors.red,
-                  //         size: 24,
-                  //       ),
-                  //       onPressed: toggleLike,
-                  //     ),
-                  //     Text(
-                  //       '$likesCount likes',
-                  //       style: TextStyle(
-                  //         color: Colors.grey[700],
-                  //         fontSize: 14,
-                  //       ),
-                  //     ),
-                  //     IconButton(
-                  //       icon: Icon(
-                  //         isSaved ? Icons.bookmark : Icons.bookmark_border,
-                  //         color: Colors.blue,
-                  //       ),
-                  //       onPressed: toggleSave,
-                  //     ),
-                  //   ],
-                  // ),
                   const SizedBox(height: 16),
 
-                  // Weather
-                  // const Text("Description",
-                  //     style: TextStyle(
-                  //       fontSize: 18,
-                  //       fontWeight: FontWeight.bold,
-                  //     )),
-                  // if (weatherData != null) ...[
-                  //   WeatherCard(weatherData: weatherData!),
-                  // ] else if (errorMessage != null) ...[
-                  //   Text(
-                  //     errorMessage!,
-                  //     style: TextStyle(color: Colors.red),
-                  //   ),
-                  // ],
+                  // Direction Button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          var url = widget.locationLink; // Use the locationLink for direction
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.directions,
+                          color: Colors.blueAccent,
+                        ), // Set icon color to blue
+                        label: const Text(
+                          'Direction',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                          ), // Set text color to blue
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white, // Button background color
+                          foregroundColor: Colors.blue, // Splash and highlight color
+                        ),
+                      ),
+                    ],
+                  ),
 
                   const SizedBox(height: 16),
 
