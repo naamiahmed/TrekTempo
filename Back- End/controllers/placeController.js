@@ -14,7 +14,7 @@ const createPlace = async (req, res) => {
   }
 };
 
-// get all places from the database or get places by district
+// get places by district
 const getPlaces = async (req, res) => {
   try {
     const district = req.params.district;
