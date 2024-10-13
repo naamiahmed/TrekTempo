@@ -33,7 +33,7 @@ flutter_icons:
   image_path: "assets/images/AppIcon.png"
 
 flutter:
-  uses-material-design: true
+  uses-material-design: true 
 
   assets:
     - assets/images/
