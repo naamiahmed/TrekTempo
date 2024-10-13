@@ -5,6 +5,7 @@ const authRoutes = require('./routes/auth');
 const placeRoutes = require('./routes/place');
 const tripPlaceRoutes = require('./routes/tripPlace');
 const accommodationRoutes = require('./routes/accommodation');
+const adminEventRoutes = require('./routes/adminEvent');
 //const connectDB = require('./config/db');
 require('dotenv').config();
 
@@ -26,6 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api', placeRoutes);
 app.use('/api', tripPlaceRoutes);
 app.use('/api', accommodationRoutes);
+app.use('/api', adminEventRoutes);
 
 
 // Start the server
