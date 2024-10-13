@@ -3,12 +3,15 @@ import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Tr
 import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
 
 class BudgetPage extends StatefulWidget {
+  final String endPoint;
+  const BudgetPage({Key? key, required this.endPoint}) : super(key: key);
   @override
   _BudgetPageState createState() => _BudgetPageState();
 }
 
 class _BudgetPageState extends State<BudgetPage> {
-  String? _budget;
+
+  String _budget = 'Low';
   String? _errorMessage;
 
   @override
@@ -50,7 +53,7 @@ class _BudgetPageState extends State<BudgetPage> {
                       } else {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => TripPersonTypePage()),
+                          MaterialPageRoute(builder: (context) => TripPersonTypePage(endPoint: widget.endPoint, budget: _budget)),
                         );
                       }
                     },

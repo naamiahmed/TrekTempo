@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlanning.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Ready_plan.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripDetails.dart';
 
 
 class TripTypePage extends StatefulWidget {
+  final String endPoint;
+  final String budget;
+  final String tripPersonType;
+  const TripTypePage({Key? key, required this.endPoint, required this.budget, required this.tripPersonType}) : super(key: key);
   @override
   _TripTypePageState createState() => _TripTypePageState();
 }
 
 class _TripTypePageState extends State<TripTypePage> {
+
   String _tripType = 'Spiritual';
 
   @override
@@ -39,7 +43,7 @@ class _TripTypePageState extends State<TripTypePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ReadyPlanPage()),
+                    MaterialPageRoute(builder: (context) => TripPlanDetails(endPoint: widget.endPoint, budget: widget.budget, tripPersonType: widget.tripPersonType, tripType: _tripType)),
                   );
                 },
               ),

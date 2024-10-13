@@ -11,10 +11,11 @@ class TravelApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TrekTempo',
+      title: 'TrackTempo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: Colors.white ,//Color.fromRGBO(255, 255, 255, 0.9)
       ),
       debugShowCheckedModeBanner: false,
       home: const HomePage(), // Set HomePage as the initial route

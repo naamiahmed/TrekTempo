@@ -50,29 +50,29 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
         final tripId = responseData['tripId'];
 
         // Success: Use the server response (e.g., tripId)
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TripPlanDetails( ),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => TripPlanDetails( ),
+        //   ),
+        // );
       } else {
         // Error but still navigate to TripPlanDetails with empty tripId
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TripPlanDetails( ),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => TripPlanDetails( ),
+        //   ),
+        // );
       }
     } catch (e) {
       // Handle connection or other errors, still navigate to TripPlanDetails
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TripPlanDetails( ),
-        ),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => TripPlanDetails( ),
+      //   ),
+      // );
     }
   }
 }

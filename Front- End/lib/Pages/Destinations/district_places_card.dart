@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'place/showing_place_details.dart';
 
 class PlacesCard extends StatelessWidget {
-  final String district;
+  final String city;
+  final String direction;
   final List<String> imagePaths;
   final String title;
   final String location;
@@ -11,7 +12,8 @@ class PlacesCard extends StatelessWidget {
 
   const PlacesCard({
     super.key,
-    required this.district,
+    required this.city,
+    required this.direction,
     required this.imagePaths,
     required this.title,
     required this.location,
@@ -27,7 +29,8 @@ class PlacesCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => PlaceDetailsPage(
-              district: district,
+              city: city,
+              direction: direction,
               imagePaths: imagePaths,
               title: title,
               location: location,
@@ -103,23 +106,23 @@ class PlacesCard extends StatelessWidget {
                         ),
                       ),
                       // Like Icon and Count
-                      Column(
-                        children: [
-                          const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                            size: 24,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '$likes',
-                            style: const TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   children: [
+                      //     const Icon(
+                      //       Icons.favorite,
+                      //       color: Colors.red,
+                      //       size: 24,
+                      //     ),
+                      //     const SizedBox(height: 4),
+                      //     Text(
+                      //       '$likes',
+                      //       style: const TextStyle(
+                      //         color: Colors.red,
+                      //         fontSize: 12,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 8),
