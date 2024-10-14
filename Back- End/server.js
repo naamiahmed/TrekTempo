@@ -6,8 +6,6 @@ const placeRoutes = require('./routes/place');
 const tripPlaceRoutes = require('./routes/tripPlace');
 const accommodationRoutes = require('./routes/accommodation');
 const adminEventRoutes = require('./routes/adminEvent');
-const adminAcceptedEventRoutes = require('./routes/adminAcceptedEvent');
-const eventRoutes = require('./routes/event');
 //const connectDB = require('./config/db');
 require('dotenv').config();
 
@@ -30,8 +28,6 @@ app.use('/api', placeRoutes);
 app.use('/api', tripPlaceRoutes);
 app.use('/api', accommodationRoutes);
 app.use('/api', adminEventRoutes);
-app.use('/api', adminAcceptedEventRoutes);
-app.use('/api', eventRoutes);
 
 
 // Start the server
