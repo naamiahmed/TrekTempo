@@ -62,4 +62,17 @@ const getAllPlaces = async (req, res) => {
   }
 };
 
-module.exports = { createPlace, getPlaces, getOnePlace, getAllPlaces };
+// Delete place
+const deletePlace = async (req, res) => {
+  try {
+    const place = await Place.findByIdAndDelete(req.params.id);
+    if (!place) {
+      return res.status(404).json({ success: false, message: 'Place not found' });
+    }
+    res.json({ success: true, message: 'Place deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+module.exports = { createPlace, getPlaces, getOnePlace, getAllPlaces, deletePlace };
