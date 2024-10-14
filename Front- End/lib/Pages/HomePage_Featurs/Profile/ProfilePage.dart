@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Profile/EditProfilePage.dart'; // Import the EditProfilePage
 
 void main() => runApp(MyApp());
 
@@ -27,7 +28,9 @@ class ProfilePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => (EditProfilePage()))); // Navigate to the EditProfilePage
+            },
           ),
         ],
       ),
