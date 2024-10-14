@@ -2,34 +2,34 @@ const mongoose = require('mongoose');
 
 const AcceptedEventSchema = new mongoose.Schema({
 
-    district: {
+    title: {
         type: String,
         required: true,
-    },
-    name: {
+      },
+      phone: {
         type: String,
         required: true,
-    },
-    location: {
+      },
+      district: {
         type: String,
         required: true,
-    },
-    date:{
+      },
+      place: {
+        type: String,
+        required: true,
+      },
+      location: {
+        type: String,
+        required: true,
+      },
+      date: {
         type: Date,
         required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-    },
-    images: {
-        type: Array,
-        required: true,
-    },
-    locationLink: {
+      },
+      imageUrl: {
         type: String,
         required: false,
-    },
+      },
 });
 
 const acceptedevent = mongoose.model('acceptedevent', AcceptedEventSchema);

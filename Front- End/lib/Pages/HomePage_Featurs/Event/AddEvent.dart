@@ -1,22 +1,10 @@
 import 'dart:io';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:async/async.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventPage.dart';
-
-void main() => runApp(AddEvent());
-
-class AddEvent extends StatelessWidget {
-  const AddEvent({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: AddEventPage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
 
 class AddEventPage extends StatefulWidget {
   @override
@@ -25,88 +13,67 @@ class AddEventPage extends StatefulWidget {
 
 class _AddEventPageState extends State<AddEventPage> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _placeController = TextEditingController();
   String? _selectedDistrict;
-  DateTime? _selectedDate; // For one-day events
-  DateTimeRange? _dateRange; // For multi-day events
-  String _eventType = 'One Day'; // Default event type is 'One Day'
-  
-  // Image variable
-  XFile? _image;
+  File? _image;
 
-  // Text editing controllers
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
-  TextEditingController _dateController = TextEditingController();
-  TextEditingController _locationController = TextEditingController();
-
-  // Function to pick an image
-  Future<void> pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? selectedImage = await _picker.pickImage(source: ImageSource.gallery);
-    
-    if (selectedImage != null) {
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
       setState(() {
-        _image = selectedImage; // Set the selected image
+        _image = File(pickedFile.path);
       });
     } else {
       print('No image selected');
     }
   }
 
-  // Function to add event
-  Future<void> addEvent(String title, String description, String date, String location, String imageUrl) async {
-    final url = Uri.parse('http://localhost:5000/api/addEvent'); // Replace with your actual backend URL
+  Future<void> _addEvent() async {
+    if (_formKey.currentState!.validate()) {
+      final String title = _titleController.text;
+      final String phone = _phoneController.text;
+      final String date = _dateController.text;
+      final String location = _locationController.text;
+      final String place = _placeController.text;
+      final String? district = _selectedDistrict;
 
-    try {
+      final url = Uri.parse('http://localhost:5000/api/addEvent');
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;
-      request.fields['description'] = description;
+      request.fields['phone'] = phone;
       request.fields['date'] = date;
       request.fields['location'] = location;
+      request.fields['place'] = place;
+      request.fields['district'] = district ?? '';
 
       if (_image != null) {
         request.files.add(await http.MultipartFile.fromPath('image', _image!.path));
       }
 
       var response = await request.send();
-
       if (response.statusCode == 201) {
         print('Event added successfully!');
       } else {
         print('Failed to add event: ${response.reasonPhrase}');
       }
-    } catch (error) {
-      print('Error: $error');
     }
   }
 
-  // Function to select a date for one-day events
   Future<void> _selectDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(), // Prevent selecting past dates
+      firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
 
     if (pickedDate != null) {
       setState(() {
-        _selectedDate = pickedDate;
-      });
-    }
-  }
-
-  // Function to select a date range for multi-day events
-  Future<void> _selectDateRange(BuildContext context) async {
-    DateTimeRange? newDateRange = await showDateRangePicker(
-      context: context,
-      firstDate: DateTime.now(), // Prevent selecting past dates
-      lastDate: DateTime(2101),
-    );
-
-    if (newDateRange != null) {
-      setState(() {
-        _dateRange = newDateRange;
+        _dateController.text = pickedDate.toIso8601String();
       });
     }
   }
@@ -118,12 +85,12 @@ class _AddEventPageState extends State<AddEventPage> {
         title: Text('Add Event'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-            onPressed: () {
+          onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => EventPage()),
             );
-            },
+          },
         ),
         backgroundColor: Colors.white,
       ),
@@ -147,6 +114,7 @@ class _AddEventPageState extends State<AddEventPage> {
               ),
               SizedBox(height: 16),
               TextFormField(
+                controller: _phoneController,
                 validator: (value) {
                   if (value!.isEmpty || !RegExp(r'^[0-9]{10}$').hasMatch(value)) {
                     return "Enter a valid 10-digit phone number";
@@ -187,136 +155,54 @@ class _AddEventPageState extends State<AddEventPage> {
               ),
               SizedBox(height: 16),
               TextFormField(
+                controller: _placeController,
                 validator: (value) {
                   if (value!.isEmpty) return "Place Name can't be empty";
                   return null;
                 },
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.location_on),
-                  labelText: 'Place Name',
+                  labelText: 'Place',
                   border: OutlineInputBorder(),
                 ),
               ),
               SizedBox(height: 16),
               TextFormField(
+                controller: _locationController,
+                validator: (value) {
+                  if (value!.isEmpty) return "Location can't be empty";
+                  return null;
+                },
                 decoration: InputDecoration(
+                  labelText: 'Location',
                   prefixIcon: Icon(Icons.location_on),
-                  labelText: 'Event Location(optional) ',
                   border: OutlineInputBorder(),
                 ),
               ),
               SizedBox(height: 16),
-              Text('Event Type', style: TextStyle(fontWeight: FontWeight.bold)),
-              Row(
-                children: [
-                  Expanded(
-                    child: RadioListTile<String>(
-                      title: Text('One Day'),
-                      value: 'One Day',
-                      groupValue: _eventType,
-                      onChanged: (value) {
-                        setState(() {
-                          _eventType = value!;
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: RadioListTile<String>(
-                      title: Text('More Than One Day'),
-                      value: 'More Than One Day',
-                      groupValue: _eventType,
-                      onChanged: (value) {
-                        setState(() {
-                          _eventType = value!;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              // Conditional date input based on selected event type
-              if (_eventType == 'One Day')
-                GestureDetector(
-                  onTap: () => _selectDate(context),
-                  child: AbsorbPointer(
-                    child: TextFormField(
-                      validator: (value) {
-                        if (_selectedDate == null) {
-                          return "Please select a valid event date.";
-                        }
-                        if (_selectedDate!.isBefore(DateTime.now())) {
-                          return "Event date cannot be in the past.";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Event Date',
-                        prefixIcon: Icon(Icons.calendar_today),
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: TextEditingController(
-                        text: _selectedDate == null
-                            ? 'Select Date'
-                            : '${_selectedDate!.toLocal()}'.split(' ')[0],
-                      ),
-                    ),
-                  ),
-                ),
-              if (_eventType == 'More Than One Day')
-                GestureDetector(
-                  onTap: () => _selectDateRange(context),
-                  child: AbsorbPointer(
-                    child: TextFormField(
-                      validator: (value) {
-                        if (_dateRange == null) {
-                          return "Please select a valid date range.";
-                        }
-                        if (_dateRange!.start.isBefore(DateTime.now())) {
-                          return "Event start date cannot be in the past.";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Event Dates',
-                        prefixIcon: Icon(Icons.calendar_today),
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: TextEditingController(
-                        text: _dateRange == null
-                            ? 'Select Date Range'
-                            : '${_dateRange!.start.toLocal()} - ${_dateRange!.end.toLocal()}'.split(' ')[0],
-                      ),
-                    ),
-                  ),
-                ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: pickImage, // Call the pickImage function
-                child: Text('Select Image'),
-              ),
-              // Display the selected image
-              if (_image != null) 
-                Image.file(File(_image!.path), height: 150, width: 150, fit: BoxFit.cover),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Here you can add your logic to get imageUrl
-                    final imageUrl = _image?.path; // Use the image path or implement image upload to get a URL
-                    addEvent(
-                      _titleController.text,
-                      _descriptionController.text,
-                      _selectedDate?.toLocal().toString() ?? '',
-                      _locationController.text,
-                      imageUrl ?? '', // Send the image URL or path
-                    );
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EventPage()),
-                    );
-                  }
+              TextFormField(
+                controller: _dateController,
+                validator: (value) {
+                  if (value!.isEmpty) return "Date can't be empty";
+                  return null;
                 },
+                decoration: InputDecoration(
+                  labelText: 'Date',
+                  prefixIcon: Icon(Icons.date_range),
+                  border: OutlineInputBorder(),
+                ),
+                onTap: () {
+                  _selectDate(context);
+                },
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _pickImage,
+                child: Text('Pick Image'),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _addEvent,
                 child: Text('Add Event'),
               ),
             ],
