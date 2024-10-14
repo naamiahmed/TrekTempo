@@ -1,3 +1,4 @@
+import 'dart:io'; // Import dart:io to handle file images
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart'; // Import image_picker package
 
@@ -24,7 +25,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String username = 'Rifthan Fathir'; // Variable to store the username
   final TextEditingController usernameController = TextEditingController(); // Controller for the username input
   bool isEditingUsername = false; // Flag for editing mode
-  String? profileImagePath; // Variable to store the path of the profile image
+  File? profileImage; // Use File to store the selected profile image
 
   Future<void> _pickImage(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
@@ -32,7 +33,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final XFile? image = await _picker.pickImage(source: source);
     if (image != null) {
       setState(() {
-        profileImagePath = image.path; // Update the profile image path
+        profileImage = File(image.path); // Update the profile image with a File object
       });
     }
   }
@@ -98,9 +99,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: profileImagePath != null
-                      ? AssetImage(profileImagePath!) // Use selected image
-                      : AssetImage('assets/images/naami.jpg'), // Default image
+                  backgroundImage: profileImage != null
+                      ? FileImage(profileImage!) // Use FileImage for selected image
+                      : AssetImage('assets/images/naami.jpg') as ImageProvider, // Default image
                 ),
                 SizedBox(width: 8), // Space between profile picture and icon
                 IconButton(
