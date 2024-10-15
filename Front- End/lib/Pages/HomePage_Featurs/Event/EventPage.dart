@@ -29,7 +29,7 @@ class _HomeState extends State<EventPage> {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final List fetchedEvents = responseData['events']; // Extract the list of events
-        print('Fetched Events: $fetchedEvents'); // Debug print statement
+        // print('Fetched Events: $fetchedEvents'); // Debug print statement
         setState(() {
           events = fetchedEvents;
         });

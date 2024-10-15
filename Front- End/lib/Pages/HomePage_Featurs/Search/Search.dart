@@ -115,15 +115,7 @@ class _SearchState extends State<Search> {
                           final place = filteredDestinations[index];
                           return Column(
                             children: [
-                              PlacesCard(
-                                city: place.city,
-                                imagePaths: place.images,
-                                title: place.name,
-                                location: place.location,
-                                direction: place.direction,
-                                description: place.description,
-                                likes: place.likes,
-                              ),
+                              PlacesCard(place: place),
                               const SizedBox(height: 16),
                             ],
                           );

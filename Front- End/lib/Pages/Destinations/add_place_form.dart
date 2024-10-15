@@ -80,8 +80,8 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
         var response = await request.send();
 
         if (response.statusCode == 201) {
-          // Success, show a message or process the response
-          print('Place created successfully!');
+          // Show success dialog
+          _showSuccessDialog();
         } else {
           print('Failed to create the place. Error: ${response.statusCode}');
         }
@@ -95,6 +95,26 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
         _images = [];
       });
     }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: this.context, // Use the widget's context
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Submission Successful'),
+          content: const Text('Your place has been submitted and is under review.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
