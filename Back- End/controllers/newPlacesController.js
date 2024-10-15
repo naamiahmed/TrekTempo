@@ -1,16 +1,41 @@
 const NewPlace = require("../models/NewPlace");
+const multer = require('multer');
+const path = require('path');
 
+// Configure multer for image upload
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/request_places_images/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
 
+const upload = multer({ storage: storage });
+
+// Creating new place entries in the database
 const createNewPlace = async (req, res) => {
   try {
-    const newPlacesData = req.body;
-    const newPlaces = await NewPlace.insertMany(newPlacesData);
-    res.send({ success: true, newPlace: newPlaces });
+    const { district, city, name, location, direction, description } = req.body;
+    const images = req.files.map(file => `http://localhost:5000/uploads/request_places_images/${file.filename}`);
+
+    const newPlace = new NewPlace({
+      district,
+      city,
+      name,
+      location,
+      direction,
+      description,
+      images,
+    });
+
+    await newPlace.save();
+    res.status(201).json({ message: 'New place created successfully!', place: newPlace });
   } catch (error) {
-    res.send({ success: false, message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
-
 
 // Get all new places
 const getAllNewPlaces = async (req, res) => {
@@ -31,14 +56,14 @@ const getAllNewPlaces = async (req, res) => {
 // Delete Request place
 const deleteRequestPlace = async (req, res) => {
   try {
-    const reqestedPlace = await NewPlace.findByIdAndDelete(req.params.id);
-    if (!reqestedPlace) {
+    const requestedPlace = await NewPlace.findByIdAndDelete(req.params.id);
+    if (!requestedPlace) {
       return res.status(404).json({ success: false, message: 'Place not found' });
     }
-    res.json({ success: true, message: 'Rereqested Place deleted successfully' });
+    res.json({ success: true, message: 'Requested Place deleted successfully' });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
-module.exports = { getAllNewPlaces, createNewPlace, deleteRequestPlace };
+module.exports = { upload, createNewPlace, getAllNewPlaces, deleteRequestPlace };

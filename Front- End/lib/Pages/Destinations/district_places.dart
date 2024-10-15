@@ -1,11 +1,11 @@
 // places of distrcits
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/Place.dart';
 import 'package:travel_app/Pages/Destinations/district_places_card.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:travel_app/Pages/Destinations/add_place_form.dart';
 
 class DestinationCard extends StatefulWidget {
   final String district;
@@ -50,8 +50,19 @@ class _DestinationCardState extends State<DestinationCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.district),
+        title: Text('${widget.district}'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddPlaceForm()),
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<Place>>(
         future: futurePlaces,
