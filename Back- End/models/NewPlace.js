@@ -28,7 +28,7 @@ const newPlaceSchema = new mongoose.Schema({
     },
     images: {
         type: Array,
-        required: false
+        required: false,
     },
 });
 
