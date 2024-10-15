@@ -48,9 +48,10 @@ class EventCard extends StatelessWidget {
               // const SizedBox(height: 4),
               Text("$district , $place ", style: AppWidget.LightTextFeildStyle()),
               const SizedBox(height: 4),
+
               // Text("Location: $location", style: AppWidget.LightTextFeildStyle()),
               // const SizedBox(height: 4),
-              // Text("Date: $date", style: AppWidget.LightTextFeildStyle()),
+               Text("Date: $date", style: AppWidget.LightTextFeildStyle()),
               // const SizedBox(height: 8),
               Row(
                 children: [

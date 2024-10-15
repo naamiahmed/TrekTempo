@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Components/Support.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Details extends StatelessWidget {
   final Map<String, dynamic> event;
@@ -40,75 +41,96 @@ class Details extends StatelessWidget {
               style: AppWidget.LightTextFeildStyle(),
             ),
             const SizedBox(height: 20.0),
-
             RichText(
               text: TextSpan(
-              children: [
-                TextSpan(
-                text: "Phone: ",
-                style: AppWidget.semiBooldTextFieldStyle(),
-                ),
-                TextSpan(
-                text: event["phone"] ?? 'No Phone',
-                style: AppWidget.LightTextFeildStyle(),
-                ),
-              ],
+                children: [
+                  TextSpan(
+                    text: "Phone: ",
+                    style: AppWidget.semiBooldTextFieldStyle(),
+                  ),
+                  TextSpan(
+                    text: event["phone"] ?? 'No Phone',
+                    style: AppWidget.LightTextFeildStyle(),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 8),
             RichText(
               text: TextSpan(
-              children: [
-                TextSpan(
-                text: "District: ",
-                style: AppWidget.semiBooldTextFieldStyle(),
-                ),
-                TextSpan(
-                text: event["district"] ?? 'No District',
-                style: AppWidget.LightTextFeildStyle(),
-                ),
-              ],
+                children: [
+                  TextSpan(
+                    text: "District: ",
+                    style: AppWidget.semiBooldTextFieldStyle(),
+                  ),
+                  TextSpan(
+                    text: event["district"] ?? 'No District',
+                    style: AppWidget.LightTextFeildStyle(),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 8),
             RichText(
               text: TextSpan(
-              children: [
-                TextSpan(
-                text: "Place: ",
-                style: AppWidget.semiBooldTextFieldStyle(),
-                ),
-                TextSpan(
-                text: event["place"] ?? 'No Place',
-                style: AppWidget.LightTextFeildStyle(),
-                ),
-              ],
+                children: [
+                  TextSpan(
+                    text: "Place: ",
+                    style: AppWidget.semiBooldTextFieldStyle(),
+                  ),
+                  TextSpan(
+                    text: event["place"] ?? 'No Place',
+                    style: AppWidget.LightTextFeildStyle(),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 8),
             RichText(
               text: TextSpan(
-              children: [
-                TextSpan(
-                text: "Date: ",
-                style: AppWidget.semiBooldTextFieldStyle(),
-                ),
-                TextSpan(
-                text: event["date"] ?? 'No Date',
-                style: AppWidget.LightTextFeildStyle(),
-                ),
-              ],
+                children: [
+                  TextSpan(
+                    text: "Date: ",
+                    style: AppWidget.semiBooldTextFieldStyle(),
+                  ),
+                  TextSpan(
+                    text: event["date"] ?? 'No Date',
+                    style: AppWidget.LightTextFeildStyle(),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Implement the logic to show the map location
-                // For example, you can navigate to a new screen with a map
-              },
-              child: Text("Show Location"),
+            const SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    var location = event["location"]; // Use the location from the event
+                    var url = 'https://www.google.com/maps/search/?api=1&query=$location';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.location_on,
+                    color: Colors.blueAccent,
+                  ), // Set icon color to blue
+                  label: const Text(
+                    'Location',
+                    style: TextStyle(
+                      color: Colors.blueAccent,
+                    ), // Set text color to blue
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white, // Button background color
+                    foregroundColor: Colors.blue, // Splash and highlight color
+                  ),
+                ),
+              ],
             ),
-
           ],
         ),
       ),
