@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Models/Place.dart';
 import 'package:travel_app/Models/weatherModel.dart';
 import 'package:travel_app/Pages/Destinations/place/weather/weather_card.dart';
 import 'package:travel_app/controller/api.dart';
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class PlaceDetailsPage extends StatefulWidget {
-  final String city;
-  final String direction;
-  final List<String> imagePaths;
-  final String title;
-  final String location;
-  final String description;
-  final int likes;
+  final Place place;
 
   const PlaceDetailsPage({
     super.key,
-    required this.city,
-    required this.direction,
-    required this.imagePaths,
-    required this.title,
-    required this.location,
-    required this.description,
-    required this.likes,
+    required this.place,
   });
 
   @override
@@ -30,7 +21,10 @@ class PlaceDetailsPage extends StatefulWidget {
 }
 
 class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
-  // bool isLiked = false;
+  String userId = "6700ae680edbeca3aef3e1e5";
+
+  late Place place;
+  bool isLiked = false;
   // bool isSaved = false;
   bool isExpanded = false;
   int likesCount = 0;
@@ -42,8 +36,35 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   @override
   void initState() {
     super.initState();
-    // likesCount = widget.likes; // Initialize with the passed likes count
-    _getWeatherData(placeName: widget.city); // Fetch weather data
+    likesCount =
+        widget.place.likedBy.length; // Initialize with the passed likes count
+    _getWeatherData(placeName: widget.place.city); // Fetch weather data
+    fetchUpdatedPlace(widget.place.id);
+    place = widget.place;
+    isLiked = place.likedBy.contains(userId);
+  }
+
+  Future<void> fetchUpdatedPlace(String placeId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/api/getOnePlaceById/$placeId'),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = json.decode(response.body);
+
+        Place placesJson = Place.fromJson(jsonData['place']);
+
+        setState(() {
+          place = placesJson;
+          isLiked = place.likedBy.contains(userId);
+        });
+      } else {
+        throw Exception('Failed to load places');
+      }
+    } catch (e) {
+      throw Exception('Error fetching data: $e');
+    }
   }
 
   // Fetch weather data based on the place name
@@ -61,16 +82,59 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
     }
   }
 
-  // void toggleLike() {
-  //   setState(() {
-  //     isLiked = !isLiked;
-  //     if (isLiked) {
-  //       likesCount++;
-  //     } else {
-  //       likesCount--;
-  //     }
-  //   });
+  // void toggleLike() async {
+  //   // setState(() {
+  //   //   if (isLiked) {
+  //   //     place.likedBy.remove(userId);
+  //   //   } else {
+  //   //     place.likedBy.add(userId);
+  //   //   }
+  //   //   isLiked = !isLiked;
+  //   //   likesCount = place.likedBy.length;
+  //   // });
+
+  //   await handleLikeChange();
   // }
+
+  Future<void> handleLikeChange() async {
+  try {
+    final response = await http.post(
+      Uri.parse('http://localhost:5000/api/handleLike/${widget.place.id}'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'likes': likesCount,
+        'isLiked': isLiked,
+        'userId': userId
+      }),
+    );
+    
+    if (response.statusCode == 200) {
+      // Decode the response
+      Map<String, dynamic> jsonData = json.decode(response.body);
+      
+      // Check if 'place' is not null in the response
+      if (jsonData['place'] != null) {
+        // Parse 'place' data
+        Place placesJson = Place.fromJson(jsonData['place']);
+        
+        setState(() {
+          place = placesJson;
+          isLiked = place.likedBy.contains(userId);
+        });
+      } else {
+        throw Exception('Place data is null');
+      }
+    } else {
+      throw Exception('Failed to load place data. Status code: ${response.statusCode}');
+    }
+  } catch (e) {
+    // Print the exact error message
+    print('Error fetching data: $e');
+    throw Exception('Error fetching data: $e');
+  }
+}
 
   // void toggleSave() {
   //   setState(() {
@@ -99,14 +163,13 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   height: 200.0,
                   width: double.infinity,
                   child: AnotherCarousel(
-                    images: widget.imagePaths.map((imagePath) {
+                    images: widget.place.images.map((imagePath) {
                       return NetworkImage(imagePath);
                     }).toList(),
                     boxFit: BoxFit.cover,
                     autoplay: true,
                     dotSize: 4.0,
-                    dotBgColor:
-                        Colors.transparent, 
+                    dotBgColor: Colors.transparent,
                     indicatorBgPadding: 8.0, // Padding for the indicators
                   ),
                 ),
@@ -136,7 +199,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                 children: [
                   // Title and Location
                   Text(
-                    widget.title,
+                    widget.place.name,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -151,7 +214,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    widget.location,
+                    widget.place.location,
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 12,
@@ -166,8 +229,8 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () async {
-                          var url =
-                              widget.direction; // Replace with your desired URL
+                          var url = widget
+                              .place.direction; // Replace with your desired URL
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
@@ -193,33 +256,34 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                       ),
                     ],
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     IconButton(
-                  //       icon: Icon(
-                  //         isLiked ? Icons.favorite : Icons.favorite_border,
-                  //         color: Colors.red,
-                  //         size: 24,
-                  //       ),
-                  //       onPressed: toggleLike,
-                  //     ),
-                  //     Text(
-                  //       '$likesCount likes',
-                  //       style: TextStyle(
-                  //         color: Colors.grey[700],
-                  //         fontSize: 14,
-                  //       ),
-                  //     ),
-                  //     IconButton(
-                  //       icon: Icon(
-                  //         isSaved ? Icons.bookmark : Icons.bookmark_border,
-                  //         color: Colors.blue,
-                  //       ),
-                  //       onPressed: toggleSave,
-                  //     ),
-                  //   ],
-                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.red,
+                          size: 24,
+                        ),
+                        onPressed: handleLikeChange,
+                      ),
+                      Text(
+                        '${place.likedBy.length} likes',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 14,
+                        ),
+                      ),
+
+                      // IconButton(
+                      //   icon: Icon(
+                      //     isSaved ? Icons.bookmark : Icons.bookmark_border,
+                      //     color: Colors.blue,
+                      //   ),
+                      //   onPressed: toggleSave,
+                      // ),
+                    ],
+                  ),
 
                   // Weather
                   _buildUnderlinedTitle("Weather"),
@@ -241,7 +305,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   _buildUnderlinedTitle("Description"),
                   const SizedBox(height: 5),
                   Text(
-                    widget.description,
+                    widget.place.description,
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 16,

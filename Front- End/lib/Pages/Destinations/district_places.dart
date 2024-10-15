@@ -85,15 +85,7 @@ class _DestinationCardState extends State<DestinationCard> {
                 final place = snapshot.data![index];
                 return Column(
                   children: [
-                    PlacesCard(
-                      city: place.city,
-                      direction: place.direction,
-                      imagePaths: place.images,
-                      title: place.name,
-                      location: place.location,
-                      description: place.description,
-                      likes: place.likes,
-                    ),
+                    PlacesCard(place: place),
                     const SizedBox(height: 16),
                   ],
                 );
