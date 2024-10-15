@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/AboutPage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/ContactUsPage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/shareplus.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignIn.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/SettingsPage.dart'; // Import SettingsPage
 
 class MenuPage extends StatelessWidget {
   @override
@@ -30,34 +34,49 @@ class MenuPage extends StatelessWidget {
             );
           },
         ),
+        // ListTile(
+        //   leading: Icon(Icons.settings),
+        //   title: Text('Settings'),
+        //   onTap: () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => SettingsPage()), // Navigate to SettingsPage
+        //     );
+        //   },
+        // ),
         ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Settings'),
+          leading: Icon(Icons.contact_page),
+          title: Text('Contact us'),
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ContactUsPage()),
+            );
           },
         ),
         ListTile(
-          leading: Icon(Icons.security),
-          title: Text('Security'),
+          leading: Icon(Icons.share),
+          title: Text('Share App'),
           onTap: () {
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: Icon(Icons.message),
-          title: Text('Messages'),
-          onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => shareplus()),
+            );
           },
         ),
         ListTile(
           leading: Icon(Icons.support_agent),
-          title: Text('Help'),
+          title: Text('About us'),
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AboutPage()),
+            );
           },
         ),
+
+        const SizedBox(height: 300),
+
         ListTile(
           leading: Icon(Icons.logout),
           title: Text('Logout'),

@@ -1,36 +1,44 @@
 const mongoose = require('mongoose');
 
 const AcceptedEventSchema = new mongoose.Schema({
-
-    district: {
-        type: String,
-        required: true,
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-    location: {
-        type: String,
-        required: true,
-    },
-    date:{
-        type: Date,
-        required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-    },
-    images: {
-        type: Array,
-        required: true,
-    },
-    locationLink: {
-        type: String,
-        required: false,
-    },
+  title: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+  place: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: false,
+  },
+  imageUrl: {
+    type: String,
+    required: false,
+  },
+  description: {  // Ensure this field is present
+    type: String,
+    required: false,
+  },
+  dateRange: { // For date range
+    start: { type: Date },
+    end: { type: Date }
+  }
 });
 
 const acceptedevent = mongoose.model('acceptedevent', AcceptedEventSchema);
+
 module.exports = acceptedevent;

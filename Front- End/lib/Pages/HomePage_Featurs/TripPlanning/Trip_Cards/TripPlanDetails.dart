@@ -214,17 +214,17 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Text(
-                        "View Accommodation place",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 14,
-                        ),
-                      ),
+                      // decoration: BoxDecoration(
+                      //   border: Border.all(color: Colors.blue),
+                      //   borderRadius: BorderRadius.circular(8),
+                      // ),
+                      // child: const Text(
+                      //   "View Accommodation place",
+                      //   style: TextStyle(
+                      //     color: Colors.blue,
+                      //     fontSize: 14,
+                      //   ),
+                      // ),
                     ),
                   ),
                   const SizedBox(height: 16),
