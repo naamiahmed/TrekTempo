@@ -109,7 +109,7 @@ class Details extends StatelessWidget {
                 ElevatedButton.icon(
                   onPressed: () async {
                     var location = event["location"]; // Use the location from the event
-                    var url = 'https://www.google.com/maps/search/?api=1&query=$location';
+                    var url = '$location';
                     if (await canLaunch(url)) {
                       await launch(url);
                     } else {

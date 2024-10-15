@@ -6,7 +6,7 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('About TrekTempo'),
-        backgroundColor: Colors.teal, // Custom AppBar color
+        backgroundColor: Colors.blue, // Custom AppBar color
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -18,7 +18,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal, // Main theme color
+                color: Colors.blue, // Main theme color
               ),
               textAlign: TextAlign.center,
             ),
@@ -38,7 +38,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal,
+                color: Colors.blue,
               ),
             ),
             SizedBox(height: 10),
@@ -76,7 +76,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal,
+                color: Colors.blue,
               ),
             ),
             SizedBox(height: 10),
@@ -94,7 +94,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal,
+                color: Colors.blue,
               ),
             ),
             SizedBox(height: 10),
@@ -112,7 +112,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal,
+                color: Colors.blue,
               ),
             ),
             SizedBox(height: 10),
@@ -130,7 +130,7 @@ class AboutPage extends StatelessWidget {
   // Custom widget for building the feature items
   Widget buildFeatureItem({required IconData icon, required String title, required String description}) {
     return ListTile(
-      leading: Icon(icon, color: Colors.teal),
+      leading: Icon(icon, color: Colors.blue),
       title: Text(
         title, // Corrected to use the actual 'title' variable
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

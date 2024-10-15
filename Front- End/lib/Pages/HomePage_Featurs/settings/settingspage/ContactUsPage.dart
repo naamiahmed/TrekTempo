@@ -23,7 +23,7 @@ class ContactUsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Contact Us'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,7 +49,7 @@ class ContactUsPage extends StatelessWidget {
               icon: Icon(Icons.email),
               label: Text('Send an Email'),
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.teal,
+                foregroundColor: Colors.blue,
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
                 textStyle: TextStyle(fontSize: 18.0),
               ),
