@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/Place.dart';
-import 'package:travel_app/Pages/Destinations/places_card.dart';
+import 'package:travel_app/Pages/Destinations/district_places_card.dart';
 import 'package:http/http.dart' as http;
 
 class Search extends StatefulWidget {

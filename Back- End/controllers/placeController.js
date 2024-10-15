@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
-
 const upload = multer({ storage: storage });
 
 // Creating new place entries in the database
@@ -70,6 +69,8 @@ const getOnePlace = async (req, res) => {
     res.send({ success: false, message: error.message });
   }
 };
+
+// get one place by id
 const getOnePlaceById = async (req, res) => {
   try {
     const placeId = req.params.placeId;
@@ -83,6 +84,7 @@ const getOnePlaceById = async (req, res) => {
   }
 };
 
+// Like a place
 const handleLike = async (req, res) => {
   try {
     const placeId = req.params.placeId;
@@ -115,7 +117,7 @@ const handleLike = async (req, res) => {
   }
 };
 
-
+// Get all places
 const getAllPlaces = async (req, res) => {
   try {
     const tripPlaces = await Place.find().sort({ name: 1 });

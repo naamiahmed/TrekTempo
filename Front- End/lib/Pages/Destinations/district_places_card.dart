@@ -57,9 +57,7 @@ class PlacesCard extends StatelessWidget {
                             Text(
                               place.name,
                               style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 4),
                             Row(

@@ -71,7 +71,8 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
       for (File image in _images) {
         String fileName = basename(image.path);
         request.files.add(
-          await http.MultipartFile.fromPath('images', image.path, filename: fileName),
+          await http.MultipartFile.fromPath('images', image.path,
+              filename: fileName),
         );
       }
 
@@ -103,7 +104,8 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Submission Successful'),
-          content: const Text('Your place has been submitted and is under review.'),
+          content:
+              const Text('Your place has been submitted and is under review.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -161,15 +163,18 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
               ),
               TextFormField(
                 controller: _locationController,
-                decoration: const InputDecoration(labelText: 'Location (optional)'),
+                decoration:
+                    const InputDecoration(labelText: 'Location (optional)'),
               ),
               TextFormField(
                 controller: _directionController,
-                decoration: const InputDecoration(labelText: 'Direction (optional)'),
+                decoration:
+                    const InputDecoration(labelText: 'Direction (optional)'),
               ),
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Description (optional)'),
+                decoration:
+                    const InputDecoration(labelText: 'Description (optional)'),
                 maxLines: 3,
               ),
               const SizedBox(height: 20),

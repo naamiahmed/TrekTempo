@@ -25,7 +25,6 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
 
   late Place place;
   bool isLiked = false;
-  // bool isSaved = false;
   bool isExpanded = false;
   int likesCount = 0;
 
@@ -36,9 +35,8 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   @override
   void initState() {
     super.initState();
-    likesCount =
-        widget.place.likedBy.length; // Initialize with the passed likes count
-    _getWeatherData(placeName: widget.place.city); // Fetch weather data
+    likesCount = widget.place.likedBy.length;
+    _getWeatherData(placeName: widget.place.city);
     fetchUpdatedPlace(widget.place.id);
     place = widget.place;
     isLiked = place.likedBy.contains(userId);
@@ -82,65 +80,46 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
     }
   }
 
-  // void toggleLike() async {
-  //   // setState(() {
-  //   //   if (isLiked) {
-  //   //     place.likedBy.remove(userId);
-  //   //   } else {
-  //   //     place.likedBy.add(userId);
-  //   //   }
-  //   //   isLiked = !isLiked;
-  //   //   likesCount = place.likedBy.length;
-  //   // });
-
-  //   await handleLikeChange();
-  // }
-
   Future<void> handleLikeChange() async {
-  try {
-    final response = await http.post(
-      Uri.parse('http://localhost:5000/api/handleLike/${widget.place.id}'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'likes': likesCount,
-        'isLiked': isLiked,
-        'userId': userId
-      }),
-    );
-    
-    if (response.statusCode == 200) {
-      // Decode the response
-      Map<String, dynamic> jsonData = json.decode(response.body);
-      
-      // Check if 'place' is not null in the response
-      if (jsonData['place'] != null) {
-        // Parse 'place' data
-        Place placesJson = Place.fromJson(jsonData['place']);
-        
-        setState(() {
-          place = placesJson;
-          isLiked = place.likedBy.contains(userId);
-        });
-      } else {
-        throw Exception('Place data is null');
-      }
-    } else {
-      throw Exception('Failed to load place data. Status code: ${response.statusCode}');
-    }
-  } catch (e) {
-    // Print the exact error message
-    print('Error fetching data: $e');
-    throw Exception('Error fetching data: $e');
-  }
-}
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:5000/api/handleLike/${widget.place.id}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'likes': likesCount,
+          'isLiked': isLiked,
+          'userId': userId
+        }),
+      );
 
-  // void toggleSave() {
-  //   setState(() {
-  //     isSaved = !isSaved;
-  //   });
-  // }
+      if (response.statusCode == 200) {
+        // Decode the response
+        Map<String, dynamic> jsonData = json.decode(response.body);
+
+        // Check if 'place' is not null in the response
+        if (jsonData['place'] != null) {
+          // Parse 'place' data
+          Place placesJson = Place.fromJson(jsonData['place']);
+
+          setState(() {
+            place = placesJson;
+            isLiked = place.likedBy.contains(userId);
+          });
+        } else {
+          throw Exception('Place data is null');
+        }
+      } else {
+        throw Exception(
+            'Failed to load place data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Print the exact error message
+      print('Error fetching data: $e');
+      throw Exception('Error fetching data: $e');
+    }
+  }
 
   // Description toggle
   void toggleDescription() {
@@ -170,7 +149,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     autoplay: true,
                     dotSize: 4.0,
                     dotBgColor: Colors.transparent,
-                    indicatorBgPadding: 8.0, // Padding for the indicators
+                    indicatorBgPadding: 8.0,
                   ),
                 ),
                 Positioned(
@@ -225,12 +204,30 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
 
                   // Direction Link
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                                isLiked
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colors.red,
+                                size: 24),
+                            onPressed: handleLikeChange,
+                          ),
+                          Text(
+                            '${place.likedBy.length} likes',
+                            style: TextStyle(
+                                color: Colors.grey[700], fontSize: 14),
+                          ),
+                        ],
+                      ),
                       ElevatedButton.icon(
                         onPressed: () async {
-                          var url = widget
-                              .place.direction; // Replace with your desired URL
+                          var url = widget.place.direction;
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
@@ -240,48 +237,15 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                         icon: const Icon(
                           Icons.directions,
                           color: Colors.blueAccent,
-                        ), // Set icon color to blue
+                        ),
                         label: const Text(
                           'Direction',
-                          style: TextStyle(
-                            color: Colors.blueAccent,
-                          ), // Set text color to blue
+                          style: TextStyle(color: Colors.blueAccent),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Colors.white, // Button background color
-                          foregroundColor:
-                              Colors.blue, // Splash and highlight color
-                        ),
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.blue),
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          isLiked ? Icons.favorite : Icons.favorite_border,
-                          color: Colors.red,
-                          size: 24,
-                        ),
-                        onPressed: handleLikeChange,
-                      ),
-                      Text(
-                        '${place.likedBy.length} likes',
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontSize: 14,
-                        ),
-                      ),
-
-                      // IconButton(
-                      //   icon: Icon(
-                      //     isSaved ? Icons.bookmark : Icons.bookmark_border,
-                      //     color: Colors.blue,
-                      //   ),
-                      //   onPressed: toggleSave,
-                      // ),
                     ],
                   ),
 
@@ -293,9 +257,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   ] else if (errorMessage != null) ...[
                     Text(
                       errorMessage!,
-                      style: const TextStyle(
-                        color: Colors.red,
-                      ),
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ],
 
@@ -304,27 +266,21 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   // Description
                   _buildUnderlinedTitle("Description"),
                   const SizedBox(height: 5),
-                  Text(
-                    widget.place.description,
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 16,
-                    ),
-                    maxLines: isExpanded ? null : 6,
-                    overflow: isExpanded
-                        ? TextOverflow.visible
-                        : TextOverflow.ellipsis,
-                  ),
+                  Text(widget.place.description,
+                      style: TextStyle(color: Colors.grey[700], fontSize: 16),
+                      maxLines: isExpanded ? null : 6,
+                      overflow: isExpanded
+                          ? TextOverflow.visible
+                          : TextOverflow.ellipsis),
                   const SizedBox(height: 4),
                   GestureDetector(
                     onTap: toggleDescription,
                     child: Text(
                       isExpanded ? "Read less" : "Read more",
                       style: const TextStyle(
-                        color: Colors.blueAccent,
-                        fontSize: 14,
-                        decoration: TextDecoration.underline,
-                      ),
+                          color: Colors.blueAccent,
+                          fontSize: 14,
+                          decoration: TextDecoration.underline),
                     ),
                   ),
                 ],
@@ -343,16 +299,9 @@ Widget _buildUnderlinedTitle(String title) {
     children: [
       Text(
         title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
-      Container(
-        width: 40,
-        height: 2,
-        color: Colors.blueAccent,
-      ),
+      Container(width: 40, height: 2, color: Colors.blueAccent),
     ],
   );
 }
