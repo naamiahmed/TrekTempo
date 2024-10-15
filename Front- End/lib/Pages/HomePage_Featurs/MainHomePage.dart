@@ -8,22 +8,10 @@ import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/in
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Convertor/CurrencyConverterPage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventPage.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MainHomePage(),
-    );
-  }
-}
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel_app/Models/User.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -102,34 +90,141 @@ class _MainHomePageState extends State<MainHomePage> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<String> imageList = [
     'assets/images/MainHome/top_image1.png',
     'assets/images/MainHome/top_image2.png',
     'assets/images/MainHome/top_image3.png',
   ];
 
-  HomePage({super.key});
+  String? userId;
+  Future<User>? futureProfile;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserId();
+  }
+
+  Future<User> fetchProfileData(String userId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/api/auth/getProfile/$userId'),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = json.decode(response.body);
+
+        if (jsonData['success'] == true && jsonData['user'] != null) {
+          return User.fromJson(jsonData['user']);
+        } else {
+          throw Exception('Failed to load user profile');
+        }
+      } else {
+        throw Exception('Failed to load user profile');
+      }
+    } catch (e) {
+      throw Exception('Error fetching data: $e');
+    }
+  }
+
+  Future<void> loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId');
+    });
+
+    if (userId != null) {
+      futureProfile = fetchProfileData(userId ?? "6700ae680edbeca3aef3e1e5");
+    } else {
+      print('No userId found in SharedPreferences');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     double screenHeight = MediaQuery.of(context).size.height;
-    
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/images/naami.jpg'),
-          ),
+        leading: FutureBuilder<User>(
+          future: futureProfile,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Placeholder while loading
+                ),
+              );
+            } else if (snapshot.hasError) {
+              print('Error fetching profile: ${snapshot.error}');
+              return const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Fallback image on error
+                ),
+              );
+            } else if (snapshot.hasData) {
+              final user = snapshot.data!;
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  backgroundImage: user.profilePicURL != null &&
+                          user.profilePicURL!.isNotEmpty
+                      ? NetworkImage(user.profilePicURL!)
+                      : NetworkImage(
+                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                ),
+              );
+            } else {
+              return const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Fallback image
+                ),
+              );
+            }
+          },
         ),
-        title: const Text(
-          'Naami Ahmed',
-          style: TextStyle(color: Colors.black),
+        title: FutureBuilder<User>(
+          future: futureProfile,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Text(
+                'Loading...',
+                style: TextStyle(color: Colors.black),
+              );
+            } else if (snapshot.hasError) {
+              return const Text(
+                'Error',
+                style: TextStyle(color: Colors.black),
+              );
+            } else if (snapshot.hasData) {
+              final user = snapshot.data!;
+              return Text(
+                user.name ?? 'No Name', // Fallback name
+                style: const TextStyle(color: Colors.black),
+              );
+            } else {
+              return const Text(
+                'No Name',
+                style: TextStyle(color: Colors.black),
+              );
+            }
+          },
         ),
         actions: [
           IconButton(
@@ -190,9 +285,10 @@ class HomePage extends StatelessWidget {
                 children: [
                   _buildIconButton(
                       context, Icons.map, 'Trip Plans', IntroPage()),
-                  _buildIconButton(context, Icons.event, 'Events', const EventPage()),
                   _buildIconButton(
-                      context, Icons.translate, 'Translator', const TranslatorPage()),
+                      context, Icons.event, 'Events', const EventPage()),
+                  _buildIconButton(context, Icons.translate, 'Translator',
+                      const TranslatorPage()),
                   _buildIconButton(context, Icons.euro, 'Converter',
                       const CurrencyConverterPage()),
                 ],
