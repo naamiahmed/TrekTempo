@@ -1,4 +1,5 @@
 import 'package:travel_app/Pages/HomePage_Featurs/Event/AddEvent.dart' as AddEventPage;
+import 'package:travel_app/Pages/HomePage_Featurs/Event/EventCard';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventDetails.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/Components/Support.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,27 @@ class EventPage extends StatefulWidget {
 
 class _HomeState extends State<EventPage> {
   bool csfcover = false, laksapana = false, motor = false;
+
+  final List<Map<String, dynamic>> events = [
+    {
+      "imagePath": "images/CSF-Cover.png",
+      "title": "COLOMBO SHOPPING FESTIVAL - CSF",
+      "date": "Dec - 2024 , 05 06 & 07\n10:00 a.m - 10:00 p.m | at BMICH",
+      "isSelected": false,
+    },
+    {
+      "imagePath": "images/laksapana.jpeg",
+      "title": "Lakshapana waterfall abseiling",
+      "date": "Dec - 2024 , 05 06 & 07\n10:00 a.m - 10:00 p.m | at BMICH",
+      "isSelected": false,
+    },
+    {
+      "imagePath": "images/motor.jpeg",
+      "title": "Colombo Motor Show 2024",
+      "date": "Dec - 2024 , 05 06 & 07\n10:00 a.m - 10:00 p.m | at BMICH",
+      "isSelected": false,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +55,14 @@ class _HomeState extends State<EventPage> {
             icon: Icon(Icons.add),
             onPressed: () {
               Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AddEventPage.AddEventPage(),
-          ),
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddEventPage.AddEventPage(),
+                ),
               );
             },
           ),
         ],
-
       ),
       body: Container(
         child: Column(
@@ -53,189 +74,40 @@ class _HomeState extends State<EventPage> {
               style: AppWidget.LightTextFeildStyle(),
             ),
             const SizedBox(height: 20.0),
-            showItem(),
+            Expanded(
+              child: ListView.builder(
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  final event = events[index];
+                  return Column(
+                    children: [
+                      EventCard(
+                        imagePath: event["imagePath"],
+                        title: event["title"],
+                        date: event["date"],
+                        isSelected: event["isSelected"],
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Details()),
+                          );
+                          setState(() {
+                            for (var e in events) {
+                              e["isSelected"] = false;
+                            }
+                            event["isSelected"] = true;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+                    ],
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-
-  Widget showItem() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Details()),
-            );
-            csfcover = true;
-            laksapana = false;
-            motor = false;
-            setState(() {});
-          },
-         child: Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(10),
-                 child: Container(
-                     decoration: BoxDecoration(color: csfcover? Color.fromARGB(255, 95, 198, 221): Colors.white,borderRadius: BorderRadius.circular(10)),
-
-
-                  padding: const EdgeInsets.all(8),
-                 
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:[ 
-                    Image.asset("images/CSF-Cover.png", height: 100, width: 300, fit: BoxFit.cover),
-                  
-                   
-
-                Text("COLOMBO SHOPPING FESTIVAL - CSF", style: AppWidget.semiBooldTextFieldStyle()),
-                
-                  Row(
-  children: [ 
-                  
-                 Text("Dec - 2024 , 05 06 & 07\n 10:00 a.m - 10:00 p.m | at BMICH ", style: AppWidget.LightTextFeildStyle()),
-                  Spacer(),
-
-
-
-                   Container(
-                padding: const EdgeInsets.all(3),
-              
-              decoration: BoxDecoration(color:Color.fromARGB(255, 126, 128, 125),borderRadius: BorderRadius.circular(8) ),
-              child: const Icon(Icons.bookmark, color:Color.fromARGB(255, 255, 255, 255),
-              ),
-              
-              ),
-                  
-  ],
-)
-                  ],
-                  ),
-
-                           
-
-                 )
-                ),
-               ),
-               SizedBox(height: 20.0,),
-                     
-
-                    GestureDetector(
-              onTap: () {
-                  csfcover=false;
-                  laksapana=true;
-                  motor=false;
-                  setState(() {
-                    
-                  });
-
-              },
-                child: Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(10),
-                 child: Container(
-                     decoration: BoxDecoration(color: laksapana?Color.fromARGB(255, 95, 198, 221): Colors.white,borderRadius: BorderRadius.circular(10)),
-
-
-                  padding: const EdgeInsets.all(8),
-                 
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  
-                  children:[ Image.asset("images/laksapana.jpeg", height: 100, width: 300, fit: BoxFit.cover),
-                        SizedBox(width: 20),
-
-                       
-                  Text("Lakshapana waterfall abseiling", style: AppWidget.semiBooldTextFieldStyle()),
- Row(
-  children: [
-                  Text("Dec - 2024 , 05 06 & 07\n 10:00 a.m - 10:00 p.m | at BMICH ", style: AppWidget.LightTextFeildStyle()),
-                   Spacer(),
-                   
-                   
-                    Container(
-                padding: const EdgeInsets.all(3),
-              
-              decoration: BoxDecoration(color:Color.fromARGB(255, 126, 128, 125),borderRadius: BorderRadius.circular(8) ),
-              child: const Icon(Icons.bookmark, color:Color.fromARGB(255, 255, 254, 254),
-              ),
-              
-              )
-                 ],
-)    
-                  ],),
-
-
-                           
-
-                 ),
-                ),
-               ),
-
-                   SizedBox(height: 20.0,),
-                 GestureDetector(
-              onTap: () {
-                  csfcover=false;
-                  laksapana=false;
-                  motor=true;
-                  setState(() {
-                    
-                  });
-
-              },
-                child: Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(10),
-                 child: Container(
-                     decoration: BoxDecoration(color: motor? Color.fromARGB(255, 95, 198, 221): Colors.white,borderRadius: BorderRadius.circular(10)),
-
-
-                  padding: const EdgeInsets.all(8),
-                 
-                  child:Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  
-                  children:[ Image.asset("images/motor.jpeg", height: 100, width: 300, fit: BoxFit.cover),
-                     
-                  Text("Colombo Motor Show 2024", style: AppWidget.semiBooldTextFieldStyle()),
- Row(
-  children: [ 
-                  Text("Dec - 2024 , 05 06 & 07\n10:00 a.m - 10:00 p.m  | at BMICH ", style: AppWidget.LightTextFeildStyle()),
-                  
-                  Spacer(),
-                   Container(
-                padding: const EdgeInsets.all(3),
-              
-              decoration: BoxDecoration(color:Color.fromARGB(255, 126, 128, 125),borderRadius: BorderRadius.circular(8) ),
-              child: const Icon(Icons.bookmark, color:Color.fromARGB(255, 255, 255, 255),
-              ),
-              
-              )
- ],
-)
-                  ],),
-
- 
- 
-
-
-                           
-
-                 ),
-                ),
-               ),
-
-           ],
-           
-           );
-
-   }
-
 }
