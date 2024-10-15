@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/Event/Components/Support.dart';
+import 'Components/Support.dart';
 
 class EventCard extends StatelessWidget {
-  final String imagePath;
   final String title;
+  final String phone;
+  final String district;
+  final String place;
+  final String location;
   final String date;
+  final String imageUrl;
   final bool isSelected;
   final VoidCallback onTap;
 
   const EventCard({
-    required this.imagePath,
     required this.title,
+    required this.phone,
+    required this.district,
+    required this.place,
+    required this.location,
     required this.date,
+    required this.imageUrl,
     required this.isSelected,
     required this.onTap,
   });
@@ -30,14 +38,22 @@ class EventCard extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(8),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(imagePath, height: 100, width: 300, fit: BoxFit.cover),
+              Image.network(imageUrl, height: 100, width: double.infinity, fit: BoxFit.cover),
+              const SizedBox(height: 8),
               Text(title, style: AppWidget.semiBooldTextFieldStyle()),
+              const SizedBox(height: 4),
+              // Text("Phone: $phone", style: AppWidget.LightTextFeildStyle()),
+              // const SizedBox(height: 4),
+              Text("$district , $place ", style: AppWidget.LightTextFeildStyle()),
+              const SizedBox(height: 4),
+              // Text("Location: $location", style: AppWidget.LightTextFeildStyle()),
+              // const SizedBox(height: 4),
+              // Text("Date: $date", style: AppWidget.LightTextFeildStyle()),
+              // const SizedBox(height: 8),
               Row(
                 children: [
-                  Text(date, style: AppWidget.LightTextFeildStyle()),
                   Spacer(),
                   Container(
                     padding: const EdgeInsets.all(3),

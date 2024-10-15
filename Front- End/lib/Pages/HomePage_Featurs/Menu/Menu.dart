@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignIn.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/SettingsPage.dart'; // Import SettingsPage
 
 class MenuPage extends StatelessWidget {
   @override
@@ -34,7 +35,10 @@ class MenuPage extends StatelessWidget {
           leading: Icon(Icons.settings),
           title: Text('Settings'),
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SettingsPage()), // Navigate to SettingsPage
+            );
           },
         ),
         ListTile(
