@@ -18,6 +18,7 @@ class _AddEventPageState extends State<AddEventPage> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _placeController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   String? _selectedDistrict;
   File? _image;
 
@@ -40,6 +41,7 @@ class _AddEventPageState extends State<AddEventPage> {
       final String location = _locationController.text;
       final String place = _placeController.text;
       final String? district = _selectedDistrict;
+      final String description = _descriptionController.text;
 
       final url = Uri.parse('http://localhost:5000/api/addEvent');
       var request = http.MultipartRequest('POST', url);
@@ -49,6 +51,7 @@ class _AddEventPageState extends State<AddEventPage> {
       request.fields['location'] = location;
       request.fields['place'] = place;
       request.fields['district'] = district ?? '';
+      request.fields['description'] = description;  // Ensure correct field name
 
       if (_image != null) {
         request.files.add(await http.MultipartFile.fromPath('image', _image!.path));
@@ -196,6 +199,20 @@ class _AddEventPageState extends State<AddEventPage> {
                 },
               ),
               SizedBox(height: 16),
+              TextFormField(
+                controller: _descriptionController,
+                validator: (value) {
+                  if (value!.isEmpty) return "Description can't be empty";
+                  return null;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                  prefixIcon: Icon(Icons.description),
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+              // SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _pickImage,
                 child: Text('Pick Image'),

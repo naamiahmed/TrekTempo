@@ -35,6 +35,12 @@ class Details extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
+            Text(
+              event["description"] ?? 'No Description',
+              style: AppWidget.LightTextFeildStyle(),
+            ),
+            const SizedBox(height: 20.0),
+
             RichText(
               text: TextSpan(
               children: [
@@ -102,12 +108,7 @@ class Details extends StatelessWidget {
               },
               child: Text("Show Location"),
             ),
-            const SizedBox(height: 20.0),
-            Text(
-              event["description"] ?? 'No Description',
-              style: AppWidget.LightTextFeildStyle(),
-            ),
-            const SizedBox(height: 20.0),
+
           ],
         ),
       ),

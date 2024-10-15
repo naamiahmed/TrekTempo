@@ -6,7 +6,7 @@ const getAllEvents = async (req, res) => {
     if (events.length === 0) {
       return res.send({
         success: false,
-        message: `No places found in ${district}.`,
+        message: `No places found in the database`,
       });
     }
     return res.send({ success: true, events: events });

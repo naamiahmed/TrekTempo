@@ -19,7 +19,7 @@ const addEvent = async (req, res) => {
     console.log('Request Body:', req.body);
     console.log('Request File:', req.file);
 
-    const { title, phone, district, place, date, location } = req.body;
+    const { title, phone, district, place, date, location, description } = req.body;  // Updated field name
     const imageUrl = req.file ? `http://localhost:5000/uploads/ReqEvent/${req.file.filename}` : null;
 
     const newEvent = new Event({
@@ -30,6 +30,7 @@ const addEvent = async (req, res) => {
       date,
       location,
       imageUrl,
+      description,  // Updated field name
     });
 
     await newEvent.save();

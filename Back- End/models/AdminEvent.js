@@ -2,34 +2,38 @@ const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
 
-    district: {
+    title: {
         type: String,
         required: true,
-    },
-    name: {
+      },
+      phone: {
         type: String,
         required: true,
-    },
-    location: {
+      },
+      district: {
         type: String,
         required: true,
-    },
-    date:{
+      },
+      place: {
+        type: String,
+        required: true,
+      },
+      location: {
+        type: String,
+        required: true,
+      },
+      date: {
         type: Date,
         required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-    },
-    images: {
-        type: Array,
-        required: true,
-    },
-    locationLink: {
+      },
+      imageUrl: {
         type: String,
         required: false,
-    },
+      },
+      description: {  // Updated field name
+        type: String,
+        required: false,
+      },
 });
 
 const event = mongoose.model('event', EventSchema);
