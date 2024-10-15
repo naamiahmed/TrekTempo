@@ -21,6 +21,7 @@ class _AddEventPageState extends State<AddEventPage> {
   final TextEditingController _descriptionController = TextEditingController();
   String? _selectedDistrict;
   File? _image;
+  bool _isMultipleDays = false; // Toggle for single/multiple day selection
 
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -47,11 +48,18 @@ class _AddEventPageState extends State<AddEventPage> {
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;
       request.fields['phone'] = phone;
-      request.fields['date'] = date;
       request.fields['location'] = location;
       request.fields['place'] = place;
       request.fields['district'] = district ?? '';
-      request.fields['description'] = description;  // Ensure correct field name
+      request.fields['description'] = description;
+
+      if (_isMultipleDays) {
+        final dates = date.split(' - ');
+        request.fields['dateRange[start]'] = dates[0];
+        request.fields['dateRange[end]'] = dates[1];
+      } else {
+        request.fields['date'] = date;
+      }
 
       if (_image != null) {
         request.files.add(await http.MultipartFile.fromPath('image', _image!.path));
@@ -67,17 +75,33 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
+    if (_isMultipleDays) {
+      // Date range picker for multiple days
+      DateTimeRange? pickedDateRange = await showDateRangePicker(
+        context: context,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2101),
+      );
 
-    if (pickedDate != null) {
-      setState(() {
-        _dateController.text = pickedDate.toIso8601String();
-      });
+      if (pickedDateRange != null) {
+        setState(() {
+          _dateController.text = "${pickedDateRange.start.toLocal().toString().split(' ')[0]} - ${pickedDateRange.end.toLocal().toString().split(' ')[0]}";
+        });
+      }
+    } else {
+      // Single date picker
+      DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2101),
+      );
+
+      if (pickedDate != null) {
+        setState(() {
+          _dateController.text = pickedDate.toLocal().toString().split(' ')[0];
+        });
+      }
     }
   }
 
@@ -183,6 +207,20 @@ class _AddEventPageState extends State<AddEventPage> {
                 ),
               ),
               SizedBox(height: 16),
+              Row(
+                children: [
+                  Text('Multiple Days'),
+                  Switch(
+                    value: _isMultipleDays,
+                    onChanged: (value) {
+                      setState(() {
+                        _isMultipleDays = value;
+                        _dateController.clear(); // Clear the date field when switching
+                      });
+                    },
+                  ),
+                ],
+              ),
               TextFormField(
                 controller: _dateController,
                 validator: (value) {
@@ -190,13 +228,14 @@ class _AddEventPageState extends State<AddEventPage> {
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Date',
+                  labelText: _isMultipleDays ? 'Date Range' : 'Date',
                   prefixIcon: Icon(Icons.date_range),
                   border: OutlineInputBorder(),
                 ),
                 onTap: () {
                   _selectDate(context);
                 },
+                readOnly: true, // Prevent manual input
               ),
               SizedBox(height: 16),
               TextFormField(
@@ -212,7 +251,7 @@ class _AddEventPageState extends State<AddEventPage> {
                 ),
                 maxLines: 3,
               ),
-              // SizedBox(height: 16),
+              SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _pickImage,
                 child: Text('Pick Image'),

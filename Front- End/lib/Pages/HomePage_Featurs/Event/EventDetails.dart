@@ -90,11 +90,13 @@ class Details extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "Date: ",
+                    text: "Date Range: ",
                     style: AppWidget.semiBooldTextFieldStyle(),
                   ),
                   TextSpan(
-                    text: event["date"] ?? 'No Date',
+                    text: event["dateRange"] != null
+                        ? '${event["dateRange"]["start"]} - ${event["dateRange"]["end"]}'
+                        : 'No Date Range',
                     style: AppWidget.LightTextFeildStyle(),
                   ),
                 ],

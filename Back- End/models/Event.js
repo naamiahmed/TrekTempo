@@ -23,7 +23,7 @@ const EventSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true,
+    required: false,
   },
   imageUrl: {
     type: String,
@@ -33,6 +33,10 @@ const EventSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  dateRange: { // For date range
+    start: { type: Date },
+    end: { type: Date }
+  }
 });
 
 const Event = mongoose.model('Event', EventSchema);
