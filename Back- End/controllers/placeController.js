@@ -1,16 +1,39 @@
-const Place = require("../models/Place");
+const Place = require('../models/Place');
+const multer = require('multer');
+const path = require('path');
 
-// creating new place entries in the database
+// Configure multer for image upload
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/places/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Creating new place entries in the database
 const createPlace = async (req, res) => {
   try {
-    //const data = req.body;
-    //const place = new Place(data);
-    const placesData = req.body;
-    const places = await Place.insertMany(placesData);
-    //await places.save();
-    res.send({ success: true, place: places });
+    const { district, city, name, location, direction, description } = req.body;
+    const images = req.files.map(file => `http://localhost:5000/uploads/places/${file.filename}`);
+
+    const newPlace = new Place({
+      district,
+      city,
+      name,
+      location,
+      direction,
+      description,
+      images,
+    });
+
+    await newPlace.save();
+    res.status(201).json({ message: 'Place created successfully!', place: newPlace });
   } catch (error) {
-    res.send({ success: false, message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -75,4 +98,4 @@ const deletePlace = async (req, res) => {
   }
 };
 
-module.exports = { createPlace, getPlaces, getOnePlace, getAllPlaces, deletePlace };
+module.exports = { upload, createPlace, getPlaces, getOnePlace, getAllPlaces, deletePlace };
