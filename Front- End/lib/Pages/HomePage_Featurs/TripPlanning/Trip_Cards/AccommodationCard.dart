@@ -106,24 +106,24 @@ class AccommodationCard extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               // Like Icon and Count
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: 24,
-                  ),
-                  // const SizedBox(height: 4),
-                  // Text(
-                  //   '$likes', // Display number of likes
-                  //   style: const TextStyle(
-                  //     color: Colors.red,
-                  //     fontSize: 12,
-                  //   ),
-                  // ),
-                ],
-              ),
+              // const Column(
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     Icon(
+              //       Icons.favorite,
+              //       color: Colors.red,
+              //       size: 24,
+              //     ),
+              //     // const SizedBox(height: 4),
+              //     // Text(
+              //     //   '$likes', // Display number of likes
+              //     //   style: const TextStyle(
+              //     //     color: Colors.red,
+              //     //     fontSize: 12,
+              //     //   ),
+              //     // ),
+              //   ],
+              // ),
             ],
           ),
         ),

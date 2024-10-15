@@ -17,7 +17,7 @@ class _BudgetPageState extends State<BudgetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Budget Selection')),
+      appBar: AppBar(title: Text('')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -31,9 +31,9 @@ class _BudgetPageState extends State<BudgetPage> {
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
-                  _buildRadioCard('Low', 'Low (0-100\$)', Icons.attach_money, Colors.green),
-                  _buildRadioCard('Medium', 'Medium (100-500\$)', Icons.attach_money, Colors.orange),
-                  _buildRadioCard('High', 'High (500\$ +)', Icons.attach_money, Colors.red),
+                  _buildRadioCard('Low', 'Low (0-10,000 LKR)', Icons.attach_money, Colors.green),
+                  _buildRadioCard('Medium', 'Medium (10,000-25,000 LKR)', Icons.attach_money, Colors.orange),
+                  _buildRadioCard('High', 'High (25,000 LKR +)', Icons.attach_money, Colors.red),
                   if (_errorMessage != null)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
