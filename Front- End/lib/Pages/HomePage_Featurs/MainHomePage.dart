@@ -82,7 +82,7 @@ class _MainHomePageState extends State<MainHomePage> {
             ],
             selectedItemColor: Colors.blue,
             unselectedItemColor: Colors.grey,
-            backgroundColor: Colors.white, // Background color for items
+            backgroundColor: Colors.white,
           ),
         ),
       ),
@@ -227,17 +227,17 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications,
-                color: Color.fromARGB(255, 80, 46, 46)),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const Notifications_Home()),
-              );
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.notifications,
+          //       color: Color.fromARGB(255, 80, 46, 46)),
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //           builder: (context) => const Notifications_Home()),
+          //     );
+          //   },
+          // ),
           IconButton(
             icon: const Icon(Icons.menu, color: Colors.black),
             onPressed: () {
