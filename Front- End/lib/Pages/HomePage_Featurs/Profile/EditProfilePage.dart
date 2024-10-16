@@ -137,6 +137,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(width: 50),
                       CircleAvatar(
                         radius: 50,
                         backgroundImage: (user.profilePicURL != null &&
