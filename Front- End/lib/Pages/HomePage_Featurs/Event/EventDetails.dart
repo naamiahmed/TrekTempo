@@ -36,10 +36,20 @@ class Details extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              event["description"] ?? 'No Description',
-              style: AppWidget.LightTextFeildStyle(),
-            ),
+                RichText(
+                text: TextSpan(
+                  children: [
+                  TextSpan(
+                    text: "Description: ",
+                    style: AppWidget.semiBooldTextFieldStyle(),
+                  ),
+                  TextSpan(
+                    text: event["description"] ?? 'No Description',
+                    style: AppWidget.LightTextFeildStyle(),
+                  ),
+                  ],
+                ),
+                ),
             const SizedBox(height: 20.0),
             RichText(
               text: TextSpan(
