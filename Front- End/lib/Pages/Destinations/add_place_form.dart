@@ -60,19 +60,20 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
       );
 
       // Add form fields
-      request.fields['name'] = placeName;
-      request.fields['district'] = district;
-      request.fields['city'] = city;
-      request.fields['location'] = location;
-      request.fields['direction'] = direction;
-      request.fields['description'] = description;
+      request.fields.addAll({
+        'name': placeName,
+        'district': district,
+        'city': city,
+        'location': location,
+        'direction': direction,
+        'description': description,
+      });
 
       // Attach images to the request
       for (File image in _images) {
         String fileName = basename(image.path);
         request.files.add(
-          await http.MultipartFile.fromPath('images', image.path,
-              filename: fileName),
+          await http.MultipartFile.fromPath('images', image.path, filename: fileName),
         );
       }
 
@@ -100,12 +101,11 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
 
   void _showSuccessDialog() {
     showDialog(
-      context: this.context, // Use the widget's context
+      context: this.context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Submission Successful'),
-          content:
-              const Text('Your place has been submitted and is under review.'),
+          content: const Text('Your place has been submitted and is under review.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -116,6 +116,20 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    String? Function(String?)? validator,
+    int maxLines = 1,
+  }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(labelText: labelText),
+      validator: validator,
+      maxLines: maxLines,
     );
   }
 
@@ -131,9 +145,9 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
+              _buildTextField(
                 controller: _placeNameController,
-                decoration: const InputDecoration(labelText: 'Place Name'),
+                labelText: 'Place Name',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the place name';
@@ -141,9 +155,9 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
                   return null;
                 },
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _districtController,
-                decoration: const InputDecoration(labelText: 'District'),
+                labelText: 'District',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the district';
@@ -151,9 +165,9 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
                   return null;
                 },
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _cityController,
-                decoration: const InputDecoration(labelText: 'City'),
+                labelText: 'City',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the city';
@@ -161,21 +175,24 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
                   return null;
                 },
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _locationController,
-                decoration:
-                    const InputDecoration(labelText: 'Location (optional)'),
+                labelText: 'Location (optional)',
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _directionController,
-                decoration:
-                    const InputDecoration(labelText: 'Direction (optional)'),
+                labelText: 'Direction (optional)',
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _descriptionController,
-                decoration:
-                    const InputDecoration(labelText: 'Description (optional)'),
+                labelText: 'Description',
                 maxLines: 3,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the description';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               ElevatedButton(
