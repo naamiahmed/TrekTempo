@@ -9,6 +9,7 @@ const adminEventRoutes = require('./routes/adminEvent');
 const adminAcceptedEventRoutes = require('./routes/adminAcceptedEvent');
 const newPlacesRoutes = require('./routes/newPlace');
 const eventRoutes = require('./routes/event');
+const ReqAccommodationRoutes = require('./routes/reqAccommodation');
 
 //const connectDB = require('./config/db');
 require('dotenv').config();
@@ -34,6 +35,7 @@ app.use('/api', adminEventRoutes);
 app.use('/api', adminAcceptedEventRoutes);
 app.use('/api', newPlacesRoutes);
 app.use('/api', eventRoutes);
+app.use('/api', ReqAccommodationRoutes);
 
 const PORT = process.env.PORT || 5001;
 // Start the server
