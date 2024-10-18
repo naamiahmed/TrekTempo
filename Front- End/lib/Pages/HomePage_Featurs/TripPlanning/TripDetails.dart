@@ -154,13 +154,24 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
             );
           },
             ),
-            const Text(
-                    'Accommodations',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              const Text(
+                'Accommodations',
+                style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                // Add your onPressed code here
+                },
+              ),
+              ],
+            ),
             ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
