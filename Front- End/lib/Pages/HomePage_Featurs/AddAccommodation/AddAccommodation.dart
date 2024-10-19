@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'InputDecoration.dart';
 
 class AddAccommodation extends StatefulWidget {
   final String endPoint;
@@ -30,11 +31,6 @@ class _AddAccommodationState extends State<AddAccommodation> {
 
   @override
   Widget build(BuildContext context) {
-    final OutlineInputBorder borderStyle = OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-      borderRadius: BorderRadius.circular(8.0),
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Accommodation'),
@@ -46,17 +42,9 @@ class _AddAccommodationState extends State<AddAccommodation> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(
-                    labelText: 'District',
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  border: borderStyle,
-                  enabledBorder: borderStyle,
-                  focusedBorder: borderStyle,
-                ),
+                decoration: getInputDecoration('District'),
                 initialValue: widget.endPoint,
-                // enabled: false, // Disable the TextFormField
                 readOnly: true, // Make the TextFormField read-only
-
                 onChanged: (value) {
                   setState(() {
                     _district = value;
@@ -66,40 +54,28 @@ class _AddAccommodationState extends State<AddAccommodation> {
               SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 value: _accommodationType,
-                decoration: InputDecoration(
-                   labelText: 'Accommodation Type',
-                   labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  border: borderStyle,
-                  enabledBorder: borderStyle,
-                  focusedBorder: borderStyle,
-                ),
+                decoration: getInputDecoration('Accommodation Type'),
                 items: ['Room', 'Villa', 'Apartment', 'Hotel', 'Resort']
-                  .map((type) => DropdownMenuItem<String>(
-                      value: type,
-                      child: Text(type, style: TextStyle(fontWeight: FontWeight.normal)),
-                    ))
-                  .toList(),
+                    .map((type) => DropdownMenuItem<String>(
+                          value: type,
+                          child: Text(type, style: TextStyle(fontWeight: FontWeight.normal)),
+                        ))
+                    .toList(),
                 onChanged: (value) {
                   setState(() {
-                  _accommodationType = value!;
+                    _accommodationType = value!;
                   });
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                  return 'Please select an accommodation type';
+                    return 'Please select an accommodation type';
                   }
                   return null;
                 },
               ),
               SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(
-                   labelText: 'Name',
-                   labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  border: borderStyle,
-                  enabledBorder: borderStyle,
-                  focusedBorder: borderStyle,
-                ),
+                decoration: getInputDecoration('Name'),
                 onChanged: (value) {
                   setState(() {
                     _name = value;
@@ -114,13 +90,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
               ),
               SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(
-                   labelText: 'Location',
-                   labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  border: borderStyle,
-                  enabledBorder: borderStyle,
-                  focusedBorder: borderStyle,
-                ),
+                decoration: getInputDecoration('Location'),
                 onChanged: (value) {
                   setState(() {
                     _location = value;
@@ -135,13 +105,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
               ),
               SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(
-                   labelText: 'Budget',
-                   labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  border: borderStyle,
-                  enabledBorder: borderStyle,
-                  focusedBorder: borderStyle,
-                ),
+                decoration: getInputDecoration('Budget'),
                 keyboardType: TextInputType.number,
                 initialValue: widget.budget,
                 readOnly: true, // Make the TextFormField read-only
@@ -162,13 +126,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
               ),
               SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Description',
-                  labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  border: borderStyle,
-                  enabledBorder: borderStyle,
-                  focusedBorder: borderStyle,
-                ),
+                decoration: getInputDecoration('Description'),
                 maxLines: 5,
                 onChanged: (value) {
                   setState(() {
@@ -183,7 +141,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
                 },
               ),
               SizedBox(height: 20),
-              Text('Upload Image', style: TextStyle(fontSize: 16 , fontWeight: FontWeight.bold)),
+              Text('Upload Image', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ElevatedButton.icon(
                 onPressed: () async {
                   final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
