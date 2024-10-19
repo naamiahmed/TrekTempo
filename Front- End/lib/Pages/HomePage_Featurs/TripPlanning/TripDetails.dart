@@ -171,7 +171,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                  builder: (context) => AddAccommodation(),
+                  builder: (context) => AddAccommodation(endPoint: widget.endPoint, budget: widget.budget,),
                   ),
                 );
                 },

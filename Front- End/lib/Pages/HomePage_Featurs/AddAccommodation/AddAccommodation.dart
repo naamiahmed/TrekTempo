@@ -1,20 +1,32 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddAccommodation extends StatefulWidget {
+  final String endPoint;
+  final String budget;
+  const AddAccommodation({Key? key, required this.endPoint, required this.budget}) : super(key: key);
+
   @override
   _AddAccommodationState createState() => _AddAccommodationState();
 }
 
 class _AddAccommodationState extends State<AddAccommodation> {
   final _formKey = GlobalKey<FormState>();
+  late String _district;
   String _accommodationType = 'Room';
   String _name = '';
   String _location = '';
-  double _price = 0.0;
+  late double _budget;
+  String _description = '';
   String? _imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    _district = widget.endPoint;
+    _budget = double.tryParse(widget.budget) ?? 0.0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +40,26 @@ class _AddAccommodationState extends State<AddAccommodation> {
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              DropdownButtonFormField<String>(
-                value: _accommodationType,
+              TextFormField(
                 decoration: InputDecoration(labelText: 'District'),
-                items: ['Room', 'Villa', 'Apartment', 'Hotel', 'Resort']
-                    .map((type) => DropdownMenuItem<String>(
-                          value: type,
-                          child: Text(type),
-                        ))
-                    .toList(),
+                keyboardType: TextInputType.number,
+                initialValue: widget.endPoint,
+                enabled:false, // Disable the TextFormField
+
                 onChanged: (value) {
                   setState(() {
-                    _accommodationType = value!;
+                    _district = (double.tryParse(value)) as String;
                   });
                 },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select an accommodation type';
-                  }
-                  return null;
-                },
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter a District';
+                //   }
+                //   if (double.tryParse(value) == null) {
+                //     return 'Please enter a valid number';
+                //   }
+                //   return null;
+                // },
               ),
               DropdownButtonFormField<String>(
                 value: _accommodationType,
@@ -98,30 +110,32 @@ class _AddAccommodationState extends State<AddAccommodation> {
                   return null;
                 },
               ),
-              TextFormField(
+                TextFormField(
                 decoration: InputDecoration(labelText: 'Budget'),
                 keyboardType: TextInputType.number,
+                initialValue: widget.budget,
+                enabled:false, // Disable the TextFormField
                 onChanged: (value) {
                   setState(() {
-                    _price = double.tryParse(value) ?? 0.0;
+                  _budget = double.tryParse(value) ?? 0.0;
                   });
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a price';
+                  return 'Please enter a budget';
                   }
                   if (double.tryParse(value) == null) {
-                    return 'Please enter a valid number';
+                  return 'Please enter a valid number';
                   }
                   return null;
                 },
-              ),
+                ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Description'),
                 maxLines: 5,
                 onChanged: (value) {
                   setState(() {
-                    _name = value;
+                    _description = value;
                   });
                 },
                 validator: (value) {
