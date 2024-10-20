@@ -36,12 +36,10 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
 
   Future<void> _pickImages() async {
     final pickedFiles = await ImagePicker().pickMultiImage();
-    if (pickedFiles != null) {
-      setState(() {
-        _images = pickedFiles.map((file) => File(file.path)).toList();
-      });
+    setState(() {
+      _images = pickedFiles.map((file) => File(file.path)).toList();
+    });
     }
-  }
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
