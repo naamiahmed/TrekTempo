@@ -85,23 +85,23 @@ class PlacesCard extends StatelessWidget {
                         ),
                       ),
                       // Like Icon and Count
-                      // Column(
-                      //   children: [
-                      //     const Icon(
-                      //       Icons.favorite,
-                      //       color: Colors.red,
-                      //       size: 24,
-                      //     ),
-                      //     const SizedBox(height: 4),
-                      //     Text(
-                      //       '$likes',
-                      //       style: const TextStyle(
-                      //         color: Colors.red,
-                      //         fontSize: 12,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                      Column(
+                        children: [
+                          const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 24,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${place.likedBy.length}',
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),

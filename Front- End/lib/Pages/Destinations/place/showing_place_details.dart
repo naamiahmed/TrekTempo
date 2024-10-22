@@ -7,6 +7,7 @@ import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaceDetailsPage extends StatefulWidget {
   final Place place;
@@ -21,8 +22,7 @@ class PlaceDetailsPage extends StatefulWidget {
 }
 
 class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
-  String userId = "6700ae680edbeca3aef3e1e5";
-
+  String? userId;
   late Place place;
   bool isLiked = false;
   bool isExpanded = false;
@@ -31,15 +31,32 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   // Weather data variables
   ApiResponse? weatherData;
   String? errorMessage;
+  bool isLoadingWeather = false; // Loading state for weather data
 
   @override
   void initState() {
     super.initState();
+    loadUserId();
     likesCount = widget.place.likedBy.length;
     _getWeatherData(placeName: widget.place.city);
     fetchUpdatedPlace(widget.place.id);
     place = widget.place;
-    isLiked = place.likedBy.contains(userId);
+  }
+
+  Future<void> loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId');
+    });
+    print('Loading userId from SharedPreferences: ${userId ?? "null"}');
+
+    if (userId != null) {
+      setState(() {
+        isLiked = place.likedBy.contains(userId);
+      });
+    } else {
+      print('No userId found in SharedPreferences');
+    }
   }
 
   Future<void> fetchUpdatedPlace(String placeId) async {
@@ -55,7 +72,9 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
 
         setState(() {
           place = placesJson;
-          isLiked = place.likedBy.contains(userId);
+          if (userId != null) {
+            isLiked = place.likedBy.contains(userId!);
+          }
         });
       } else {
         throw Exception('Failed to load places');
@@ -67,20 +86,30 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
 
   // Fetch weather data based on the place name
   _getWeatherData({required String placeName}) async {
+    setState(() {
+      isLoadingWeather = true; // Start loading
+    });
     try {
       ApiResponse response = await WeatherApi().getCurrentWeather(placeName);
       setState(() {
         weatherData = response;
         errorMessage = null;
+        isLoadingWeather = false; // Stop loading
       });
     } catch (e) {
       setState(() {
         errorMessage = e.toString();
+        isLoadingWeather = false; // Stop loading
       });
     }
   }
 
   Future<void> handleLikeChange() async {
+    if (userId == null) {
+      print('User ID is null. Cannot handle like change.');
+      return;
+    }
+
     try {
       final response = await http.post(
         Uri.parse('http://localhost:5000/api/handleLike/${widget.place.id}'),
@@ -105,7 +134,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
 
           setState(() {
             place = placesJson;
-            isLiked = place.likedBy.contains(userId);
+            isLiked = place.likedBy.contains(userId!);
           });
         } else {
           throw Exception('Place data is null');
@@ -252,7 +281,9 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   // Weather
                   _buildUnderlinedTitle("Weather"),
                   const SizedBox(height: 5),
-                  if (weatherData != null) ...[
+                  if (isLoadingWeather)
+                    const Center(child: const CircularProgressIndicator(color: Colors.blueAccent,))
+                  else if (weatherData != null) ...[
                     WeatherCard(weatherData: weatherData!),
                   ] else if (errorMessage != null) ...[
                     Text(
