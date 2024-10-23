@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Colors.blueAccent,
         elevation: 0,
         leading: FutureBuilder<User>(
           future: futureProfile,
@@ -205,23 +205,23 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Text(
                 'Loading...',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
               );
             } else if (snapshot.hasError) {
               return const Text(
                 'Error',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
               );
             } else if (snapshot.hasData) {
               final user = snapshot.data!;
               return Text(
                 user.name ?? 'No Name', // Fallback name
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.white),
               );
             } else {
               return const Text(
                 'No Name',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
               );
             }
           },
@@ -239,12 +239,13 @@ class _HomePageState extends State<HomePage> {
           //   },
           // ),
           IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
+            icon: const Icon(Icons.menu),
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
           ),
         ],
+        iconTheme: const IconThemeData(color: Colors.white, size: 30,),
       ),
       body: SingleChildScrollView(
         child: Column(
