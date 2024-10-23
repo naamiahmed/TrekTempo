@@ -43,7 +43,7 @@ class _AddEventPageState extends State<AddEventPage> {
       final String place = _placeController.text;
       final String? district = _selectedDistrict;
       final String description = _descriptionController.text;
-
+  
       final url = Uri.parse('http://localhost:5000/api/addEvent');
       var request = http.MultipartRequest('POST', url);
       request.fields['title'] = title;
@@ -52,7 +52,7 @@ class _AddEventPageState extends State<AddEventPage> {
       request.fields['place'] = place;
       request.fields['district'] = district ?? '';
       request.fields['description'] = description;
-
+  
       if (_isMultipleDays) {
         final dates = date.split(' - ');
         request.fields['dateRange[start]'] = dates[0];
@@ -60,14 +60,15 @@ class _AddEventPageState extends State<AddEventPage> {
       } else {
         request.fields['date'] = date;
       }
-
+  
       if (_image != null) {
         request.files.add(await http.MultipartFile.fromPath('image', _image!.path));
       }
-
+  
       var response = await request.send();
       if (response.statusCode == 201) {
         print('Event added successfully!');
+        // Navigate back or show a success message
       } else {
         print('Failed to add event: ${response.reasonPhrase}');
       }

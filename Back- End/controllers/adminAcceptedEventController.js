@@ -1,5 +1,6 @@
 const AcceptedEvent = require("../models/AdminAcceptedEvent");
 const Event = require('../models/AdminEvent');
+const Notification = require('../models/Notification');
 
 // Function to move the document
 const moveEventToAccepted = async (req, res) => {
@@ -19,6 +20,16 @@ const moveEventToAccepted = async (req, res) => {
 
         // Step 3: Delete the document from the Event collection
         await Event.findByIdAndDelete(eventId);
+
+                // Create a notification
+                const notification = new Notification({
+                    userId: event.userId,
+                    title: event.title,
+                    subtitle: 'Your event has been accepted',
+                    time: new Date().toLocaleString()
+                });
+                await notification.save();
+        
 
         res.status(200).json({ msg: 'Event moved to AcceptedEvent successfully' });
     } catch (error) {
