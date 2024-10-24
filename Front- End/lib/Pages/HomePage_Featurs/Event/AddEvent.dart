@@ -68,7 +68,7 @@ class _AddEventPageState extends State<AddEventPage> {
       var response = await request.send();
       if (response.statusCode == 201) {
         print('Event added successfully!');
-        // Navigate back or show a success message
+        _showSuccessDialog();
       } else {
         print('Failed to add event: ${response.reasonPhrase}');
       }
@@ -104,6 +104,41 @@ class _AddEventPageState extends State<AddEventPage> {
         });
       }
     }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: this.context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Your Request was Submitted'),
+          content: const Text('Thank you for Adding Event, we will Confirm and inform you.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _clearForm();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _clearForm() {
+    _titleController.clear();
+    _phoneController.clear();
+    _dateController.clear();
+    _locationController.clear();
+    _placeController.clear();
+    _descriptionController.clear();
+    setState(() {
+      _selectedDistrict = null;
+      _image = null;
+      _isMultipleDays = false;
+    });
   }
 
   @override
@@ -257,6 +292,14 @@ class _AddEventPageState extends State<AddEventPage> {
                 onPressed: _pickImage,
                 child: Text('Pick Image'),
               ),
+              if (_image != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Image.file(
+                    _image!,
+                    height: 200,
+                  ),
+                ),
               SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _addEvent,
