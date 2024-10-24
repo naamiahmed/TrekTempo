@@ -45,12 +45,10 @@ class _AddAccommodationState extends State<AddAccommodation> {
         );
 
         request.fields['name'] = _name;
-        // request.fields['tripPersonType'] = 'Solo'; // Example value
         request.fields['district'] = _district;
         request.fields['budget'] = _budget;
-        // request.fields['tripType'] = _accommodationType;
         request.fields['location'] = _location;
-        request.fields['locationLink'] = _locationLink; 
+        request.fields['locationLink'] = _locationLink;
         request.fields['description'] = _description;
 
         if (_imagePath != null) {
@@ -63,7 +61,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Accommodation added successfully!')),
           );
-          print('Accommodation added successfully');
+          _showSuccessDialog();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Failed to add accommodation')),
@@ -75,26 +73,39 @@ class _AddAccommodationState extends State<AddAccommodation> {
           SnackBar(content: Text('Error: $e')),
         );
       }
-
-      // Show confirmation dialog
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Your Request was Submitted'),
-            content: Text('Thank you for Adding Accommodation, we will Confirm and inform you.'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
     }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Your Request was Submitted'),
+          content: Text('Thank you for Adding Accommodation, we will Confirm and inform you.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _clearForm();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _clearForm() {
+    setState(() {
+      _name = '';
+      _location = '';
+      _locationLink = '';
+      _description = '';
+      _imagePath = null;
+    });
+    _formKey.currentState?.reset();
   }
 
   @override
@@ -119,28 +130,6 @@ class _AddAccommodationState extends State<AddAccommodation> {
                   });
                 },
               ),
-              // SizedBox(height: 16),
-              // DropdownButtonFormField<String>(
-              //   value: _accommodationType,
-              //   decoration: getInputDecoration('Accommodation Type'),
-              //   items: ['Room', 'Villa', 'Apartment', 'Hotel', 'Resort']
-              //       .map((type) => DropdownMenuItem<String>(
-              //             value: type,
-              //             child: Text(type, style: TextStyle(fontWeight: FontWeight.normal)),
-              //           ))
-              //       .toList(),
-              //   onChanged: (value) {
-              //     setState(() {
-              //       _accommodationType = value!;
-              //     });
-              //   },
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Please select an accommodation type';
-              //     }
-              //     return null;
-              //   },
-              // ),
               SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('Name'),
@@ -156,8 +145,6 @@ class _AddAccommodationState extends State<AddAccommodation> {
                   return null;
                 },
               ),
-
-
               SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('City Name'),
@@ -173,8 +160,6 @@ class _AddAccommodationState extends State<AddAccommodation> {
                   return null;
                 },
               ),
-
-
               SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('Location Link'),
@@ -190,8 +175,6 @@ class _AddAccommodationState extends State<AddAccommodation> {
                   return null;
                 },
               ),
-
-
               SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('Budget'),
@@ -236,8 +219,9 @@ class _AddAccommodationState extends State<AddAccommodation> {
                     });
                   }
                 },
-                label: Text('Choose Image'),
-                icon: Icon(Icons.image),
+                label: Text('Choose Image', style: TextStyle(color: Colors.white),),
+                
+                icon: Icon(Icons.image, color: Color.fromARGB(255, 87, 86, 86)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                 ),
@@ -253,7 +237,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Submit'),
+                child: Text('Submit', style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                 ),
