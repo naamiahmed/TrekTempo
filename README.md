@@ -22,7 +22,7 @@ TrekTempo is a smart travel app designed to enhance the travel experience in Sri
 ## Team Members
    01. <a href= "https://github.com/naamiahmed">Naami Ahmed </a>(Lead)
    2. <a  href="https://github.com/Raashi-d"> Raashid </a>
-   3. <a href= "">Sandhushi </a>
+   3. <a href= "https://github.com/sandushi13583">Sandushi </a>
    4. <a href= "https://github.com/Fathir2001">Fathir</a>
    5. <a href= "https://github.com/rashidhamnf">Rashidha</a>
   

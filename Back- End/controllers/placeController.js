@@ -117,6 +117,16 @@ const handleLike = async (req, res) => {
   }
 };
 
+// Most Liked Places
+const getTopPlaces = async (req, res) => {
+  try {
+    const topPlaces = await Place.find().sort({ likes: -1 }).limit(5);
+    res.send({ success: true, places: topPlaces });
+  } catch (error) {
+    res.send({ success: false, message: error.message });
+  }
+};
+
 // Get all places
 const getAllPlaces = async (req, res) => {
   try {
@@ -146,4 +156,4 @@ const deletePlace = async (req, res) => {
   }
 };
 
-module.exports = { upload, createPlace, getPlaces, getOnePlace, getAllPlaces, deletePlace, handleLike, getOnePlaceById };
+module.exports = { upload, createPlace, getPlaces, getOnePlace, getAllPlaces, deletePlace, handleLike, getTopPlaces, getOnePlaceById };
