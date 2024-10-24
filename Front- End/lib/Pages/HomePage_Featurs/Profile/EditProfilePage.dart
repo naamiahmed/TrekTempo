@@ -59,15 +59,47 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
-  Future<void> _pickImage(ImageSource source) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: source);
-    if (image != null) {
-      setState(() {
-        profileImagePath = image.path; // Update the profile image path
-      });
-    }
+ Future<void> _pickImage(ImageSource source) async {
+  final ImagePicker _picker = ImagePicker();
+  final XFile? image = await _picker.pickImage(source: source);
+  if (image != null) {
+    setState(() {
+      profileImagePath = image.path; // Update the profile image path
+    });
+
+    // Upload the image to the server
+    await _uploadProfilePicture(image);
   }
+}
+
+Future<void> _uploadProfilePicture(XFile image) async {
+  try {
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('http://localhost:5000/api/auth/updateProfilePicture/$userId'),
+    );
+
+    request.files.add(await http.MultipartFile.fromPath('profilePic', image.path));
+
+    final response = await request.send();
+
+    if (response.statusCode == 200) {
+      final responseBody = await response.stream.bytesToString();
+      final jsonResponse = json.decode(responseBody);
+
+      if (jsonResponse['success'] == true) {
+        print('Profile picture updated successfully');
+        // Optionally, update the UI with the new profile picture URL
+      } else {
+        throw Exception('Failed to update profile picture');
+      }
+    } else {
+      throw Exception('Failed to update profile picture');
+    }
+  } catch (e) {
+    print('Error uploading profile picture: $e');
+  }
+}
 
   // Show the bottom sheet with options to change the profile picture
   void _showImageSourceOptions() {

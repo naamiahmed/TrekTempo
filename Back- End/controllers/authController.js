@@ -28,5 +28,31 @@ const getProfile = async (req, res) => {
   }
 };
 
+const updateProfilePicture = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    if (!userId) {
+      return res.status(400).json({ success: false, message: "User ID Required" });
+    }
 
-module.exports = { getProfile };
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "No file uploaded" });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { profilePicURL: `http://localhost:5000/uploads/users/${req.file.filename}` },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { getProfile, updateProfilePicture, upload };
