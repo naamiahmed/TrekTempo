@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:travel_app/Pages/Destinations/place/showing_place_details.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
 import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
@@ -10,8 +11,10 @@ import 'package:travel_app/Pages/HomePage_Featurs/Convertor/CurrencyConverterPag
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_app/Models/User.dart';
+import 'package:travel_app/Models/Place.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -106,11 +109,13 @@ class _HomePageState extends State<HomePage> {
 
   String? userId;
   Future<User>? futureProfile;
+  Future<List<Place>>? futureTopPlaces;
 
   @override
   void initState() {
     super.initState();
     loadUserId();
+    futureTopPlaces = fetchTopPlaces();
   }
 
   Future<User> fetchProfileData(String userId) async {
@@ -145,6 +150,25 @@ class _HomePageState extends State<HomePage> {
       futureProfile = fetchProfileData(userId ?? "6700ae680edbeca3aef3e1e5");
     } else {
       print('No userId found in SharedPreferences');
+    }
+  }
+
+  Future<List<Place>> fetchTopPlaces() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/api/getTopPlaces'),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = json.decode(response.body);
+        List<dynamic> placesJson = jsonData['places'];
+
+        return placesJson.map((placeJson) => Place.fromJson(placeJson)).toList();
+      } else {
+        throw Exception('Failed to load top places');
+      }
+    } catch (e) {
+      throw Exception('Error fetching data: $e');
     }
   }
 
@@ -311,22 +335,31 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 200,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildDestinationCard(
-                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                  _buildDestinationCard(
-                      'Galle Fort', 'assets/images/MainHome/Galle.png'),
-                  // _buildDestinationCard('Ella', 'assets/ella.jpg'),
-                  _buildDestinationCard(
-                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                  _buildDestinationCard(
-                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                ],
-              ),
+            FutureBuilder<List<Place>>(
+              future: futureTopPlaces,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+                  return const Center(child: Text('No places found.'));
+                } else if (snapshot.hasData) {
+                  return SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        final place = snapshot.data![index];
+                        return _buildDestinationCard(place);
+                      },
+                    ),
+                  );
+                } else {
+                  return const Center(child: Text('No data available.'));
+                }
+              },
             ),
           ],
         ),
@@ -354,27 +387,37 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildDestinationCard(String title, String imageUrl) {
-    return Container(
-      width: 160,
-      margin: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(
-          image: AssetImage(imageUrl),
-          fit: BoxFit.cover,
+  Widget _buildDestinationCard(Place place) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PlaceDetailsPage(place: place),
+          ),
+        );
+      },
+      child: Container(
+        width: 160,
+        margin: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: NetworkImage(place.images[0]),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              place.name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
