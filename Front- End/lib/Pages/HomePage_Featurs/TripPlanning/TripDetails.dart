@@ -6,6 +6,7 @@ import 'package:travel_app/Models/TripPlace.dart';
 import 'package:travel_app/Models/TripPlanInputs.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/AddAccommodation.dart';
 import 'package:http/http.dart' as http;
 
 class TripPlanDetails extends StatefulWidget {
@@ -154,13 +155,29 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
             );
           },
             ),
-            const Text(
-                    'Accommodations',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              const Text(
+                'Accommodations',
+                style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) => AddAccommodation(endPoint: widget.endPoint, budget: widget.budget,),
                   ),
+                );
+                },
+              ),
+              ],
+            ),
             ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

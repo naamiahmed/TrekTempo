@@ -179,26 +179,26 @@ class _ProfilePageState extends State<ProfilePage> {
 
             SizedBox(height: 20),
 
-            GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 3,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 1,
-              ),
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Image.asset(
-                      'assets/images/MainHome/Sigiriya.png',
-                      fit: BoxFit.cover,
-                    ),
-                    Text('Sigiriya'),
-                  ],
-                );
-              },
-            ),
+            // GridView.builder(
+            //   shrinkWrap: true,
+            //   physics: NeverScrollableScrollPhysics(),
+            //   itemCount: 3,
+            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 3,
+            //     childAspectRatio: 1,
+            //   ),
+            //   itemBuilder: (context, index) {
+            //     return Column(
+            //       children: [
+            //         Image.asset(
+            //           'assets/images/MainHome/Sigiriya.png',
+            //           fit: BoxFit.cover,
+            //         ),
+            //         Text('Sigiriya'),
+            //       ],
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
