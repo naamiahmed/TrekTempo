@@ -11,6 +11,7 @@ const newPlacesRoutes = require('./routes/newPlace');
 const eventRoutes = require('./routes/event');
 const ReqAccommodationRoutes = require('./routes/reqAccommodation');
 const notificationRoutes = require('./routes/notification');
+const adminAccommodationRoutes = require('./routes/adminAccommodationRoutes');
 // const initializeSocket = require('./socket');
 // const http = require('http');
 
@@ -41,6 +42,7 @@ app.use('/api', newPlacesRoutes);
 app.use('/api', eventRoutes);
 app.use('/api', ReqAccommodationRoutes);
 app.use('/api/notification', notificationRoutes);
+app.use('/api', adminAccommodationRoutes);
 
 
 // Socket.io

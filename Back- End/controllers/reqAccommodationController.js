@@ -30,7 +30,8 @@ const addAccommodation = async (req, res) => {
       district,
       budget,
       location,
-      image,
+      locationLink,
+      images: image ? [image] : [],
       description,
     //   date: date ? new Date(date) : undefined,
     //   dateRange: dateRange ? {

@@ -17,11 +17,11 @@ const AccommodationSchema = new mongoose.Schema({
 
     location: {
         type: String,
-        required: true
+        required: false
     },
     images: {
         type: Array,
-        required: false,
+        required: true,
     },
     weather: {
         type: String,
@@ -29,7 +29,7 @@ const AccommodationSchema = new mongoose.Schema({
     },
     budget: {
         type: String,
-        required: false,
+        required: true,
     },
     tripPersonType: {
         type: String,
