@@ -6,6 +6,8 @@ import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 class ResetPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
 
+  ResetPasswordPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

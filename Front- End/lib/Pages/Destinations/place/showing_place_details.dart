@@ -31,7 +31,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   // Weather data variables
   ApiResponse? weatherData;
   String? errorMessage;
-  bool isLoadingWeather = false; // Loading state for weather data
+  bool isLoadingWeather = false;
 
   @override
   void initState() {
@@ -48,7 +48,6 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
     setState(() {
       userId = prefs.getString('userId');
     });
-    print('Loading userId from SharedPreferences: ${userId ?? "null"}');
 
     if (userId != null) {
       setState(() {
@@ -282,7 +281,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   _buildUnderlinedTitle("Weather"),
                   const SizedBox(height: 5),
                   if (isLoadingWeather)
-                    const Center(child: const CircularProgressIndicator(color: Colors.blueAccent,))
+                    const Center(child: CircularProgressIndicator(color: Colors.blueAccent,))
                   else if (weatherData != null) ...[
                     WeatherCard(weatherData: weatherData!),
                   ] else if (errorMessage != null) ...[

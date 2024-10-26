@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/ForgotPW/ForgotPassword-EnterMail.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
@@ -82,7 +83,28 @@ class _SignInPageState extends State<SignInPage> {
                       controller: _passwordController,
                       validator: _validatePassword,
                     ),
-                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+                            );
+                          },
+                          child: const Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
                     Center(
                       child: Button(
                         text: 'Sign In',

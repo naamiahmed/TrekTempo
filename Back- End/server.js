@@ -46,7 +46,6 @@ app.use('/api/notification', notificationRoutes);
 app.use('/api', adminAccommodationRoutes);
 app.use('/api', adminUserRoutes);
 
-
 // Socket.io
 // initializeSocket(server);
 
