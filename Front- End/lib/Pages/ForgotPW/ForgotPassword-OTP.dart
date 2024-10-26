@@ -6,6 +6,8 @@ import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 class ForgotPasswordOTPPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
 
+  ForgotPasswordOTPPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

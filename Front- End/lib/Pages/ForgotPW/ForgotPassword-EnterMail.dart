@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/Pages/ForgotPW/ForgotPassword-CheckMail.dart';
-import 'package:travel_app/Pages/ForgotPW/Components/Button.dart'; // Import the custom button
+import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
+import 'package:travel_app/Pages/ForgotPW/ForgotPassword-OTP.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
+
+  ForgotPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +70,7 @@ class ForgotPasswordPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ForgotPasswordCheckMail()));
+                              builder: (context) => ForgotPasswordOTPPage()));
                       },
                     ),
                   ],
