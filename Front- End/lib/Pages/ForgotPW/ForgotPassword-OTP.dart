@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/ForgotPW/ResetPassword.dart';
 import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:travel_app/controller/otp_controller.dart'; // Import the OTP controller
 
 class ForgotPasswordOTPPage extends StatelessWidget {
   final String email;
   final TextEditingController otpController = TextEditingController();
+  final OTPController otpControllerInstance = OTPController(); // Create an instance of OTPController
 
   ForgotPasswordOTPPage({required this.email, super.key});
 
@@ -71,7 +71,7 @@ class ForgotPasswordOTPPage extends StatelessWidget {
                       text: 'Verify',
                       onPressed: () async {
                         String otp = otpController.text;
-                        bool isVerified = await verifyOtp(email, otp);
+                        bool isVerified = await otpControllerInstance.verifyOtp(email, otp);
                         if (isVerified) {
                           Navigator.push(
                             context,
@@ -109,26 +109,6 @@ class ForgotPasswordOTPPage extends StatelessWidget {
       ),
       style: const TextStyle(color: Colors.black),
     );
-  }
-
-  Future<bool> verifyOtp(String email, String otp) async {
-    final response = await http.post(
-      Uri.parse('http://localhost:5000/api/auth/verifyOtp'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'email': email,
-        'otp': otp,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      final responseBody = jsonDecode(response.body);
-      return responseBody['success'];
-    } else {
-      return false;
-    }
   }
 
   void _showInvalidOtpDialog(BuildContext context) {

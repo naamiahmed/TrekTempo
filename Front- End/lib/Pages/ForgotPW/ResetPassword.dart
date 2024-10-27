@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:travel_app/controller/otp_controller.dart'; // Import the OTP controller
 
 class ResetPasswordPage extends StatelessWidget {
   final String email;
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final OTPController otpController =
+      OTPController(); // Create an instance of OTPController
 
   ResetPasswordPage({required this.email, super.key});
 
@@ -77,8 +79,10 @@ class ResetPasswordPage extends StatelessWidget {
                     Button(
                       text: 'Submit',
                       onPressed: () async {
-                        if (newPasswordController.text == confirmPasswordController.text) {
-                          bool success = await _resetPassword(newPasswordController.text);
+                        if (newPasswordController.text ==
+                            confirmPasswordController.text) {
+                          bool success = await otpController.resetPassword(
+                              email, newPasswordController.text);
                           if (success) {
                             Navigator.push(
                               context,
@@ -87,7 +91,8 @@ class ResetPasswordPage extends StatelessWidget {
                               ),
                             );
                           } else {
-                            _showErrorDialog(context, 'Failed to reset password');
+                            _showErrorDialog(
+                                context, 'Failed to reset password');
                           }
                         } else {
                           _showErrorDialog(context, 'Passwords do not match');
@@ -104,7 +109,8 @@ class ResetPasswordPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(IconData icon, String hintText, TextEditingController controller) {
+  Widget _buildTextField(
+      IconData icon, String hintText, TextEditingController controller) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
@@ -119,25 +125,6 @@ class ResetPasswordPage extends StatelessWidget {
       ),
       style: const TextStyle(color: Colors.black),
     );
-  }
-
-  Future<bool> _resetPassword(String newPassword) async {
-    final response = await http.post(
-      Uri.parse('http://localhost:5000/api/auth/resetPassword'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'email': email,
-        'newPassword': newPassword,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   void _showErrorDialog(BuildContext context, String message) {
