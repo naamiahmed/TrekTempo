@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/ForgotPW/ResetPassword.dart';
 import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ForgotPasswordOTPPage extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
+  final String email;
+  final TextEditingController otpController = TextEditingController();
 
-  ForgotPasswordOTPPage({super.key});
+  ForgotPasswordOTPPage({required this.email, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TrekTempo_Appbar(),
+      appBar: const TrekTempo_Appbar(),
       body: Stack(
         children: [
           Center(
@@ -40,7 +43,7 @@ class ForgotPasswordOTPPage extends StatelessWidget {
                       child: Center(
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/ForgotPassword-02.png', // Replace with your image path
+                            'assets/images/ForgotPassword-02.png', 
                             fit: BoxFit.cover,
                             width: 200,
                             height: 200,
@@ -50,7 +53,7 @@ class ForgotPasswordOTPPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     const Text(
-                      'Please enter your email www.TrekTempo@gmail.com to see the verification code',
+                      'Enter your OTP Code here',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -58,60 +61,32 @@ class ForgotPasswordOTPPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: _buildTextField(
-                            Icons.email,
-                            'Email',
-                            emailController,
-                          ),
-                        ),
-                        SizedBox(width: 15), // Add space between text fields
-                        Expanded(
-                          child: _buildTextField(
-                            Icons.email,
-                            'Email',
-                            emailController,
-                          ),
-                        ),
-                        SizedBox(width: 15), // Add space between text fields
-                        Expanded(
-                          child: _buildTextField(
-                            Icons.email,
-                            'Email',
-                            emailController,
-                          ),
-                        ),
-                        SizedBox(width: 15), // Add space between text fields
-                        Expanded(
-                          child: _buildTextField(
-                            Icons.email,
-                            'Email',
-                            emailController,
-                          ),
-                        ),
-                      ],
+                    _buildTextField(
+                      Icons.lock,
+                      'OTP',
+                      otpController,
                     ),
-            
                     const SizedBox(height: 16),
-                   Button(
+                    Button(
                       text: 'Verify',
-                      onPressed: () {
-                         Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ResetPasswordPage()));
+                      onPressed: () async {
+                        String otp = otpController.text;
+                        bool isVerified = await verifyOtp(email, otp);
+                        if (isVerified) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ResetPasswordPage(email: email)),
+                          );
+                        } else {
+                          _showInvalidOtpDialog(context);
+                        }
                       },
-                     
                     ),
                   ],
                 ),
               ),
             ),
           ),
-         
         ],
       ),
     );
@@ -120,8 +95,11 @@ class ForgotPasswordOTPPage extends StatelessWidget {
   Widget _buildTextField(IconData icon, String hintText, TextEditingController controller) {
     return TextField(
       controller: controller,
+      keyboardType: TextInputType.number,
+      textAlign: TextAlign.center,
       decoration: InputDecoration(
-        constraints: BoxConstraints.expand(width: 50, height: 50),
+        hintText: hintText,
+        constraints: const BoxConstraints.expand(height: 50),
         filled: true,
         fillColor: Colors.grey[300],
         border: OutlineInputBorder(
@@ -133,7 +111,27 @@ class ForgotPasswordOTPPage extends StatelessWidget {
     );
   }
 
-  void _showEmailSentDialog(BuildContext context) {
+  Future<bool> verifyOtp(String email, String otp) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:5000/api/auth/verifyOtp'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'otp': otp,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final responseBody = jsonDecode(response.body);
+      return responseBody['success'];
+    } else {
+      return false;
+    }
+  }
+
+  void _showInvalidOtpDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -142,25 +140,19 @@ class ForgotPasswordOTPPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           contentPadding: const EdgeInsets.all(20),
-          content: Column(
+          content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'assets/images/email_sent.png', // Replace with your image path
-                width: 150,
-                height: 100,
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Check your email',
+              Text(
+                'Invalid OTP',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                'We have sent a Verification Code to your email',
+              SizedBox(height: 10),
+              Text(
+                'The OTP you entered is invalid or has already been used.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -177,6 +169,6 @@ class ForgotPasswordOTPPage extends StatelessWidget {
 
 void main() {
   runApp(MaterialApp(
-    home: ForgotPasswordOTPPage(),
+    home: ForgotPasswordOTPPage(email: 'example@example.com'),
   ));
 }

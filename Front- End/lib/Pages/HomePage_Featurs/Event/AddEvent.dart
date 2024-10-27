@@ -7,6 +7,8 @@ import 'package:async/async.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventPage.dart';
 
 class AddEventPage extends StatefulWidget {
+  const AddEventPage({super.key});
+
   @override
   _AddEventPageState createState() => _AddEventPageState();
 }
@@ -110,13 +112,13 @@ class _AddEventPageState extends State<AddEventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Event'),
+        title: const Text('Add Event'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => EventPage()),
+              MaterialPageRoute(builder: (context) => const EventPage()),
             );
           },
         ),
@@ -134,13 +136,13 @@ class _AddEventPageState extends State<AddEventPage> {
                   if (value!.isEmpty) return "Event Name can't be empty";
                   return null;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Event Name',
                   prefixIcon: Icon(Icons.edit),
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _phoneController,
                 validator: (value) {
@@ -149,14 +151,14 @@ class _AddEventPageState extends State<AddEventPage> {
                   }
                   return null;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Phone Number',
                   prefixIcon: Icon(Icons.phone),
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.phone,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 value: _selectedDistrict,
                 onChanged: (String? newValue) {
@@ -168,7 +170,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   if (value == null || value.isEmpty) return "District can't be empty";
                   return null;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.public),
                   labelText: 'District',
                   border: OutlineInputBorder(),
@@ -181,36 +183,36 @@ class _AddEventPageState extends State<AddEventPage> {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _placeController,
                 validator: (value) {
                   if (value!.isEmpty) return "Place Name can't be empty";
                   return null;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.location_on),
                   labelText: 'Place',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _locationController,
                 validator: (value) {
                   if (value!.isEmpty) return "Location can't be empty";
                   return null;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Location',
                   prefixIcon: Icon(Icons.location_on),
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 children: [
-                  Text('Multiple Days'),
+                  const Text('Multiple Days'),
                   Switch(
                     value: _isMultipleDays,
                     onChanged: (value) {
@@ -230,37 +232,37 @@ class _AddEventPageState extends State<AddEventPage> {
                 },
                 decoration: InputDecoration(
                   labelText: _isMultipleDays ? 'Date Range' : 'Date',
-                  prefixIcon: Icon(Icons.date_range),
-                  border: OutlineInputBorder(),
+                  prefixIcon: const Icon(Icons.date_range),
+                  border: const OutlineInputBorder(),
                 ),
                 onTap: () {
                   _selectDate(context);
                 },
                 readOnly: true, // Prevent manual input
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _descriptionController,
                 validator: (value) {
                   if (value!.isEmpty) return "Description can't be empty";
                   return null;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Description',
                   prefixIcon: Icon(Icons.description),
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 3,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _pickImage,
-                child: Text('Pick Image'),
+                child: const Text('Pick Image'),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _addEvent,
-                child: Text('Add Event'),
+                child: const Text('Add Event'),
               ),
             ],
           ),

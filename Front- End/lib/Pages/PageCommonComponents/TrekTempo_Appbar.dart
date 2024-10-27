@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class TrekTempo_Appbar extends StatelessWidget implements PreferredSizeWidget {
+  const TrekTempo_Appbar({super.key});
+
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class TrekTempo_Appbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.black.withOpacity(0.2),
       elevation: 0,
       leading: Container(
-        padding:EdgeInsets.all(4.0),
+        padding:const EdgeInsets.all(4.0),
         decoration: const BoxDecoration(
           
 

@@ -5,13 +5,13 @@ class TopImage extends StatelessWidget {
   final double width;
   final String imagePath;
 
-  TopImage({required this.height, required this.width, required this.imagePath});
+  const TopImage({super.key, required this.height, required this.width, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: height * 0.35,
           width: width,
           child: ClipRRect(
@@ -29,7 +29,7 @@ class TopImage extends StatelessWidget {
           height: height * 0.35,
           width: width,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(30.0),
               bottomRight: Radius.circular(30.0),
             ),

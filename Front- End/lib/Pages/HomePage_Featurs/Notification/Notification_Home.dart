@@ -67,7 +67,7 @@ class _Notifications_HomeState extends State<Notifications_Home> {
         ],
       ),
       body: ListView.builder(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: notifications.length,
         itemBuilder: (context, index) {
           final notification = notifications[index];
@@ -87,7 +87,7 @@ class NotificationTile extends StatefulWidget {
   final String subtitle;
   final String time;
 
-  const NotificationTile({
+  const NotificationTile({super.key, 
     required this.title,
     required this.subtitle,
     required this.time,
@@ -108,7 +108,7 @@ class _NotificationTileState extends State<NotificationTile> {
       child: Container(
         color: _isHovered ? Colors.grey[200] : Colors.transparent,
         child: ListTile(
-          leading: Icon(Icons.email, color: Colors.black),
+          leading: const Icon(Icons.email, color: Colors.black),
           title: Text(widget.title),
           subtitle: Text(widget.subtitle),
           trailing: Text(widget.time),
@@ -125,7 +125,7 @@ class _NotificationTileState extends State<NotificationTile> {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: Notifications_Home(userId: 'yourUserId'), // Pass the userId here
   ));
 }

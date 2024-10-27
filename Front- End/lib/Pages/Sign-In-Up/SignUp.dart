@@ -7,6 +7,8 @@ import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
 import 'package:travel_app/auth_service.dart'; // Make sure this points to your ApiService
 
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
@@ -65,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
       } else {
         // Show an error message
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sign up failed! Please try again.')),
+          const SnackBar(content: Text('Sign up failed! Please try again.')),
         );
       }
     } else {

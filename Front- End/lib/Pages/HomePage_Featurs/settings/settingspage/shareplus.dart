@@ -2,11 +2,13 @@ import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 // Example of the settings page structure
 class shareplus extends StatelessWidget {
+  const shareplus({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: ListView(
         children: [
@@ -14,8 +16,8 @@ class shareplus extends StatelessWidget {
 
           // Share App Feature
           ListTile(
-            title: Text('Share App'),
-            leading: Icon(Icons.share),
+            title: const Text('Share App'),
+            leading: const Icon(Icons.share),
             onTap: () {
               _shareApp(); // Call the share function when tapped
             },

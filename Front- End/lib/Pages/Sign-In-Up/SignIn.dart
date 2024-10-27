@@ -9,6 +9,8 @@ import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'package:travel_app/auth_service.dart'; // Make sure this points to your ApiService
 
 class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
@@ -119,12 +121,12 @@ class _SignInPageState extends State<SignInPage> {
                               // Navigate to the home page
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => MainHomePage()),
+                                MaterialPageRoute(builder: (context) => const MainHomePage()),
                               );
                             } else {
                               // Show an error message
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Sign in failed! Please try again.')),
+                                const SnackBar(content: Text('Sign in failed! Please try again.')),
                               );
                             }
                           } else {

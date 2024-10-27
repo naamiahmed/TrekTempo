@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class TripPlanningPage extends StatefulWidget {
+  const TripPlanningPage({super.key});
+
   @override
   _TripPlanningPageState createState() => _TripPlanningPageState();
 }
@@ -17,7 +19,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
   String _budget = 'Low';
   String _tripPersonType = 'Solo';
   String _tripType = 'Spiritual';
-  List<String> _selectedInterests = [];
+  final List<String> _selectedInterests = [];
 
   final List<String> _interestOptions = ['Beach', 'Mountain', 'River', 'Desert'];
 
@@ -123,7 +125,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
                         Shadow(
                           blurRadius: 10,
                           color: Colors.black.withOpacity(0),
-                          offset: Offset(0, 4),
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
@@ -184,7 +186,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
         controller: textEditingController,
         focusNode: focusNode,
         decoration: InputDecoration(
-          icon: Icon(Icons.location_on), // Location icon
+          icon: const Icon(Icons.location_on), // Location icon
           labelText: 'Starting Point', // Label for the field
           errorText: _startPointController.text.isEmpty ? 'Please enter a starting point' : null, // Error message
         ),
@@ -223,7 +225,7 @@ _buildCard(
         controller: textEditingController,
         focusNode: focusNode,
         decoration: InputDecoration(
-          icon: Icon(Icons.location_on), // Location icon
+          icon: const Icon(Icons.location_on), // Location icon
           labelText: 'Ending Point', // Label for the field
           errorText: _endPointController.text.isEmpty ? 'Please enter an ending point' : null, // Error message
         ),
@@ -393,7 +395,7 @@ _buildCard(
         Row(
           children: [
             const SizedBox(width: 0),
-            Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ],
         ),
         Row(
@@ -426,7 +428,7 @@ _buildCard(
         Row(
           children: [
             const SizedBox(width: 10),
-            Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ],
         ),
         Row(
@@ -469,7 +471,7 @@ _buildCard(
   Widget _buildChoiceChip(String label, IconData icon) {
     return ChoiceChip(
       label: Text(label),
-      avatar: Icon(icon, color: Color.fromARGB(255, 12, 38, 92)),
+      avatar: Icon(icon, color: const Color.fromARGB(255, 12, 38, 92)),
       selected: _tripPersonType == label,
       onSelected: (selected) {
         setState(() {

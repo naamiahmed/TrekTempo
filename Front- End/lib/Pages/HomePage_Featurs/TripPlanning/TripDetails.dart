@@ -15,12 +15,11 @@ class TripPlanDetails extends StatefulWidget {
   final String tripPersonType;
   final String tripType;
   const TripPlanDetails(
-      {Key? key,
+      {super.key,
       required this.endPoint,
       required this.budget,
       required this.tripPersonType,
-      required this.tripType})
-      : super(key: key);
+      required this.tripType});
   @override
   State<TripPlanDetails> createState() => _TripPlanDetailsState();
 }

@@ -7,9 +7,11 @@ import 'package:travel_app/Pages/Sign-In-Up/SignIn.dart';
 //import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/SettingsPage.dart'; // Import SettingsPage
 
 class MenuPage extends StatelessWidget {
+  const MenuPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,8 +33,8 @@ class MenuPage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('Profile'),
+                  leading: const Icon(Icons.person),
+                  title: const Text('Profile'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -51,8 +53,8 @@ class MenuPage extends StatelessWidget {
                 //   },
                 // ),
                 ListTile(
-                  leading: Icon(Icons.contact_page),
-                  title: Text('Contact us'),
+                  leading: const Icon(Icons.contact_page),
+                  title: const Text('Contact us'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -61,8 +63,8 @@ class MenuPage extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.share),
-                  title: Text('Share App'),
+                  leading: const Icon(Icons.share),
+                  title: const Text('Share App'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -71,8 +73,8 @@ class MenuPage extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.support_agent),
-                  title: Text('About us'),
+                  leading: const Icon(Icons.support_agent),
+                  title: const Text('About us'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -84,8 +86,8 @@ class MenuPage extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout'),
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
             onTap: () {
               Navigator.push(
                 context,

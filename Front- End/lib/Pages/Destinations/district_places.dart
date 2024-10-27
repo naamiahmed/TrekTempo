@@ -50,7 +50,7 @@ class _DestinationCardState extends State<DestinationCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.district}'),
+        title: Text(widget.district),
         centerTitle: true,
         actions: [
           IconButton(
@@ -58,7 +58,7 @@ class _DestinationCardState extends State<DestinationCard> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddPlaceForm()),
+                MaterialPageRoute(builder: (context) => const AddPlaceForm()),
               );
             },
           ),

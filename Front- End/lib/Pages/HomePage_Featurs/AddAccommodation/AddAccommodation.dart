@@ -8,7 +8,7 @@ import 'InputDecoration.dart';
 class AddAccommodation extends StatefulWidget {
   final String endPoint;
   final String budget;
-  const AddAccommodation({Key? key, required this.endPoint, required this.budget}) : super(key: key);
+  const AddAccommodation({super.key, required this.endPoint, required this.budget});
 
   @override
   _AddAccommodationState createState() => _AddAccommodationState();
@@ -17,7 +17,7 @@ class AddAccommodation extends StatefulWidget {
 class _AddAccommodationState extends State<AddAccommodation> {
   final _formKey = GlobalKey<FormState>();
   late String _district;
-  String _accommodationType = 'Room';
+  final String _accommodationType = 'Room';
   String _name = '';
   String _location = '';
   String _locationLink = '';
@@ -35,7 +35,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Processing Data')),
+        const SnackBar(content: Text('Processing Data')),
       );
 
       try {
@@ -61,12 +61,12 @@ class _AddAccommodationState extends State<AddAccommodation> {
 
         if (response.statusCode == 201) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Accommodation added successfully!')),
+            const SnackBar(content: Text('Accommodation added successfully!')),
           );
           print('Accommodation added successfully');
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to add accommodation')),
+            const SnackBar(content: Text('Failed to add accommodation')),
           );
           print('Failed to add accommodation: ${await response.stream.bytesToString()}');
         }
@@ -81,11 +81,11 @@ class _AddAccommodationState extends State<AddAccommodation> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Your Request was Submitted'),
-            content: Text('Thank you for Adding Accommodation, we will Confirm and inform you.'),
+            title: const Text('Your Request was Submitted'),
+            content: const Text('Thank you for Adding Accommodation, we will Confirm and inform you.'),
             actions: <Widget>[
               TextButton(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -101,7 +101,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Accommodation'),
+        title: const Text('Add Accommodation'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -141,7 +141,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
               //     return null;
               //   },
               // ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('Name'),
                 onChanged: (value) {
@@ -158,7 +158,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
               ),
 
 
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('City Name'),
                 onChanged: (value) {
@@ -175,7 +175,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
               ),
 
 
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('Location Link'),
                 onChanged: (value) {
@@ -192,7 +192,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
               ),
 
 
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('Budget'),
                 initialValue: widget.budget,
@@ -209,7 +209,7 @@ class _AddAccommodationState extends State<AddAccommodation> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 decoration: getInputDecoration('Description'),
                 maxLines: 5,
@@ -225,8 +225,8 @@ class _AddAccommodationState extends State<AddAccommodation> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
-              Text('Upload Image', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
+              const Text('Upload Image', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ElevatedButton.icon(
                 onPressed: () async {
                   final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -236,8 +236,8 @@ class _AddAccommodationState extends State<AddAccommodation> {
                     });
                   }
                 },
-                label: Text('Choose Image'),
-                icon: Icon(Icons.image),
+                label: const Text('Choose Image'),
+                icon: const Icon(Icons.image),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                 ),
@@ -250,13 +250,13 @@ class _AddAccommodationState extends State<AddAccommodation> {
                     height: 200,
                   ),
                 ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Submit'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                 ),
+                child: Text('Submit'),
               ),
             ],
           ),

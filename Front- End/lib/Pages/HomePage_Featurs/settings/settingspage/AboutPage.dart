@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
+  const AboutPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About TrekTempo'),
+        title: const Text('About TrekTempo'),
         backgroundColor: Colors.blue, // Custom AppBar color
       ),
       body: Padding(
@@ -13,7 +15,7 @@ class AboutPage extends StatelessWidget {
         child: ListView(
           children: [
             // Section 1: Introduction
-            Text(
+            const Text(
               'Welcome to TrekTempo!',
               style: TextStyle(
                 fontSize: 24,
@@ -22,18 +24,18 @@ class AboutPage extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 10), // Spacing
-            Text(
+            const SizedBox(height: 10), // Spacing
+            const Text(
               'TrekTempo is your ultimate travel companion, designed to simplify and enhance your travel experiences across Sri Lanka. Whether you\'re traveling solo or with a group, our app provides a comprehensive platform to plan, organize, and enjoy your trips seamlessly.',
               style: TextStyle(fontSize: 16, height: 1.5),
               textAlign: TextAlign.justify,
             ),
             
             // Spacing between sections
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section 2: Key Features
-            Text(
+            const Text(
               'Key Features',
               style: TextStyle(
                 fontSize: 22,
@@ -41,7 +43,7 @@ class AboutPage extends StatelessWidget {
                 color: Colors.blue,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             buildFeatureItem(
               icon: Icons.location_on,
               title: 'Personalized Itineraries',
@@ -68,10 +70,10 @@ class AboutPage extends StatelessWidget {
               description: 'Discover cultural activities, local adventures, and hidden gems.',
             ),
             
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section 3: Our Mission
-            Text(
+            const Text(
               'Our Mission',
               style: TextStyle(
                 fontSize: 22,
@@ -79,17 +81,17 @@ class AboutPage extends StatelessWidget {
                 color: Colors.blue,
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Our mission is to make travel stress-free and enjoyable for everyone. We aim to empower travelers with the right tools to explore new destinations confidently while promoting sustainable tourism and cultural immersion.',
               style: TextStyle(fontSize: 16, height: 1.5),
               textAlign: TextAlign.justify,
             ),
             
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section 4: Why Choose Us
-            Text(
+            const Text(
               'Why Choose TrekTempo?',
               style: TextStyle(
                 fontSize: 22,
@@ -97,17 +99,17 @@ class AboutPage extends StatelessWidget {
                 color: Colors.blue,
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'TrekTempo offers a unique blend of personalized trip planning, real-time updates, and community-driven content. With features designed to keep you informed and connected, TrekTempo ensures that every journey is memorable, safe, and within budget.',
               style: TextStyle(fontSize: 16, height: 1.5),
               textAlign: TextAlign.justify,
             ),
             
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section 5: Community Call
-            Text(
+            const Text(
               'Join the TrekTempo Community',
               style: TextStyle(
                 fontSize: 22,
@@ -115,8 +117,8 @@ class AboutPage extends StatelessWidget {
                 color: Colors.blue,
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Be part of a growing community of explorers! Share your experiences, contribute to our platform, and help fellow travelers discover new places. At TrekTempo, we believe in building meaningful connections through travel.',
               style: TextStyle(fontSize: 16, height: 1.5),
               textAlign: TextAlign.justify,
@@ -133,7 +135,7 @@ class AboutPage extends StatelessWidget {
       leading: Icon(icon, color: Colors.blue),
       title: Text(
         title, // Corrected to use the actual 'title' variable
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       subtitle: Text(description), // Corrected to use the actual 'description' variable
     );

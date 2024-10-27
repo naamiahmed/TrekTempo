@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class FeedbackSupportPage extends StatelessWidget {
+  const FeedbackSupportPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Feedback & Support'),
+        title: const Text('Feedback & Support'),
         backgroundColor: Colors.teal, // Custom AppBar color
       ),
       body: Padding(
@@ -13,7 +15,7 @@ class FeedbackSupportPage extends StatelessWidget {
         child: ListView(
           children: [
             // Section for User Feedback
-            Text(
+            const Text(
               'We value your feedback!',
               style: TextStyle(
                 fontSize: 24,
@@ -22,16 +24,16 @@ class FeedbackSupportPage extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 10), // Spacing
-            Text(
+            const SizedBox(height: 10), // Spacing
+            const Text(
               'Your thoughts help us improve. Please let us know what you think or report any issues you have experienced.',
               style: TextStyle(fontSize: 16, height: 1.5),
               textAlign: TextAlign.justify,
             ),
-            SizedBox(height: 20), // Spacing
+            const SizedBox(height: 20), // Spacing
 
             // Feedback Text Field
-            TextField(
+            const TextField(
               maxLines: 5,
               decoration: InputDecoration(
                 labelText: 'Your Feedback',
@@ -39,7 +41,7 @@ class FeedbackSupportPage extends StatelessWidget {
                 hintText: 'Type your feedback here...',
               ),
             ),
-            SizedBox(height: 20), // Spacing
+            const SizedBox(height: 20), // Spacing
             
             // Submit Button
             ElevatedButton(
@@ -47,17 +49,17 @@ class FeedbackSupportPage extends StatelessWidget {
                 // Logic to handle feedback submission
                 // For now, just show a snackbar
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Feedback submitted! Thank you!')),
+                  const SnackBar(content: Text('Feedback submitted! Thank you!')),
                 );
               },
-              child: Text('Submit Feedback'),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
+              child: Text('Submit Feedback'),
             ),
             
-            SizedBox(height: 30), // Spacing
+            const SizedBox(height: 30), // Spacing
             
             // FAQs Section
-            Text(
+            const Text(
               'Frequently Asked Questions (FAQs)',
               style: TextStyle(
                 fontSize: 22,
@@ -65,7 +67,7 @@ class FeedbackSupportPage extends StatelessWidget {
                 color: Colors.teal,
               ),
             ),
-            SizedBox(height: 10), // Spacing
+            const SizedBox(height: 10), // Spacing
             
             buildFAQItem(
               question: 'How do I create a personalized itinerary?',
@@ -91,14 +93,14 @@ class FeedbackSupportPage extends StatelessWidget {
     return ExpansionTile(
       title: Text(
         question,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             answer,
-            style: TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 14),
           ),
         ),
       ],

@@ -6,7 +6,7 @@ import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
 class TripPersonTypePage extends StatefulWidget {
   final String endPoint;
   final String budget;
-  const TripPersonTypePage({Key? key, required this.endPoint, required this.budget}) : super(key: key);
+  const TripPersonTypePage({super.key, required this.endPoint, required this.budget});
 
   @override
   _TripPersonTypePageState createState() => _TripPersonTypePageState();
@@ -19,7 +19,7 @@ class _TripPersonTypePageState extends State<TripPersonTypePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('  ')),
+      appBar: AppBar(title: const Text('  ')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -68,7 +68,7 @@ class _TripPersonTypePageState extends State<TripPersonTypePage> {
             Icon(icon, color: color),
             const SizedBox(width: 15),
             Expanded(
-              child: Text(label, style: TextStyle(fontSize: 16)),
+              child: Text(label, style: const TextStyle(fontSize: 16)),
             ),
             Radio(
               value: value,

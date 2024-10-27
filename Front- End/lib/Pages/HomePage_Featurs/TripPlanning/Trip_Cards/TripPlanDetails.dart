@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/weatherModel.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
 import 'package:travel_app/controller/api.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/AccommodationDetails.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TripPlanDetails extends StatefulWidget {
