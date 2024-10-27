@@ -70,7 +70,7 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Places'),
+        title: const Text('All Places'),
         centerTitle: true,
       ),
       body: Column(

@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 
 class MessagesPage extends StatelessWidget {
+  const MessagesPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height:30),
+          const SizedBox(height:30),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search for chats & messages',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
           ),
-          SizedBox(height:0),
+          const SizedBox(height:0),
           Expanded(
             child: ListView(
               children: const [
@@ -62,7 +64,7 @@ class MessageTile extends StatelessWidget {
   final String time;
   final String imagePath;
 
-  const MessageTile({
+  const MessageTile({super.key, 
     required this.name,
     required this.message,
     required this.time,

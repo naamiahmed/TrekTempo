@@ -4,6 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 class ContactUsPage extends StatelessWidget {
   final String email = 'fathimarashidha135@gmail.com';
 
+  const ContactUsPage({super.key});
+
   void _launchEmail() async {
     final Uri emailUri = Uri(
       scheme: 'mailto',
@@ -22,7 +24,7 @@ class ContactUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contact Us'),
+        title: const Text('Contact Us'),
         backgroundColor: Colors.blue,
       ),
       body: Padding(
@@ -30,28 +32,28 @@ class ContactUsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 20.0),
-            Text(
+            const SizedBox(height: 20.0),
+            const Text(
               'Need Help? Contact Us!',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20.0),
-            Text(
+            const SizedBox(height: 20.0),
+            const Text(
               'For support or inquiries, feel free to reach out to us at the email below.',
               style: TextStyle(fontSize: 16.0),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 40.0),
+            const SizedBox(height: 40.0),
             ElevatedButton.icon(
-              icon: Icon(Icons.email),
-              label: Text('Send an Email'),
+              icon: const Icon(Icons.email),
+              label: const Text('Send an Email'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-                textStyle: TextStyle(fontSize: 18.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+                textStyle: const TextStyle(fontSize: 18.0),
               ),
               onPressed: _launchEmail,  // Function to open email app
             ),

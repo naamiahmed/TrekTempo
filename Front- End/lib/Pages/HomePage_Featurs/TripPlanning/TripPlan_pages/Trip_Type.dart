@@ -7,7 +7,7 @@ class TripTypePage extends StatefulWidget {
   final String endPoint;
   final String budget;
   final String tripPersonType;
-  const TripTypePage({Key? key, required this.endPoint, required this.budget, required this.tripPersonType}) : super(key: key);
+  const TripTypePage({super.key, required this.endPoint, required this.budget, required this.tripPersonType});
   @override
   _TripTypePageState createState() => _TripTypePageState();
 }
@@ -19,7 +19,7 @@ class _TripTypePageState extends State<TripTypePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(' ')),
+      appBar: AppBar(title: const Text(' ')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -68,7 +68,7 @@ class _TripTypePageState extends State<TripTypePage> {
             Icon(icon, color: color),
             const SizedBox(width: 15),
             Expanded(
-              child: Text(label, style: TextStyle(fontSize: 16)),
+              child: Text(label, style: const TextStyle(fontSize: 16)),
             ),
             Radio(
               value: value,

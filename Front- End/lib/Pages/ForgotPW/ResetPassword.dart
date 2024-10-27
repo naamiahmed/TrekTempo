@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ResetPasswordPage extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
+  final String email;
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
-  ResetPasswordPage({super.key});
+  ResetPasswordPage({required this.email, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TrekTempo_Appbar(),
+      appBar: const TrekTempo_Appbar(),
       body: Stack(
         children: [
           Center(
@@ -50,7 +54,7 @@ class ResetPasswordPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     const Text(
-                      'Please enter your email address to receive a Verification Code',
+                      'Please enter your new password',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -61,35 +65,40 @@ class ResetPasswordPage extends StatelessWidget {
                     _buildTextField(
                       Icons.lock,
                       'Enter New Password',
-                      emailController,
+                      newPasswordController,
                     ),
-                     const SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildTextField(
                       Icons.lock,
                       'Confirm New Password',
-                      emailController,
+                      confirmPasswordController,
                     ),
                     const SizedBox(height: 26),
                     Button(
                       text: 'Submit',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MainHomePage(),
-                          ),
-                        );
-                         
-                        // Handle send email
+                      onPressed: () async {
+                        if (newPasswordController.text == confirmPasswordController.text) {
+                          bool success = await _resetPassword(newPasswordController.text);
+                          if (success) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainHomePage(),
+                              ),
+                            );
+                          } else {
+                            _showErrorDialog(context, 'Failed to reset password');
+                          }
+                        } else {
+                          _showErrorDialog(context, 'Passwords do not match');
+                        }
                       },
-                
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          
         ],
       ),
     );
@@ -111,10 +120,64 @@ class ResetPasswordPage extends StatelessWidget {
       style: const TextStyle(color: Colors.black),
     );
   }
+
+  Future<bool> _resetPassword(String newPassword) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:5000/api/auth/resetPassword'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'newPassword': newPassword,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          contentPadding: const EdgeInsets.all(20),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Error',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
 
 void main() {
   runApp(MaterialApp(
-    home: ResetPasswordPage(),
+    home: ResetPasswordPage(email: 'example@example.com'),
   ));
 }

@@ -3,24 +3,22 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
-const { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp } = require("../controllers/authController");
+const { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword } = require("../controllers/authController");
 
 // Sign Up
 router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    // Check if user already exists
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
 
-    // Create new user
     user = new User({
       name,
       email,
-      password: await bcrypt.hash(password, 10), // Hash password
+      password: await bcrypt.hash(password, 10),
     });
 
     await user.save();
@@ -63,5 +61,6 @@ router.post("/updateProfilePicture/:userId", upload.single('profilePic'), update
 
 router.post('/sendOtp', sendOtp);
 router.post('/verifyOtp', verifyOtp);
+router.post('/resetPassword', resetPassword);
 
 module.exports = router;

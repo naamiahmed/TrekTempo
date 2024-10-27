@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:travel_app/Pages/ForgotPW/Components/Button.dart';
 import 'package:travel_app/Pages/ForgotPW/ForgotPassword-OTP.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
+import 'dart:convert';
 
 class ForgotPasswordPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -11,7 +13,7 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TrekTempo_Appbar(),
+      appBar: const TrekTempo_Appbar(),
       body: Stack(
         children: [
           Center(
@@ -21,7 +23,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 0), // Add some space at the top
+                    const SizedBox(height: 0),
                     const Text(
                       'Forgot password?',
                       style: TextStyle(
@@ -40,7 +42,7 @@ class ForgotPasswordPage extends StatelessWidget {
                       child: Center(
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/ForgotPassword-01.png', // Replace with your image path
+                            'assets/images/ForgotPassword-01.png',
                             fit: BoxFit.cover,
                             width: 200,
                             height: 200,
@@ -66,11 +68,37 @@ class ForgotPasswordPage extends StatelessWidget {
                     const SizedBox(height: 26),
                     Button(
                       text: 'Send',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ForgotPasswordOTPPage()));
+                      onPressed: () async {
+                        try {
+                          final response = await http.post(
+                            Uri.parse('http://localhost:5000/api/auth/sendOtp'),
+                            headers: <String, String>{
+                              'Content-Type': 'application/json; charset=UTF-8',
+                            },
+                            body: jsonEncode(<String, String>{
+                              'email': emailController.text,
+                            }),
+                          );
+
+                          if (response.statusCode == 200) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPasswordOTPPage(email: emailController.text),
+                              ),
+                            );
+                          } else {
+                            // Handle error
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Failed to send OTP OR Email not registered')),
+                            );
+                          }
+                        } catch (e) {
+                          // Handle error
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Error: $e')),
+                          );
+                        }
                       },
                     ),
                   ],
