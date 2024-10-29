@@ -44,11 +44,13 @@ class SafetyTipsPage extends StatelessWidget {
     },
   ];
 
+  SafetyTipsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Safety Tips'),
+        title: const Text('Safety Tips'),
         backgroundColor: Colors.teal, // Customize the app bar color
       ),
       body: Padding(
@@ -70,7 +72,7 @@ class SafetyTipsPage extends StatelessWidget {
                 ),
                 title: Text(
                   safetyTips[index]['tip'],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w500,
                   ),

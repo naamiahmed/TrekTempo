@@ -6,6 +6,8 @@ import 'package:travel_app/Models/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
+
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
@@ -60,8 +62,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
  Future<void> _pickImage(ImageSource source) async {
-  final ImagePicker _picker = ImagePicker();
-  final XFile? image = await _picker.pickImage(source: source);
+  final ImagePicker picker = ImagePicker();
+  final XFile? image = await picker.pickImage(source: source);
   if (image != null) {
     setState(() {
       profileImagePath = image.path; // Update the profile image path
@@ -111,30 +113,30 @@ Future<void> _uploadProfilePicture(XFile image) async {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Change Profile Picture',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ListTile(
-                leading: Icon(Icons.camera),
-                title: Text('Take a Photo'),
+                leading: const Icon(Icons.camera),
+                title: const Text('Take a Photo'),
                 onTap: () {
                   _pickImage(ImageSource.camera);
                   Navigator.of(context).pop(); // Close the bottom sheet
                 },
               ),
               ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Upload from Gallery'),
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Upload from Gallery'),
                 onTap: () {
                   _pickImage(ImageSource.gallery);
                   Navigator.of(context).pop(); // Close the bottom sheet
                 },
               ),
               ListTile(
-                leading: Icon(Icons.cancel),
-                title: Text('Cancel'),
+                leading: const Icon(Icons.cancel),
+                title: const Text('Cancel'),
                 onTap: () {
                   Navigator.of(context).pop(); // Close the bottom sheet
                 },
@@ -150,7 +152,7 @@ Future<void> _uploadProfilePicture(XFile image) async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -158,7 +160,7 @@ Future<void> _uploadProfilePicture(XFile image) async {
           future: futureProfile,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (snapshot.hasData) {
@@ -169,47 +171,47 @@ Future<void> _uploadProfilePicture(XFile image) async {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(width: 50),
+                      const SizedBox(width: 50),
                       CircleAvatar(
                         radius: 50,
                         backgroundImage: (user.profilePicURL != null &&
                                 user.profilePicURL!.isNotEmpty)
                             ? NetworkImage(user.profilePicURL!)
-                            : NetworkImage(
+                            : const NetworkImage(
                                 'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                           width: 8), // Space between profile picture and icon
                       IconButton(
-                        icon: Icon(Icons.edit, color: Colors.blue),
+                        icon: const Icon(Icons.edit, color: Colors.blue),
                         onPressed:
                             _showImageSourceOptions, // Show options for changing profile picture
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     user.name,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     user.email,
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   GestureDetector(
                     onTap: () {
                       _showChangePasswordDialog(context);
                     },
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                          const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'Change Password',
                           style: TextStyle(
@@ -224,7 +226,7 @@ Future<void> _uploadProfilePicture(XFile image) async {
                 ],
               );
             } else {
-              return Center(child: Text('No data available'));
+              return const Center(child: Text('No data available'));
             }
           },
         ),
@@ -241,23 +243,23 @@ Future<void> _uploadProfilePicture(XFile image) async {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Change Password'),
+          title: const Text('Change Password'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: currentPasswordController,
-                decoration: InputDecoration(labelText: 'Current Password'),
+                decoration: const InputDecoration(labelText: 'Current Password'),
                 obscureText: true,
               ),
               TextField(
                 controller: newPasswordController,
-                decoration: InputDecoration(labelText: 'New Password'),
+                decoration: const InputDecoration(labelText: 'New Password'),
                 obscureText: true,
               ),
               TextField(
                 controller: confirmPasswordController,
-                decoration: InputDecoration(labelText: 'Confirm New Password'),
+                decoration: const InputDecoration(labelText: 'Confirm New Password'),
                 obscureText: true,
               ),
             ],
@@ -268,13 +270,13 @@ Future<void> _uploadProfilePicture(XFile image) async {
                 // Implement your password change logic here
                 Navigator.of(context).pop();
               },
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );

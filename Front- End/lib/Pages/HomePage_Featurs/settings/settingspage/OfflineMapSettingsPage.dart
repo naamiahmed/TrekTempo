@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OfflineMapSettingsPage extends StatefulWidget {
+  const OfflineMapSettingsPage({super.key});
+
   @override
   _OfflineMapSettingsPageState createState() => _OfflineMapSettingsPageState();
 }
@@ -13,64 +15,64 @@ class _OfflineMapSettingsPageState extends State<OfflineMapSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Offline Maps'),
+        title: const Text('Offline Maps'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Section for downloading a new offline map
-            Text(
+            const Text(
               'Download Offline Maps',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Download map areas to use when traveling in locations without an internet connection.',
               style: TextStyle(fontSize: 14),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _isDownloading
                   ? null
                   : () {
                       _startMapDownload();
                     },
-              child: _isDownloading ? Text('Downloading...') : Text('Download Map Area'),
+              child: _isDownloading ? const Text('Downloading...') : const Text('Download Map Area'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             if (_isDownloading)
               LinearProgressIndicator(
                 value: _downloadProgress,
                 backgroundColor: Colors.grey[300],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
               ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             // Section for managing downloaded offline maps
-            Text(
+            const Text(
               'Manage Offline Maps',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Map of Sri Lanka'),
-              subtitle: Text('Downloaded - 150 MB'),
+              leading: const Icon(Icons.map),
+              title: const Text('Map of Sri Lanka'),
+              subtitle: const Text('Downloaded - 150 MB'),
               trailing: IconButton(
-                icon: Icon(Icons.delete, color: Colors.red),
+                icon: const Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
                   _deleteOfflineMap();
                 },
               ),
             ),
             ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Colombo City Map'),
-              subtitle: Text('Downloaded - 50 MB'),
+              leading: const Icon(Icons.map),
+              title: const Text('Colombo City Map'),
+              subtitle: const Text('Downloaded - 50 MB'),
               trailing: IconButton(
-                icon: Icon(Icons.delete, color: Colors.red),
+                icon: const Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
                   _deleteOfflineMap();
                 },
@@ -89,22 +91,22 @@ class _OfflineMapSettingsPageState extends State<OfflineMapSettingsPage> {
     });
 
     // Simulate map download progress (this would be actual downloading logic in a real app)
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         _downloadProgress = 0.25;
       });
     });
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _downloadProgress = 0.5;
       });
     });
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         _downloadProgress = 0.75;
       });
     });
-    Future.delayed(Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 4), () {
       setState(() {
         _downloadProgress = 1.0;
         _isDownloading = false;
@@ -112,7 +114,7 @@ class _OfflineMapSettingsPageState extends State<OfflineMapSettingsPage> {
 
       // Show a message that the map has been downloaded
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Map area downloaded successfully!')),
+        const SnackBar(content: Text('Map area downloaded successfully!')),
       );
     });
   }
@@ -120,7 +122,7 @@ class _OfflineMapSettingsPageState extends State<OfflineMapSettingsPage> {
   void _deleteOfflineMap() {
     // Logic to delete the offline map
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Offline map deleted!')),
+      const SnackBar(content: Text('Offline map deleted!')),
     );
   }
 }

@@ -8,7 +8,7 @@ class Button extends StatelessWidget {
   final OutlinedBorder? shape;
   final TextStyle textStyle;
 
-  Button({
+  const Button({super.key, 
     required this.text,
     required this.onPressed,
     this.backgroundColor = Colors.blue,

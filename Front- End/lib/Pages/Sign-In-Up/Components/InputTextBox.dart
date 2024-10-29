@@ -8,13 +8,13 @@ class InputTextBox extends StatelessWidget {
   final String? Function(String? value) validator;
 
   const InputTextBox({
-    Key? key,
+    super.key,
     required this.icon,
     required this.label,
     this.isPassword = false,
     required this.controller,
     required this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

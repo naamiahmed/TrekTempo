@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 import 'dart:io';
-import 'package:path/path.dart';
+import 'package:travel_app/controller/placeform_service.dart'; // Import the PlaceService
 
 class AddPlaceForm extends StatefulWidget {
+  const AddPlaceForm({super.key});
+
   @override
   _AddPlaceFormState createState() => _AddPlaceFormState();
 }
@@ -21,6 +22,7 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
   final TextEditingController _descriptionController = TextEditingController();
 
   List<File> _images = [];
+  final PlaceService _placeService = PlaceService();
 
   @override
   void dispose() {
@@ -51,33 +53,17 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
       final direction = _directionController.text;
       final description = _descriptionController.text;
 
-      // Create a multipart request for image uploads
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse('http://localhost:5000/api/createNewPlace'),
-      );
-
-      // Add form fields
-      request.fields.addAll({
-        'name': placeName,
-        'district': district,
-        'city': city,
-        'location': location,
-        'direction': direction,
-        'description': description,
-      });
-
-      // Attach images to the request
-      for (File image in _images) {
-        String fileName = basename(image.path);
-        request.files.add(
-          await http.MultipartFile.fromPath('images', image.path, filename: fileName),
-        );
-      }
-
       try {
-        // Send the request
-        var response = await request.send();
+        // Send the request using PlaceService
+        var response = await _placeService.createNewPlace(
+          placeName: placeName,
+          district: district,
+          city: city,
+          location: location,
+          direction: direction,
+          description: description,
+          images: _images,
+        );
 
         if (response.statusCode == 201) {
           // Show success dialog
@@ -99,7 +85,7 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
 
   void _showSuccessDialog() {
     showDialog(
-      context: this.context,
+      context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Submission Successful'),
@@ -241,10 +227,4 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: AddPlaceForm(),
-  ));
 }

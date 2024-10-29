@@ -7,6 +7,8 @@ import 'package:travel_app/Models/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -64,21 +66,21 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    MainHomePage(), // Navigate to MainHomePage
+                    const MainHomePage(), // Navigate to MainHomePage
               ),
             );
           },
         ),
-        title: Text('Profile'),
+        title: const Text('Profile'),
         actions: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
             onPressed: () {
               Navigator.push(
                 context,
@@ -94,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Use FutureBuilder to handle dynamic user data including profile picture
             FutureBuilder<User>(
@@ -102,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // Show loading indicator while data is being fetched
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   // Show error message if something went wrong
                   return Text('Errorrrr: ${snapshot.error}');
@@ -116,27 +118,27 @@ class _ProfilePageState extends State<ProfilePage> {
                         backgroundImage: (user.profilePicURL != null &&
                                 user.profilePicURL!.isNotEmpty)
                             ? NetworkImage(user.profilePicURL!)
-                            : NetworkImage(
+                            : const NetworkImage(
                                 'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Default image URL
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         user.name, // User's name
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                         user.email, // User's email
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: const TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                     ],
                   );
                 } else {
                   // Fallback text if no data is available
-                  return Column(
+                  return const Column(
                     children: [
                       CircleAvatar(
                         radius: 50,
@@ -154,7 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
               },
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // GridView.builder(
             //   shrinkWrap: true,

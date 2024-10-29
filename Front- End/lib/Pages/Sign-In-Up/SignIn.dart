@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/ForgotPW/ForgotPassword-EnterMail.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
@@ -8,6 +9,8 @@ import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'package:travel_app/auth_service.dart'; // Make sure this points to your ApiService
 
 class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
@@ -62,7 +65,7 @@ class _SignInPageState extends State<SignInPage> {
                     const Text(
                       'Sign In',
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -82,7 +85,28 @@ class _SignInPageState extends State<SignInPage> {
                       controller: _passwordController,
                       validator: _validatePassword,
                     ),
-                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+                            );
+                          },
+                          child: const Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
                     Center(
                       child: Button(
                         text: 'Sign In',
@@ -97,12 +121,12 @@ class _SignInPageState extends State<SignInPage> {
                               // Navigate to the home page
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => MainHomePage()),
+                                MaterialPageRoute(builder: (context) => const MainHomePage()),
                               );
                             } else {
                               // Show an error message
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Sign in failed! Please try again.')),
+                                const SnackBar(content: Text('Sign in failed! Please try again.')),
                               );
                             }
                           } else {

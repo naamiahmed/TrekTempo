@@ -15,7 +15,6 @@ import 'package:travel_app/Models/Place.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
 
@@ -27,7 +26,7 @@ class _MainHomePageState extends State<MainHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    HomePage(),
+    const HomePage(),
     const Search(),
     const DestinationsPage()
   ];
@@ -94,7 +93,7 @@ class _MainHomePageState extends State<MainHomePage> {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -149,7 +148,7 @@ class _HomePageState extends State<HomePage> {
     if (userId != null) {
       futureProfile = fetchProfileData(userId ?? "6700ae680edbeca3aef3e1e5");
     } else {
-      print('No userId found in SharedPreferences');
+      // print('No userId found in SharedPreferences');
     }
   }
 
@@ -177,99 +176,115 @@ class _HomePageState extends State<HomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        elevation: 0,
-        leading: FutureBuilder<User>(
-          future: futureProfile,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Placeholder while loading
-                ),
-              );
-            } else if (snapshot.hasError) {
-              print('Error fetching profile: ${snapshot.error}');
-              return const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Fallback image on error
-                ),
-              );
-            } else if (snapshot.hasData) {
-              final user = snapshot.data!;
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundImage: user.profilePicURL != null &&
-                          user.profilePicURL!.isNotEmpty
-                      ? NetworkImage(user.profilePicURL!)
-                      : NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
-                ),
-              );
-            } else {
-              return const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Fallback image
-                ),
-              );
-            }
-          },
-        ),
-        title: FutureBuilder<User>(
-          future: futureProfile,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text(
-                'Loading...',
-                style: TextStyle(color: Colors.white),
-              );
-            } else if (snapshot.hasError) {
-              return const Text(
-                'Error',
-                style: TextStyle(color: Colors.white),
-              );
-            } else if (snapshot.hasData) {
-              final user = snapshot.data!;
-              return Text(
-                user.name ?? 'No Name', // Fallback name
-                style: const TextStyle(color: Colors.white),
-              );
-            } else {
-              return const Text(
-                'No Name',
-                style: TextStyle(color: Colors.white),
-              );
-            }
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications,
-                color: Color.fromARGB(255, 51, 51, 51)),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const Notifications_Home(userId: '',)),
-              );
-            },
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0), // Set the height of the AppBar
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white, // Background color of the AppBar
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
           ),
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0, 
+            leading: FutureBuilder<User>(
+              future: futureProfile,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),      ),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),               ),
+                  );
+                } else if (snapshot.hasData) {
+                  final user = snapshot.data!;
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: user.profilePicURL != null &&
+                              user.profilePicURL!.isNotEmpty
+                          ? NetworkImage(user.profilePicURL!)
+                          : const NetworkImage(
+                              'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                    ),
+                  );
+                } else {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Fallback image
+                    ),
+                  );
+                }
+              },
+            ),
+            title: FutureBuilder<User>(
+              future: futureProfile,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Text(
+                    'Loading...',
+                    style: TextStyle(color: Colors.black),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Text(
+                    'Error',
+                    style: TextStyle(color: Colors.black),
+                  );
+                } else if (snapshot.hasData) {
+                  final user = snapshot.data!;
+                  return Text(
+                    user.name,
+                    style: const TextStyle(color: Colors.black),
+                  );
+                } else {
+                  return const Text(
+                    'No Name',
+                    style: TextStyle(color: Colors.black),
+                  );
+                }
+              },
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.notifications),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Notifications_Home(userId: '',)),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+            ],
+            iconTheme: const IconThemeData(color: Colors.black, size: 30,),
           ),
-        ],
-        iconTheme: const IconThemeData(color: Colors.white, size: 30,),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -319,19 +334,15 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Best Destination',
+                  Text(
+                    'Most Fevourite Places',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('View all'),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -339,7 +350,7 @@ class _HomePageState extends State<HomePage> {
               future: futureTopPlaces,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.hasData && snapshot.data!.isEmpty) {
