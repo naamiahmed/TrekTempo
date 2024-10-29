@@ -39,6 +39,14 @@ const AccommodationSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    contact: {
+        type: String,
+        required: false,
+    },
+    dayCost: {
+        type: Number,
+        required: true,
+    },
 });
 
 const Accommodation = mongoose.model('Accommodation', AccommodationSchema);
