@@ -23,10 +23,6 @@ const AccommodationSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
-    weather: {
-        type: String,
-        required: false,
-    },
     budget: {
         type: String,
         required: true,
