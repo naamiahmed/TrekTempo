@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'second_page.dart'; // Ensure this path is correct
 
 class HomePage extends StatelessWidget {
@@ -16,34 +17,33 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        color: const Color.fromARGB(255, 33, 150, 243), 
-        child: const Center(
+        color: const Color.fromARGB(255, 33, 150, 243),
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center, 
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image(
+              const Image(
                 image: AssetImage('assets/images/Logo.png'),
-                height: 100, 
-                width: 100, 
+                height: 100,
+                width: 100,
               ),
-              SizedBox(height: 20), 
+              const SizedBox(height: 20),
               Text(
                 'TrackTempo',
-                style: TextStyle(
-                  fontFamily: 'ShortBaby',
-                  color: Colors.white, 
+                style: GoogleFonts.lobster(
                   fontSize: 50,
+                  color: Colors.white,
                 ),
               ),
-              SizedBox(height: 5),
-              Text(
-                'Find your dream destination with us', 
-                textAlign: TextAlign.center, 
+              const SizedBox(height: 5),
+              const Text(
+                'Find your dream destination with us',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16, 
-                  fontStyle: FontStyle.italic, 
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ],

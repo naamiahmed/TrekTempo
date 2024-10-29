@@ -65,7 +65,7 @@ class _SignInPageState extends State<SignInPage> {
                     const Text(
                       'Sign In',
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
