@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsPage extends StatelessWidget {
-  final String email = 'fathimarashidha135@gmail.com';
+  final String email = 'tracktempo.official@gmail.com';
 
   const ContactUsPage({super.key});
 
@@ -10,7 +11,7 @@ class ContactUsPage extends StatelessWidget {
     final Uri emailUri = Uri(
       scheme: 'mailto',
       path: email,
-      query: 'subject=TrekTempo Support&body=Hello, I need help with...', // Add subject and body if needed
+      query: 'subject=TrackTempo Support&body=Hello, I need help with...',
     );
     
     if (await canLaunch(emailUri.toString())) {
@@ -24,8 +25,26 @@ class ContactUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Contact Us'),
-        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const MainHomePage()),
+            );
+          },
+        ),
+        title: const Text('Contact Us' ,style: TextStyle(
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
+        backgroundColor: Colors.white,
+         centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

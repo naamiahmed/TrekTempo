@@ -38,27 +38,17 @@ class MenuPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                      MaterialPageRoute(builder: (context) => const ProfilePage()),
                     );
                   },
                 ),
-                // ListTile(
-                //   leading: Icon(Icons.settings),
-                //   title: Text('Settings'),
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => SettingsPage()), // Navigate to SettingsPage
-                //     );
-                //   },
-                // ),
                 ListTile(
                   leading: const Icon(Icons.contact_page),
                   title: const Text('Contact us'),
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ContactUsPage()),
+                      MaterialPageRoute(builder: (context) => const ContactUsPage()),
                     );
                   },
                 ),
@@ -68,7 +58,7 @@ class MenuPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => shareplus()),
+                      MaterialPageRoute(builder: (context) => const shareplus()),
                     );
                   },
                 ),
@@ -78,7 +68,7 @@ class MenuPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AboutPage()),
+                      MaterialPageRoute(builder: (context) => const AboutPage()),
                     );
                   },
                 ),
@@ -91,7 +81,7 @@ class MenuPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SignInPage()),
+                MaterialPageRoute(builder: (context) => const SignInPage()),
               );
             },
           ),

@@ -41,7 +41,7 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
     setState(() {
       _images = pickedFiles.map((file) => File(file.path)).toList();
     });
-    }
+  }
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -89,7 +89,8 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Submission Successful'),
-          content: const Text('Your place has been submitted and is under review.'),
+          content:
+              const Text('Your place has been submitted and is under review.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -121,7 +122,20 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add New Place'),
+        title: const Text('Add New Place',
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w600)),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

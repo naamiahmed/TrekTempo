@@ -50,8 +50,13 @@ class _DestinationCardState extends State<DestinationCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.district),
+        title: Text(widget.district,
+            style: const TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w600)),
         centerTitle: true,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -63,6 +68,13 @@ class _DestinationCardState extends State<DestinationCard> {
             },
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: FutureBuilder<List<Place>>(
         future: futurePlaces,

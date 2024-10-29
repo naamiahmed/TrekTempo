@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+
 class Notifications_Home extends StatefulWidget {
   final String userId; // Pass the userId to this widget
 
@@ -43,15 +45,15 @@ class _Notifications_HomeState extends State<Notifications_Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notification', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const MainHomePage()));
           },
         ),
+        title: const Text('Notification', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
         actions: [
           TextButton(
             onPressed: () {
@@ -65,6 +67,13 @@ class _Notifications_HomeState extends State<Notifications_Home> {
             ),
           ),
         ],
+         bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),

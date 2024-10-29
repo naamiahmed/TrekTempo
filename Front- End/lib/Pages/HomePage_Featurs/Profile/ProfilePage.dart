@@ -72,12 +72,13 @@ class _ProfilePageState extends State<ProfilePage> {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    const MainHomePage(), // Navigate to MainHomePage
+                    const MainHomePage(), 
               ),
             );
           },
         ),
-        title: const Text('Profile'),
+        title: const Text('Profile', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
@@ -92,6 +93,14 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
         ],
+        backgroundColor: Colors.white,
+         bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -5,7 +5,6 @@ import 'package:travel_app/Pages/HomePage_Featurs/Event/AddEvent.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventCard';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'EventDetails.dart';
-import 'Components/Support.dart';
 
 class EventPage extends StatefulWidget {
   const EventPage({super.key});
@@ -28,8 +27,8 @@ class _HomeState extends State<EventPage> {
       final response = await http.get(Uri.parse('http://localhost:5000/api/getAllAcceptedEvents'));
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-        final List fetchedEvents = responseData['events']; // Extract the list of events
-        // print('Fetched Events: $fetchedEvents'); // Debug print statement
+        final List fetchedEvents = responseData['events']; 
+                // print('Fetched Events: $fetchedEvents'); // Debug print statement
         setState(() {
           events = fetchedEvents;
         });
@@ -46,7 +45,6 @@ class _HomeState extends State<EventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Events'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -56,6 +54,8 @@ class _HomeState extends State<EventPage> {
             );
           },
         ),
+        title: const Text('Events', style: TextStyle(
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -69,6 +69,15 @@ class _HomeState extends State<EventPage> {
             },
           ),
         ],
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: events.isEmpty
           ? const Center(
