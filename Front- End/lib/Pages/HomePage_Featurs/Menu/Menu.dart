@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/AboutPage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Collaboration/Collaboration.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/ContactUsPage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/shareplus.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignIn.dart';
@@ -79,6 +80,18 @@ class MenuPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => AboutPage()),
+                    );
+                  },
+                ),
+
+                ListTile(
+                  leading: const Icon(Icons.support_agent),
+                  title: const Text('Collaboration'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CollaborationPage()),
                     );
                   },
                 ),
