@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:travel_app/Pages/Destinations/place/showing_place_details.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/accomadation.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
 import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
@@ -28,7 +29,9 @@ class _MainHomePageState extends State<MainHomePage> {
   final List<Widget> _pages = [
     const HomePage(),
     const Search(),
-    const DestinationsPage()
+    const AccommodationPage(),
+    const DestinationsPage(),
+    
   ];
 
   @override
@@ -76,6 +79,10 @@ class _MainHomePageState extends State<MainHomePage> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.hotel_class),
+                label: 'Accommodation',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.location_on),
