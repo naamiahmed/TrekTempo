@@ -54,14 +54,17 @@ class _TranslatorPageState extends State<TranslatorPage> {
         title: const Text(
           'Translator',
           style: TextStyle(
-            fontSize: 30.0,
-            fontWeight: FontWeight.w500,
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+         bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
           ),
         ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
