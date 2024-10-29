@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -7,8 +8,26 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About TrekTempo'),
-        backgroundColor: Colors.blue, // Custom AppBar color
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const MainHomePage()),
+            );
+          },
+        ),
+        title: const Text('About TrekTempo', style: TextStyle(
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
+         centerTitle: true,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -30,7 +49,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(fontSize: 16, height: 1.5),
               textAlign: TextAlign.justify,
             ),
-            
+
             // Spacing between sections
             const SizedBox(height: 20),
 
@@ -47,29 +66,34 @@ class AboutPage extends StatelessWidget {
             buildFeatureItem(
               icon: Icons.location_on,
               title: 'Personalized Itineraries',
-              description: 'Create customized trip plans based on your preferences.',
+              description:
+                  'Create customized trip plans based on your preferences.',
             ),
             buildFeatureItem(
               icon: Icons.update,
               title: 'Real-Time Travel Updates',
-              description: 'Stay updated with live information about events, transportation, and weather.',
+              description:
+                  'Stay updated with live information about events, transportation, and weather.',
             ),
             buildFeatureItem(
               icon: Icons.attach_money,
               title: 'Budget Planning',
-              description: 'Track your expenses and plan your trips within your budget.',
+              description:
+                  'Track your expenses and plan your trips within your budget.',
             ),
             buildFeatureItem(
               icon: Icons.warning,
               title: 'Safety Alerts',
-              description: 'Receive timely alerts and safety tips for your travels.',
+              description:
+                  'Receive timely alerts and safety tips for your travels.',
             ),
             buildFeatureItem(
               icon: Icons.emoji_events,
               title: 'Local Experiences',
-              description: 'Discover cultural activities, local adventures, and hidden gems.',
+              description:
+                  'Discover cultural activities, local adventures, and hidden gems.',
             ),
-            
+
             const SizedBox(height: 20),
 
             // Section 3: Our Mission
@@ -87,7 +111,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(fontSize: 16, height: 1.5),
               textAlign: TextAlign.justify,
             ),
-            
+
             const SizedBox(height: 20),
 
             // Section 4: Why Choose Us
@@ -105,7 +129,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(fontSize: 16, height: 1.5),
               textAlign: TextAlign.justify,
             ),
-            
+
             const SizedBox(height: 20),
 
             // Section 5: Community Call
@@ -130,14 +154,18 @@ class AboutPage extends StatelessWidget {
   }
 
   // Custom widget for building the feature items
-  Widget buildFeatureItem({required IconData icon, required String title, required String description}) {
+  Widget buildFeatureItem(
+      {required IconData icon,
+      required String title,
+      required String description}) {
     return ListTile(
       leading: Icon(icon, color: Colors.blue),
       title: Text(
         title, // Corrected to use the actual 'title' variable
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text(description), // Corrected to use the actual 'description' variable
+      subtitle: Text(
+          description), // Corrected to use the actual 'description' variable
     );
   }
 }

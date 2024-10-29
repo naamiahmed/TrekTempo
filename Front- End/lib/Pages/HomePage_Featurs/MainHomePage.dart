@@ -34,7 +34,7 @@ class _MainHomePageState extends State<MainHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         child: MenuPage(),
       ),
       body: _pages[_currentIndex],
@@ -324,7 +324,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildIconButton(
-                      context, Icons.map, 'Trip Plans', IntroPage()),
+                      context, Icons.map, 'Trip Plans', const IntroPage()),
                   _buildIconButton(
                       context, Icons.event, 'Events', const EventPage()),
                   _buildIconButton(context, Icons.translate, 'Translator',

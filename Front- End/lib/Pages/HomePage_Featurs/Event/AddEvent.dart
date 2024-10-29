@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
-import 'package:async/async.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventPage.dart';
 
 class AddEventPage extends StatefulWidget {
@@ -112,17 +110,26 @@ class _AddEventPageState extends State<AddEventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Event'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const EventPage()),
             );
           },
         ),
+        title: const Text('Add Event',style: TextStyle(
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
+        centerTitle: true,
         backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
