@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Collaboration/Map.dart';
 
 class SameDestination extends StatelessWidget {
   final String startPoint;
   final String endPoint;
 
   const SameDestination(
-      {Key? key, required this.startPoint, required this.endPoint})
-      : super(key: key);
+      {super.key, required this.startPoint, required this.endPoint});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Same Destination')),
+      appBar: AppBar(title: const Text('Same Destination')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -39,18 +39,18 @@ class SameDestination extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('User Bio'),
+                title: const Text('User Bio'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       children: [
                         Icon(isMale ? Icons.male : Icons.female),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Text(realName),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text('Age: $age'),
                     Text('Profession: $profession'),
                   ],
@@ -58,16 +58,21 @@ class SameDestination extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MapSample(),
+                        ),
+                      );
                     },
-                    child: Text('Accept'),
+                    child: const Text('Accept'),
                   ),
                   TextButton(
                     onPressed: () {
                       // Handle reject action
                       Navigator.of(context).pop();
                     },
-                    child: Text('Reject'),
+                    child: const Text('Reject'),
                   ),
                 ],
               );

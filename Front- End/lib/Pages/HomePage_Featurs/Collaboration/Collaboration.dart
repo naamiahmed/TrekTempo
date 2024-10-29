@@ -130,7 +130,7 @@ class _CollaborationPageState extends State<CollaborationPage> {
                               ),
                             );
                           });
-                          return AlertDialog(
+                          return const AlertDialog(
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
