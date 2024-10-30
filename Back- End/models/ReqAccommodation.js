@@ -17,7 +17,7 @@ const ReqAccommodationSchema = new mongoose.Schema({
 
     location: {
         type: String,
-        required: false,
+        required: true,
     },
     images: {
         type: Array,
@@ -29,7 +29,15 @@ const ReqAccommodationSchema = new mongoose.Schema({
     },
     locationLink: {
         type: String,
-        required: false,
+        required: true,
+    },
+    contact: {
+        type: String,
+        required: true,
+    },
+    dayCost: {
+        type: Number,
+        required: true,
     },
 });
 
