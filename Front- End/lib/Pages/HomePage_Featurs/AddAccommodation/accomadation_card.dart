@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/Accommodation.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/show_accomadation_details.dart';
 
 class AccommodationCard extends StatelessWidget {
   final Accommodation accommodation;
@@ -13,7 +14,12 @@ class AccommodationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to accommodation details page if needed
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ShowAccommodationDetails(accommodation: accommodation),
+          ),
+        );
       },
       child: Card(
         elevation: 4,

@@ -27,14 +27,14 @@ const AccommodationSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tripPersonType: {
-        type: String,
-        required: false,
-    },
-    tripType: {
-        type: String,
-        required: false,
-    },
+    // tripPersonType: {
+    //     type: String,
+    //     required: false,
+    // },
+    // tripType: {
+    //     type: String,
+    //     required: false,
+    // },
     locationLink: {
         type: String,
         required: false,
