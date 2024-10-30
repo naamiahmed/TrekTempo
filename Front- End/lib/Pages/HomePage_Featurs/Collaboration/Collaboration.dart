@@ -118,7 +118,7 @@ class _CollaborationPageState extends State<CollaborationPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (BuildContext context) {
-                          Future.delayed(Duration(seconds: 5), () {
+                          Future.delayed(Duration(seconds: 3), () {
                             Navigator.of(context).pop(true); // Close the dialog
                             Navigator.push(
                               context,

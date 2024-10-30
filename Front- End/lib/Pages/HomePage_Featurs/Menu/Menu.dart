@@ -85,7 +85,7 @@ class MenuPage extends StatelessWidget {
                 ),
 
                 ListTile(
-                  leading: const Icon(Icons.support_agent),
+                  leading: const Icon(Icons.all_inclusive),
                   title: const Text('Collaboration'),
                   onTap: () {
                     Navigator.push(

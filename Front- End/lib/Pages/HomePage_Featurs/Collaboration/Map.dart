@@ -14,8 +14,8 @@ class MapSampleState extends State<MapSample> {
       Completer<GoogleMapController>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
+    target: LatLng(7.8731, 80.7718), // Coordinates for Sri Lanka
+    zoom: 7.0, // Adjust the zoom level as needed
   );
 
   static const CameraPosition _kLake = CameraPosition(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Collaboration/Map.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Collaboration/chat.dart';
 
 class SameDestination extends StatelessWidget {
   final String startPoint;
@@ -61,7 +62,7 @@ class SameDestination extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const MapSample(),
+                          builder: (context) => ChatPage(userName: userName),
                         ),
                       );
                     },
