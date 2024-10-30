@@ -66,18 +66,18 @@ class ShowAccommodationDetails extends StatelessWidget {
                   // Other Details
                   Text(
                     'Budget: ${accommodation.budget}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                    
                   ),
-                  const SizedBox(height: 8),
+
                   Text(
-                    'Day Cost Per Person: ${accommodation.dayCost} Rs',
-                    style: const TextStyle(fontSize: 16),
+                    'Per day Cost For One person: ${accommodation.dayCost} Rs',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  const SizedBox(height: 8),
+
                   Text(
                     'Contact: ${accommodation.contact}',
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 16),
                   // Visit Button
