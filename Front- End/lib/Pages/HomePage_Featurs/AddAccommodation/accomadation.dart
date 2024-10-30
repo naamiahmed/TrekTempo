@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/new_accomadation_form.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/show_accomadation_details.dart';
 
 class AccommodationPage extends StatefulWidget {
   const AccommodationPage({super.key});
@@ -223,7 +224,17 @@ class _AccommodationPageState extends State<AccommodationPage> {
                       final accommodation = snapshot.data![index];
                       return Column(
                         children: [
-                          AccommodationCard(accommodation: accommodation),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ShowAccommodationDetails(accommodation: accommodation),
+                                ),
+                              );
+                            },
+                            child: AccommodationCard(accommodation: accommodation),
+                          ),
                           const SizedBox(height: 16),
                         ],
                       );
