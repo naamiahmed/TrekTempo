@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/Accommodation.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/AddAccommodation.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/accomadation_card.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/new_accomadation_form.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class AccommodationPage extends StatefulWidget {
@@ -19,14 +19,13 @@ class _AccommodationPageState extends State<AccommodationPage> {
   String? selectedDistrict;
   String? selectedBudget;
 
- final List<String> districts = [
-  'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
-  'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
-  'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
-  'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
-  'Trincomalee', 'Vavuniya'
-];
-
+  final List<String> districts = [
+    'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
+    'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
+    'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
+    'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
+    'Trincomalee', 'Vavuniya'
+  ];
 
   final List<String> budgetRanges = ['Low', 'Medium', 'High'];
 
@@ -85,10 +84,10 @@ class _AccommodationPageState extends State<AccommodationPage> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const AddAccommodation()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>  NewAccommodationForm()),
+              );
             },
           ),
         ],
@@ -113,7 +112,15 @@ class _AccommodationPageState extends State<AccommodationPage> {
                       child: DropdownButtonFormField<String>(
                         decoration: const InputDecoration(
                           labelText: 'Select District',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
                           contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         ),
                         value: selectedDistrict,
@@ -137,12 +144,20 @@ class _AccommodationPageState extends State<AccommodationPage> {
                         },
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: DropdownButtonFormField<String>(
                         decoration: const InputDecoration(
                           labelText: 'Select Budget',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
                           contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         ),
                         value: selectedBudget,
@@ -168,12 +183,18 @@ class _AccommodationPageState extends State<AccommodationPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                     onPressed: _onSearch,
-                    child: const Text('Search'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      'Search',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],

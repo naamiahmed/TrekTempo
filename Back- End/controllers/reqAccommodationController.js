@@ -19,8 +19,7 @@ const addAccommodation = async (req, res) => {
     console.log('Request Body:', req.body);
     console.log('Request File:', req.file);
 
-    const { name, tripPersonType, district, budget, tripType, location,locationLink, description } = req.body;
-    // const dateRange = req.body.dateRange;
+    const { name, tripPersonType, district, budget, tripType, location, locationLink, description, contact, dayCost } = req.body;
     const image = req.file ? `http://localhost:5000/uploads/ReqAccommodation/${req.file.filename}` : null;
 
     const newAccommodation = new ReqAccommodation({
@@ -33,17 +32,13 @@ const addAccommodation = async (req, res) => {
       locationLink,
       images: image ? [image] : [],
       description,
-    //   date: date ? new Date(date) : undefined,
-    //   dateRange: dateRange ? {
-    //     start: new Date(dateRange.start),
-    //     end: new Date(dateRange.end)
-    //   } : undefined
+      contact,
+      dayCost,
     });
 
     await newAccommodation.save();
     res.status(201).json({ message: 'Accommodation added successfully!' });
   } catch (error) {
-    // console.log('Error:', error.message);
     res.status(500).json({ error: error.message });
   }
 };
