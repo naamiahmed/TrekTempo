@@ -2,7 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'dart:convert';
-//import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart' as HomePageButton;
+
+void main() => runApp(const CurrencyConverterApp());
+
+class CurrencyConverterApp extends StatelessWidget {
+  const CurrencyConverterApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Currency Converter',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const CurrencyConverterPage(),
+    );
+  }
+}
 
 class Currency {
   final String code;
@@ -81,12 +98,48 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
     }
   }
 
+  
   void _convert() {
-    setState(() {
+  setState(() {
+    if (_controller.text.isEmpty) {
+      // Show error message if the amount field is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Amount cannot be empty'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      _convertedAmount = 0.0; // Clear previous result if any
+    } else if (_fromCurrency == _toCurrency) {
+      // Show message if the same currency is selected
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Select different currencies'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      _convertedAmount = 0.0; // Clear previous result if any
+    } else {
+      // Parse the amount and perform conversion
       _amount = double.tryParse(_controller.text) ?? 0.0;
-      _convertedAmount = _amount * _conversionRate;
-    });
-  }
+      
+      if (_amount <= 0) {
+        // Show error message if amount is zero or negative
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Amount must be greater than zero'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        _convertedAmount = 0.0; // Clear previous result if any
+      } else {
+        // Perform conversion if amount is valid
+        _convertedAmount = _amount * _conversionRate;
+      }
+    }
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,9 +161,9 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
           children: [
             TextField(
               controller: _controller,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')), // Allow numbers with up to 2 decimal places
               ],
               decoration: const InputDecoration(
                 labelText: "Amount",
@@ -192,8 +245,7 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
                     child: Row(
                       children: [
                         Padding(
-                          padding:
-                              const EdgeInsets.all(8.0), // Add padding here
+                          padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
                             currency.imagePath,
                             width: 45,
