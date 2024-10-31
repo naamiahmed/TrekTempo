@@ -53,7 +53,7 @@ class FeedbackSupportPage extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
-              child: Text('Submit Feedback'),
+              child: const Text('Submit Feedback'),
             ),
             
             const SizedBox(height: 30), // Spacing

@@ -66,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
       
       if (success) {
         // Navigate to Sign In Page or show success message
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInPage()));
       } else {
         // Show an error message
         ScaffoldMessenger.of(context).showSnackBar(
@@ -74,7 +74,7 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
     } else {
-      print("Validation failed");
+      // print("Validation failed");
     }
   }
 
@@ -84,7 +84,8 @@ class _SignUpPageState extends State<SignUpPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: TrekTempo_Appbar(),
+      backgroundColor: Colors.white,
+      appBar: const TrekTempo_Appbar(showBackButton: true), // Ensure back button is shown
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
@@ -180,7 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignInPage()),
+                                MaterialPageRoute(builder: (context) => const SignInPage()),
                               );
                             },
                             child: const Text(

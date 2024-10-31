@@ -175,7 +175,7 @@ Future<void> _uploadProfilePicture(XFile image) async {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      EditProfilePage(), // Navigate to EditProfilePage
+                      const EditProfilePage(), // Navigate to EditProfilePage
                 ),
               );
             },
