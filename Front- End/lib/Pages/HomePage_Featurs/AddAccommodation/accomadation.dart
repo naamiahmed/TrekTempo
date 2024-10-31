@@ -87,7 +87,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  NewAccommodationForm()),
+                MaterialPageRoute(builder: (context) =>  const NewAccommodationForm()),
               );
             },
           ),
@@ -213,7 +213,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
                   ));
                 } else if (snapshot.hasError) {
                   // Show an empty container or a specific message indicating no data is available
-                  return const Center(child: Text('No data available.'));
+                  return const Center(child: Text('No Place Selected.'));
                 } else if (snapshot.hasData && snapshot.data!.isEmpty) {
                   return const Center(child: Text('No accommodations found.'));
                 } else if (snapshot.hasData) {

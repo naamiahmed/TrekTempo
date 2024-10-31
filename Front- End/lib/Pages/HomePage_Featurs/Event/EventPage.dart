@@ -63,7 +63,7 @@ class _HomeState extends State<EventPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddEventPage(),
+                  builder: (context) => const AddEventPage(),
                 ),
               );
             },
