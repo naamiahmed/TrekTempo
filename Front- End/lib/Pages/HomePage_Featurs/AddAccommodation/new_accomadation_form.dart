@@ -2,34 +2,33 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'InputDecoration.dart';
 
-class AddAccommodation extends StatefulWidget {
-  final String endPoint;
-  final String budget;
-  const AddAccommodation({super.key, required this.endPoint, required this.budget});
-
+class NewAccommodationForm extends StatefulWidget {
   @override
-  _AddAccommodationState createState() => _AddAccommodationState();
+  _NewAccommodationFormState createState() => _NewAccommodationFormState();
 }
 
-class _AddAccommodationState extends State<AddAccommodation> {
+class _NewAccommodationFormState extends State<NewAccommodationForm> {
   final _formKey = GlobalKey<FormState>();
-  late String _district;
-  final String _accommodationType = 'Room';
+  String? _district;
   String _name = '';
-  String _location = '';
-  String _locationLink = '';
-  late String _budget;
   String _description = '';
+  String _location = '';
+  String? _budget;
+  String _locationLink = '';
+  String _contact = '';
+  int _dayCost = 0;
   String? _imagePath;
 
-  @override
-  void initState() {
-    super.initState();
-    _district = widget.endPoint;
-    _budget = widget.budget;
-  }
+  final List<String> _districts = [
+    'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
+  'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
+  'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
+  'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
+  'Trincomalee', 'Vavuniya'
+  ];
+
+  final List<String> _budgets = ['Low', 'Medium', 'High'];
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -44,13 +43,13 @@ class _AddAccommodationState extends State<AddAccommodation> {
         );
 
         request.fields['name'] = _name;
-        // request.fields['tripPersonType'] = 'Solo'; // Example value
-        request.fields['district'] = _district;
-        request.fields['budget'] = _budget;
-        // request.fields['tripType'] = _accommodationType;
+        request.fields['district'] = _district!;
+        request.fields['budget'] = _budget!;
         request.fields['location'] = _location;
-        request.fields['locationLink'] = _locationLink; 
+        request.fields['locationLink'] = _locationLink;
         request.fields['description'] = _description;
+        request.fields['contact'] = _contact;
+        request.fields['dayCost'] = _dayCost.toString();
 
         if (_imagePath != null) {
           request.files.add(await http.MultipartFile.fromPath('image', _imagePath!));
@@ -108,41 +107,30 @@ class _AddAccommodationState extends State<AddAccommodation> {
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              TextFormField(
-                decoration: getInputDecoration('District'),
-                initialValue: widget.endPoint,
-                readOnly: true, // Make the TextFormField read-only
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(labelText: 'District'),
+                value: _district,
+                items: _districts.map((district) {
+                  return DropdownMenuItem(
+                    value: district,
+                    child: Text(district),
+                  );
+                }).toList(),
                 onChanged: (value) {
                   setState(() {
                     _district = value;
                   });
                 },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a district';
+                  }
+                  return null;
+                },
               ),
-              // SizedBox(height: 16),
-              // DropdownButtonFormField<String>(
-              //   value: _accommodationType,
-              //   decoration: getInputDecoration('Accommodation Type'),
-              //   items: ['Room', 'Villa', 'Apartment', 'Hotel', 'Resort']
-              //       .map((type) => DropdownMenuItem<String>(
-              //             value: type,
-              //             child: Text(type, style: TextStyle(fontWeight: FontWeight.normal)),
-              //           ))
-              //       .toList(),
-              //   onChanged: (value) {
-              //     setState(() {
-              //       _accommodationType = value!;
-              //     });
-              //   },
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Please select an accommodation type';
-              //     }
-              //     return null;
-              //   },
-              // ),
               const SizedBox(height: 16),
               TextFormField(
-                decoration: getInputDecoration('Name'),
+                decoration: InputDecoration(labelText: 'Name'),
                 onChanged: (value) {
                   setState(() {
                     _name = value;
@@ -155,62 +143,9 @@ class _AddAccommodationState extends State<AddAccommodation> {
                   return null;
                 },
               ),
-
-
               const SizedBox(height: 16),
               TextFormField(
-                decoration: getInputDecoration('City Name'),
-                onChanged: (value) {
-                  setState(() {
-                    _location = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your city name';
-                  }
-                  return null;
-                },
-              ),
-
-
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: getInputDecoration('Location Link'),
-                onChanged: (value) {
-                  setState(() {
-                    _locationLink = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a location Link';
-                  }
-                  return null;
-                },
-              ),
-
-
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: getInputDecoration('Budget'),
-                initialValue: widget.budget,
-                readOnly: true, // Make the TextFormField read-only
-                onChanged: (value) {
-                  setState(() {
-                    _budget = widget.budget;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a budget';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: getInputDecoration('Description'),
+                decoration: InputDecoration(labelText: 'Description'),
                 maxLines: 5,
                 onChanged: (value) {
                   setState(() {
@@ -220,6 +155,90 @@ class _AddAccommodationState extends State<AddAccommodation> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a description';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Location'),
+                onChanged: (value) {
+                  setState(() {
+                    _location = value;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a location';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(labelText: 'Budget'),
+                value: _budget,
+                items: _budgets.map((budget) {
+                  return DropdownMenuItem(
+                    value: budget,
+                    child: Text(budget),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _budget = value;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a budget';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Location Link'),
+                onChanged: (value) {
+                  setState(() {
+                    _locationLink = value;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a location link';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Contact Number'),
+                keyboardType: TextInputType.phone,
+                onChanged: (value) {
+                  setState(() {
+                    _contact = value;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty || value.length != 10) {
+                    return 'Please enter a valid 10-digit contact number';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Day Cost'),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  setState(() {
+                    _dayCost = int.tryParse(value) ?? 0;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty || int.tryParse(value) == null) {
+                    return 'Please enter a valid day cost';
                   }
                   return null;
                 },

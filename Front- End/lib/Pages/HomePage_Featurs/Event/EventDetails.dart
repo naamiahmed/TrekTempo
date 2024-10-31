@@ -11,7 +11,17 @@ class Details extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Event Details'),
+        title: const Text('Event Details', style: TextStyle(
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.only(top: 50.0, left: 20.0, right: 20.0),

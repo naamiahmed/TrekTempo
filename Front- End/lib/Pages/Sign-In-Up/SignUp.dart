@@ -21,6 +21,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final _confirmPasswordController = TextEditingController();
   final ApiService apiService = ApiService(); // Create an instance of ApiService
 
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email cannot be empty';
@@ -137,6 +140,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       isPassword: true,
                       controller: _passwordController,
                       validator: _validatePassword,
+                      obscureText: _obscurePassword,
+                      toggleObscureText: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
                     ),
                     const SizedBox(height: 8),
                     InputTextBox(
@@ -145,6 +154,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       isPassword: true,
                       controller: _confirmPasswordController,
                       validator: (value) => _validateConfirmPassword(value, _passwordController.text),
+                      obscureText: _obscureConfirmPassword,
+                      toggleObscureText: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
+                      },
                     ),
                     const SizedBox(height: 16),
                     Center(
