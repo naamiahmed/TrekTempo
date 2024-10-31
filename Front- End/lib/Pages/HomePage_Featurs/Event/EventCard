@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+import 'Components/Support.dart';
+
+class EventCard extends StatelessWidget {
+  final String title;
+  final String phone;
+  final String district;
+  final String place;
+  final String location;
+  final String date;
+  final String imageUrl;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const EventCard({
+    required this.title,
+    required this.phone,
+    required this.district,
+    required this.place,
+    required this.location,
+    required this.date,
+    required this.imageUrl,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Material(
+        elevation: 5.0,
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          decoration: BoxDecoration(
+            color: isSelected ? Color.fromARGB(255, 95, 198, 221) : Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network(imageUrl, height: 100, width: double.infinity, fit: BoxFit.cover),
+              const SizedBox(height: 8),
+              Text(title, style: AppWidget.semiBooldTextFieldStyle()),
+              const SizedBox(height: 4),
+              // Text("Phone: $phone", style: AppWidget.LightTextFeildStyle()),
+              // const SizedBox(height: 4),
+              Text("$district , $place ", style: AppWidget.LightTextFeildStyle()),
+              const SizedBox(height: 4),
+
+              // Text("Location: $location", style: AppWidget.LightTextFeildStyle()),
+              // const SizedBox(height: 4),
+               Text("Date: $date", style: AppWidget.LightTextFeildStyle()),
+              // const SizedBox(height: 8),
+              Row(
+                children: [
+                  Spacer(),
+                  Container(
+                    padding: const EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 126, 128, 125),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.bookmark,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

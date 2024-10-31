@@ -1,11 +1,23 @@
 const mongoose = require('mongoose');
 
-const eventSchema = new mongoose.Schema({
+const EventSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
   },
-  description: {
+  phone: {
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+  place: {
+    type: String,
+    required: true,
+  },
+  location: {
     type: String,
     required: true,
   },
@@ -13,16 +25,20 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: false,
   },
-  location: {
-    type: String,
-    required: false,
-  },
   imageUrl: {
     type: String,
     required: false,
   },
+  description: {  // Ensure this field is present
+    type: String,
+    required: false,
+  },
+  dateRange: { // For date range
+    start: { type: Date },
+    end: { type: Date }
+  }
 });
 
-const Event = mongoose.model('Event', eventSchema);
+const Event = mongoose.model('Event', EventSchema);
 
 module.exports = Event;

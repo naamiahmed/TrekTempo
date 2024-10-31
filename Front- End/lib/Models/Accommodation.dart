@@ -6,6 +6,7 @@ class Accommodation {
   final List<String> images;
   final String budget;
   final String locationLink;
+  final int dayCost;
 
   Accommodation({
     required this.district,
@@ -15,8 +16,10 @@ class Accommodation {
     required this.images,
     required this.budget,
     required this.locationLink,
+    required this.dayCost,
   });
-    factory Accommodation.fromJson(Map<String, dynamic> json) {
+
+  factory Accommodation.fromJson(Map<String, dynamic> json) {
     return Accommodation(
       district: json['district'],
       name: json['name'],
@@ -25,6 +28,7 @@ class Accommodation {
       images: List<String>.from(json['images']),
       budget: json['budget'],
       locationLink: json['locationLink'],
+      dayCost: json['dayCost'] is String ? int.tryParse(json['dayCost']) ?? 0 : json['dayCost'],
     );
   }
 }

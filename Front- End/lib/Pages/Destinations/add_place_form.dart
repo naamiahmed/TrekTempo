@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 import 'dart:io';
-import 'package:path/path.dart';
+import 'package:travel_app/controller/placeform_service.dart'; // Import the PlaceService
 
 class AddPlaceForm extends StatefulWidget {
+  const AddPlaceForm({super.key});
+
   @override
   _AddPlaceFormState createState() => _AddPlaceFormState();
 }
@@ -21,6 +22,7 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
   final TextEditingController _descriptionController = TextEditingController();
 
   List<File> _images = [];
+  final PlaceService _placeService = PlaceService();
 
   @override
   void dispose() {
@@ -36,11 +38,9 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
 
   Future<void> _pickImages() async {
     final pickedFiles = await ImagePicker().pickMultiImage();
-    if (pickedFiles != null) {
-      setState(() {
-        _images = pickedFiles.map((file) => File(file.path)).toList();
-      });
-    }
+    setState(() {
+      _images = pickedFiles.map((file) => File(file.path)).toList();
+    });
   }
 
   Future<void> _submitForm() async {
@@ -53,35 +53,21 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
       final direction = _directionController.text;
       final description = _descriptionController.text;
 
-      // Create a multipart request for image uploads
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse('http://localhost:5000/api/createNewPlace'),
-      );
-
-      // Add form fields
-      request.fields['name'] = placeName;
-      request.fields['district'] = district;
-      request.fields['city'] = city;
-      request.fields['location'] = location;
-      request.fields['direction'] = direction;
-      request.fields['description'] = description;
-
-      // Attach images to the request
-      for (File image in _images) {
-        String fileName = basename(image.path);
-        request.files.add(
-          await http.MultipartFile.fromPath('images', image.path, filename: fileName),
-        );
-      }
-
       try {
-        // Send the request
-        var response = await request.send();
+        // Send the request using PlaceService
+        var response = await _placeService.createNewPlace(
+          placeName: placeName,
+          district: district,
+          city: city,
+          location: location,
+          direction: direction,
+          description: description,
+          images: _images,
+        );
 
         if (response.statusCode == 201) {
-          // Success, show a message or process the response
-          print('Place created successfully!');
+          // Show success dialog
+          _showSuccessDialog();
         } else {
           print('Failed to create the place. Error: ${response.statusCode}');
         }
@@ -97,11 +83,59 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
     }
   }
 
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Submission Successful'),
+          content:
+              const Text('Your place has been submitted and is under review.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    String? Function(String?)? validator,
+    int maxLines = 1,
+  }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(labelText: labelText),
+      validator: validator,
+      maxLines: maxLines,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add New Place'),
+        title: const Text('Add New Place',
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w600)),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -109,9 +143,9 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
+              _buildTextField(
                 controller: _placeNameController,
-                decoration: const InputDecoration(labelText: 'Place Name'),
+                labelText: 'Place Name',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the place name';
@@ -119,9 +153,9 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
                   return null;
                 },
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _districtController,
-                decoration: const InputDecoration(labelText: 'District'),
+                labelText: 'District',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the district';
@@ -129,9 +163,9 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
                   return null;
                 },
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _cityController,
-                decoration: const InputDecoration(labelText: 'City'),
+                labelText: 'City',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the city';
@@ -139,18 +173,24 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
                   return null;
                 },
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _locationController,
-                decoration: const InputDecoration(labelText: 'Location (optional)'),
+                labelText: 'Location (optional)',
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _directionController,
-                decoration: const InputDecoration(labelText: 'Direction (optional)'),
+                labelText: 'Direction (optional)',
               ),
-              TextFormField(
+              _buildTextField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Description (optional)'),
+                labelText: 'Description',
                 maxLines: 3,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the description';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -201,10 +241,4 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: AddPlaceForm(),
-  ));
 }

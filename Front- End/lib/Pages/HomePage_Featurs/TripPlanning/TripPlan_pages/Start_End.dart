@@ -4,6 +4,8 @@ import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/DistrictNameList.
 import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
 
 class StartEndPage extends StatefulWidget {
+  const StartEndPage({super.key});
+
   @override
   _StartEndPageState createState() => _StartEndPageState();
 }
@@ -41,7 +43,7 @@ class _StartEndPageState extends State<StartEndPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('   ')),
+      appBar: AppBar(title: const Text('   ')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

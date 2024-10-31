@@ -33,6 +33,11 @@ const placeSchema = new mongoose.Schema({
         type: [String],
         required: true,
     },
+    likedBy: {
+        type: [mongoose.Types.ObjectId],
+        required: false,
+        default: []
+    }
 });
 
 const Place = mongoose.model('Place', placeSchema);

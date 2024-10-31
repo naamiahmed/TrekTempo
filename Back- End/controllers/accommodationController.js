@@ -21,4 +21,26 @@ const getAccommodation = async (req, res) => {
     }
 };
 
-module.exports = { getAccommodation, createAccommodation };
+// Get Accommodation by district and budget
+const getAccommodationByDistrictandBudget = async (req, res) => {
+    try {
+        const { district, budget } = req.params;
+        let query = {};
+
+        if (district) {
+            query.district = { $regex: new RegExp("^" + district + "$", "i") };
+        }
+        if (budget) {
+            query.budget = budget;
+        }
+
+        const accommodations = await Accommodation.find(query).sort({ name: 1 });
+        return res.send({ success: true, accommodations: accommodations });
+
+    } catch (error) {
+        res.send({ success: false, message: error.message });
+    }
+};
+
+
+module.exports = { getAccommodation, createAccommodation, getAccommodationByDistrictandBudget };

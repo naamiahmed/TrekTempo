@@ -1,26 +1,65 @@
 import 'package:flutter/material.dart';
-class Notifications_Home extends StatelessWidget {
-  const Notifications_Home({super.key});
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+
+class Notifications_Home extends StatefulWidget {
+  final String userId; // Pass the userId to this widget
+
+  const Notifications_Home({super.key, required this.userId});
+
+  @override
+  _Notifications_HomeState createState() => _Notifications_HomeState();
+}
+
+class _Notifications_HomeState extends State<Notifications_Home> {
+  List<Map<String, dynamic>> notifications = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchNotifications();
+  }
+
+  Future<void> fetchNotifications() async {
+    final response = await http.get(Uri.parse('http://yourserver.com/api/notifications/${widget.userId}'));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> notificationData = jsonDecode(response.body);
+      setState(() {
+        notifications = notificationData.map((notification) {
+          return {
+            'title': notification['title'],
+            'subtitle': notification['subtitle'],
+            'time': notification['time'],
+          };
+        }).toList();
+      });
+    } else {
+      // Handle error
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notification', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const MainHomePage()));
           },
         ),
+        title: const Text('Notification', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
         actions: [
           TextButton(
             onPressed: () {
-              // Handle clear all action
-            
-
+              setState(() {
+                notifications.clear();
+              });
             },
             child: const Text(
               'Clear all',
@@ -28,26 +67,25 @@ class Notifications_Home extends StatelessWidget {
             ),
           ),
         ],
+         bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(8),
-        children: const [
-          NotificationTile(
-            title: 'New Event Update',
-            subtitle: 'A camping event organized by TrackTempo',
-            time: 'Sun,12:40pm',
-          ),
-          NotificationTile(
-            title: 'New Places find',
-            subtitle: 'New places added to the Destinations',
-            time: 'Mon,11:50pm',
-          ),
-          NotificationTile(
-            title: 'Welcome to TrackTempo',
-            subtitle: 'Welcome to TrackTempo, Now you can explore more.',
-            time: 'Tue,10:50pm',
-          ),
-        ],
+      body: ListView.builder(
+        padding: const EdgeInsets.all(8),
+        itemCount: notifications.length,
+        itemBuilder: (context, index) {
+          final notification = notifications[index];
+          return NotificationTile(
+            title: notification['title']!,
+            subtitle: notification['subtitle']!,
+            time: notification['time']!,
+          );
+        },
       ),
     );
   }
@@ -58,7 +96,7 @@ class NotificationTile extends StatefulWidget {
   final String subtitle;
   final String time;
 
-  const NotificationTile({
+  const NotificationTile({super.key, 
     required this.title,
     required this.subtitle,
     required this.time,
@@ -79,7 +117,7 @@ class _NotificationTileState extends State<NotificationTile> {
       child: Container(
         color: _isHovered ? Colors.grey[200] : Colors.transparent,
         child: ListTile(
-          leading: Icon(Icons.email, color: Colors.black),
+          leading: const Icon(Icons.email, color: Colors.black),
           title: Text(widget.title),
           subtitle: Text(widget.subtitle),
           trailing: Text(widget.time),
@@ -96,7 +134,7 @@ class _NotificationTileState extends State<NotificationTile> {
 }
 
 void main() {
-  runApp(MaterialApp(
-    home: Notifications_Home(),
+  runApp(const MaterialApp(
+    home: Notifications_Home(userId: 'yourUserId'), // Pass the userId here
   ));
 }

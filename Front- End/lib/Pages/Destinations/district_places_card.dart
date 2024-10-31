@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Models/Place.dart';
 import 'place/showing_place_details.dart';
 
 class PlacesCard extends StatelessWidget {
-  final String city;
-  final String direction;
-  final List<String> imagePaths;
-  final String title;
-  final String location;
-  final String description;
-  final int likes;
+  final Place place;
 
   const PlacesCard({
     super.key,
-    required this.city,
-    required this.direction,
-    required this.imagePaths,
-    required this.title,
-    required this.location,
-    required this.description,
-    required this.likes,
+    required this.place,
   });
 
   @override
@@ -28,15 +17,7 @@ class PlacesCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PlaceDetailsPage(
-              city: city,
-              direction: direction,
-              imagePaths: imagePaths,
-              title: title,
-              location: location,
-              description: description,
-              likes: likes,
-            ),
+            builder: (context) => PlaceDetailsPage(place: place),
           ),
         );
       },
@@ -53,7 +34,7 @@ class PlacesCard extends StatelessWidget {
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(15)),
               child: Image.network(
-                imagePaths[0],
+                place.images[0],
                 height: 150,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -74,11 +55,9 @@ class PlacesCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              title,
+                              place.name,
                               style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 4),
                             Row(
@@ -91,7 +70,7 @@ class PlacesCard extends StatelessWidget {
                                 const SizedBox(width: 4),
                                 Expanded(
                                   child: Text(
-                                    location,
+                                    place.location,
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 12,
@@ -106,29 +85,29 @@ class PlacesCard extends StatelessWidget {
                         ),
                       ),
                       // Like Icon and Count
-                      // Column(
-                      //   children: [
-                      //     const Icon(
-                      //       Icons.favorite,
-                      //       color: Colors.red,
-                      //       size: 24,
-                      //     ),
-                      //     const SizedBox(height: 4),
-                      //     Text(
-                      //       '$likes',
-                      //       style: const TextStyle(
-                      //         color: Colors.red,
-                      //         fontSize: 12,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                      Column(
+                        children: [
+                          const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 24,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${place.likedBy.length}',
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   // Description
                   Text(
-                    description,
+                    place.description,
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 12,

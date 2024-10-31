@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class TranslatorPage extends StatefulWidget {
-  const TranslatorPage({Key? key}) : super(key: key);
+  const TranslatorPage({super.key});
 
   @override
   State<TranslatorPage> createState() => _TranslatorPageState();
@@ -66,17 +67,28 @@ class _TranslatorPageState extends State<TranslatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const MainHomePage();
+            }));
+          },
+        ),
+        title: const Text(
           'Translator',
           style: TextStyle(
-            fontSize: 30.0,
-            fontWeight: FontWeight.w500,
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
           ),
         ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -93,7 +105,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                       child: TextField(
                         controller: inputController,
                         maxLines: 5,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Enter text to translate",
                             hintStyle: TextStyle(
@@ -104,7 +116,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.delete,
+                      icon: const Icon(Icons.delete,
                           color: Color.fromARGB(255, 62, 62, 66)),
                       onPressed: () {
                         inputController.clear();
@@ -115,7 +127,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -126,7 +138,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12.0),
                     border: Border.all(color: Colors.grey, width: 1),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black26,
                         blurRadius: 5.0,
@@ -150,7 +162,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                             child: Text(value)), // Center the dropdown item
                       );
                     }).toList(),
-                    underline: SizedBox(), // Remove underline
+                    underline: const SizedBox(), // Remove underline
                   ),
                 ),
 
@@ -169,12 +181,12 @@ class _TranslatorPageState extends State<TranslatorPage> {
 
                     });
                   },
+                  mini: true,
+                  backgroundColor: Colors.blueAccent,
                   child: Icon(
                     Icons.swap_horiz,
                     color: Colors.white,
                   ),
-                  mini: true,
-                  backgroundColor: Colors.blueAccent,
                 ),
 
                 // Styled Output Language Dropdown
@@ -184,7 +196,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12.0),
                     border: Border.all(color: Colors.grey, width: 1),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black26,
                         blurRadius: 5.0,
@@ -208,12 +220,12 @@ class _TranslatorPageState extends State<TranslatorPage> {
                             child: Text(value)), // Center the dropdown item
                       );
                     }).toList(),
-                    underline: SizedBox(), // Remove underline
+                    underline: const SizedBox(), // Remove underline
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Card(
               color: Colors.white,
               elevation: 8,
@@ -222,7 +234,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                 child: TextField(
                   controller: outputController,
                   maxLines: 5,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Result here...",
                       hintStyle: TextStyle(
@@ -234,22 +246,22 @@ class _TranslatorPageState extends State<TranslatorPage> {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: translateText,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                minimumSize: const Size(150, 55),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
               child: Text(
                 "Translate",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
                   fontWeight: FontWeight.w500,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                minimumSize: Size(150, 55),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
             ),

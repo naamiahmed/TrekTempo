@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:travel_app/Pages/Destinations/place/showing_place_details.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/accomadation.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
 import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
@@ -8,22 +10,11 @@ import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/in
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Convertor/CurrencyConverterPage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventPage.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MainHomePage(),
-    );
-  }
-}
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel_app/Models/User.dart';
+import 'package:travel_app/Models/Place.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -36,15 +27,17 @@ class _MainHomePageState extends State<MainHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    HomePage(),
+    const HomePage(),
     const Search(),
-    const DestinationsPage()
+    const AccommodationPage(),
+    const DestinationsPage(),
+    
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         child: MenuPage(),
       ),
       body: _pages[_currentIndex],
@@ -88,13 +81,17 @@ class _MainHomePageState extends State<MainHomePage> {
                 label: 'Search',
               ),
               BottomNavigationBarItem(
+                icon: Icon(Icons.hotel_class),
+                label: 'Accommodation',
+              ),
+              BottomNavigationBarItem(
                 icon: Icon(Icons.location_on),
                 label: 'Destinations',
               ),
             ],
             selectedItemColor: Colors.blue,
             unselectedItemColor: Colors.grey,
-            backgroundColor: Colors.white, // Background color for items
+            backgroundColor: Colors.white,
           ),
         ),
       ),
@@ -102,54 +99,199 @@ class _MainHomePageState extends State<MainHomePage> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<String> imageList = [
     'assets/images/MainHome/top_image1.png',
     'assets/images/MainHome/top_image2.png',
     'assets/images/MainHome/top_image3.png',
   ];
 
-  HomePage({super.key});
+  String? userId;
+  Future<User>? futureProfile;
+  Future<List<Place>>? futureTopPlaces;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserId();
+    futureTopPlaces = fetchTopPlaces();
+  }
+
+  Future<User> fetchProfileData(String userId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/api/auth/getProfile/$userId'),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = json.decode(response.body);
+
+        if (jsonData['success'] == true && jsonData['user'] != null) {
+          return User.fromJson(jsonData['user']);
+        } else {
+          throw Exception('Failed to load user profile');
+        }
+      } else {
+        throw Exception('Failed to load user profile');
+      }
+    } catch (e) {
+      throw Exception('Error fetching data: $e');
+    }
+  }
+
+  Future<void> loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId');
+    });
+
+    if (userId != null) {
+      futureProfile = fetchProfileData(userId ?? "6700ae680edbeca3aef3e1e5");
+    } else {
+      // print('No userId found in SharedPreferences');
+    }
+  }
+
+  Future<List<Place>> fetchTopPlaces() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/api/getTopPlaces'),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = json.decode(response.body);
+        List<dynamic> placesJson = jsonData['places'];
+
+        return placesJson.map((placeJson) => Place.fromJson(placeJson)).toList();
+      } else {
+        throw Exception('Failed to load top places');
+      }
+    } catch (e) {
+      throw Exception('Error fetching data: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     double screenHeight = MediaQuery.of(context).size.height;
-    
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/images/naami.jpg'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0), // Set the height of the AppBar
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white, // Background color of the AppBar
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0, 
+            leading: FutureBuilder<User>(
+              future: futureProfile,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),      ),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),               ),
+                  );
+                } else if (snapshot.hasData) {
+                  final user = snapshot.data!;
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: user.profilePicURL != null &&
+                              user.profilePicURL!.isNotEmpty
+                          ? NetworkImage(user.profilePicURL!)
+                          : const NetworkImage(
+                              'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                    ),
+                  );
+                } else {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Fallback image
+                    ),
+                  );
+                }
+              },
+            ),
+            title: FutureBuilder<User>(
+              future: futureProfile,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Text(
+                    'Loading...',
+                    style: TextStyle(color: Colors.black),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Text(
+                    'Error',
+                    style: TextStyle(color: Colors.black),
+                  );
+                } else if (snapshot.hasData) {
+                  final user = snapshot.data!;
+                  return Text(
+                    user.name,
+                    style: const TextStyle(color: Colors.black),
+                  );
+                } else {
+                  return const Text(
+                    'No Name',
+                    style: TextStyle(color: Colors.black),
+                  );
+                }
+              },
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.notifications),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Notifications_Home(userId: '',)),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+            ],
+            iconTheme: const IconThemeData(color: Colors.black, size: 30,),
           ),
         ),
-        title: const Text(
-          'Naami Ahmed',
-          style: TextStyle(color: Colors.black),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications,
-                color: Color.fromARGB(255, 80, 46, 46)),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const Notifications_Home()),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -189,47 +331,53 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildIconButton(
-                      context, Icons.map, 'Trip Plans', IntroPage()),
-                  _buildIconButton(context, Icons.event, 'Events', const EventPage()),
+                      context, Icons.map, 'Trip Plans', const IntroPage()),
                   _buildIconButton(
-                      context, Icons.translate, 'Translator', const TranslatorPage()),
+                      context, Icons.event, 'Events', const EventPage()),
+                  _buildIconButton(context, Icons.translate, 'Translator',
+                      const TranslatorPage()),
                   _buildIconButton(context, Icons.euro, 'Converter',
                       const CurrencyConverterPage()),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Best Destination',
+                  Text(
+                    'Most Fevourite Places',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('View all'),
-                  ),
+                  )
                 ],
               ),
             ),
-            SizedBox(
-              height: 200,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildDestinationCard(
-                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                  _buildDestinationCard(
-                      'Galle Fort', 'assets/images/MainHome/Galle.png'),
-                  // _buildDestinationCard('Ella', 'assets/ella.jpg'),
-                  _buildDestinationCard(
-                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                  _buildDestinationCard(
-                      'Sigiriya', 'assets/images/MainHome/Sigiriya.png'),
-                ],
-              ),
+            FutureBuilder<List<Place>>(
+              future: futureTopPlaces,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+                  return const Center(child: Text('No places found.'));
+                } else if (snapshot.hasData) {
+                  return SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        final place = snapshot.data![index];
+                        return _buildDestinationCard(place);
+                      },
+                    ),
+                  );
+                } else {
+                  return const Center(child: Text('No data available.'));
+                }
+              },
             ),
           ],
         ),
@@ -257,27 +405,37 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildDestinationCard(String title, String imageUrl) {
-    return Container(
-      width: 160,
-      margin: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(
-          image: AssetImage(imageUrl),
-          fit: BoxFit.cover,
+  Widget _buildDestinationCard(Place place) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PlaceDetailsPage(place: place),
+          ),
+        );
+      },
+      child: Container(
+        width: 160,
+        margin: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: NetworkImage(place.images[0]),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              place.name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { upload, createPlace, getPlaces, getAllPlaces, getOnePlace, deletePlace } = require('../controllers/placeController');
+const { upload, createPlace, getPlaces, getAllPlaces, getOnePlace, deletePlace, handleLike, getOnePlaceById, getTopPlaces } = require('../controllers/placeController');
 
 router.post("/createPlace", upload.array('images', 10), createPlace);
 router.get("/getPlaces/:district?", getPlaces);
 router.get("/getAllPlaces", getAllPlaces);
 router.post("/getOnePlace", getOnePlace);
+router.get("/getOnePlaceById/:placeId", getOnePlaceById);
+router.post("/handleLike/:placeId", handleLike);
 router.delete("/deletePlace/:id", deletePlace);
+router.get("/getTopPlaces", getTopPlaces);
 
 module.exports = router;

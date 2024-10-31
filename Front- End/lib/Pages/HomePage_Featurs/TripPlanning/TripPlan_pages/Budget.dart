@@ -4,7 +4,7 @@ import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
 
 class BudgetPage extends StatefulWidget {
   final String endPoint;
-  const BudgetPage({Key? key, required this.endPoint}) : super(key: key);
+  const BudgetPage({super.key, required this.endPoint});
   @override
   _BudgetPageState createState() => _BudgetPageState();
 }
@@ -17,7 +17,7 @@ class _BudgetPageState extends State<BudgetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Budget Selection')),
+      appBar: AppBar(title: const Text('')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -31,32 +31,26 @@ class _BudgetPageState extends State<BudgetPage> {
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
-                  _buildRadioCard('Low', 'Low (0-100\$)', Icons.attach_money, Colors.green),
-                  _buildRadioCard('Medium', 'Medium (100-500\$)', Icons.attach_money, Colors.orange),
-                  _buildRadioCard('High', 'High (500\$ +)', Icons.attach_money, Colors.red),
+                  _buildRadioCard('Low', 'Low (0-10,000 LKR)', Icons.attach_money, Colors.green),
+                  _buildRadioCard('Medium', 'Medium (10,000-25,000 LKR)', Icons.attach_money, Colors.orange),
+                  _buildRadioCard('High', 'High (25,000 LKR +)', Icons.attach_money, Colors.red),
                   if (_errorMessage != null)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
                         _errorMessage!,
-                        style: TextStyle(color: Colors.red, fontSize: 16),
+                        style: const TextStyle(color: Colors.red, fontSize: 16),
                       ),
                     ),
                   const SizedBox(height: 16),
                   Button(
                     text: 'Next',
                     onPressed: () {
-                      if (_budget == null) {
-                        setState(() {
-                          _errorMessage = 'Please select a budget option';
-                        });
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TripPersonTypePage(endPoint: widget.endPoint, budget: _budget)),
-                        );
-                      }
-                    },
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TripPersonTypePage(endPoint: widget.endPoint, budget: _budget)),
+                      );
+                                        },
                   ),
                 ],
               ),
@@ -79,7 +73,7 @@ class _BudgetPageState extends State<BudgetPage> {
             Icon(icon, color: color),
             const SizedBox(width: 15),
             Expanded(
-              child: Text(label, style: TextStyle(fontSize: 16)),
+              child: Text(label, style: const TextStyle(fontSize: 16)),
             ),
             Radio(
               value: value,

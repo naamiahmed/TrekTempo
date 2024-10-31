@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+
 
 void main() => runApp(const CurrencyConverterApp());
 
@@ -29,7 +31,7 @@ class Currency {
 }
 
 class CurrencyConverterPage extends StatefulWidget {
-  const CurrencyConverterPage({Key? key}) : super(key: key);
+  const CurrencyConverterPage({super.key});
 
   @override
   _CurrencyConverterPageState createState() => _CurrencyConverterPageState();
@@ -145,14 +147,29 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const MainHomePage();
+            }));
+          },
+        ),
+        centerTitle: true,
         title: const Text(
           'Currency Converter',
           style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.w500,
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.w600),
+        ),
+        
+        backgroundColor: Colors.white,
+         bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
           ),
         ),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -206,19 +223,19 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _convert,
-              child: Text(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                minimumSize: const Size(150, 55),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
+              child: const Text(
                 "Convert",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
                   fontWeight: FontWeight.w500,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                minimumSize: Size(150, 55),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
             ),
@@ -232,7 +249,7 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
       Currency selectedCurrency, ValueChanged<Currency?> onChanged) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey),
       ),
@@ -273,9 +290,7 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
         border: Border.all(color: const Color.fromARGB(255, 75, 71, 71)),
       ),
       child: Text(
-        _controller.text.isEmpty
-            ? ""
-            : "${_convertedAmount.toStringAsFixed(2)}",
+        _controller.text.isEmpty ? "" : _convertedAmount.toStringAsFixed(2),
         style: const TextStyle(
           fontSize: 18,
         ),

@@ -1,41 +1,108 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart'; // Import image_picker package
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Profile Edit',
-      home: EditProfilePage(),
-    );
-  }
-}
+import 'package:image_picker/image_picker.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:travel_app/Models/User.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 
 class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
+
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  String username = 'Rifthan Fathir'; // Variable to store the username
-  final TextEditingController usernameController = TextEditingController(); // Controller for the username input
-  bool isEditingUsername = false; // Flag for editing mode
-  String? profileImagePath; // Variable to store the path of the profile image
+  String? userId;
+  Future<User>? futureProfile;
+  String? profileImagePath;
 
-  Future<void> _pickImage(ImageSource source) async {
-    final ImagePicker _picker = ImagePicker();
-    // Pick an image from the specified source
-    final XFile? image = await _picker.pickImage(source: source);
-    if (image != null) {
-      setState(() {
-        profileImagePath = image.path; // Update the profile image path
-      });
+  @override
+  void initState() {
+    super.initState();
+    loadUserId();
+  }
+
+  Future<void> loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId');
+    });
+    print('Loading userId from SharedPreferences:::::: ${userId ?? "null"}');
+
+    if (userId != null) {
+      futureProfile = fetchProfileData(userId ?? "6700ae680edbeca3aef3e1e5");
+    } else {
+      print('No userId found in SharedPreferences');
     }
   }
+
+  Future<User> fetchProfileData(String userId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/api/auth/getProfile/$userId'),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = json.decode(response.body);
+
+        if (jsonData['success'] == true && jsonData['user'] != null) {
+          print('Successfully fetched user profile');
+
+          return User.fromJson(jsonData['user']);
+        } else {
+          throw Exception('Failed to load user profile');
+        }
+      } else {
+        throw Exception('Failed to load user profile');
+      }
+    } catch (e) {
+      throw Exception('Error fetching data: $e');
+    }
+  }
+
+ Future<void> _pickImage(ImageSource source) async {
+  final ImagePicker picker = ImagePicker();
+  final XFile? image = await picker.pickImage(source: source);
+  if (image != null) {
+    setState(() {
+      profileImagePath = image.path; // Update the profile image path
+    });
+
+    // Upload the image to the server
+    await _uploadProfilePicture(image);
+  }
+}
+
+Future<void> _uploadProfilePicture(XFile image) async {
+  try {
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('http://localhost:5000/api/auth/updateProfilePicture/$userId'),
+    );
+
+    request.files.add(await http.MultipartFile.fromPath('profilePic', image.path));
+
+    final response = await request.send();
+
+    if (response.statusCode == 200) {
+      final responseBody = await response.stream.bytesToString();
+      final jsonResponse = json.decode(responseBody);
+
+      if (jsonResponse['success'] == true) {
+        print('Profile picture updated successfully');
+        // Optionally, update the UI with the new profile picture URL
+      } else {
+        throw Exception('Failed to update profile picture');
+      }
+    } else {
+      throw Exception('Failed to update profile picture');
+    }
+  } catch (e) {
+    print('Error uploading profile picture: $e');
+  }
+}
 
   // Show the bottom sheet with options to change the profile picture
   void _showImageSourceOptions() {
@@ -47,30 +114,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Change Profile Picture',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ListTile(
-                leading: Icon(Icons.camera),
-                title: Text('Take a Photo'),
+                leading: const Icon(Icons.camera),
+                title: const Text('Take a Photo'),
                 onTap: () {
                   _pickImage(ImageSource.camera);
                   Navigator.of(context).pop(); // Close the bottom sheet
                 },
               ),
               ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Upload from Gallery'),
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Upload from Gallery'),
                 onTap: () {
                   _pickImage(ImageSource.gallery);
                   Navigator.of(context).pop(); // Close the bottom sheet
                 },
               ),
               ListTile(
-                leading: Icon(Icons.cancel),
-                title: Text('Cancel'),
+                leading: const Icon(Icons.cancel),
+                title: const Text('Cancel'),
                 onTap: () {
                   Navigator.of(context).pop(); // Close the bottom sheet
                 },
@@ -86,96 +153,118 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    const ProfilePage(), 
+              ),
+            );
+          },
+        ),
+        title: const Text('Edit Profile', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      EditProfilePage(), // Navigate to EditProfilePage
+                ),
+              );
+            },
+          ),
+        ],
+        backgroundColor: Colors.white,
+         bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage: profileImagePath != null
-                      ? AssetImage(profileImagePath!) // Use selected image
-                      : AssetImage('assets/images/naami.jpg'), // Default image
-                ),
-                SizedBox(width: 8), // Space between profile picture and icon
-                IconButton(
-                  icon: Icon(Icons.edit, color: Colors.blue),
-                  onPressed: _showImageSourceOptions, // Show options for changing profile picture
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Show a TextField when editing, otherwise show the username
-                isEditingUsername
-                    ? Expanded(
-                        child: TextField(
-                          controller: usernameController..text = username,
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    : Text(
-                        username,
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        child: FutureBuilder<User>(
+          future: futureProfile,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              User user = snapshot.data!;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 50),
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: (user.profilePicURL != null &&
+                                user.profilePicURL!.isNotEmpty)
+                            ? NetworkImage(user.profilePicURL!)
+                            : const NetworkImage(
+                                'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
                       ),
-                // Only show the edit icon if not in editing mode
-                if (!isEditingUsername)
-                  IconButton(
-                    icon: Icon(Icons.edit, color: Colors.blue),
-                    onPressed: () {
-                      setState(() {
-                        isEditingUsername = true; // Enter editing mode
-                        usernameController.text = username; // Set current username in controller
-                      });
-                    },
+                      const SizedBox(
+                          width: 8), // Space between profile picture and icon
+                      IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.blue),
+                        onPressed:
+                            _showImageSourceOptions, // Show options for changing profile picture
+                      ),
+                    ],
                   ),
-                // Show the Save button when editing
-                if (isEditingUsername)
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        username = usernameController.text; // Update username
-                        isEditingUsername = false; // Exit editing mode
-                      });
+                  const SizedBox(height: 16),
+                  Text(
+                    user.name,
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    user.email,
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 32),
+                  GestureDetector(
+                    onTap: () {
+                      _showChangePasswordDialog(context);
                     },
-                    child: Text(
-                      'Save',
-                      style: TextStyle(color: Colors.blue),
+                    child: Container(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Change Password',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-              ],
-            ),
-            SizedBox(height: 32),
-            GestureDetector(
-              onTap: () {
-                _showChangePasswordDialog(context);
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: Text(
-                    'Change Password',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+                ],
+              );
+            } else {
+              return const Center(child: Text('No data available'));
+            }
+          },
         ),
       ),
     );
@@ -190,23 +279,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Change Password'),
+          title: const Text('Change Password'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: currentPasswordController,
-                decoration: InputDecoration(labelText: 'Current Password'),
+                decoration: const InputDecoration(labelText: 'Current Password'),
                 obscureText: true,
               ),
               TextField(
                 controller: newPasswordController,
-                decoration: InputDecoration(labelText: 'New Password'),
+                decoration: const InputDecoration(labelText: 'New Password'),
                 obscureText: true,
               ),
               TextField(
                 controller: confirmPasswordController,
-                decoration: InputDecoration(labelText: 'Confirm New Password'),
+                decoration: const InputDecoration(labelText: 'Confirm New Password'),
                 obscureText: true,
               ),
             ],
@@ -217,13 +306,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 // Implement your password change logic here
                 Navigator.of(context).pop();
               },
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );

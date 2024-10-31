@@ -1,4 +1,4 @@
-const Event = require('../models/event');
+const Event = require('../models/Event');
 const multer = require('multer');
 const path = require('path');
 
@@ -19,20 +19,29 @@ const addEvent = async (req, res) => {
     console.log('Request Body:', req.body);
     console.log('Request File:', req.file);
 
-    const { title, description, date, location } = req.body;
+    const { title, phone, district, place, date, location, description } = req.body;
+    const dateRange = req.body.dateRange;
     const imageUrl = req.file ? `http://localhost:5000/uploads/ReqEvent/${req.file.filename}` : null;
 
     const newEvent = new Event({
       title,
-      description,
-      date,
+      phone,
+      district,
+      place,
       location,
       imageUrl,
+      description,
+      date: date ? new Date(date) : undefined,
+      dateRange: dateRange ? {
+        start: new Date(dateRange.start),
+        end: new Date(dateRange.end)
+      } : undefined
     });
 
     await newEvent.save();
     res.status(201).json({ message: 'Event added successfully!' });
   } catch (error) {
+    // console.log('Error:', error.message);
     res.status(500).json({ error: error.message });
   }
 };

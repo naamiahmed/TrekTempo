@@ -1,6 +1,7 @@
 const Place = require('../models/Place');
 const multer = require('multer');
 const path = require('path');
+const mongoose = require('mongoose');
 
 // Configure multer for image upload
 const storage = multer.diskStorage({
@@ -11,7 +12,6 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
-
 const upload = multer({ storage: storage });
 
 // Creating new place entries in the database
@@ -70,6 +70,64 @@ const getOnePlace = async (req, res) => {
   }
 };
 
+// get one place by id
+const getOnePlaceById = async (req, res) => {
+  try {
+    const placeId = req.params.placeId;
+    if (!placeId) {
+      res.send({ success: false, message: "Place ID Required" });
+    }
+    const place = await Place.findOne({ _id: placeId });
+    res.send({ success: true, place: place });
+  } catch (error) {
+    res.send({ success: false, message: error.message });
+  }
+};
+
+// Like a place
+const handleLike = async (req, res) => {
+  try {
+    const placeId = req.params.placeId;
+    const userId = req.body.userId;
+
+    const place = await Place.findOne({ _id: placeId });
+
+    if (!place) {
+      return res.status(404).json({ success: false, message: 'Place not found' });
+    }
+
+    const objectIdUserId = new mongoose.Types.ObjectId(userId);
+
+    if (place.likedBy.some(id => id.equals(objectIdUserId))) {
+      place.likedBy = place.likedBy.filter(id => !id.equals(objectIdUserId));
+    } else {
+      place.likedBy.push(objectIdUserId);
+    }
+
+    place.likes = place.likedBy.length;
+
+    await place.save();
+
+    const updatedPlace = await Place.findOne({ _id: placeId });
+    res.status(200).json({ success: true, place: updatedPlace });
+
+  } catch (error) {
+    console.log('error: ', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Most Liked Places
+const getTopPlaces = async (req, res) => {
+  try {
+    const topPlaces = await Place.find().sort({ likes: -1 }).limit(5);
+    res.send({ success: true, places: topPlaces });
+  } catch (error) {
+    res.send({ success: false, message: error.message });
+  }
+};
+
+// Get all places
 const getAllPlaces = async (req, res) => {
   try {
     const tripPlaces = await Place.find().sort({ name: 1 });
@@ -98,4 +156,4 @@ const deletePlace = async (req, res) => {
   }
 };
 
-module.exports = { upload, createPlace, getPlaces, getOnePlace, getAllPlaces, deletePlace };
+module.exports = { upload, createPlace, getPlaces, getOnePlace, getAllPlaces, deletePlace, handleLike, getTopPlaces, getOnePlaceById };
