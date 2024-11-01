@@ -4,14 +4,20 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 class NewAccommodationForm extends StatefulWidget {
+  final String userId;
+
+  const NewAccommodationForm({Key? key, required this.userId}) : super(key: key);
+
   @override
   _NewAccommodationFormState createState() => _NewAccommodationFormState();
 }
 
 class _NewAccommodationFormState extends State<NewAccommodationForm> {
   final _formKey = GlobalKey<FormState>();
-  String? _district;
+  final ImagePicker _picker = ImagePicker();
+
   String _name = '';
+  String? _district;
   String _description = '';
   String _location = '';
   String? _budget;
@@ -22,13 +28,22 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
 
   final List<String> _districts = [
     'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
-  'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
-  'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
-  'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
-  'Trincomalee', 'Vavuniya'
+    'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
+    'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
+    'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
+    'Trincomalee', 'Vavuniya'
   ];
 
   final List<String> _budgets = ['Low', 'Medium', 'High'];
+
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _imagePath = image.path;
+      });
+    }
+  }
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -42,6 +57,7 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
           Uri.parse('http://localhost:5000/api/addAccommodation'),
         );
 
+        // Add all form fields
         request.fields['name'] = _name;
         request.fields['district'] = _district!;
         request.fields['budget'] = _budget!;
@@ -50,6 +66,7 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
         request.fields['description'] = _description;
         request.fields['contact'] = _contact;
         request.fields['dayCost'] = _dayCost.toString();
+        request.fields['userId'] = widget.userId;
 
         if (_imagePath != null) {
           request.files.add(await http.MultipartFile.fromPath('image', _imagePath!));
@@ -61,38 +78,39 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Accommodation added successfully!')),
           );
-          print('Accommodation added successfully');
+          _showSuccessDialog();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Failed to add accommodation')),
           );
-          print('Failed to add accommodation: ${await response.stream.bytesToString()}');
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $e')),
         );
       }
-
-      // Show confirmation dialog
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Your Request was Submitted'),
-            content: const Text('Thank you for Adding Accommodation, we will Confirm and inform you.'),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
     }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Your Request was Submitted'),
+          content: const Text('Thank you for Adding Accommodation, we will Confirm and inform you.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Return to previous screen
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -101,14 +119,28 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
       appBar: AppBar(
         title: const Text('Add Accommodation'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: ListView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) => setState(() => _name = value),
+                validator: (value) => 
+                  value?.isEmpty ?? true ? 'Please enter a name' : null,
+              ),
+              const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                decoration: InputDecoration(labelText: 'District'),
+                decoration: const InputDecoration(
+                  labelText: 'District',
+                  border: OutlineInputBorder(),
+                ),
                 value: _district,
                 items: _districts.map((district) {
                   return DropdownMenuItem(
@@ -116,67 +148,37 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                     child: Text(district),
                   );
                 }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _district = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a district';
-                  }
-                  return null;
-                },
+                onChanged: (value) => setState(() => _district = value),
+                validator: (value) => 
+                  value == null ? 'Please select a district' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Name'),
-                onChanged: (value) {
-                  setState(() {
-                    _name = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a name';
-                  }
-                  return null;
-                },
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+                onChanged: (value) => setState(() => _description = value),
+                validator: (value) => 
+                  value?.isEmpty ?? true ? 'Please enter a description' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Description'),
-                maxLines: 5,
-                onChanged: (value) {
-                  setState(() {
-                    _description = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Location'),
-                onChanged: (value) {
-                  setState(() {
-                    _location = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a location';
-                  }
-                  return null;
-                },
+                decoration: const InputDecoration(
+                  labelText: 'Location',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) => setState(() => _location = value),
+                validator: (value) => 
+                  value?.isEmpty ?? true ? 'Please enter a location' : null,
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                decoration: InputDecoration(labelText: 'Budget'),
+                decoration: const InputDecoration(
+                  labelText: 'Budget',
+                  border: OutlineInputBorder(),
+                ),
                 value: _budget,
                 items: _budgets.map((budget) {
                   return DropdownMenuItem(
@@ -184,97 +186,62 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                     child: Text(budget),
                   );
                 }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _budget = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a budget';
-                  }
-                  return null;
-                },
+                onChanged: (value) => setState(() => _budget = value),
+                validator: (value) => 
+                  value == null ? 'Please select a budget' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Location Link'),
-                onChanged: (value) {
-                  setState(() {
-                    _locationLink = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a location link';
-                  }
-                  return null;
-                },
+                decoration: const InputDecoration(
+                  labelText: 'Location Link',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) => setState(() => _locationLink = value),
+                validator: (value) => 
+                  value?.isEmpty ?? true ? 'Please enter a location link' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Contact Number'),
+                decoration: const InputDecoration(
+                  labelText: 'Contact Number',
+                  border: OutlineInputBorder(),
+                ),
                 keyboardType: TextInputType.phone,
-                onChanged: (value) {
-                  setState(() {
-                    _contact = value;
-                  });
-                },
+                onChanged: (value) => setState(() => _contact = value),
                 validator: (value) {
-                  if (value == null || value.isEmpty || value.length != 10) {
-                    return 'Please enter a valid 10-digit contact number';
-                  }
+                  if (value?.isEmpty ?? true) return 'Please enter a contact number';
+                  if (value!.length != 10) return 'Contact number must be 10 digits';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Day Cost'),
+                decoration: const InputDecoration(
+                  labelText: 'Day Cost',
+                  border: OutlineInputBorder(),
+                ),
                 keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  setState(() {
-                    _dayCost = int.tryParse(value) ?? 0;
-                  });
-                },
+                onChanged: (value) => setState(() => _dayCost = int.tryParse(value) ?? 0),
                 validator: (value) {
-                  if (value == null || value.isEmpty || int.tryParse(value) == null) {
-                    return 'Please enter a valid day cost';
-                  }
+                  if (value?.isEmpty ?? true) return 'Please enter day cost';
+                  if (int.tryParse(value!) == null) return 'Please enter a valid number';
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
-              const Text('Upload Image', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 16),
               ElevatedButton.icon(
-                onPressed: () async {
-                  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-                  if (pickedFile != null) {
-                    setState(() {
-                      _imagePath = pickedFile.path;
-                    });
-                  }
-                },
-                label: const Text('Choose Image'),
                 icon: const Icon(Icons.image),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                ),
+                label: const Text('Select Image'),
+                onPressed: _pickImage,
               ),
-              if (_imagePath != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Image.file(
-                    File(_imagePath!),
-                    height: 200,
-                  ),
-                ),
-              const SizedBox(height: 20),
+              if (_imagePath != null) ...[
+                const SizedBox(height: 8),
+                Image.file(File(_imagePath!), height: 200),
+              ],
+              const SizedBox(height: 24),
               ElevatedButton(
+                child: const Text('Submit'),
                 onPressed: _submitForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                ),
-                child: Text('Submit'),
               ),
             ],
           ),

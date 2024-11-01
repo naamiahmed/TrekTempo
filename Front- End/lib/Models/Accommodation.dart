@@ -8,6 +8,7 @@ class Accommodation {
   final String locationLink;
   final int dayCost;
   final String contact;
+  
 
   Accommodation({
     required this.district,
