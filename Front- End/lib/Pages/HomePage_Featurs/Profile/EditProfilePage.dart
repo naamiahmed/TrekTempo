@@ -61,47 +61,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
- Future<void> _pickImage(ImageSource source) async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? image = await picker.pickImage(source: source);
-  if (image != null) {
-    setState(() {
-      profileImagePath = image.path; // Update the profile image path
-    });
+  Future<void> _pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: source);
+    if (image != null) {
+      setState(() {
+        profileImagePath = image.path; // Update the profile image path
+      });
 
-    // Upload the image to the server
-    await _uploadProfilePicture(image);
+      // Upload the image to the server
+      await _uploadProfilePicture(image);
+    }
   }
-}
 
-Future<void> _uploadProfilePicture(XFile image) async {
-  try {
-    final request = http.MultipartRequest(
-      'POST',
-      Uri.parse('http://localhost:5000/api/auth/updateProfilePicture/$userId'),
-    );
+  Future<void> _uploadProfilePicture(XFile image) async {
+    try {
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            'http://localhost:5000/api/auth/updateProfilePicture/$userId'),
+      );
 
-    request.files.add(await http.MultipartFile.fromPath('profilePic', image.path));
+      request.files
+          .add(await http.MultipartFile.fromPath('profilePic', image.path));
 
-    final response = await request.send();
+      final response = await request.send();
 
-    if (response.statusCode == 200) {
-      final responseBody = await response.stream.bytesToString();
-      final jsonResponse = json.decode(responseBody);
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        final jsonResponse = json.decode(responseBody);
 
-      if (jsonResponse['success'] == true) {
-        print('Profile picture updated successfully');
-        // Optionally, update the UI with the new profile picture URL
+        if (jsonResponse['success'] == true) {
+          print('Profile picture updated successfully');
+          // Optionally, update the UI with the new profile picture URL
+        } else {
+          throw Exception('Failed to update profile picture');
+        }
       } else {
         throw Exception('Failed to update profile picture');
       }
-    } else {
-      throw Exception('Failed to update profile picture');
+    } catch (e) {
+      print('Error uploading profile picture: $e');
     }
-  } catch (e) {
-    print('Error uploading profile picture: $e');
   }
-}
 
   // Show the bottom sheet with options to change the profile picture
   void _showImageSourceOptions() {
@@ -168,36 +170,68 @@ Future<void> _uploadProfilePicture(XFile image) async {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
+                                    Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(width: 50),
                       CircleAvatar(
                         radius: 50,
-                        backgroundImage: (user.profilePicURL != null &&
-                                user.profilePicURL!.isNotEmpty)
+                        backgroundImage: (user.profilePicURL != null && user.profilePicURL!.isNotEmpty)
                             ? NetworkImage(user.profilePicURL!)
-                            : const NetworkImage(
-                                'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                            : const NetworkImage('https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
                       ),
-                      const SizedBox(
-                          width: 8), // Space between profile picture and icon
+                      const SizedBox(width: 8), // Space between profile picture and icon
                       IconButton(
-                        icon: const Icon(Icons.edit, color: Colors.blue),
-                        onPressed:
-                            _showImageSourceOptions, // Show options for changing profile picture
+                        icon: const Icon(Icons.camera_alt, color: Colors.blue), // Changed icon to camera
+                        onPressed: _showImageSourceOptions, // Show options for changing profile picture
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    user.name,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          user.name,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        child: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                          onPressed: () {
+                            // Add your edit username function here
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 5),
-                  Text(
-                    user.email,
-                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          user.email,
+                          textAlign: TextAlign.center,
+                          style:
+                              const TextStyle(fontSize: 16, color: Colors.grey),
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        child: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                          onPressed: () {
+                            // Add your edit email function here
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 32),
                   GestureDetector(
@@ -205,8 +239,8 @@ Future<void> _uploadProfilePicture(XFile image) async {
                       _showChangePasswordDialog(context);
                     },
                     child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 24),
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(8),
@@ -249,7 +283,8 @@ Future<void> _uploadProfilePicture(XFile image) async {
             children: [
               TextField(
                 controller: currentPasswordController,
-                decoration: const InputDecoration(labelText: 'Current Password'),
+                decoration:
+                    const InputDecoration(labelText: 'Current Password'),
                 obscureText: true,
               ),
               TextField(
@@ -259,7 +294,8 @@ Future<void> _uploadProfilePicture(XFile image) async {
               ),
               TextField(
                 controller: confirmPasswordController,
-                decoration: const InputDecoration(labelText: 'Confirm New Password'),
+                decoration:
+                    const InputDecoration(labelText: 'Confirm New Password'),
                 obscureText: true,
               ),
             ],
