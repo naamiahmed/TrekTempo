@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Sign-In-Up/mail_verify.dart';
 import 'package:travel_app/Pages/Sign-In-Up/signIn.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
-import 'package:travel_app/auth_service.dart'; // Make sure this points to your ApiService
+import 'package:travel_app/auth_service.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -23,6 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _isLoading = false;
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -57,24 +59,29 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _signUp() async {
     if (_formKey.currentState!.validate()) {
-      // Call the API service to sign up
-      bool success = await apiService.signUp(
-        _nameController.text,
-        _emailController.text,
-        _passwordController.text,
-      );
-      
-      if (success) {
-        // Navigate to Sign In Page or show success message
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInPage()));
-      } else {
-        // Show an error message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Sign up failed! Please try again.')),
-        );
+      setState(() => _isLoading = true);
+      try {
+        bool otpSent = await apiService.sendSignUpOTP(_emailController.text);
+        
+        if (otpSent) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MailVerifyPage(
+                name: _nameController.text,
+                email: _emailController.text,
+                password: _passwordController.text,
+              ),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to send OTP. Please try again.')),
+          );
+        }
+      } finally {
+        setState(() => _isLoading = false);
       }
-    } else {
-      // print("Validation failed");
     }
   }
 
@@ -171,7 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         buttonColor: Colors.blueAccent,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 14),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
