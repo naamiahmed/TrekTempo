@@ -5,6 +5,7 @@ import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/accomadation.
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
 import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Search/search.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/intro_page.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart';
@@ -111,6 +112,8 @@ class _HomePageState extends State<HomePage> {
     'assets/images/MainHome/top_image1.png',
     'assets/images/MainHome/top_image2.png',
     'assets/images/MainHome/top_image3.png',
+    'assets/images/MainHome/123.jpg',
+  
   ];
 
   String? userId;
@@ -204,73 +207,82 @@ class _HomePageState extends State<HomePage> {
           child: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0, 
-            leading:
-             FutureBuilder<User>(
-              future: futureProfile,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
-                  );
-                } else if (snapshot.hasData) {
-                  final user = snapshot.data!;
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                    child: CircleAvatar(
-                      backgroundImage: user.profilePicURL != null &&
-                              user.profilePicURL!.isNotEmpty
-                          ? NetworkImage(user.profilePicURL!)
-                          : const NetworkImage(
-                              'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
-                    ),
-                  );
-                } else {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
-                    ),
-                  );
-                }
+            leading: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));  // or use Navigator.push with MaterialPageRoute
               },
+              child: FutureBuilder<User>(
+                future: futureProfile,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
+                    );
+                  } else if (snapshot.hasData) {
+                    final user = snapshot.data!;
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: user.profilePicURL != null &&
+                                user.profilePicURL!.isNotEmpty
+                            ? NetworkImage(user.profilePicURL!)
+                            : const NetworkImage(
+                                'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                      ),
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
-            title: FutureBuilder<User>(
-              future: futureProfile,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Text(
-                    'Loading...',
-                    style: TextStyle(color: Colors.black),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text(
-                    'Error',
-                    style: TextStyle(color: Colors.black),
-                  );
-                } else if (snapshot.hasData) {
-                  final user = snapshot.data!;
-                  return Text(
-                    user.name,
-                    style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
-                  );
-                } else {
-                  return const Text(
-                    'No Name',
-                    style: TextStyle(color: Colors.black),
-                  );
-                }
+            title: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));  // or use Navigator.push with MaterialPageRoute
               },
+              child: FutureBuilder<User>(
+                future: futureProfile,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text(
+                      'Loading...',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text(
+                      'Error',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  } else if (snapshot.hasData) {
+                    final user = snapshot.data!;
+                    return Text(
+                      user.name,
+                      style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+                    );
+                  } else {
+                    return const Text(
+                      'No Name',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  }
+                },
+              ),
             ),
             actions: [
               IconButton(
