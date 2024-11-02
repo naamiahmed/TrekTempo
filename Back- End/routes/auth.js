@@ -3,7 +3,18 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
-const { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword } = require("../controllers/authController");
+const { 
+  getProfile, 
+  updateProfilePicture, 
+  upload, 
+  sendOtp, 
+  verifyOtp, 
+  resetPassword,
+  sendSignUpOTP,
+  verifySignUpOTP 
+} = require("../controllers/authController");
+
+
 
 // Sign Up
 router.post("/signup", async (req, res) => {
@@ -62,5 +73,10 @@ router.post("/updateProfilePicture/:userId", upload.single('profilePic'), update
 router.post('/sendOtp', sendOtp);
 router.post('/verifyOtp', verifyOtp);
 router.post('/resetPassword', resetPassword);
+
+// Add new routes before the signup route
+router.post("/send-signup-otp", sendSignUpOTP);
+router.post("/verify-signup-otp", verifySignUpOTP);
+
 
 module.exports = router;
