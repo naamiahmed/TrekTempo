@@ -38,52 +38,51 @@ class _Notifications_HomeState extends State<Notifications_Home> {
 
   Future<void> fetchNotifications() async {
     if (_isLoading) return;
-    
     setState(() => _isLoading = true);
     
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/notifications/${widget.userId}'),
+        Uri.parse('http://localhost:5000/api/notifications'), // Update this line with your local IP
         headers: {'Content-Type': 'application/json'},
       );
 
       if (response.statusCode == 200) {
-        final List<dynamic> notificationData = jsonDecode(response.body);
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        final List<dynamic> notificationData = responseData['notifications'] ?? [];
+        
         setState(() {
           notifications = notificationData.map((notification) => {
             'id': notification['_id'],
-            'title': notification['title'],
-            'subtitle': notification['subtitle'],
-            'time': notification['time'],
+            'message': notification['message'] ?? 'New Notification',
+            'type': notification['type'] ?? 'info',
+            'createdAt': DateTime.parse(notification['createdAt']).toLocal().toString(),
             'isRead': notification['isRead'] ?? false,
+            'accommodationDetails': notification['accommodationId'] ?? {},
           }).toList();
         });
-      } else {
-        throw Exception('Failed to load notifications');
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e'))
+        SnackBar(content: Text('Error: $e')),
       );
     } finally {
       setState(() => _isLoading = false);
     }
   }
 
-  Future<void> clearAllNotifications() async {
+  Future<void> markAsRead(String notificationId) async {
     try {
-      final response = await http.delete(
-        Uri.parse('http://yourserver.com/api/notifications/${widget.userId}/clear-all'),
+      final response = await http.put(
+        Uri.parse('http://localhost:5000/api/notifications/$notificationId/read'), // Update this line with your local IP
+        headers: {'Content-Type': 'application/json'},
       );
 
       if (response.statusCode == 200) {
-        setState(() => notifications.clear());
-      } else {
-        throw Exception('Failed to clear notifications');
+        await fetchNotifications();
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e'))
+        SnackBar(content: Text('Error marking notification as read: $e')),
       );
     }
   }
@@ -92,34 +91,10 @@ class _Notifications_HomeState extends State<Notifications_Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Notifications',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
+        title: const Text('Notifications'),
         backgroundColor: Colors.white,
-        actions: [
-          if (notifications.isNotEmpty)
-            TextButton(
-              onPressed: clearAllNotifications,
-              child: const Text('Clear all', style: TextStyle(color: Colors.blue)),
-            ),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(
-            color: Colors.grey[300],
-            height: 0.5,
-          ),
-        ),
+        foregroundColor: Colors.black,
+        elevation: 1,
       ),
       body: RefreshIndicator(
         onRefresh: fetchNotifications,
@@ -127,95 +102,47 @@ class _Notifications_HomeState extends State<Notifications_Home> {
             ? const Center(child: CircularProgressIndicator())
             : notifications.isEmpty
                 ? const Center(child: Text('No notifications'))
-                : ListView.separated(
-                    padding: const EdgeInsets.all(8),
+                : ListView.builder(
                     itemCount: notifications.length,
-                    separatorBuilder: (context, index) => const Divider(height: 1),
                     itemBuilder: (context, index) {
                       final notification = notifications[index];
-                      return NotificationTile(
-                        title: notification['title'],
-                        subtitle: notification['subtitle'],
-                        time: notification['time'],
-                        isRead: notification['isRead'],
-                        onTap: () async {
-                          // Handle notification tap - mark as read
-                          // Add your logic here
-                        },
+                      return Card(
+                        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        child: ListTile(
+                          leading: Icon(
+                            notification['isRead'] 
+                                ? Icons.notifications_none 
+                                : Icons.notifications_active,
+                            color: notification['isRead'] 
+                                ? Colors.grey 
+                                : Colors.blue,
+                          ),
+                          title: Text(notification['message']),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                notification['createdAt'],
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 12,
+                                ),
+                              ),
+                              if (notification['accommodationDetails'] != null)
+                                Text(
+                                  'Accommodation: ${notification['accommodationDetails']['name'] ?? 'N/A'}',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 14,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          onTap: () => markAsRead(notification['id']),
+                        ),
                       );
                     },
                   ),
-      ),
-    );
-  }
-}
-
-class NotificationTile extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String time;
-  final bool isRead;
-  final VoidCallback onTap;
-
-  const NotificationTile({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    required this.time,
-    this.isRead = false,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: isRead ? Colors.white : Colors.blue[50],
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.notifications,
-                color: isRead ? Colors.grey : Colors.blue,
-                size: 24,
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontWeight: isRead ? FontWeight.normal : FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      time,
-                      style: TextStyle(
-                        color: Colors.grey[500],
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

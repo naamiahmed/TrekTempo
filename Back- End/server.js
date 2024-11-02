@@ -46,7 +46,7 @@ app.use('/api', eventRoutes);
 app.use('/api', ReqAccommodationRoutes);
 app.use('/api', adminAccommodationRoutes);
 app.use('/api', adminUserRoutes);
-app.use('/api', notificationRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Socket.io
 // initializeSocket(server);
