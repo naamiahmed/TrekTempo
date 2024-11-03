@@ -5,6 +5,7 @@ import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/accomadation.
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
 import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Search/search.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/intro_page.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart';
@@ -111,6 +112,8 @@ class _HomePageState extends State<HomePage> {
     'assets/images/MainHome/top_image1.png',
     'assets/images/MainHome/top_image2.png',
     'assets/images/MainHome/top_image3.png',
+    'assets/images/MainHome/123.jpg',
+  
   ];
 
   String? userId;
@@ -184,10 +187,10 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0), // Set the height of the AppBar
+        preferredSize: const Size.fromHeight(60.0),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white, // Background color of the AppBar
+            color: Colors.white,
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
@@ -197,79 +200,89 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.2),
                 spreadRadius: 1,
                 blurRadius: 1,
-                offset: const Offset(0, 3), // changes position of shadow
+                offset: const Offset(0, 3),
               ),
             ],
           ),
           child: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0, 
-            leading: FutureBuilder<User>(
-              future: futureProfile,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),      ),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),               ),
-                  );
-                } else if (snapshot.hasData) {
-                  final user = snapshot.data!;
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundImage: user.profilePicURL != null &&
-                              user.profilePicURL!.isNotEmpty
-                          ? NetworkImage(user.profilePicURL!)
-                          : const NetworkImage(
-                              'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
-                    ),
-                  );
-                } else {
-                  return const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'), // Fallback image
-                    ),
-                  );
-                }
+            leading: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));  // or use Navigator.push with MaterialPageRoute
               },
+              child: FutureBuilder<User>(
+                future: futureProfile,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
+                    );
+                  } else if (snapshot.hasData) {
+                    final user = snapshot.data!;
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: user.profilePicURL != null &&
+                                user.profilePicURL!.isNotEmpty
+                            ? NetworkImage(user.profilePicURL!)
+                            : const NetworkImage(
+                                'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                      ),
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
-            title: FutureBuilder<User>(
-              future: futureProfile,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Text(
-                    'Loading...',
-                    style: TextStyle(color: Colors.black),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text(
-                    'Error',
-                    style: TextStyle(color: Colors.black),
-                  );
-                } else if (snapshot.hasData) {
-                  final user = snapshot.data!;
-                  return Text(
-                    user.name,
-                    style: const TextStyle(color: Colors.black),
-                  );
-                } else {
-                  return const Text(
-                    'No Name',
-                    style: TextStyle(color: Colors.black),
-                  );
-                }
+            title: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));  // or use Navigator.push with MaterialPageRoute
               },
+              child: FutureBuilder<User>(
+                future: futureProfile,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text(
+                      'Loading...',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text(
+                      'Error',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  } else if (snapshot.hasData) {
+                    final user = snapshot.data!;
+                    return Text(
+                      user.name,
+                      style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+                    );
+                  } else {
+                    return const Text(
+                      'No Name',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  }
+                },
+              ),
             ),
             actions: [
               IconButton(
@@ -297,6 +310,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             // Carousel Slider for images
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -324,6 +338,8 @@ class _HomePageState extends State<HomePage> {
                     .toList(),
               ),
             ),
+
+            // Feature Buttons
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
@@ -341,6 +357,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+
+            // Most Fevourite Places By Likes
             const Padding(
               padding: EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
               child: Row(
@@ -416,7 +434,7 @@ class _HomePageState extends State<HomePage> {
         );
       },
       child: Container(
-        width: 160,
+        width: 150,
         margin: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -425,19 +443,40 @@ class _HomePageState extends State<HomePage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              place.name,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  place.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-          ),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Column(
+                children: [
+                  const Icon(Icons.favorite, color: Colors.red),
+                  Text(
+                    '${place.likes}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

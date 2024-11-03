@@ -6,7 +6,7 @@ import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
-import 'package:travel_app/auth_service.dart'; // Make sure this points to your ApiService
+import 'package:travel_app/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
@@ -69,7 +69,7 @@ class _SignInPageState extends State<SignInPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: TrekTempo_Appbar(),
+      appBar: const TrekTempo_Appbar(showBackButton: false), // Pass parameter to hide back button
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
@@ -161,7 +161,7 @@ class _SignInPageState extends State<SignInPage> {
                               );
                             }
                           } else {
-                            print("Validation failed");
+                            // print("Validation failed");
                           }
                         },
                         textColor: Colors.white,
@@ -178,7 +178,7 @@ class _SignInPageState extends State<SignInPage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignUpPage()),
+                                MaterialPageRoute(builder: (context) => const SignUpPage()),
                               );
                             },
                             child: const Text(

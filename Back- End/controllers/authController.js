@@ -30,6 +30,17 @@ const transporter = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false,
   },
+  debug: true, // Enable debug logs
+  logger: true // Enable logger
+});
+
+// Verify transporter connection
+transporter.verify(function(error, success) {
+  if (error) {
+    console.log('SMTP connection error:', error);
+  } else {
+    console.log('SMTP server is ready to take our messages');
+  }
 });
 
 const getProfile = async (req, res) => {
@@ -158,4 +169,95 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword };
+// Temporary storage for signup OTPs (in production, use Redis or similar)
+const signupOTPs = new Map();
+
+const sendSignUpOTP = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: "User already exists" });
+    }
+
+    // Generate a 4-digit OTP
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    
+    // Store OTP with expiry timestamp (5 minutes from now)
+    const expiryTime = new Date(Date.now() + 5 * 60 * 1000).getTime();
+    signupOTPs.set(email, {
+      otp,
+      expiryTime
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Verify Your Email",
+      text: `Your verification code is ${otp}. Valid for 5 minutes from ${new Date().toLocaleString()}.`,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    
+    if (info && info.messageId) {
+      console.log('Email sent successfully:', info);
+      return res.status(200).json({ 
+        success: true, 
+        message: "OTP sent successfully",
+        emailInfo: {
+          messageId: info.messageId,
+          accepted: info.accepted,
+          sentAt: new Date().toISOString()
+        }
+      });
+    } else {
+      throw new Error('Email sending failed - no message ID received');
+    }
+    
+  } catch (error) {
+    console.error('Error in sendSignUpOTP:', error);
+    return res.status(500).json({ 
+      success: false, 
+      message: "Error sending OTP", 
+      error: error.message 
+    });
+  }
+};
+
+const verifySignUpOTP = async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    const storedData = signupOTPs.get(email);
+    
+    if (!storedData) {
+      return res.status(400).json({ success: false, message: "OTP not found" });
+    }
+
+    const currentTime = Date.now();
+    
+    // Check if OTP has expired
+    if (currentTime > storedData.expiryTime) {
+      signupOTPs.delete(email);
+      return res.status(400).json({ 
+        success: false, 
+        message: "OTP has expired",
+        expiredAt: new Date(storedData.expiryTime).toISOString(),
+        currentTime: new Date(currentTime).toISOString()
+      });
+    }
+
+    if (storedData.otp === otp) {
+      signupOTPs.delete(email); // Remove used OTP
+      res.status(200).json({ success: true, message: "OTP verified successfully" });
+    } else {
+      res.status(400).json({ success: false, message: "Invalid OTP" });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error verifying OTP" });
+  }
+};
+
+module.exports = { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword, sendSignUpOTP, verifySignUpOTP };

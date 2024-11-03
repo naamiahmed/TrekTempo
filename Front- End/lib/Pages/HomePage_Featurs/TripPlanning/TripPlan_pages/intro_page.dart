@@ -15,7 +15,7 @@ class _IntroPageState extends State<IntroPage> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => StartEndPage()),
+        MaterialPageRoute(builder: (context) => const StartEndPage()),
       );
     });
   }

@@ -86,7 +86,7 @@ class MenuPage extends StatelessWidget {
               // Navigate to SignInPage
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => SignInPage()),
+                MaterialPageRoute(builder: (context) => const SignInPage()),
                 (Route<dynamic> route) => false,
               );
             },
