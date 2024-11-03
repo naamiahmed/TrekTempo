@@ -110,18 +110,12 @@ class _AccommodationPageState extends State<AccommodationPage> {
           )
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>  const NewAccommodationForm(userId: '',)),
-              );
-            },
-          ),
-        ],
+actions: [
+  IconButton(
+    icon: const Icon(Icons.add),
+    onPressed: _navigateToNewAccommodation, // Use the existing function
+  ),
+],
         backgroundColor: Colors.white,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
