@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripDetails.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/DistrictNameList.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

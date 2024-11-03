@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      EditProfilePage(), // Navigate to EditProfilePage
+                      const EditProfilePage(), // Navigate to EditProfilePage
                 ),
               );
             },

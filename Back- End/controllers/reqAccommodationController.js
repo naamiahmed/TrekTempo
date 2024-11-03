@@ -19,7 +19,7 @@ const addAccommodation = async (req, res) => {
     console.log('Request Body:', req.body);
     console.log('Request File:', req.file);
 
-    const { name, district, budget, location, locationLink, description, contact, dayCost } = req.body;
+    const { name, district, budget, location, locationLink, description, contact, dayCost , userId} = req.body;
     const image = req.file ? `http://localhost:5000/uploads/ReqAccommodation/${req.file.filename}` : null;
 
     const newAccommodation = new ReqAccommodation({
@@ -32,6 +32,7 @@ const addAccommodation = async (req, res) => {
       description,
       contact,
       dayCost,
+      userId,
     });
 
     await newAccommodation.save();

@@ -6,7 +6,7 @@ import 'package:travel_app/Models/TripPlace.dart';
 import 'package:travel_app/Models/TripPlanInputs.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/AddAccommodation.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/new_accomadation_form.dart';
 import 'package:http/http.dart' as http;
 
 class TripPlanDetails extends StatefulWidget {
@@ -170,7 +170,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                  builder: (context) => AddAccommodation(endPoint: widget.endPoint, budget: widget.budget,),
+                  builder: (context) =>const NewAccommodationForm(userId: '',)
                   ),
                 );
                 },

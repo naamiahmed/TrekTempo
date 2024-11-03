@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_app/Models/Accommodation.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/accomadation_card.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
   Future<List<Accommodation>>? futureAccommodations;
   String? selectedDistrict;
   String? selectedBudget;
+  String? userId;
 
   final List<String> districts = [
     'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
@@ -34,6 +36,14 @@ class _AccommodationPageState extends State<AccommodationPage> {
   void initState() {
     super.initState();
     futureAccommodations = fetchAccommodationsData();
+    _loadUserId();
+  }
+
+  Future<void> _loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId');
+    });
   }
 
   Future<List<Accommodation>> fetchAccommodationsData() async {
@@ -63,6 +73,22 @@ class _AccommodationPageState extends State<AccommodationPage> {
     });
   }
 
+  void _navigateToNewAccommodation() async {
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please login first')),
+      );
+      return;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NewAccommodationForm(userId: userId!),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,23 +101,21 @@ class _AccommodationPageState extends State<AccommodationPage> {
             }));
           },
         ),
-        title: const Text('Accommodations',
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.w600)),
+        title: const Text(
+          'Accommodations',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.w600
+          )
+        ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>  NewAccommodationForm()),
-              );
-            },
-          ),
-        ],
+actions: [
+  IconButton(
+    icon: const Icon(Icons.add),
+    onPressed: _navigateToNewAccommodation, // Use the existing function
+  ),
+],
         backgroundColor: Colors.white,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
@@ -128,13 +152,9 @@ class _AccommodationPageState extends State<AccommodationPage> {
                         items: districts.map((String district) {
                           return DropdownMenuItem<String>(
                             value: district,
-                            child: Row(
-                              children: [
-                                Text(
-                                  district,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ],
+                            child: Text(
+                              district,
+                              style: const TextStyle(fontSize: 14),
                             ),
                           );
                         }).toList(),
@@ -165,13 +185,9 @@ class _AccommodationPageState extends State<AccommodationPage> {
                         items: budgetRanges.map((String budget) {
                           return DropdownMenuItem<String>(
                             value: budget,
-                            child: Row(
-                              children: [
-                                Text(
-                                  budget,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ],
+                            child: Text(
+                              budget,
+                              style: const TextStyle(fontSize: 14),
                             ),
                           );
                         }).toList(),
@@ -207,13 +223,16 @@ class _AccommodationPageState extends State<AccommodationPage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                    color: Colors.blueAccent,
-                    size: 50,
-                  ));
+                    child: LoadingAnimationWidget.staggeredDotsWave(
+                      color: Colors.blueAccent,
+                      size: 50,
+                    )
+                  );
                 } else if (snapshot.hasError) {
+
                   // Show an empty container or a specific message indicating no data is available
-                  return const Center(child: Text('No data available.'));
+                  return const Center(child: Text('No Place Selected.'));
+
                 } else if (snapshot.hasData && snapshot.data!.isEmpty) {
                   return const Center(child: Text('No accommodations found.'));
                 } else if (snapshot.hasData) {
@@ -229,7 +248,9 @@ class _AccommodationPageState extends State<AccommodationPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ShowAccommodationDetails(accommodation: accommodation),
+                                  builder: (context) => ShowAccommodationDetails(
+                                    accommodation: accommodation
+                                  ),
                                 ),
                               );
                             },

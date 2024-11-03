@@ -39,6 +39,11 @@ const ReqAccommodationSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }, 
 });
 
 const ReqAccommodation = mongoose.model('ReqAccommodation', ReqAccommodationSchema);

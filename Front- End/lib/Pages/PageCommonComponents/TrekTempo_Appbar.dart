@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TrekTempo_Appbar extends StatelessWidget implements PreferredSizeWidget {
-  const TrekTempo_Appbar({super.key});
+  final bool showBackButton; // Add this line
+
+  const TrekTempo_Appbar({super.key, this.showBackButton = true}); // Modify constructor
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -20,20 +22,14 @@ class TrekTempo_Appbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: Colors.black.withOpacity(0.2),
       elevation: 0,
-      leading: Container(
-        padding:const EdgeInsets.all(4.0),
-        decoration: const BoxDecoration(
-          
-
-        ),
-      
-        child: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white,),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      leading: showBackButton // Modify this line
+        ? IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        : null,
     );
   }
 }

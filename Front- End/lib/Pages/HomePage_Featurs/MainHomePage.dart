@@ -5,6 +5,7 @@ import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/accomadation.
 import 'package:travel_app/Pages/HomePage_Featurs/Notification/Notification_Home.dart';
 import 'package:travel_app/Pages/Destinations/districts.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Menu/Menu.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Search/search.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/intro_page.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Translator/TranslationPage.dart';
@@ -111,6 +112,8 @@ class _HomePageState extends State<HomePage> {
     'assets/images/MainHome/top_image1.png',
     'assets/images/MainHome/top_image2.png',
     'assets/images/MainHome/top_image3.png',
+    'assets/images/MainHome/123.jpg',
+  
   ];
 
   String? userId;
@@ -204,73 +207,82 @@ class _HomePageState extends State<HomePage> {
           child: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0, 
-            leading:
-             FutureBuilder<User>(
-              future: futureProfile,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
-                  );
-                } else if (snapshot.hasData) {
-                  final user = snapshot.data!;
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                    child: CircleAvatar(
-                      backgroundImage: user.profilePicURL != null &&
-                              user.profilePicURL!.isNotEmpty
-                          ? NetworkImage(user.profilePicURL!)
-                          : const NetworkImage(
-                              'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
-                    ),
-                  );
-                } else {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
-                    ),
-                  );
-                }
+            leading: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));  // or use Navigator.push with MaterialPageRoute
               },
+              child: FutureBuilder<User>(
+                future: futureProfile,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
+                    );
+                  } else if (snapshot.hasData) {
+                    final user = snapshot.data!;
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: user.profilePicURL != null &&
+                                user.profilePicURL!.isNotEmpty
+                            ? NetworkImage(user.profilePicURL!)
+                            : const NetworkImage(
+                                'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                      ),
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
-            title: FutureBuilder<User>(
-              future: futureProfile,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Text(
-                    'Loading...',
-                    style: TextStyle(color: Colors.black),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text(
-                    'Error',
-                    style: TextStyle(color: Colors.black),
-                  );
-                } else if (snapshot.hasData) {
-                  final user = snapshot.data!;
-                  return Text(
-                    user.name,
-                    style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
-                  );
-                } else {
-                  return const Text(
-                    'No Name',
-                    style: TextStyle(color: Colors.black),
-                  );
-                }
+            title: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));  // or use Navigator.push with MaterialPageRoute
               },
+              child: FutureBuilder<User>(
+                future: futureProfile,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text(
+                      'Loading...',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text(
+                      'Error',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  } else if (snapshot.hasData) {
+                    final user = snapshot.data!;
+                    return Text(
+                      user.name,
+                      style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+                    );
+                  } else {
+                    return const Text(
+                      'No Name',
+                      style: TextStyle(color: Colors.black),
+                    );
+                  }
+                },
+              ),
             ),
             actions: [
               IconButton(
@@ -328,23 +340,172 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // Feature Buttons
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildIconButton(
-                      context, Icons.map, 'Trip Plans', const IntroPage()),
-                  _buildIconButton(
-                      context, Icons.event, 'Events', const EventPage()),
-                  _buildIconButton(context, Icons.translate, 'Translator',
-                      const TranslatorPage()),
-                  _buildIconButton(context, Icons.euro, 'Converter',
-                      const CurrencyConverterPage()),
+// Feature Buttons
+Padding(
+  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+  child: Column(
+    children: [
+      // First row
+      Row(
+        children: [
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey.shade300),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(0, 2),
+                  ),
                 ],
               ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const IntroPage()),
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.map, size: 24 , color: Colors.blue),
+                      SizedBox(width: 15),
+                      Text('Trip Plans', style: TextStyle(color: Colors.blue)),
+                    ],
+                  ),
+                ),
+              ),
             ),
+          ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey.shade300),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const EventPage()),
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.event, size: 24, color: Colors.black),
+                      SizedBox(width: 15),
+                      Text('Events', style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      // Second row
+      Row(
+        children: [
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey.shade300),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TranslatorPage()),
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.translate, size: 24),
+                      SizedBox(width: 15),
+                      Text('Translator'),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey.shade300),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CurrencyConverterPage()),
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.euro, size: 24),
+                      SizedBox(width: 15),
+                      Text('Converter'),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
 
             // Most Fevourite Places By Likes
             const Padding(

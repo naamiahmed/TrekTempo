@@ -7,23 +7,31 @@ class ApiService {
 
   // Sign Up Method
   Future<bool> signUp(String name, String email, String password) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/signup'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'name': name,
-        'email': email,
-        'password': password,
-      }),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/signup'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'name': name,
+          'email': email,
+          'password': password,
+        }),
+      );
 
-    if (response.statusCode == 201) {
-      print('Sign up successful');
-      return true;
-    } else {
-      print('Sign up failed: ${response.body}');
+      // Parse response body
+      final Map<String, dynamic> data = jsonDecode(response.body);
+
+      if (response.statusCode == 201) {
+        print('Sign up successful');
+        return true;
+      } else {
+        print('Sign up failed: ${data['message'] ?? 'Unknown error'}');
+        return false;
+      }
+    } catch (e) {
+      print('Exception during sign up: $e');
       return false;
     }
   }
@@ -64,6 +72,59 @@ class ApiService {
       }
     } else {
       print('Sign in failed: ${response.body}');
+      return false;
+    }
+  }
+
+  // Send OTP for signup verification
+  Future<bool> sendSignUpOTP(String email) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/send-signup-otp'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': email,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print('OTP sent successfully');
+        return true;
+      } else {
+        print('Failed to send OTP: ${response.body}');
+        return false;
+      }
+    } catch (e) {
+      print('Error sending OTP: $e');
+      return false;
+    }
+  }
+
+  // Verify OTP for signup
+  Future<bool> verifySignUpOTP(String email, String otp) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/verify-signup-otp'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': email,
+          'otp': otp,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print('OTP verified successfully');
+        return true;
+      } else {
+        print('OTP verification failed: ${response.body}');
+        return false;
+      }
+    } catch (e) {
+      print('Error verifying OTP: $e');
       return false;
     }
   }

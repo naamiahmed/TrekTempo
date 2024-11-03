@@ -183,7 +183,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                   },
                   mini: true,
                   backgroundColor: Colors.blueAccent,
-                  child: Icon(
+                  child: const Icon(
                     Icons.swap_horiz,
                     color: Colors.white,
                   ),
@@ -256,7 +256,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 "Translate",
                 style: TextStyle(
                   color: Colors.white,
