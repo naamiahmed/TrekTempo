@@ -260,4 +260,17 @@ const verifySignUpOTP = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword, sendSignUpOTP, verifySignUpOTP };
+const getUserCount = async (req, res) => {
+  try {
+    const count = await User.countDocuments();
+    res.json({ success: true, count });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      message: "Error getting user count",
+      error: error.message 
+    });
+  }
+};
+
+module.exports = { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword, sendSignUpOTP, verifySignUpOTP , getUserCount};
