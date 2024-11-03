@@ -170,7 +170,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                  builder: (context) =>const NewAccommodationForm()
+                  builder: (context) =>const NewAccommodationForm(userId: '',)
                   ),
                 );
                 },
