@@ -4,7 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 class NewAccommodationForm extends StatefulWidget {
-  const NewAccommodationForm({super.key});
+
+  final String userId;
+
+  const NewAccommodationForm({Key? key, required this.userId}) : super(key: key);
+
 
   @override
   _NewAccommodationFormState createState() => _NewAccommodationFormState();
@@ -12,8 +16,10 @@ class NewAccommodationForm extends StatefulWidget {
 
 class _NewAccommodationFormState extends State<NewAccommodationForm> {
   final _formKey = GlobalKey<FormState>();
-  String? _district;
+  final ImagePicker _picker = ImagePicker();
+
   String _name = '';
+  String? _district;
   String _description = '';
   String _location = '';
   String? _budget;
@@ -24,13 +30,22 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
 
   final List<String> _districts = [
     'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
-  'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
-  'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
-  'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
-  'Trincomalee', 'Vavuniya'
+    'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
+    'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
+    'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
+    'Trincomalee', 'Vavuniya'
   ];
 
   final List<String> _budgets = ['Low', 'Medium', 'High'];
+
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _imagePath = image.path;
+      });
+    }
+  }
 
   Future<void> _submitForm() async {
     if (_imagePath == null) {
@@ -51,6 +66,7 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
           Uri.parse('http://localhost:5000/api/addAccommodation'),
         );
 
+        // Add all form fields
         request.fields['name'] = _name;
         request.fields['district'] = _district!;
         request.fields['budget'] = _budget!;
@@ -59,6 +75,7 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
         request.fields['description'] = _description;
         request.fields['contact'] = _contact;
         request.fields['dayCost'] = _dayCost.toString();
+        request.fields['userId'] = widget.userId;
 
         if (_imagePath != null) {
           request.files
@@ -71,11 +88,13 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Accommodation added successfully!')),
           );
+
           // print('Accommodation added successfully');
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Failed to add accommodation')),
           );
+
           // print(
           //     'Failed to add accommodation: ${await response.stream.bytesToString()}');
         }
@@ -84,6 +103,7 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
           SnackBar(content: Text('Error: $e')),
         );
       }
+
 
       // Show confirmation dialog
       showDialog(
@@ -105,6 +125,27 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
         },
       );
     }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Your Request was Submitted'),
+          content: const Text('Thank you for Adding Accommodation, we will Confirm and inform you.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Return to previous screen
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -137,8 +178,9 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
           ),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
+
         child: Theme(
           data: Theme.of(context).copyWith(
             inputDecorationTheme: inputDecorationTheme,
