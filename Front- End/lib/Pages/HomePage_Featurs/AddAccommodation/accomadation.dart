@@ -117,7 +117,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  const NewAccommodationForm()),
+                MaterialPageRoute(builder: (context) =>  const NewAccommodationForm(userId: '',)),
               );
             },
           ),
