@@ -118,6 +118,16 @@ const deleteAcceptedEvent = async (req, res) => {
     }
 };
 
-module.exports = { getAllAcceptedEvents, deleteAcceptedEvent, createAllAcceptedEvents, moveEventToAccepted, createAcceptedEvent, upload 
+// Add this function in adminAcceptedEventController.js after the existing imports
+const getEventCount = async (req, res) => {
+    try {
+        const count = await Event.countDocuments();
+        res.json({ success: true, count });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+module.exports = { getAllAcceptedEvents, deleteAcceptedEvent, createAllAcceptedEvents, moveEventToAccepted, createAcceptedEvent, upload, getEventCount
 
  };
