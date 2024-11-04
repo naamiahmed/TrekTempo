@@ -37,7 +37,7 @@ class ApiService {
   }
 
   // Sign In Method
-  Future<bool> signIn(String email, String password) async {
+  Future<String?> signIn(String email, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/signin'),
       headers: <String, String>{
@@ -65,14 +65,13 @@ class ApiService {
         await prefs.setString('token', token);
 
         print('Sign in successful, data saved to SharedPreferences');
-        return true;
+        return null; // No error
       } else {
-        print('Failed to parse user data or token');
-        return false;
+        return 'Failed to parse user data or token';
       }
     } else {
-      print('Sign in failed: ${response.body}');
-      return false;
+      final Map<String, dynamic> jsonData = jsonDecode(response.body);
+      return jsonData['msg'] ?? 'Sign in failed';
     }
   }
 

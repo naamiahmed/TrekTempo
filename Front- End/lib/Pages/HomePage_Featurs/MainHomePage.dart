@@ -376,9 +376,9 @@ Padding(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.map, size: 24 , color: Colors.blue),
+                      Icon(Icons.map, size: 24 , color: Colors.black),
                       SizedBox(width: 15),
-                      Text('Trip Plans', style: TextStyle(color: Colors.blue)),
+                      Text('Trip Plans', style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
@@ -455,9 +455,9 @@ Padding(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.translate, size: 24),
+                      Icon(Icons.translate, size: 24, color: Colors.black),
                       SizedBox(width: 15),
-                      Text('Translator'),
+                      Text('Translator', style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
@@ -492,9 +492,9 @@ Padding(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.euro, size: 24),
+                      Icon(Icons.euro, size: 24, color: Colors.black),
                       SizedBox(width: 15),
-                      Text('Converter'),
+                      Text('Converter', style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
