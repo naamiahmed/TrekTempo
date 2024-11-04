@@ -11,7 +11,8 @@ const {
   verifyOtp, 
   resetPassword,
   sendSignUpOTP,
-  verifySignUpOTP 
+  verifySignUpOTP ,
+  getUserCount
 } = require("../controllers/authController");
 
 
@@ -77,6 +78,8 @@ router.post('/resetPassword', resetPassword);
 // Add new routes before the signup route
 router.post("/send-signup-otp", sendSignUpOTP);
 router.post("/verify-signup-otp", verifySignUpOTP);
+router.get("/user-count", getUserCount);
+
 
 
 module.exports = router;
