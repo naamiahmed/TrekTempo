@@ -68,4 +68,14 @@ const getAccommodationByDistrictandBudget = async (req, res) => {
   }
 };
 
-module.exports = { createAccommodation, getAccommodation, getAccommodationByDistrictandBudget, upload };
+// Get all accommodations
+const getAllAccommodations = async (req, res) => {
+  try {
+    const accommodations = await Accommodation.find().sort({ name: 1 });
+    return res.send({ success: true, accommodations: accommodations });
+  } catch (error) {
+    res.send({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createAccommodation, getAccommodation, getAccommodationByDistrictandBudget, getAllAccommodations, upload };
