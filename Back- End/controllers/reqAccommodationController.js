@@ -42,4 +42,14 @@ const addAccommodation = async (req, res) => {
   }
 };
 
-module.exports = { addAccommodation, upload };
+// Add this new function to reqAccommodationController.js
+const getAccommodationCount = async (req, res) => {
+  try {
+      const count = await ReqAccommodation.countDocuments();
+      res.json({ success: true, count });
+  } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { addAccommodation, upload, getAccommodationCount };
