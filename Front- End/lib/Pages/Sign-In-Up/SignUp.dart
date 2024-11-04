@@ -6,7 +6,6 @@ import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
 import 'package:travel_app/auth_service.dart';
-
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -24,7 +23,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
-  bool _isLoading = false;
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -59,30 +57,71 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _signUp() async {
     if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
+      // Show loading dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(color: Colors.blue),
+          );
+        },
+      );
+
       try {
         bool otpSent = await apiService.sendSignUpOTP(_emailController.text);
         
+        // Close loading dialog
+        Navigator.pop(context);
+        
         if (otpSent) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MailVerifyPage(
-                name: _nameController.text,
-                email: _emailController.text,
-                password: _passwordController.text,
-              ),
-            ),
-          );
+          _showVerificationDialog();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Failed to send OTP. Please try again.')),
           );
         }
-      } finally {
-        setState(() => _isLoading = false);
+      } catch (e) {
+        // Close loading dialog in case of error
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('An error occurred. Please try again.')),
+        );
       }
     }
+  }
+
+  void _showVerificationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Verify Email Address'),
+          content: const Text('Check your email for the OTP.'),
+          actions: <Widget>[
+            TextButton(
+              
+              child: const Text('OK', style: TextStyle(color: Colors.blue),),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                _navigateToOtpPage(); // Navigate to OTP page
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _navigateToOtpPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MailVerifyPage(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      )),
+    );
   }
 
   @override

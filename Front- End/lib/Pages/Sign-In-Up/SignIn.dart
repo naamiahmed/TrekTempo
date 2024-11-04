@@ -20,7 +20,7 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final ApiService apiService = ApiService(); // Create an instance of ApiService
+  final ApiService apiService = ApiService(); 
 
   bool _obscurePassword = true;
 
@@ -69,7 +69,7 @@ class _SignInPageState extends State<SignInPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: const TrekTempo_Appbar(showBackButton: false), // Pass parameter to hide back button
+      appBar: const TrekTempo_Appbar(showBackButton: false),
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
@@ -140,11 +140,11 @@ class _SignInPageState extends State<SignInPage> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             // Call the sign-in method
-                            bool success = await apiService.signIn(
+                            String? errorMessage = await apiService.signIn(
                               _emailController.text,
                               _passwordController.text,
                             );
-                            if (success) {
+                            if (errorMessage == null) {
                               // Save login status
                               SharedPreferences prefs = await SharedPreferences.getInstance();
                               await prefs.setBool('isLoggedIn', true);
@@ -157,7 +157,7 @@ class _SignInPageState extends State<SignInPage> {
                             } else {
                               // Show an error message
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Sign in failed! Please try again.')),
+                                SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
                               );
                             }
                           } else {
