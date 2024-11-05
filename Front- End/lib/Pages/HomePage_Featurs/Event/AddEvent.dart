@@ -192,7 +192,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   'Colombo', 'Kandy', 'Jaffna', 'Batticaloa', 'Puttalam',
                   'Trincomalee', 'Galle', 'Matara', 'Hambantota', 'Kurunegala',
                   'Gampaha', 'Kalutara', 'Kegalle', 'Ratnapura', 'Nuwara Eliya',
-                  'Matale', 'Moneragala', 'Badulla', 'Vavuniya', 'Mannar',
+                  'Matale', 'Monaragala', 'Badulla', 'Vavuniya', 'Mannar',
                   'Kilinochchi', 'Anuradhapura', 'Polonnaruwa', 'Sabaragamuwa'
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
