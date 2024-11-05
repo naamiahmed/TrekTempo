@@ -10,11 +10,11 @@ class MailVerifyPage extends StatefulWidget {
   final String password;
 
   const MailVerifyPage({
-    Key? key,
+    super.key,
     required this.name,
     required this.email,
     required this.password,
-  }) : super(key: key);
+  });
 
   @override
   _MailVerifyPageState createState() => _MailVerifyPageState();

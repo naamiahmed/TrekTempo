@@ -11,9 +11,20 @@ class ShowAccommodationDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Accommodation Details'),
-        backgroundColor: Colors.blue,
-      ),
+        centerTitle: true,
+          title: const Text(
+            'Accommodation Details',
+            style: TextStyle(
+                color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),
+          ),
+          backgroundColor: Colors.white,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4.0),
+            child: Container(
+              color: Colors.black,
+              height: 0.5,
+            ),
+          )),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +68,9 @@ class ShowAccommodationDetails extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   // Description
-                  const Text("Description", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  const Text("Description",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                   Text(
                     accommodation.description,
                     style: const TextStyle(fontSize: 16),
@@ -66,18 +79,20 @@ class ShowAccommodationDetails extends StatelessWidget {
                   // Other Details
                   Text(
                     'Budget: ${accommodation.budget}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                   
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w500),
                   ),
 
                   Text(
                     'Per day Cost For One person: ${accommodation.dayCost} Rs',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w500),
                   ),
 
                   Text(
                     'Contact: ${accommodation.contact}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 16),
                   // Visit Button
