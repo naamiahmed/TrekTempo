@@ -109,8 +109,21 @@ Future<void> _uploadProfilePicture(XFile image) async {
       final jsonResponse = json.decode(responseBody);
 
       if (jsonResponse['success'] == true) {
-        print('Profile picture updated successfully');
-        // Optionally, update the UI with the new profile picture URL
+        // Refresh profile data
+        setState(() {
+          futureProfile = fetchProfileData(userId!);
+        });
+        
+        // Show success message
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Profile picture updated successfully'),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
       } else {
         throw Exception('Failed to update profile picture');
       }
@@ -119,6 +132,15 @@ Future<void> _uploadProfilePicture(XFile image) async {
     }
   } catch (e) {
     print('Error uploading profile picture: $e');
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error updating profile picture: $e'),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
   }
 }
 
