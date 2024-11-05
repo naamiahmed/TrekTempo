@@ -167,20 +167,6 @@ Future<void> _uploadProfilePicture(XFile image) async {
         ),
         title: const Text('Edit Profile', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      const EditProfilePage(), // Navigate to EditProfilePage
-                ),
-              );
-            },
-          ),
-        ],
         backgroundColor: Colors.white,
          bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
