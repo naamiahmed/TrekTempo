@@ -142,6 +142,44 @@ Future<void> updateBio(String newBio) async {
     }
   }
 
+  Future<void> _changePassword(String currentPassword, String newPassword) async {
+  try {
+    final response = await http.put(
+      Uri.parse('http://localhost:5000/api/auth/changePassword/$userId'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password changed successfully'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.of(context).pop();
+    } else {
+      final error = json.decode(response.body);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error['message'] ?? 'Failed to change password'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Error: $e'),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+}
+
   // Show the bottom sheet with options to change the profile picture
   void _showImageSourceOptions() {
     showModalBottomSheet(
@@ -297,55 +335,95 @@ Future<void> updateBio(String newBio) async {
     );
   }
 
-  void _showChangePasswordDialog(BuildContext context) {
-    final currentPasswordController = TextEditingController();
-    final newPasswordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
+void _showChangePasswordDialog(BuildContext context) {
+  final currentPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Change Password'),
-          content: Column(
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Change Password'),
+        content: Form(
+          key: _formKey,
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
+              TextFormField(
                 controller: currentPasswordController,
-                decoration: const InputDecoration(labelText: 'Current Password'),
+                decoration: const InputDecoration(
+                  labelText: 'Current Password',
+                  border: OutlineInputBorder(),
+                ),
                 obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter current password';
+                  }
+                  return null;
+                },
               ),
-              TextField(
+              const SizedBox(height: 16),
+              TextFormField(
                 controller: newPasswordController,
-                decoration: const InputDecoration(labelText: 'New Password'),
+                decoration: const InputDecoration(
+                  labelText: 'New Password',
+                  border: OutlineInputBorder(),
+                ),
                 obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter new password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
               ),
-              TextField(
+              const SizedBox(height: 16),
+              TextFormField(
                 controller: confirmPasswordController,
-                decoration: const InputDecoration(labelText: 'Confirm New Password'),
+                decoration: const InputDecoration(
+                  labelText: 'Confirm New Password',
+                  border: OutlineInputBorder(),
+                ),
                 obscureText: true,
+                validator: (value) {
+                  if (value != newPasswordController.text) {
+                    return 'Passwords do not match';
+                  }
+                  return null;
+                },
               ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // Implement your password change logic here
-                Navigator.of(context).pop();
-              },
-              child: const Text('Submit'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                _changePassword(
+                  currentPasswordController.text,
+                  newPasswordController.text,
+                );
+              }
+            },
+            child: const Text('Change Password'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
 Widget _buildBioSection() {
   return FutureBuilder<User>(
