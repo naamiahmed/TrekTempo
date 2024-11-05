@@ -66,4 +66,15 @@ const deleteRequestPlace = async (req, res) => {
   }
 };
 
-module.exports = { upload, createNewPlace, getAllNewPlaces, deleteRequestPlace };
+// Add this function to newPlacesController.js
+const getPlaceCount = async (req, res) => {
+  try {
+      const count = await NewPlace.countDocuments();
+      res.json({ success: true, count });
+  } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
+module.exports = { upload, createNewPlace, getAllNewPlaces, deleteRequestPlace, getPlaceCount };

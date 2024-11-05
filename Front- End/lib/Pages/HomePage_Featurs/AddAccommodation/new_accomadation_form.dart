@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 class NewAccommodationForm extends StatefulWidget {
   final String userId;
-  const NewAccommodationForm({Key? key, required this.userId}) : super(key: key);
+  const NewAccommodationForm({super.key, required this.userId});
 
   @override
   _NewAccommodationFormState createState() => _NewAccommodationFormState();
@@ -72,12 +72,12 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
           _showSuccessDialog();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed to add accommodation')),
+            const SnackBar(content: Text('Failed to add accommodation'), backgroundColor: Colors.red,),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red,),
         );
       }
     }

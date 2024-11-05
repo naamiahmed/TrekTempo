@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { getAllAccommodations, deleteAccommodation, moveAccommodationToAccepted } = require('../controllers/adminAccommodationController');
+const { getAllReqAccommodations, deleteAccommodation, moveAccommodationToAccepted } = require('../controllers/adminAccommodationController');
 
-router.get("/getAllAccommodations", getAllAccommodations);
+router.get("/getAllReqAccommodations", getAllReqAccommodations);
 router.delete("/deleteAccommodation/:id", deleteAccommodation);
 router.post("/moveAccommodationToAccepted/:id", moveAccommodationToAccepted);
 

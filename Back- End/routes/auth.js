@@ -11,7 +11,8 @@ const {
   verifyOtp, 
   resetPassword,
   sendSignUpOTP,
-  verifySignUpOTP 
+  verifySignUpOTP ,
+  getUserCount
 } = require("../controllers/authController");
 
 
@@ -47,13 +48,13 @@ router.post("/signin", async (req, res) => {
     // Check for user
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(400).json({ msg: "User not found. Please Register before login" });
     }
 
     // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(400).json({ msg: "Invalid password. Please try again." });
     }
 
     // Generate JWT
@@ -77,6 +78,8 @@ router.post('/resetPassword', resetPassword);
 // Add new routes before the signup route
 router.post("/send-signup-otp", sendSignUpOTP);
 router.post("/verify-signup-otp", verifySignUpOTP);
+router.get("/user-count", getUserCount);
+
 
 
 module.exports = router;

@@ -2,7 +2,7 @@ const ReqAccommodation = require("../models/ReqAccommodation");
 const AcceptedAccommodation = require("../models/Accommodation");
 const Notification = require("../models/Notification");
 
-const getAllAccommodations = async (req, res) => {
+const getAllReqAccommodations = async (req, res) => {
   try {
     const accommodations = await ReqAccommodation.find().sort({ name: 1 });
     if (accommodations.length === 0) {
@@ -93,4 +93,4 @@ const moveAccommodationToAccepted = async (req, res) => {
   }
 };
 
-module.exports = { getAllAccommodations, deleteAccommodation, moveAccommodationToAccepted };
+module.exports = { getAllReqAccommodations, deleteAccommodation, moveAccommodationToAccepted };
