@@ -78,4 +78,16 @@ const getAllAccommodations = async (req, res) => {
   }
 };
 
-module.exports = { createAccommodation, getAccommodation, getAccommodationByDistrictandBudget, getAllAccommodations, upload };
+const deleteAcceptedAccommodation = async (req, res) => {
+  try {
+      const accommodation = await Accommodation.findByIdAndDelete(req.params.id);
+      if (!accommodation) {
+          return res.status(404).json({ success: false, message: 'Accommodation not found' });
+      }
+      res.json({ success: true, message: 'Accommodation deleted successfully' });
+  } catch (error) {
+      res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+module.exports = { createAccommodation, getAccommodation, getAccommodationByDistrictandBudget, getAllAccommodations, deleteAcceptedAccommodation, upload };
