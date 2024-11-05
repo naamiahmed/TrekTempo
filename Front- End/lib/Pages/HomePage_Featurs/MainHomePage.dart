@@ -32,7 +32,6 @@ class _MainHomePageState extends State<MainHomePage> {
     const Search(),
     const AccommodationPage(),
     const DestinationsPage(),
-    
   ];
 
   @override
@@ -113,7 +112,6 @@ class _HomePageState extends State<HomePage> {
     'assets/images/MainHome/top_image2.png',
     'assets/images/MainHome/top_image3.png',
     'assets/images/MainHome/123.jpg',
-  
   ];
 
   String? userId;
@@ -172,7 +170,9 @@ class _HomePageState extends State<HomePage> {
         Map<String, dynamic> jsonData = json.decode(response.body);
         List<dynamic> placesJson = jsonData['places'];
 
-        return placesJson.map((placeJson) => Place.fromJson(placeJson)).toList();
+        return placesJson
+            .map((placeJson) => Place.fromJson(placeJson))
+            .toList();
       } else {
         throw Exception('Failed to load top places');
       }
@@ -206,32 +206,39 @@ class _HomePageState extends State<HomePage> {
           ),
           child: AppBar(
             backgroundColor: Colors.transparent,
-            elevation: 0, 
+            elevation: 0,
             leading: GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));  // or use Navigator.push with MaterialPageRoute
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const ProfilePage())); // or use Navigator.push with MaterialPageRoute
               },
               child: FutureBuilder<User>(
                 future: futureProfile,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Padding(
-                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      padding:
+                          EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
+                          backgroundImage: NetworkImage(
+                              'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
                     );
                   } else if (snapshot.hasError) {
                     return const Padding(
-                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      padding:
+                          EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
+                          backgroundImage: NetworkImage(
+                              'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png')),
                     );
                   } else if (snapshot.hasData) {
                     final user = snapshot.data!;
                     return Padding(
-                      padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      padding: const EdgeInsets.only(
+                          left: 8.0, top: 8.0, bottom: 8.0),
                       child: CircleAvatar(
                         backgroundImage: user.profilePicURL != null &&
                                 user.profilePicURL!.isNotEmpty
@@ -242,7 +249,8 @@ class _HomePageState extends State<HomePage> {
                     );
                   } else {
                     return const Padding(
-                      padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                      padding:
+                          EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(
                             'https://sricarschennai.in/wp-content/uploads/2022/11/avatar.png'),
@@ -254,7 +262,11 @@ class _HomePageState extends State<HomePage> {
             ),
             title: GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));  // or use Navigator.push with MaterialPageRoute
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const ProfilePage())); // or use Navigator.push with MaterialPageRoute
               },
               child: FutureBuilder<User>(
                 future: futureProfile,
@@ -273,7 +285,10 @@ class _HomePageState extends State<HomePage> {
                     final user = snapshot.data!;
                     return Text(
                       user.name,
-                      style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
                     );
                   } else {
                     return const Text(
@@ -291,7 +306,9 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Notifications_Home(userId: '',)),
+                        builder: (context) => const Notifications_Home(
+                              userId: '',
+                            )),
                   );
                 },
               ),
@@ -302,7 +319,10 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ],
-            iconTheme: const IconThemeData(color: Colors.black, size: 30,),
+            iconTheme: const IconThemeData(
+              color: Colors.black,
+              size: 30,
+            ),
           ),
         ),
       ),
@@ -310,7 +330,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // Carousel Slider for images
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -341,171 +360,186 @@ class _HomePageState extends State<HomePage> {
 
             // Feature Buttons
 // Feature Buttons
-Padding(
-  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-  child: Column(
-    children: [
-      // First row
-      Row(
-        children: [
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey.shade300),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: const Offset(0, 2),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+              child: Column(
+                children: [
+                  // First row
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.shade300),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const IntroPage()),
+                              );
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.map,
+                                      size: 24, color: Colors.black),
+                                  SizedBox(width: 15),
+                                  Text('Trip Plans',
+                                      style: TextStyle(color: Colors.black)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.shade300),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const EventPage()),
+                              );
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.event,
+                                      size: 24, color: Colors.black),
+                                  SizedBox(width: 15),
+                                  Text('Events',
+                                      style: TextStyle(color: Colors.black)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Second row
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.shade300),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TranslatorPage()),
+                              );
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.translate,
+                                      size: 24, color: Colors.black),
+                                  SizedBox(width: 15),
+                                  Text('Translator',
+                                      style: TextStyle(color: Colors.black)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.shade300),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CurrencyConverterPage()),
+                              );
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.euro,
+                                      size: 24, color: Colors.black),
+                                  SizedBox(width: 15),
+                                  Text('Converter',
+                                      style: TextStyle(color: Colors.black)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const IntroPage()),
-                  );
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.map, size: 24 , color: Colors.black),
-                      SizedBox(width: 15),
-                      Text('Trip Plans', style: TextStyle(color: Colors.black)),
-                    ],
-                  ),
-                ),
-              ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey.shade300),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const EventPage()),
-                  );
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.event, size: 24, color: Colors.black),
-                      SizedBox(width: 15),
-                      Text('Events', style: TextStyle(color: Colors.black)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      // Second row
-      Row(
-        children: [
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey.shade300),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TranslatorPage()),
-                  );
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.translate, size: 24, color: Colors.black),
-                      SizedBox(width: 15),
-                      Text('Translator', style: TextStyle(color: Colors.black)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey.shade300),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const CurrencyConverterPage()),
-                  );
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.euro, size: 24, color: Colors.black),
-                      SizedBox(width: 15),
-                      Text('Converter', style: TextStyle(color: Colors.black)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ],
-  ),
-),
 
             // Most Fevourite Places By Likes
             const Padding(
@@ -524,7 +558,11 @@ Padding(
               future: futureTopPlaces,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue, // Change color to blue
+                    ),
+                  );
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.hasData && snapshot.data!.isEmpty) {
@@ -549,26 +587,6 @@ Padding(
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildIconButton(
-      BuildContext context, IconData icon, String label, Widget? page) {
-    return Column(
-      children: [
-        IconButton(
-          icon: Icon(icon, size: 30),
-          onPressed: () {
-            if (page != null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => page),
-              );
-            }
-          },
-        ),
-        Text(label),
-      ],
     );
   }
 
