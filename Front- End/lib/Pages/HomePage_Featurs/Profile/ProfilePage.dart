@@ -143,6 +143,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         user.email, // User's email
                         style: const TextStyle(fontSize: 16, color: Colors.grey),
                       ),
+                      const SizedBox(height: 16),
+                      Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Text(
+                      user.bio ?? 'No bio added yet',
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                     ),
+                    ),
                     ],
                   );
                 } else {
