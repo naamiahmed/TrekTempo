@@ -24,8 +24,18 @@ class EventCard extends StatelessWidget {
     required this.onTap,
   });
 
+  String _formatDate(String date) {
+    try {
+      return DateTime.parse(date).toString().split(' ')[0];
+    } catch (e) {
+      return date;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final formattedDate = _formatDate(date);
+    
     return GestureDetector(
       onTap: onTap,
       child: Material(
@@ -40,34 +50,23 @@ class EventCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(imageUrl, height: 100, width: double.infinity, fit: BoxFit.cover),
+              Image.network(
+                imageUrl, 
+                height: 100, 
+                width: double.infinity, 
+                fit: BoxFit.cover
+              ),
               const SizedBox(height: 8),
               Text(title, style: AppWidget.semiBooldTextFieldStyle()),
               const SizedBox(height: 4),
-              // Text("Phone: $phone", style: AppWidget.LightTextFeildStyle()),
-              // const SizedBox(height: 4),
-              Text("$district , $place ", style: AppWidget.LightTextFeildStyle()),
+              Text(
+                "$district , $place ", 
+                style: AppWidget.LightTextFeildStyle()
+              ),
               const SizedBox(height: 4),
-
-              // Text("Location: $location", style: AppWidget.LightTextFeildStyle()),
-              // const SizedBox(height: 4),
-               Text("Date: $date", style: AppWidget.LightTextFeildStyle()),
-              // const SizedBox(height: 8),
-              Row(
-                children: [
-                  Spacer(),
-                  Container(
-                    padding: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 126, 128, 125),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.bookmark,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                  ),
-                ],
+              Text(
+                "Date: $formattedDate", 
+                style: AppWidget.LightTextFeildStyle()
               ),
             ],
           ),
