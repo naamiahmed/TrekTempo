@@ -107,17 +107,21 @@ class Details extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              RichText(
+                            RichText(
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "Date Range: ",
+                      text: "Date: ",
                       style: AppWidget.semiBooldTextFieldStyle(),
                     ),
                     TextSpan(
-                      text: event["dateRange"] != null
-                          ? '${event["dateRange"]["start"]} - ${event["dateRange"]["end"]}'
-                          : 'No Date Range',
+                      text: event["date"] != null 
+                          ? DateTime.parse(event["date"]).toString().split(' ')[0]
+                          : (event["dateRange"] != null
+                              ? (event["dateRange"]["end"] != null && event["dateRange"]["end"] != event["dateRange"]["start"])
+                                  ? '${DateTime.parse(event["dateRange"]["start"]).toString().split(' ')[0]} - ${DateTime.parse(event["dateRange"]["end"]).toString().split(' ')[0]}'
+                                  : '${DateTime.parse(event["dateRange"]["start"]).toString().split(' ')[0]}'
+                              : 'No Date'),
                       style: AppWidget.LightTextFeildStyle(),
                     ),
                   ],

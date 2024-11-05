@@ -273,4 +273,29 @@ const getUserCount = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword, sendSignUpOTP, verifySignUpOTP , getUserCount};
+const updateBio = async (req, res) => {
+  try {
+      const userId = req.params.userId;
+      const { bio } = req.body;
+
+      if (!userId) {
+          return res.status(400).json({ success: false, message: "User ID Required" });
+      }
+
+      const user = await User.findByIdAndUpdate(
+          userId,
+          { bio },
+          { new: true }
+      );
+
+      if (!user) {
+          return res.status(404).json({ success: false, message: "User not found" });
+      }
+
+      res.json({ success: true, user });
+  } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword, sendSignUpOTP, verifySignUpOTP , getUserCount , updateBio};

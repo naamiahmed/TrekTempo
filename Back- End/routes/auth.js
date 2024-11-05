@@ -12,7 +12,8 @@ const {
   resetPassword,
   sendSignUpOTP,
   verifySignUpOTP ,
-  getUserCount
+  getUserCount,
+  updateBio
 } = require("../controllers/authController");
 
 
@@ -79,6 +80,7 @@ router.post('/resetPassword', resetPassword);
 router.post("/send-signup-otp", sendSignUpOTP);
 router.post("/verify-signup-otp", verifySignUpOTP);
 router.get("/user-count", getUserCount);
+router.put("/updateBio/:userId", updateBio);
 
 
 

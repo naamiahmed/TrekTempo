@@ -14,6 +14,7 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
+  // Controllers for form fields
   final TextEditingController _placeNameController = TextEditingController();
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
@@ -23,6 +24,14 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
 
   List<File> _images = [];
   final PlaceService _placeService = PlaceService();
+
+  final List<String> _districts = [
+    'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
+    'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
+    'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Monaragala',
+    'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
+    'Trincomalee', 'Vavuniya'
+  ];
 
   @override
   void dispose() {
@@ -62,7 +71,6 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
 
       if (response.statusCode == 201) {
         _showSuccessDialog();
-        _clearForm();
       } else {
         _showErrorDialog('Failed to create place');
       }
@@ -74,7 +82,13 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
   }
 
   void _clearForm() {
-    _formKey.currentState!.reset();
+    _formKey.currentState?.reset();
+    _placeNameController.clear();
+    _districtController.clear();
+    _cityController.clear();
+    _locationController.clear();
+    _directionController.clear();
+    _descriptionController.clear();
     setState(() => _images = []);
   }
 
@@ -86,7 +100,10 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
         content: const Text('Place added successfully!'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+              _clearForm();
+            },
             child: const Text('OK'),
           ),
         ],
@@ -138,6 +155,38 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
     );
   }
 
+  Widget _buildDistrictDropdown() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: DropdownButtonFormField<String>(
+        value: _districtController.text.isEmpty ? null : _districtController.text,
+        decoration: const InputDecoration(
+          labelText: 'District',
+          prefixIcon: Icon(Icons.location_city),
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
+        items: _districts.map((String district) {
+          return DropdownMenuItem<String>(
+            value: district,
+            child: Text(district),
+          );
+        }).toList(),
+        onChanged: (String? newValue) {
+          setState(() {
+            _districtController.text = newValue ?? '';
+          });
+        },
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'District is required';
+          }
+          return null;
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,11 +223,7 @@ class _AddPlaceFormState extends State<AddPlaceForm> {
                       label: 'Place Name',
                       icon: Icons.place,
                     ),
-                    _buildTextField(
-                      controller: _districtController,
-                      label: 'District',
-                      icon: Icons.location_city,
-                    ),
+                    _buildDistrictDropdown(),
                     _buildTextField(
                       controller: _cityController,
                       label: 'City',
