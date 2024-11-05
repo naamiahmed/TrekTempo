@@ -31,6 +31,21 @@ class _TranslatorPageState extends State<TranslatorPage> {
     final fromLangCode = languageCodes[inputLanguage] ?? 'en';
     final toLangCode = languageCodes[outputLanguage] ?? 'en';
 
+  // Check if input text contains only special characters
+  if (RegExp(r'^[^a-zA-Z]+$').hasMatch(inputController.text)) {
+    setState(() {
+      outputController.text = 'Invalid characters';
+    });
+    return; // Exit the method if input is invalid
+  }
+
+    if (fromLangCode == toLangCode) {
+    setState(() {
+      outputController.text = 'Please select different languages';
+    });
+    return; // Exit the method if the languages are the same
+  }
+
     try {
       final translated = await translator.translate(
         inputController.text,
@@ -43,7 +58,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
       });
     } catch (e) {
       setState(() {
-        outputController.text = 'Error during translation: $e';
+        outputController.text = 'Enter text to translate';
       });
     }
   }
@@ -154,9 +169,16 @@ class _TranslatorPageState extends State<TranslatorPage> {
                 FloatingActionButton(
                   onPressed: () {
                     setState(() {
+                      // Swap the input and output languages
                       final temp = inputLanguage;
                       inputLanguage = outputLanguage;
                       outputLanguage = temp;
+
+                      // Swap the text content between input and output fields
+                      final tempText = inputController.text;
+                      inputController.text = outputController.text;
+                      outputController.text = tempText; // Set output to previous input
+
                     });
                   },
                   mini: true,
