@@ -180,19 +180,19 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
-                  children: [
-                    Icon(Icons.favorite, color: Colors.red),
-                    SizedBox(height: 5),
-                    Text('23 likes'),
-                  ],
+                  // children: [
+                  //   Icon(Icons.favorite, color: Colors.red),
+                  //   SizedBox(height: 5),
+                  //   Text('23 likes'),
+                  // ],
                 ),
                 SizedBox(width: 40),
                 Column(
-                  children: [
-                    Icon(Icons.bookmark, color: Colors.grey),
-                    SizedBox(height: 5),
-                    Text('5 Saved'),
-                  ],
+                  // children: [
+                  //   Icon(Icons.bookmark, color: Colors.grey),
+                  //   SizedBox(height: 5),
+                  //   Text('5 Saved'),
+                  // ],
                 ),
               ],
             ),

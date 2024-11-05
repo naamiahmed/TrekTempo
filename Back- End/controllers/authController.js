@@ -298,4 +298,32 @@ const updateBio = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword, sendSignUpOTP, verifySignUpOTP , getUserCount , updateBio};
+const changePassword = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { currentPassword, newPassword } = req.body;
+
+    // Find user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    // Verify current password
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: "Current password is incorrect" });
+    }
+
+    // Hash new password and update
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ success: true, message: "Password updated successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword, sendSignUpOTP, verifySignUpOTP , getUserCount , updateBio , changePassword};

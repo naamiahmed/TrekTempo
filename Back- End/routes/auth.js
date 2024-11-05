@@ -13,7 +13,8 @@ const {
   sendSignUpOTP,
   verifySignUpOTP ,
   getUserCount,
-  updateBio
+  updateBio,
+  changePassword
 } = require("../controllers/authController");
 
 
@@ -81,6 +82,8 @@ router.post("/send-signup-otp", sendSignUpOTP);
 router.post("/verify-signup-otp", verifySignUpOTP);
 router.get("/user-count", getUserCount);
 router.put("/updateBio/:userId", updateBio);
+router.put("/changePassword/:userId", changePassword);
+
 
 
 
