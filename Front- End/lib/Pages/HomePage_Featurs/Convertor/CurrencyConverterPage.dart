@@ -123,6 +123,7 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
       _convertedAmount = 0.0; // Clear previous result if any
     } else {
       // Parse the amount and perform conversion
+      
       _amount = double.tryParse(_controller.text) ?? 0.0;
       
       if (_amount <= 0) {
