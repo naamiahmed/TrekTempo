@@ -25,7 +25,32 @@ const app = express();
 // const server = http.createServer(app);
 
 // Middleware
-app.use(cors());
+
+// CORS Configuration
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://your-frontend-domain.com'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ 
+        success: false,
+        message: 'Internal Server Error',
+        error: err.message 
+    });
+});
+
+// Modify your route handlers to include proper error handling
+app.use('/api', (req, res, next) => {
+    try {
+        // Your route logic
+    } catch (error) {
+        next(error);
+    }
+});
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
