@@ -28,7 +28,7 @@ class _SearchState extends State<Search> {
   Future<String> fetchPlacesData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getAllPlaces'),
+        Uri.parse('https://trektempo.onrender.com/api/getAllPlaces'),
         headers: {},
       );
       if (response.statusCode == 200) {

@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:travel_app/Models/Place.dart';
 import 'package:travel_app/Models/Accommodation.dart';
 import 'package:travel_app/Models/TripPlace.dart';
-import 'package:travel_app/Models/TripPlanInputs.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/TripPlanCard.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/new_accomadation_form.dart';
@@ -45,7 +43,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/getTripPlaces'),
+        Uri.parse('https://trektempo.onrender.com/api/getTripPlaces'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -80,7 +78,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/getAccommodation'),
+        Uri.parse('https://trektempo.onrender.com/api/getAccommodation'),
         headers: {
           'Content-Type': 'application/json',
         },

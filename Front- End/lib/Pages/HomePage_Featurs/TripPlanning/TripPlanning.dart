@@ -47,8 +47,7 @@ class _TripPlanningPageState extends State<TripPlanningPage> {
       );
 
       if (response.statusCode == 200) {
-        final responseData = json.decode(response.body);
-        final tripId = responseData['tripId'];
+        json.decode(response.body);
 
         // Success: Use the server response (e.g., tripId)
         // Navigator.push(

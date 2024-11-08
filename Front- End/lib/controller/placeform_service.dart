@@ -14,7 +14,7 @@ class PlaceService {
   }) async {
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://localhost:5000/api/createNewPlace'),
+      Uri.parse('https://trektempo.onrender.com/api/createNewPlace'),
     );
 
     // Add form fields

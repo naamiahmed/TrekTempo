@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<User> fetchProfileData(String userId) async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/auth/getProfile/$userId'),
+        Uri.parse('https://trektempo.onrender.com/api/auth/getProfile/$userId'),
       );
 
       if (response.statusCode == 200) {
