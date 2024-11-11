@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Booking/booking_home.dart';
 import 'package:travel_app/Pages/ForgotPW/ForgotPassword-EnterMail.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
@@ -124,6 +125,23 @@ class _SignInPageState extends State<SignInPage> {
                           },
                           child: const Text(
                             'Forgot password?',
+                            style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                            ),
+                          ),
+                        ),
+
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => BookingHomePage()),
+                            );
+                          },
+                          child: const Text(
+                            'Accommodation Booking',
                             style: TextStyle(
                               color: Colors.blueAccent,
                               fontWeight: FontWeight.bold,
