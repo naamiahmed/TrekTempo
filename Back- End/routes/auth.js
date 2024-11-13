@@ -3,7 +3,21 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
-const { getProfile, updateProfilePicture, upload, sendOtp, verifyOtp, resetPassword } = require("../controllers/authController");
+const { 
+  getProfile, 
+  updateProfilePicture, 
+  upload, 
+  sendOtp, 
+  verifyOtp, 
+  resetPassword,
+  sendSignUpOTP,
+  verifySignUpOTP ,
+  getUserCount,
+  updateBio,
+  changePassword
+} = require("../controllers/authController");
+
+
 
 // Sign Up
 router.post("/signup", async (req, res) => {
@@ -36,13 +50,13 @@ router.post("/signin", async (req, res) => {
     // Check for user
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(400).json({ msg: "User not found. Please Register before login" });
     }
 
     // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(400).json({ msg: "Invalid password. Please try again." });
     }
 
     // Generate JWT
@@ -62,5 +76,15 @@ router.post("/updateProfilePicture/:userId", upload.single('profilePic'), update
 router.post('/sendOtp', sendOtp);
 router.post('/verifyOtp', verifyOtp);
 router.post('/resetPassword', resetPassword);
+
+// Add new routes before the signup route
+router.post("/send-signup-otp", sendSignUpOTP);
+router.post("/verify-signup-otp", verifySignUpOTP);
+router.get("/user-count", getUserCount);
+router.put("/updateBio/:userId", updateBio);
+router.put("/changePassword/:userId", changePassword);
+
+
+
 
 module.exports = router;

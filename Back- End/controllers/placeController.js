@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// Creating new place entries in the database
+// Upload new place entries in the database
 const createPlace = async (req, res) => {
   try {
     const { district, city, name, location, direction, description } = req.body;

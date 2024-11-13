@@ -9,7 +9,7 @@ class Fourthpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageDesign(
+    return const ImageDesign(
       imagePath: 'assets/images/HomeImage03.png',
       titlePart1: 'Adventure',
       titlePart2: ' Awaits!',

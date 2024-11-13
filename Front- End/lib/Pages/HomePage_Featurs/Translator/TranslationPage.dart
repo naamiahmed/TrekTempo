@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class TranslatorPage extends StatefulWidget {
   const TranslatorPage({super.key});
@@ -30,6 +31,21 @@ class _TranslatorPageState extends State<TranslatorPage> {
     final fromLangCode = languageCodes[inputLanguage] ?? 'en';
     final toLangCode = languageCodes[outputLanguage] ?? 'en';
 
+  // Check if input text contains only special characters
+  if (RegExp(r'^[^a-zA-Z]+$').hasMatch(inputController.text)) {
+    setState(() {
+      outputController.text = 'Invalid characters';
+    });
+    return; // Exit the method if input is invalid
+  }
+
+    if (fromLangCode == toLangCode) {
+    setState(() {
+      outputController.text = 'Please select different languages';
+    });
+    return; // Exit the method if the languages are the same
+  }
+
     try {
       final translated = await translator.translate(
         inputController.text,
@@ -42,7 +58,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
       });
     } catch (e) {
       setState(() {
-        outputController.text = 'Error during translation: $e';
+        outputController.text = 'Enter text to translate';
       });
     }
   }
@@ -51,17 +67,28 @@ class _TranslatorPageState extends State<TranslatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const MainHomePage();
+            }));
+          },
+        ),
         title: const Text(
           'Translator',
           style: TextStyle(
-            fontSize: 30.0,
-            fontWeight: FontWeight.w500,
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
           ),
         ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -142,14 +169,21 @@ class _TranslatorPageState extends State<TranslatorPage> {
                 FloatingActionButton(
                   onPressed: () {
                     setState(() {
+                      // Swap the input and output languages
                       final temp = inputLanguage;
                       inputLanguage = outputLanguage;
                       outputLanguage = temp;
+
+                      // Swap the text content between input and output fields
+                      final tempText = inputController.text;
+                      inputController.text = outputController.text;
+                      outputController.text = tempText; // Set output to previous input
+
                     });
                   },
                   mini: true,
                   backgroundColor: Colors.blueAccent,
-                  child: Icon(
+                  child: const Icon(
                     Icons.swap_horiz,
                     color: Colors.white,
                   ),
@@ -222,7 +256,7 @@ class _TranslatorPageState extends State<TranslatorPage> {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 "Translate",
                 style: TextStyle(
                   color: Colors.white,

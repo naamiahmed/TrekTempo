@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async'; // Import the dart:async package
 import 'package:travel_app/Pages/HomePage_Featurs/Event/AddEvent.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventCard';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 import 'EventDetails.dart';
-import 'Components/Support.dart';
 
 class EventPage extends StatefulWidget {
   const EventPage({super.key});
@@ -16,11 +16,21 @@ class EventPage extends StatefulWidget {
 
 class _HomeState extends State<EventPage> {
   List events = [];
+  Timer? _timer; // Declare a Timer
 
   @override
   void initState() {
     super.initState();
     fetchEvents();
+    _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+      fetchEvents(); // Fetch events every 30 seconds
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   Future<void> fetchEvents() async {
@@ -28,8 +38,7 @@ class _HomeState extends State<EventPage> {
       final response = await http.get(Uri.parse('http://localhost:5000/api/getAllAcceptedEvents'));
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-        final List fetchedEvents = responseData['events']; // Extract the list of events
-        // print('Fetched Events: $fetchedEvents'); // Debug print statement
+        final List fetchedEvents = responseData['events'];
         setState(() {
           events = fetchedEvents;
         });
@@ -46,7 +55,6 @@ class _HomeState extends State<EventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Events'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -56,6 +64,8 @@ class _HomeState extends State<EventPage> {
             );
           },
         ),
+        title: const Text('Events', style: TextStyle(
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -63,12 +73,21 @@ class _HomeState extends State<EventPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddEventPage(),
+                  builder: (context) => const AddEventPage(),
                 ),
               );
             },
           ),
         ],
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: events.isEmpty
           ? const Center(

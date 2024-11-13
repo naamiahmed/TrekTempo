@@ -1,7 +1,8 @@
 const ReqAccommodation = require("../models/ReqAccommodation");
 const AcceptedAccommodation = require("../models/Accommodation");
+const Notification = require("../models/Notification");
 
-const getAllAccommodations = async (req, res) => {
+const getAllReqAccommodations = async (req, res) => {
   try {
     const accommodations = await ReqAccommodation.find().sort({ name: 1 });
     if (accommodations.length === 0) {
@@ -29,28 +30,67 @@ const deleteAccommodation = async (req, res) => {
 };
 
 const moveAccommodationToAccepted = async (req, res) => {
-    const accommodationId = req.params.id; // Get the ID from request params
+  const accommodationId = req.params.id;
+  const { userId } = req.body;
 
-    try {
-        // Step 1: Find the document in the ReqAccommodation collection
-        const accommodation = await ReqAccommodation.findById(accommodationId);
+  console.log('Starting moveAccommodationToAccepted...');
+  console.log('AccommodationId:', accommodationId);
+  console.log('Request body:', req.body);
 
-        if (!accommodation) {
-            return res.status(404).json({ msg: 'Accommodation not found' });
-        }
+  try {
+      if (!accommodationId || !userId) {
+          return res.status(400).json({
+              success: false,
+              message: 'Both Accommodation ID and User ID are required'
+          });
+      }
 
-        // Step 2: Insert the document into the AcceptedAccommodation collection
-        const acceptedAccommodation = new AcceptedAccommodation(accommodation.toObject());
-        await acceptedAccommodation.save();
+      const accommodation = await ReqAccommodation.findById(accommodationId);
+      console.log('Found accommodation:', accommodation);
 
-        // Step 3: Delete the document from the ReqAccommodation collection
-        await ReqAccommodation.findByIdAndDelete(accommodationId);
+      if (!accommodation) {
+          return res.status(404).json({
+              success: false,
+              message: 'Accommodation not found'
+          });
+      }
 
-        res.status(200).json({ msg: 'Accommodation moved to AcceptedAccommodation successfully' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+      // Convert to plain object and remove _id
+      const accommodationData = accommodation.toObject();
+      delete accommodationData._id;
+      delete accommodationData.__v;
 
+      // Save to accepted accommodations with new _id
+      const acceptedAccommodation = new AcceptedAccommodation(accommodationData);
+      const savedAcceptedAccommodation = await acceptedAccommodation.save();
+      console.log('Saved accepted accommodation:', savedAcceptedAccommodation);
+
+      // Create notification
+      const notification = new Notification({
+          accommodationId: savedAcceptedAccommodation._id,
+          userId: userId,
+          message: `Accommodation ${accommodation.name} has been accepted`,
+          type: 'acceptance'
+      });
+      await notification.save();
+
+      // Delete from requests
+      await ReqAccommodation.findByIdAndDelete(accommodationId);
+
+      return res.status(200).json({
+          success: true,
+          message: 'Accommodation moved successfully',
+          acceptedAccommodation: savedAcceptedAccommodation
+      });
+
+  } catch (error) {
+      console.error('Error in moveAccommodationToAccepted:', error);
+      return res.status(500).json({
+          success: false,
+          message: error.code === 11000 ? 'Duplicate entry found' : 'Server error',
+          error: error.message
+      });
+  }
 };
 
-module.exports = { getAllAccommodations, deleteAccommodation, moveAccommodationToAccepted };
+module.exports = { getAllReqAccommodations, deleteAccommodation, moveAccommodationToAccepted };

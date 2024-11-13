@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Profile/ProfilePage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/AboutPage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Collaboration/Collaboration.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/ContactUsPage.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/shareplus.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignIn.dart';
-//import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/SettingsPage.dart'; // Import SettingsPage
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -39,27 +39,17 @@ class MenuPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                      MaterialPageRoute(builder: (context) => const ProfilePage()),
                     );
                   },
                 ),
-                // ListTile(
-                //   leading: Icon(Icons.settings),
-                //   title: Text('Settings'),
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => SettingsPage()), // Navigate to SettingsPage
-                //     );
-                //   },
-                // ),
                 ListTile(
                   leading: const Icon(Icons.contact_page),
                   title: const Text('Contact us'),
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ContactUsPage()),
+                      MaterialPageRoute(builder: (context) => const ContactUsPage()),
                     );
                   },
                 ),
@@ -69,7 +59,7 @@ class MenuPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => shareplus()),
+                      MaterialPageRoute(builder: (context) => const shareplus()),
                     );
                   },
                 ),
@@ -79,7 +69,7 @@ class MenuPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AboutPage()),
+                      MaterialPageRoute(builder: (context) => const AboutPage()),
                     );
                   },
                 ),
@@ -101,10 +91,16 @@ class MenuPage extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),
-            onTap: () {
-              Navigator.push(
+            onTap: () async {
+              // Clear session data
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+
+              // Navigate to SignInPage
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => SignInPage()),
+                MaterialPageRoute(builder: (context) => const SignInPage()),
+                (Route<dynamic> route) => false,
               );
             },
           ),

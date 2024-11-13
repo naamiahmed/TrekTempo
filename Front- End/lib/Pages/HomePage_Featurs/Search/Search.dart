@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Models/Place.dart';
 import 'package:travel_app/Pages/Destinations/district_places_card.dart';
 import 'package:http/http.dart' as http;
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
 
 class Search extends StatefulWidget {
-  const Search({super.key}); // Modify the constructor
+  const Search({super.key});
 
   @override
   State<Search> createState() => _SearchState();
@@ -70,8 +71,29 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('All Places'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const MainHomePage();
+            }));
+          },
+        ),
+        title: const Text('All Places',
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w600)),
         centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
+        backgroundColor: Colors.white,
+
       ),
       body: Column(
         children: [

@@ -72,12 +72,13 @@ class _ProfilePageState extends State<ProfilePage> {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    const MainHomePage(), // Navigate to MainHomePage
+                    const MainHomePage(), 
               ),
             );
           },
         ),
-        title: const Text('Profile'),
+        title: const Text('Profile', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
@@ -86,12 +87,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      EditProfilePage(), // Navigate to EditProfilePage
+                      const EditProfilePage(), // Navigate to EditProfilePage
                 ),
               );
             },
           ),
         ],
+        backgroundColor: Colors.white,
+         bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -134,6 +143,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         user.email, // User's email
                         style: const TextStyle(fontSize: 16, color: Colors.grey),
                       ),
+                      const SizedBox(height: 16),
+                      Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Text(
+                      user.bio ?? 'No bio added yet',
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                     ),
+                    ),
                     ],
                   );
                 } else {
@@ -162,19 +180,19 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
-                  children: [
-                    Icon(Icons.favorite, color: Colors.red),
-                    SizedBox(height: 5),
-                    Text('23 likes'),
-                  ],
+                  // children: [
+                  //   Icon(Icons.favorite, color: Colors.red),
+                  //   SizedBox(height: 5),
+                  //   Text('23 likes'),
+                  // ],
                 ),
                 SizedBox(width: 40),
                 Column(
-                  children: [
-                    Icon(Icons.bookmark, color: Colors.grey),
-                    SizedBox(height: 5),
-                    Text('5 Saved'),
-                  ],
+                  // children: [
+                  //   Icon(Icons.bookmark, color: Colors.grey),
+                  //   SizedBox(height: 5),
+                  //   Text('5 Saved'),
+                  // ],
                 ),
               ],
             ),

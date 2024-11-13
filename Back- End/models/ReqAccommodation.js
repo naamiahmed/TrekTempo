@@ -17,7 +17,7 @@ const ReqAccommodationSchema = new mongoose.Schema({
 
     location: {
         type: String,
-        required: false,
+        required: true,
     },
     images: {
         type: Array,
@@ -29,8 +29,21 @@ const ReqAccommodationSchema = new mongoose.Schema({
     },
     locationLink: {
         type: String,
-        required: false,
+        required: true,
     },
+    contact: {
+        type: String,
+        required: true,
+    },
+    dayCost: {
+        type: Number,
+        required: true,
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }, 
 });
 
 const ReqAccommodation = mongoose.model('ReqAccommodation', ReqAccommodationSchema);

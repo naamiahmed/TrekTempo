@@ -1,24 +1,68 @@
 import 'package:flutter/material.dart';
-import 'Pages/IntroPage/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+import 'package:travel_app/Pages/Sign-In-Up/SignIn.dart';
 
 void main() {
-  runApp(const TravelApp());
+  runApp(const MyApp());
 }
 
-class TravelApp extends StatelessWidget {
-  const TravelApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TrackTempo',
+      title: 'Travel App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: Colors.white ,//Color.fromRGBO(255, 255, 255, 0.9)
+        scaffoldBackgroundColor: Colors.white,
       ),
-      debugShowCheckedModeBanner: false,
-      home: const HomePage(), // Set HomePage as the initial route
+      home: const SplashScreen(),
+      debugShowCheckedModeBanner: false, // Remove the debug banner
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
+      // Navigate to the home page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainHomePage()),
+      );
+    } else {
+      // Navigate to the sign-in page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SignInPage()),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }
