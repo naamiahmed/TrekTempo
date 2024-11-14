@@ -1,222 +1,122 @@
+// Provider_SignIn.dart
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Booking/Provider_Register/provide_signUp.dart';
 import 'package:travel_app/Pages/Booking/booking_home.dart';
-import 'package:travel_app/Pages/ForgotPW/ForgotPassword-EnterMail.dart';
-import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
-import 'package:travel_app/Pages/Sign-In-Up/SignUp.dart';
-import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
-import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
-import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
-import 'package:travel_app/auth_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class ProviderSignInPage extends StatefulWidget {
-  const ProviderSignInPage({super.key});
-
+class ProviderSignIn extends StatefulWidget {
   @override
-  _ProviderSignInPageState createState() => _ProviderSignInPageState();
+  _ProviderSignInState createState() => _ProviderSignInState();
 }
 
-class _ProviderSignInPageState extends State<ProviderSignInPage> {
+class _ProviderSignInState extends State<ProviderSignIn> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final ApiService apiService = ApiService(); 
-
-  bool _obscurePassword = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkLoginStatus();
-  }
-
-  Future<void> _checkLoginStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-
-    if (isLoggedIn) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MainHomePage()),
-      );
-    }
-  }
-
-  String? _validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
-    }
-    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
-    if (!emailRegex.hasMatch(value)) {
-      return 'Enter a valid email address';
-    }
-    return null;
-  }
-
-  String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password cannot be empty';
-    }
-    if (value.length < 6 || value.length > 12) {
-      return 'Password must be 6 to 12 characters long';
-    }
-    return null;
-  }
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
-      appBar: const TrekTempo_Appbar(showBackButton: false),
-      extendBodyBehindAppBar: true,
+appBar: AppBar(
+  title: Text('Provider Sign In'),
+  actions: [
+    TextButton.icon(
+      onPressed: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => BookingHomePage()),
+        );
+      },
+      // icon: Icon(Icons.skip_next, color: Colors.black),
+      label: Text('Skip', style: TextStyle(color: Colors.black)),
+    ),
+  ],
+),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TopImage(height: height, width: width, imagePath: 'assets/images/ProviderSignIn.png'),
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    InputTextBox(
-                      icon: Icons.email,
-                      label: 'Email',
-                      controller: _emailController,
-                      validator: _validateEmail,
-                    ),
-                    const SizedBox(height: 8),
-                    InputTextBox(
-                      icon: Icons.lock,
-                      label: 'Password',
-                      isPassword: true,
-                      controller: _passwordController,
-                      validator: _validatePassword,
-                      obscureText: _obscurePassword,
-                      toggleObscureText: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
-                            );
-                          },
-                          child: const Text(
-                            'Forgot password?',
-                            style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12
-                            ),
-                          ),
-                        ),
-
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => BookingHomePage()),
-                            );
-                          },
-                          child: const Text(
-                            'Accommodation Booking',
-                            style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Center(
-                      child: Button(
-                        text: 'Sign In',
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            // Call the sign-in method
-                            String? errorMessage = await apiService.ProviderSignIn(
-                              _emailController.text,
-                              _passwordController.text,
-                            );
-                            if (errorMessage == null) {
-                              // Save login status
-                              SharedPreferences prefs = await SharedPreferences.getInstance();
-                              await prefs.setBool('isLoggedIn', true);
-
-                              // Navigate to the home page
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => const MainHomePage()),
-                              );
-                            } else {
-                              // Show an error message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
-                              );
-                            }
-                          } else {
-                            // print("Validation failed");
-                          }
-                        },
-                        textColor: Colors.white,
-                        buttonColor: Colors.blueAccent,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Don\'t have an account? '),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const SignUpPage()),
-                              );
-                            },
-                            child: const Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 32),
+              Icon(
+                Icons.hotel,
+                size: 80,
+                color: Theme.of(context).primaryColor,
+              ),
+              SizedBox(height: 32),
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.email),
+                ),
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'Please enter email';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'Please enter password';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _handleSignIn,
+                child: _isLoading
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : Text('Sign In'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 16),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProviderSignUp()),
+                  );
+                },
+                child: Text('New provider? Sign up here'),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> _handleSignIn() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      setState(() => _isLoading = true);
+      try {
+        // TODO: Implement actual sign in logic
+        await Future.delayed(Duration(seconds: 2)); // Simulate network request
+        // Navigate to provider dashboard on success
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sign in failed: ${e.toString()}')),
+        );
+      } finally {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 }

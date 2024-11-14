@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Booking/Provider_Register/provide_signUp.dart';
 import 'package:travel_app/Pages/Booking/booking_home.dart';
 import 'package:travel_app/Pages/ForgotPW/ForgotPassword-EnterMail.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
@@ -137,7 +138,7 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => BookingHomePage()),
+                              MaterialPageRoute(builder: (context) => ProviderSignUp()),
                             );
                           },
                           child: const Text(

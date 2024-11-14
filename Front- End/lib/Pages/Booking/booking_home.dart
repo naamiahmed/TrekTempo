@@ -53,7 +53,8 @@ class AccommodationCard extends StatelessWidget {
       onTap: () {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => RoomsView()),
+          // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+          MaterialPageRoute(builder: (context) => RoomsView(place: place, onDelete: (AccommodationPlace place) {  },)),
   );
       },
       child: Card(
