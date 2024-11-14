@@ -14,6 +14,7 @@ const notificationRoutes = require('./routes/notification');
 const adminAccommodationRoutes = require('./routes/adminAccommodationRoutes');
 const adminUserRoutes = require('./routes/adminUser');
 const connectDB = require('./config/db');
+const collaborationRoutes = require('./routes/collaborationTrip');
 
 // const initializeSocket = require('./socket');
 // const http = require('http');
@@ -47,6 +48,7 @@ app.use('/api', ReqAccommodationRoutes);
 app.use('/api', adminAccommodationRoutes);
 app.use('/api', adminUserRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/collaboration', collaborationRoutes);
 
 // Socket.io
 // initializeSocket(server);

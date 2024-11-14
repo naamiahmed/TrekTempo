@@ -7,8 +7,28 @@ import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/ContactU
 import 'package:travel_app/Pages/HomePage_Featurs/settings/settingspage/shareplus.dart';
 import 'package:travel_app/Pages/Sign-In-Up/SignIn.dart';
 
-class MenuPage extends StatelessWidget {
+class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
+
+  @override
+  State<MenuPage> createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
+  String userId = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserId();
+  }
+
+  Future<void> _loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +93,6 @@ class MenuPage extends StatelessWidget {
                     );
                   },
                 ),
-
                 ListTile(
                   leading: const Icon(Icons.all_inclusive),
                   title: const Text('Collaboration'),
@@ -81,7 +100,8 @@ class MenuPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CollaborationPage()),
+                        builder: (context) => CollaborationPage(userId: userId),
+                      ),
                     );
                   },
                 ),

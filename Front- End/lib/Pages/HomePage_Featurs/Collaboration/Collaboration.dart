@@ -4,7 +4,12 @@ import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Collaboration/SameDestination.dart';
 
 class CollaborationPage extends StatefulWidget {
-  const CollaborationPage({super.key});
+  final String userId;
+
+  const CollaborationPage({
+    super.key,
+    required this.userId,
+  });
 
   @override
   _CollaborationPageState createState() => _CollaborationPageState();
@@ -119,13 +124,14 @@ class _CollaborationPageState extends State<CollaborationPage> {
                         barrierDismissible: false,
                         builder: (BuildContext context) {
                           Future.delayed(Duration(seconds: 3), () {
-                            Navigator.of(context).pop(true); // Close the dialog
+                            Navigator.of(context).pop();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => SameDestination(
                                   startPoint: _startPointController.text,
                                   endPoint: _endPointController.text,
+                                  userId: widget.userId,
                                 ),
                               ),
                             );
