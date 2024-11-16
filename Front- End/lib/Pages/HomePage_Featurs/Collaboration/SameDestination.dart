@@ -1,5 +1,3 @@
-// lib/Pages/HomePage_Featurs/Collaboration/SameDestination.dart
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -28,17 +26,18 @@ class _SameDestinationState extends State<SameDestination> {
   String status = 'searching'; // searching, waiting, confirmed
   String? partnerId;
   String? partnerName;
+  bool isPolling = true;
 
   @override
   void initState() {
     super.initState();
     _initializeData();
-    // Start polling for status updates
     _startStatusPolling();
   }
 
-    // Add this method inside _SameDestinationState class
   Future<void> _initializeData() async {
+    if (!mounted) return;
+    
     try {
       final response = await http.get(
         Uri.parse(
@@ -46,6 +45,8 @@ class _SameDestinationState extends State<SameDestination> {
         ),
       );
   
+      if (!mounted) return;
+
       if (response.statusCode == 200) {
         setState(() {
           matchingUsers = jsonDecode(response.body);
@@ -53,11 +54,12 @@ class _SameDestinationState extends State<SameDestination> {
         });
       } else {
         setState(() {
-          error = 'Failed to load matching users';
+          error = 'Failed to load matching users: ${response.statusCode}';
           isLoading = false;
         });
       }
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         error = 'Error: $e';
         isLoading = false;
@@ -67,44 +69,68 @@ class _SameDestinationState extends State<SameDestination> {
 
   void _startStatusPolling() {
     Future.delayed(const Duration(seconds: 2), () async {
-      if (mounted) {
-        await checkCollaborationStatus();
+      if (!mounted || !isPolling) return;
+      
+      await checkCollaborationStatus();
+      if (status != 'confirmed' && isPolling) {
         _startStatusPolling();
       }
     });
   }
 
   Future<void> checkCollaborationStatus() async {
+    if (!mounted) return;
+  
     try {
       final response = await http.get(
         Uri.parse('http://localhost:5000/api/collaboration/status/${widget.userId}'),
       );
-
+  
+      if (!mounted) return;
+  
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        setState(() {
-          status = data['status'];
-          partnerId = data['partnerId'];
-          partnerName = data['partnerName'];
-        });
-
-        if (status == 'confirmed') {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatPage(
-                userName: partnerName ?? 'Travel Partner',
+        Map<String, dynamic> data = jsonDecode(response.body);
+        
+        // Validate the data before updating state
+        if (data.containsKey('status')) {
+          setState(() {
+            status = data['status'] ?? 'searching';
+            partnerId = data['partnerId'];
+            partnerName = data['partnerName'];
+          });
+  
+          // Only navigate if we have all required data
+          if (status == 'confirmed' && 
+              partnerId != null && 
+              partnerName != null && 
+              mounted) {
+            isPolling = false;
+            
+            await Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatPage(
+                  userName: partnerName!,
+                  userId: widget.userId,
+                  partnerId: partnerId!,
+                ),
               ),
-            ),
-          );
+            );
+          }
+        } else {
+          debugPrint('Invalid response data structure');
         }
+      } else {
+        debugPrint('Error response: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error checking status: $e');
+      debugPrint('Error checking status: $e');
     }
   }
 
   Future<void> acceptPartner(String partnerId) async {
+    if (!mounted) return;
+
     try {
       final response = await http.post(
         Uri.parse('http://localhost:5000/api/collaboration/accept'),
@@ -115,17 +141,26 @@ class _SameDestinationState extends State<SameDestination> {
         }),
       );
 
+      if (!mounted) return;
+
       if (response.statusCode == 200) {
         setState(() {
           status = 'waiting';
+          this.partnerId = partnerId;
+        });
+      } else {
+        setState(() {
+          error = 'Failed to accept partner: ${response.statusCode}';
         });
       }
     } catch (e) {
-      print('Error accepting partner: $e');
+      debugPrint('Error accepting partner: $e');
+      setState(() {
+        error = 'Error accepting partner: $e';
+      });
     }
   }
 
-    // Update the Scaffold in SameDestination.dart
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,8 +173,9 @@ class _SameDestinationState extends State<SameDestination> {
             onPressed: () {
               setState(() {
                 isLoading = true;
+                error = null;
               });
-              _initializeData(); // Refresh the data
+              _initializeData();
             },
           ),
         ],
@@ -157,6 +193,30 @@ class _SameDestinationState extends State<SameDestination> {
             CircularProgressIndicator(),
             SizedBox(height: 16),
             Text('Finding matching travelers...'),
+          ],
+        ),
+      );
+    }
+
+    if (error != null) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, size: 48, color: Colors.red),
+            const SizedBox(height: 16),
+            Text(error!, style: const TextStyle(color: Colors.red)),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  error = null;
+                  isLoading = true;
+                });
+                _initializeData();
+              },
+              child: const Text('Retry'),
+            ),
           ],
         ),
       );
@@ -229,6 +289,7 @@ class _SameDestinationState extends State<SameDestination> {
 
   @override
   void dispose() {
+    isPolling = false;
     super.dispose();
   }
 }

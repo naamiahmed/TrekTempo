@@ -21,11 +21,29 @@ const initializeSocket = (server) => {
       io.emit('userNotification', data);
     });
 
+    // Chat room functionality
+    socket.on('joinRoom', (data) => {
+      const room = [data.userId, data.partnerId].sort().join('-');
+      socket.join(room);
+      console.log(`User ${data.userId} joined room ${room}`);
+    });
+
+    socket.on('sendMessage', (data) => {
+      const room = [data.userId, data.partnerId].sort().join('-');
+      io.to(room).emit('message', {
+        userId: data.userId,
+        userName: data.userName,
+        message: data.message
+      });
+    });
+
     // Handle disconnection
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id);
     });
   });
+
+  return io;
 };
 
 module.exports = initializeSocket;
