@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Arippu Fort was built by the Portuguese in the 17th century and later taken over by the Dutch. It is popular for its historical significance and impressive architecture. The fort features thick stone walls and a large central courtyard. The best time to visit is during the dry season from May to September, when the weather is pleasant. There is no entrance fee for the fort, making it accessible to everyone.",
     "images": [
-      "http://localhost:5000/uploads/places/Arippu_Fort1.jpg",
-      "http://localhost:5000/uploads/places/Arippu_Fort2.jpg",
-      "http://localhost:5000/uploads/places/Arippu_Fort3.JPG"
+      "http://192.168.1.5:5000/uploads/places/Arippu_Fort1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Arippu_Fort2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Arippu_Fort3.JPG"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Pesalai Beach is popular for its serene and less crowded environment, making it a peaceful getaway. The beautiful golden sands and clear blue waters are its main attractions. Visitors can enjoy relaxing on the beach or swimming in the calm sea. The best time to visit Pesalai Beach is from December to March when the weather is pleasant and dry. No tickets are required to visit the beach, so you can enjoy this lovely spot for free.",
     "images": [
-      "http://localhost:5000/uploads/places/Pesalai_Beach1.jpg",
-      "http://localhost:5000/uploads/places/Pesalai_Beach2.jpg",
-      "http://localhost:5000/uploads/places/Pesalai_Beach3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Pesalai_Beach1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Pesalai_Beach2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Pesalai_Beach3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "The Shrine of Our Lady of Madhu is famous for its significance to the Catholic community and its history dating back to the 17th century. It features a beautiful church and the miraculous statue of Our Lady of Madhu. Visitors can enjoy the serene atmosphere and participate in religious events. The best time to visit is from December to March when the weather is pleasant. Entrance to the shrine is free, but donations are welcome.",
     "images": [
-      "http://localhost:5000/uploads/places/Shrine_of_Our_Lady_of_Madhu1.jpg",
-      "http://localhost:5000/uploads/places/Shrine_of_Our_Lady_of_Madhu2.jpg",
-      "http://localhost:5000/uploads/places/Shrine_of_Our_Lady_of_Madhu3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Shrine_of_Our_Lady_of_Madhu1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Shrine_of_Our_Lady_of_Madhu2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Shrine_of_Our_Lady_of_Madhu3.jpg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "Thiruketheeswaram Kovil is a historic Hindu temple renowned for its ancient architecture and religious significance. The temple features beautiful carvings and a serene atmosphere, attracting visitors seeking spiritual experiences. The best time to visit is during the dry season, from May to September. No entrance fee is required for the temple, making it accessible to all visitors.",
     "images": [
-      "http://localhost:5000/uploads/places/Thiruketheeswaram_Kovil1.jpg",
-      "http://localhost:5000/uploads/places/Thiruketheeswaram_Kovil2.jpg",
-      "http://localhost:5000/uploads/places/Thiruketheeswaram_Kovil3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Thiruketheeswaram_Kovil1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Thiruketheeswaram_Kovil2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Thiruketheeswaram_Kovil3.jpg"
     ]
   },
 
@@ -55,9 +55,9 @@
     "likes": 0,
     "description": "Talaimannar Lighthouse was built in the late 19th century to guide ships navigating the nearby waters. The lighthouse is popular for its historic charm and scenic views of the surrounding sea and coastline. Visitors can enjoy a peaceful environment and beautiful sunsets. The best time to visit is from December to March, when the weather is pleasant and dry. There is no entry fee for the lighthouse, making it accessible to all visitors.",
     "images": [
-      "http://localhost:5000/uploads/places/Talaimannar_Lighthouse1.jpg",
-      "http://localhost:5000/uploads/places/Talaimannar_Lighthouse2.PNG",
-      "http://localhost:5000/uploads/places/Talaimannar_Lighthouse3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Talaimannar_Lighthouse1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Talaimannar_Lighthouse2.PNG",
+      "http://192.168.1.5:5000/uploads/places/Talaimannar_Lighthouse3.jpg"
     ]
   }
 ]

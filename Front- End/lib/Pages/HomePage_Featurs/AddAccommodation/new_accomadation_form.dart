@@ -26,11 +26,31 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
   String? _imagePath;
 
   final List<String> _districts = [
-    'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
-    'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
-    'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Monaragala',
-    'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
-    'Trincomalee', 'Vavuniya'
+    'Ampara',
+    'Anuradhapura',
+    'Badulla',
+    'Batticaloa',
+    'Colombo',
+    'Galle',
+    'Gampaha',
+    'Hambantota',
+    'Jaffna',
+    'Kalutara',
+    'Kandy',
+    'Kegalle',
+    'Kilinochchi',
+    'Kurunegala',
+    'Mannar',
+    'Matale',
+    'Matara',
+    'Monaragala',
+    'Mullaitivu',
+    'Nuwara Eliya',
+    'Polonnaruwa',
+    'Puttalam',
+    'Ratnapura',
+    'Trincomalee',
+    'Vavuniya'
   ];
 
   final List<String> _budgets = ['Low', 'Medium', 'High'];
@@ -47,7 +67,7 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
       try {
         var request = http.MultipartRequest(
           'POST',
-          Uri.parse('http://localhost:5000/api/addAccommodation'),
+          Uri.parse('http://192.168.1.5:5000/api/addAccommodation'),
         );
 
         request.fields.addAll({
@@ -63,7 +83,8 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
         });
 
         if (_imagePath != null) {
-          request.files.add(await http.MultipartFile.fromPath('image', _imagePath!));
+          request.files
+              .add(await http.MultipartFile.fromPath('image', _imagePath!));
         }
 
         var response = await request.send();
@@ -72,12 +93,18 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
           _showSuccessDialog();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed to add accommodation'), backgroundColor: Colors.red,),
+            const SnackBar(
+              content: Text('Failed to add accommodation'),
+              backgroundColor: Colors.red,
+            ),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red,),
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -89,7 +116,8 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Your Request was Submitted'),
-          content: const Text('Thank you for Adding Accommodation, we will confirm and inform you.'),
+          content: const Text(
+              'Thank you for Adding Accommodation, we will confirm and inform you.'),
           actions: <Widget>[
             TextButton(
               child: const Text('OK'),
@@ -110,12 +138,10 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Accommodation',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.w600
-          )
-        ),
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w600)),
         centerTitle: true,
         backgroundColor: Colors.white,
         bottom: PreferredSize(
@@ -146,7 +172,8 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                   );
                 }).toList(),
                 onChanged: (value) => setState(() => _district = value),
-                validator: (value) => value == null ? 'Please select a district' : null,
+                validator: (value) =>
+                    value == null ? 'Please select a district' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -155,7 +182,8 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (value) => setState(() => _name = value),
-                validator: (value) => value?.isEmpty ?? true ? 'Please enter a name' : null,
+                validator: (value) =>
+                    value?.isEmpty ?? true ? 'Please enter a name' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -165,7 +193,9 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                 ),
                 maxLines: 5,
                 onChanged: (value) => setState(() => _description = value),
-                validator: (value) => value?.isEmpty ?? true ? 'Please enter a description' : null,
+                validator: (value) => value?.isEmpty ?? true
+                    ? 'Please enter a description'
+                    : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -174,7 +204,8 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (value) => setState(() => _location = value),
-                validator: (value) => value?.isEmpty ?? true ? 'Please enter a location' : null,
+                validator: (value) =>
+                    value?.isEmpty ?? true ? 'Please enter a location' : null,
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
@@ -190,7 +221,8 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                   );
                 }).toList(),
                 onChanged: (value) => setState(() => _budget = value),
-                validator: (value) => value == null ? 'Please select a budget' : null,
+                validator: (value) =>
+                    value == null ? 'Please select a budget' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -199,7 +231,9 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (value) => setState(() => _locationLink = value),
-                validator: (value) => value?.isEmpty ?? true ? 'Please enter a location link' : null,
+                validator: (value) => value?.isEmpty ?? true
+                    ? 'Please enter a location link'
+                    : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -209,7 +243,9 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                 ),
                 keyboardType: TextInputType.phone,
                 onChanged: (value) => setState(() => _contact = value),
-                validator: (value) => (value?.length ?? 0) != 10 ? 'Please enter a valid 10-digit number' : null,
+                validator: (value) => (value?.length ?? 0) != 10
+                    ? 'Please enter a valid 10-digit number'
+                    : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -218,23 +254,27 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
-                onChanged: (value) => setState(() => _dayCost = int.tryParse(value) ?? 0),
-                validator: (value) => int.tryParse(value ?? '') == null ? 'Please enter a valid number' : null,
+                onChanged: (value) =>
+                    setState(() => _dayCost = int.tryParse(value) ?? 0),
+                validator: (value) => int.tryParse(value ?? '') == null
+                    ? 'Please enter a valid number'
+                    : null,
               ),
               const SizedBox(height: 16),
-              const Text('Upload Image *', 
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)
-              ),
+              const Text('Upload Image *',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
               const SizedBox(height: 10),
               ElevatedButton.icon(
                 onPressed: () async {
-                  final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+                  final pickedFile =
+                      await _picker.pickImage(source: ImageSource.gallery);
                   if (pickedFile != null) {
                     setState(() => _imagePath = pickedFile.path);
                   }
                 },
                 icon: const Icon(Icons.image, color: Colors.white),
-                label: const Text('Choose Image', style: TextStyle(color: Colors.white)),
+                label: const Text('Choose Image',
+                    style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   minimumSize: const Size(double.infinity, 50),
@@ -251,9 +291,8 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
                   backgroundColor: Colors.blue,
                   minimumSize: const Size(double.infinity, 50),
                 ),
-                child: const Text('Submit', 
-                  style: TextStyle(color: Colors.white, fontSize: 18)
-                ),
+                child: const Text('Submit',
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
               ),
             ],
           ),

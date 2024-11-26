@@ -1,11 +1,11 @@
-const ReqAccommodation = require('../models/ReqAccommodation');
-const multer = require('multer');
-const path = require('path');
+const ReqAccommodation = require("../models/ReqAccommodation");
+const multer = require("multer");
+const path = require("path");
 
 // Configure multer for image upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/ReqAccommodation/');
+    cb(null, "uploads/ReqAccommodation/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -16,11 +16,23 @@ const upload = multer({ storage: storage });
 
 const addAccommodation = async (req, res) => {
   try {
-    console.log('Request Body:', req.body);
-    console.log('Request File:', req.file);
+    console.log("Request Body:", req.body);
+    console.log("Request File:", req.file);
 
-    const { name, district, budget, location, locationLink, description, contact, dayCost , userId} = req.body;
-    const image = req.file ? `http://localhost:5000/uploads/ReqAccommodation/${req.file.filename}` : null;
+    const {
+      name,
+      district,
+      budget,
+      location,
+      locationLink,
+      description,
+      contact,
+      dayCost,
+      userId,
+    } = req.body;
+    const image = req.file
+      ? `http://192.168.1.5:5000/uploads/ReqAccommodation/${req.file.filename}`
+      : null;
 
     const newAccommodation = new ReqAccommodation({
       name,
@@ -36,7 +48,7 @@ const addAccommodation = async (req, res) => {
     });
 
     await newAccommodation.save();
-    res.status(201).json({ message: 'Accommodation added successfully!' });
+    res.status(201).json({ message: "Accommodation added successfully!" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -45,10 +57,10 @@ const addAccommodation = async (req, res) => {
 // Add this new function to reqAccommodationController.js
 const getAccommodationCount = async (req, res) => {
   try {
-      const count = await ReqAccommodation.countDocuments();
-      res.json({ success: true, count });
+    const count = await ReqAccommodation.countDocuments();
+    res.json({ success: true, count });
   } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 

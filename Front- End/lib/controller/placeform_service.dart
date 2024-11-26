@@ -14,7 +14,7 @@ class PlaceService {
   }) async {
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://localhost:5000/api/createNewPlace'),
+      Uri.parse('http://192.168.1.5:5000/api/createNewPlace'),
     );
 
     // Add form fields
@@ -31,7 +31,8 @@ class PlaceService {
     for (File image in images) {
       String fileName = basename(image.path);
       request.files.add(
-        await http.MultipartFile.fromPath('images', image.path, filename: fileName),
+        await http.MultipartFile.fromPath('images', image.path,
+            filename: fileName),
       );
     }
 

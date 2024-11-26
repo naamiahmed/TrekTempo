@@ -40,7 +40,7 @@
 //       try {
 //         var request = http.MultipartRequest(
 //           'POST',
-//           Uri.parse('http://localhost:5000/api/addAccommodation'),
+//           Uri.parse('http://192.168.1.5:5000/api/addAccommodation'),
 //         );
 
 //         request.fields['name'] = _name;

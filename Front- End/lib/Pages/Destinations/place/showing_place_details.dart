@@ -61,7 +61,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   Future<void> fetchUpdatedPlace(String placeId) async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getOnePlaceById/$placeId'),
+        Uri.parse('http://192.168.1.5:5000/api/getOnePlaceById/$placeId'),
       );
 
       if (response.statusCode == 200) {
@@ -111,7 +111,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/handleLike/${widget.place.id}'),
+        Uri.parse('http://192.168.1.5:5000/api/handleLike/${widget.place.id}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -281,7 +281,10 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   _buildUnderlinedTitle("Weather"),
                   const SizedBox(height: 5),
                   if (isLoadingWeather)
-                    const Center(child: CircularProgressIndicator(color: Colors.blueAccent,))
+                    const Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.blueAccent,
+                    ))
                   else if (weatherData != null) ...[
                     WeatherCard(weatherData: weatherData!),
                   ] else if (errorMessage != null) ...[

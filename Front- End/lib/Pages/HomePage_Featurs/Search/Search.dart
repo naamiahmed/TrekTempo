@@ -28,7 +28,7 @@ class _SearchState extends State<Search> {
   Future<String> fetchPlacesData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getAllPlaces'),
+        Uri.parse('http://192.168.1.5:5000/api/getAllPlaces'),
         headers: {},
       );
       if (response.statusCode == 200) {
@@ -93,7 +93,6 @@ class _SearchState extends State<Search> {
           ),
         ),
         backgroundColor: Colors.white,
-
       ),
       body: Column(
         children: [

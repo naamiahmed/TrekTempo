@@ -23,11 +23,31 @@ class _AccommodationPageState extends State<AccommodationPage> {
   String? userId;
 
   final List<String> districts = [
-    'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
-    'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
-    'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
-    'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
-    'Trincomalee', 'Vavuniya'
+    'Ampara',
+    'Anuradhapura',
+    'Badulla',
+    'Batticaloa',
+    'Colombo',
+    'Galle',
+    'Gampaha',
+    'Hambantota',
+    'Jaffna',
+    'Kalutara',
+    'Kandy',
+    'Kegalle',
+    'Kilinochchi',
+    'Kurunegala',
+    'Mannar',
+    'Matale',
+    'Matara',
+    'Moneragala',
+    'Mullaitivu',
+    'Nuwara Eliya',
+    'Polonnaruwa',
+    'Puttalam',
+    'Ratnapura',
+    'Trincomalee',
+    'Vavuniya'
   ];
 
   final List<String> budgetRanges = ['Low', 'Medium', 'High'];
@@ -49,7 +69,8 @@ class _AccommodationPageState extends State<AccommodationPage> {
   Future<List<Accommodation>> fetchAccommodationsData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getAccommodation/${selectedDistrict ?? ''}/${selectedBudget ?? ''}'),
+        Uri.parse(
+            'http://192.168.1.5:5000/api/getAccommodation/${selectedDistrict ?? ''}/${selectedBudget ?? ''}'),
       );
 
       if (response.statusCode == 200) {
@@ -57,7 +78,8 @@ class _AccommodationPageState extends State<AccommodationPage> {
         List<dynamic> accommodationsJson = jsonData['accommodations'];
 
         return accommodationsJson
-            .map((accommodationJson) => Accommodation.fromJson(accommodationJson))
+            .map((accommodationJson) =>
+                Accommodation.fromJson(accommodationJson))
             .toList();
       } else {
         throw Exception('Failed to load accommodations');
@@ -101,21 +123,18 @@ class _AccommodationPageState extends State<AccommodationPage> {
             }));
           },
         ),
-        title: const Text(
-          'Accommodations',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.w600
-          )
-        ),
+        title: const Text('Accommodations',
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w600)),
         centerTitle: true,
-actions: [
-  IconButton(
-    icon: const Icon(Icons.add),
-    onPressed: _navigateToNewAccommodation, // Use the existing function
-  ),
-],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: _navigateToNewAccommodation, // Use the existing function
+          ),
+        ],
         backgroundColor: Colors.white,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
@@ -146,7 +165,8 @@ actions: [
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue),
                           ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         ),
                         value: selectedDistrict,
                         items: districts.map((String district) {
@@ -179,7 +199,8 @@ actions: [
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue),
                           ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         ),
                         value: selectedBudget,
                         items: budgetRanges.map((String budget) {
@@ -223,16 +244,13 @@ actions: [
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: LoadingAnimationWidget.staggeredDotsWave(
-                      color: Colors.blueAccent,
-                      size: 50,
-                    )
-                  );
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                    color: Colors.blueAccent,
+                    size: 50,
+                  ));
                 } else if (snapshot.hasError) {
-
                   // Show an empty container or a specific message indicating no data is available
                   return const Center(child: Text('No Place Selected.'));
-
                 } else if (snapshot.hasData && snapshot.data!.isEmpty) {
                   return const Center(child: Text('No accommodations found.'));
                 } else if (snapshot.hasData) {
@@ -248,13 +266,14 @@ actions: [
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ShowAccommodationDetails(
-                                    accommodation: accommodation
-                                  ),
+                                  builder: (context) =>
+                                      ShowAccommodationDetails(
+                                          accommodation: accommodation),
                                 ),
                               );
                             },
-                            child: AccommodationCard(accommodation: accommodation),
+                            child:
+                                AccommodationCard(accommodation: accommodation),
                           ),
                           const SizedBox(height: 16),
                         ],

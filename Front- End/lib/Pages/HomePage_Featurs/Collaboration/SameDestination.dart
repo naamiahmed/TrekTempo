@@ -37,14 +37,13 @@ class _SameDestinationState extends State<SameDestination> {
 
   Future<void> _initializeData() async {
     if (!mounted) return;
-    
+
     try {
       final response = await http.get(
         Uri.parse(
-          'http://localhost:5000/api/collaboration/matching?startPoint=${Uri.encodeComponent(widget.startPoint)}&endPoint=${Uri.encodeComponent(widget.endPoint)}&userId=${widget.userId}'
-        ),
+            'http://192.168.1.5:5000/api/collaboration/matching?startPoint=${Uri.encodeComponent(widget.startPoint)}&endPoint=${Uri.encodeComponent(widget.endPoint)}&userId=${widget.userId}'),
       );
-  
+
       if (!mounted) return;
 
       if (response.statusCode == 200) {
@@ -70,7 +69,7 @@ class _SameDestinationState extends State<SameDestination> {
   void _startStatusPolling() {
     Future.delayed(const Duration(seconds: 2), () async {
       if (!mounted || !isPolling) return;
-      
+
       await checkCollaborationStatus();
       if (status != 'confirmed' && isPolling) {
         _startStatusPolling();
@@ -80,17 +79,18 @@ class _SameDestinationState extends State<SameDestination> {
 
   Future<void> checkCollaborationStatus() async {
     if (!mounted) return;
-  
+
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/collaboration/status/${widget.userId}'),
+        Uri.parse(
+            'http://192.168.1.5:5000/api/collaboration/status/${widget.userId}'),
       );
-  
+
       if (!mounted) return;
-  
+
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
-        
+
         // Validate the data before updating state
         if (data.containsKey('status')) {
           setState(() {
@@ -98,14 +98,14 @@ class _SameDestinationState extends State<SameDestination> {
             partnerId = data['partnerId'];
             partnerName = data['partnerName'];
           });
-  
+
           // Only navigate if we have all required data
-          if (status == 'confirmed' && 
-              partnerId != null && 
-              partnerName != null && 
+          if (status == 'confirmed' &&
+              partnerId != null &&
+              partnerName != null &&
               mounted) {
             isPolling = false;
-            
+
             await Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -133,7 +133,7 @@ class _SameDestinationState extends State<SameDestination> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/collaboration/accept'),
+        Uri.parse('http://192.168.1.5:5000/api/collaboration/accept'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'userId': widget.userId,

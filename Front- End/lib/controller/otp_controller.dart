@@ -6,7 +6,7 @@ class OTPController {
   Future<bool> sendOtp(String email) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/auth/sendOtp'),
+        Uri.parse('http://192.168.1.5:5000/api/auth/sendOtp'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -29,7 +29,7 @@ class OTPController {
   Future<bool> verifyOtp(String email, String otp) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/auth/verifyOtp'),
+        Uri.parse('http://192.168.1.5:5000/api/auth/verifyOtp'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -54,7 +54,7 @@ class OTPController {
   Future<bool> resetPassword(String email, String newPassword) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/auth/resetPassword'),
+        Uri.parse('http://192.168.1.5:5000/api/auth/resetPassword'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

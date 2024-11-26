@@ -39,26 +39,33 @@ class _Notifications_HomeState extends State<Notifications_Home> {
   Future<void> fetchNotifications() async {
     if (_isLoading) return;
     setState(() => _isLoading = true);
-    
+
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/notifications'), // Update this line with your local IP
+        Uri.parse(
+            'http://192.168.1.5:5000/api/notifications'), // Update this line with your local IP
         headers: {'Content-Type': 'application/json'},
       );
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
-        final List<dynamic> notificationData = responseData['notifications'] ?? [];
-        
+        final List<dynamic> notificationData =
+            responseData['notifications'] ?? [];
+
         setState(() {
-          notifications = notificationData.map((notification) => {
-            'id': notification['_id'],
-            'message': notification['message'] ?? 'New Notification',
-            'type': notification['type'] ?? 'info',
-            'createdAt': DateTime.parse(notification['createdAt']).toLocal().toString(),
-            'isRead': notification['isRead'] ?? false,
-            'accommodationDetails': notification['accommodationId'] ?? {},
-          }).toList();
+          notifications = notificationData
+              .map((notification) => {
+                    'id': notification['_id'],
+                    'message': notification['message'] ?? 'New Notification',
+                    'type': notification['type'] ?? 'info',
+                    'createdAt': DateTime.parse(notification['createdAt'])
+                        .toLocal()
+                        .toString(),
+                    'isRead': notification['isRead'] ?? false,
+                    'accommodationDetails':
+                        notification['accommodationId'] ?? {},
+                  })
+              .toList();
         });
       }
     } catch (e) {
@@ -73,7 +80,8 @@ class _Notifications_HomeState extends State<Notifications_Home> {
   Future<void> markAsRead(String notificationId) async {
     try {
       final response = await http.put(
-        Uri.parse('http://localhost:5000/api/notifications/$notificationId/read'), // Update this line with your local IP
+        Uri.parse(
+            'http://192.168.1.5:5000/api/notifications/$notificationId/read'), // Update this line with your local IP
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -107,14 +115,15 @@ class _Notifications_HomeState extends State<Notifications_Home> {
                     itemBuilder: (context, index) {
                       final notification = notifications[index];
                       return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
                         child: ListTile(
                           leading: Icon(
-                            notification['isRead'] 
-                                ? Icons.notifications_none 
+                            notification['isRead']
+                                ? Icons.notifications_none
                                 : Icons.notifications_active,
-                            color: notification['isRead'] 
-                                ? Colors.grey 
+                            color: notification['isRead']
+                                ? Colors.grey
                                 : Colors.blue,
                           ),
                           title: Text(notification['message']),

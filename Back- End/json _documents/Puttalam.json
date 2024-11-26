@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Wilpattu National Park, established in 1938, is one of Sri Lanka's oldest and largest national parks, covering approximately 1,317 square kilometers. Renowned for its unique 'villus' (natural lakes), the park is a haven for wildlife enthusiasts, home to leopards, elephants, and sloth bears. The best time to visit is from March to October during the dry season, when animals are more likely to be seen. Entry requires a ticket purchased at the park entrance.",
     "images": [
-      "http://localhost:5000/uploads/places/Wilpattu_National_Park1.jpg",
-      "http://localhost:5000/uploads/places/Wilpattu_National_Park2.jpg",
-      "http://localhost:5000/uploads/places/Wilpattu_National_Park3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Wilpattu_National_Park1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Wilpattu_National_Park2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Wilpattu_National_Park3.jpg"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "The Anawilundawa Wetland Sanctuary, established in 1997, is a crucial ecological site known for its rich biodiversity and as an important bird habitat. It supports a variety of wildlife, including several endangered bird species. The sanctuary is popular among bird watchers and nature lovers, especially from November to March during the migratory season. Entry requires a ticket obtained at the entrance.",
     "images": [
-      "http://localhost:5000/uploads/places/Anawilundawa_Wetland_Sanctuary1.JPG",
-      "http://localhost:5000/uploads/places/Anawilundawa_Wetland_Sanctuary2.JPG",
-      "http://localhost:5000/uploads/places/Anawilundawa_Wetland_Sanctuary3.JPG"
+      "http://192.168.1.5:5000/uploads/places/Anawilundawa_Wetland_Sanctuary1.JPG",
+      "http://192.168.1.5:5000/uploads/places/Anawilundawa_Wetland_Sanctuary2.JPG",
+      "http://192.168.1.5:5000/uploads/places/Anawilundawa_Wetland_Sanctuary3.JPG"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "Kalpitiya Peninsula is known for its pristine beaches and vibrant marine life. Popular for water sports like kite surfing and dolphin watching, the peninsula offers a tranquil retreat with sandy beaches and clear waters. The best time to visit is from November to April, with free entry to beaches and lagoons, although some activities may require payment.",
     "images": [
-      "http://localhost:5000/uploads/places/Kalpitiya_Peninsula1.jpg",
-      "http://localhost:5000/uploads/places/Kalpitiya_Peninsula2.jpg",
-      "http://localhost:5000/uploads/places/Kalpitiya_Peninsula3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Kalpitiya_Peninsula1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Kalpitiya_Peninsula2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Kalpitiya_Peninsula3.jpg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "The Dutch Fort of Puttalam, built in the 17th century, stands as a historical landmark. Originally constructed to protect the coastal area, it showcases Dutch colonial architecture. Visitors can explore the fort’s ruins and learn about its historical significance. The best time to visit is from May to September. Entry is generally free, with donations encouraged.",
     "images": [
-      "http://localhost:5000/uploads/places/Dutch_Fort_of_Puttalam1.jpg",
-      "http://localhost:5000/uploads/places/Dutch_Fort_of_Puttalam2.jpg",
-      "http://localhost:5000/uploads/places/Dutch_Fort_of_Puttalam3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Dutch_Fort_of_Puttalam1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Dutch_Fort_of_Puttalam2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Dutch_Fort_of_Puttalam3.jpg"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "likes": 0,
     "description": "Kalpitiya Lagoon is a picturesque water body that offers boat rides, bird watching, and scenic beauty. Supporting various bird species and aquatic life, the lagoon is ideal for outdoor activities, especially from November to April. Entry is generally free, though some activities may incur costs.",
     "images": [
-      "http://localhost:5000/uploads/places/Kalpitiya_Lagoon1.jpg",
-      "http://localhost:5000/uploads/places/Kalpitiya_Lagoon2.jpg",
-      "http://localhost:5000/uploads/places/Kalpitiya_Lagoon3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Kalpitiya_Lagoon1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Kalpitiya_Lagoon2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Kalpitiya_Lagoon3.jpg"
     ]
   }
 ]

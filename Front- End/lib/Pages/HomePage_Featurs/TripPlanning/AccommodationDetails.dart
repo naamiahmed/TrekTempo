@@ -38,7 +38,7 @@ class _AccommodationDetailsState extends State<AccommodationDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/getAccommodation'),
+        Uri.parse('http://192.168.1.5:5000/api/getAccommodation'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -49,7 +49,8 @@ class _AccommodationDetailsState extends State<AccommodationDetails> {
         print(jsonData);
         List<dynamic> accommodationJson = jsonData['Accommodation'];
         for (var accommodationJson in accommodationJson) {
-          Accommodation accommodation = Accommodation.fromJson(accommodationJson);
+          Accommodation accommodation =
+              Accommodation.fromJson(accommodationJson);
           setState(() {
             fetchedAccommodations.add(accommodation);
           });

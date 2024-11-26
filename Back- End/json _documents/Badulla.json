@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Bambarakanda Falls, located in the Kalupahana area, is the tallest waterfall in Sri Lanka, plunging from a height of 263 meters. The waterfall is popular for its sheer height and the stunning natural beauty that surrounds it, offering a peaceful retreat for nature lovers. The base of the waterfall is a great spot to relax and enjoy the misty atmosphere, and adventurous visitors can also hike up to the top for even more spectacular views. The best time to visit is between October and March, when the water flow is strongest, making the falls even more impressive.",
     "images": [
-      "http://localhost:5000/uploads/places/Bambarakanda_Falls1.jpg",
-      "http://localhost:5000/uploads/places/Bambarakanda_Falls2.png",
-      "http://localhost:5000/uploads/places/Bambarakanda_Falls3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Bambarakanda_Falls1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Bambarakanda_Falls2.png",
+      "http://192.168.1.5:5000/uploads/places/Bambarakanda_Falls3.jpg"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Diyaluma Falls, located near Koslanda, is the second-highest waterfall in Sri Lanka, dropping from a height of 220 meters. The waterfall is popular for its tiered rock pools, where visitors can swim and relax while enjoying the breathtaking views. The upper section of the falls offers a more secluded experience and is accessible via a short hike, making it an adventurous destination for nature lovers. The best time to visit is during the rainy season, from October to March, when the water flow is at its strongest.",
     "images": [
-      "http://localhost:5000/uploads/places/Diyaluma_Falls1.jpg",
-      "http://localhost:5000/uploads/places/Diyaluma_Falls2.jpg",
-      "http://localhost:5000/uploads/places/Diyaluma_Falls3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Diyaluma_Falls1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Diyaluma_Falls2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Diyaluma_Falls3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "Ella Rock is a well-known hiking destination in Ella, offering stunning panoramic views of the surrounding countryside. Popular for its challenging yet rewarding trek, the trail leads hikers through tea plantations, forests, and rocky paths. The summit provides breathtaking views of Ella Gap, Little Adam’s Peak, and the distant hills. Early mornings are the best time to visit, as the weather is cooler and the views are often clearer. Hiking enthusiasts and nature lovers will find the journey up Ella Rock to be both adventurous and scenic.",
     "images": [
-      "http://localhost:5000/uploads/places/Ella_Rock1.jpg",
-      "http://localhost:5000/uploads/places/Ella_Rock2.jpg",
-      "http://localhost:5000/uploads/places/Ella_Rock3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Ella_Rock1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Ella_Rock2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Ella_Rock3.jpg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "The Nine Arches Bridge, located in Ella, is a famous architectural marvel built during the British colonial period. This iconic stone bridge, with its nine arches, is popular for its scenic beauty, as it is surrounded by lush greenery and tea plantations. A key attraction is watching the trains pass over the bridge, which offers a stunning contrast to the natural surroundings. The early morning or late afternoon are ideal times to visit, as the soft light enhances the picturesque views. There is no ticket required to visit the bridge, making it a must-see spot for travelers in the area.",
     "images": [
-      "http://localhost:5000/uploads/places/Nine_Arches_Bridge1.jpeg",
-      "http://localhost:5000/uploads/places/Nine_Arches_Bridge2.jpg",
-      "http://localhost:5000/uploads/places/Nine_Arches_Bridge3.jpeg"
+      "http://192.168.1.5:5000/uploads/places/Nine_Arches_Bridge1.jpeg",
+      "http://192.168.1.5:5000/uploads/places/Nine_Arches_Bridge2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Nine_Arches_Bridge3.jpeg"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "likes": 0,
     "description": "Ravana Falls, located just outside of Ella, is a striking waterfall that cascades from a height of 25 meters, making it one of the widest waterfalls in Sri Lanka. The falls are popular for their association with the legendary King Ravana from the Ramayana, adding a historical and cultural charm to the site. Visitors are often captivated by the natural rock pools formed at the base of the falls, which are perfect for a refreshing dip. The best time to visit is during the rainy season, from October to December, when the waterfall is at its most powerful.",
     "images": [
-      "http://localhost:5000/uploads/places/Ravana_Falls1.jpg",
-      "http://localhost:5000/uploads/places/Ravana_Falls2.jpg",
-      "http://localhost:5000/uploads/places/Ravana_Falls3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Ravana_Falls1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Ravana_Falls2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Ravana_Falls3.jpg"
     ]
   }
 ]

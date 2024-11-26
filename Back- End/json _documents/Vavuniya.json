@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Vavuniya Ancient Temple is a historic Buddhist site located in the Vavuniya District, renowned for its traditional architecture and religious significance. Dating back several centuries, it is a place of worship and meditation for local Buddhists. Visitors are drawn to its serene atmosphere and well-maintained relics, making it an ideal spot for those interested in Buddhist heritage and peaceful environments. The best time to visit is during the dry season, from May to September. Entry is free, though donations are appreciated.",
     "images": [
-      "http://localhost:5000/uploads/places/Vavuniya_Ancient_Temple1.jpg",
-      "http://localhost:5000/uploads/places/Vavuniya_Ancient_Temple2.jpg",
-      "http://localhost:5000/uploads/places/Vavuniya_Ancient_Temple3.webp"
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Ancient_Temple1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Ancient_Temple2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Ancient_Temple3.webp"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Vavuniya Tank, an ancient reservoir located in the district, is historically significant for its role in irrigation and agriculture. It reflects the advanced hydraulic engineering of the era. Surrounded by lush greenery, it offers a scenic setting and is popular among nature enthusiasts for leisurely walks and observing the local flora and fauna. The best time to visit is from May to September, during the dry season. Entry to the tank area is free.",
     "images": [
-      "http://localhost:5000/uploads/places/Vavuniya_Tank1.jpg",
-      "http://localhost:5000/uploads/places/Vavuniya_Tank2.jpg",
-      "http://localhost:5000/uploads/places/Vavuniya_Tank3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Tank1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Tank2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Tank3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "The Vavuniya War Memorial is a solemn site dedicated to those who lost their lives during the Sri Lankan Civil War. Located in the district, it serves as a place of reflection and remembrance, featuring plaques and inscriptions that honor the memory of those who perished. The site holds historical and emotional significance, offering a quiet space for visitors to pay their respects. The best time to visit is from May to September. Entry is free.",
     "images": [
-      "http://localhost:5000/uploads/places/Vavuniya_War_Memorial1.jpg",
-      "http://localhost:5000/uploads/places/Vavuniya_War_Memorial2.jpg",
-      "http://localhost:5000/uploads/places/Vavuniya_War_Memorial3.JPG"
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_War_Memorial1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_War_Memorial2.jpg",
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_War_Memorial3.JPG"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "Vavuniya Kandasamy Kovil is a prominent Hindu temple, renowned for its vibrant Dravidian-style architecture and deep religious significance. The temple is a spiritual hub for the local Hindu community and a symbol of cultural heritage in the Vavuniya district. Throughout the year, it hosts various colorful festivals, including the annual Chariot Festival, which attracts large crowds of devotees and tourists. The temple's beautifully carved statues, intricate gopurams (towering gateways), and peaceful atmosphere make it a must-visit destination for those seeking both cultural immersion and religious insight.",
     "images": [
-      "http://localhost:5000/uploads/places/Vavuniya_Kandasamy_Kovil1.jpg",
-      "http://localhost:5000/uploads/places/Vavuniya_Kandasamy_Kovil2.jpeg",
-      "http://localhost:5000/uploads/places/Vavuniya_Kandasamy_Kovil3.jpg"
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Kandasamy_Kovil1.jpg",
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Kandasamy_Kovil2.jpeg",
+      "http://192.168.1.5:5000/uploads/places/Vavuniya_Kandasamy_Kovil3.jpg"
     ]
   }
 ]
