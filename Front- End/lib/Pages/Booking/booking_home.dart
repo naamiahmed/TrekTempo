@@ -38,6 +38,14 @@ class BookingHomePage extends StatelessWidget {
           );
         },
       ),
+            floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // TODO: Implement add new accommodation logic
+          print('Add new accommodation');
+        },
+        child: Icon(Icons.add),
+        tooltip: 'Add Accommodation',
+      ),
     );
   }
 }

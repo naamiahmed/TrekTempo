@@ -128,3 +128,53 @@ class ApiService {
     }
   }
 }
+
+
+// lib/services/provider_auth_service.dart
+
+class ProviderAuthService {
+  static const String baseUrl = 'http://10.0.2.2:3000/api/provider'; // For Android emulator
+
+  Future<Map<String, dynamic>> signIn(String email, String password) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/signin'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw json.decode(response.body)['message'];
+      }
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<Map<String, dynamic>> signUp(String name, String email, String password) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/signup'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'name': name,
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        return json.decode(response.body);
+      } else {
+        throw json.decode(response.body)['message'];
+      }
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+}

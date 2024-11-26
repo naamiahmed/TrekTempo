@@ -1,63 +1,81 @@
+// controllers/providerController.js
 const Provider = require('../models/Provider');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const bcrypt = require('bcryptjs');
 
-const providerController = {
-    signup: async (req, res) => {
-        const { name, email, password } = req.body;
-
-        try {
-            let provider = await Provider.findOne({ email });
-            if (provider) {
-                return res.status(400).json({ msg: "Provider already exists" });
-            }
-
-            provider = new Provider({
-                name,
-                email,
-                password: await bcrypt.hash(password, 10),
-            });
-
-            await provider.save();
-            res.status(201).json({ msg: "Provider registered successfully" });
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ msg: "Server error" });
-        }
-    },
-
-    signin: async (req, res) => {
-        const { email, password } = req.body;
-
-        try {
-            const provider = await Provider.findOne({ email });
-            if (!provider) {
-                return res.status(400).json({ msg: "Provider not found. Please Register before login" });
-            }
-
-            const isMatch = await bcrypt.compare(password, provider.password);
-            if (!isMatch) {
-                return res.status(400).json({ msg: "Invalid password. Please try again." });
-            }
-
-            const token = jwt.sign({ id: provider._id }, process.env.JWT_SECRET, {
-                expiresIn: "1h",
-            });
-
-            res.json({ 
-                provider: {
-                    id: provider._id,
-                    email: provider.email,
-                    password: provider.password,
-                }, 
-                token 
-            });
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ msg: "Server error" });
-        }
+exports.signup = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    
+    // Check if provider already exists
+    const existingProvider = await Provider.findOne({ email });
+    if (existingProvider) {
+      return res.status(400).json({ message: 'Email already registered' });
     }
+
+    // Create new provider
+    const provider = new Provider({
+      name,
+      email,
+      password
+    });
+    
+    await provider.save();
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { providerId: provider._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+
+    res.status(201).json({
+      message: 'Provider registered successfully',
+      token,
+      provider: {
+        id: provider._id,
+        name: provider.name,
+        email: provider.email
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
 };
 
-module.exports = providerController;
+exports.signin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find provider
+    const provider = await Provider.findOne({ email });
+    if (!provider) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // Check password
+    const isMatch = await bcrypt.compare(password, provider.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { providerId: provider._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+
+    res.json({
+      message: 'Logged in successfully',
+      token,
+      provider: {
+        id: provider._id,
+        name: provider.name,
+        email: provider.email
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};

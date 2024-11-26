@@ -1,6 +1,9 @@
 // Provider_SignUp.dart
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Booking/Provider_Register/Provider_SignIn.dart';
+import 'package:travel_app/Pages/Booking/booking_home.dart';
+import 'package:travel_app/auth_service.dart';
+
 
 class ProviderSignUp extends StatefulWidget {
   @override
@@ -12,8 +15,7 @@ class _ProviderSignUpState extends State<ProviderSignUp> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
 
   @override
@@ -32,13 +34,13 @@ class _ProviderSignUpState extends State<ProviderSignUp> {
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  labelText: 'Business Name',
+                  labelText: 'Full Name',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.business),
+                  prefixIcon: Icon(Icons.person),
                 ),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
-                    return 'Please enter business name';
+                    return 'Please enter your name';
                   }
                   return null;
                 },
@@ -54,6 +56,9 @@ class _ProviderSignUpState extends State<ProviderSignUp> {
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return 'Please enter email';
+                  }
+                  if (!value!.contains('@')) {
+                    return 'Please enter a valid email';
                   }
                   return null;
                 },
@@ -79,41 +84,37 @@ class _ProviderSignUpState extends State<ProviderSignUp> {
               ),
               SizedBox(height: 16),
               TextFormField(
-                controller: _phoneController,
+                controller: _confirmPasswordController,
                 decoration: InputDecoration(
-                  labelText: 'Phone Number',
+                  labelText: 'Confirm Password',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.phone),
+                  prefixIcon: Icon(Icons.lock_outline),
                 ),
+                obscureText: true,
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
-                    return 'Please enter phone number';
+                    return 'Please confirm your password';
+                  }
+                  if (value != _passwordController.text) {
+                    return 'Passwords do not match';
                   }
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _addressController,
-                decoration: InputDecoration(
-                  labelText: 'Business Address',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.location_on),
+              SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _handleSignUp,
+                child: _isLoading
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : Text('Sign Up'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16),
                 ),
-                maxLines: 3,
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'Please enter business address';
-                  }
-                  return null;
-                },
               ),
-              SizedBox(height: 16),
-              Text('Sign In', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => ProviderSignIn()),
                   );
@@ -128,16 +129,6 @@ class _ProviderSignUpState extends State<ProviderSignUp> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: _isLoading ? null : _handleSignUp,
-                child: _isLoading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text('Sign Up'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                ),
-              ),
             ],
           ),
         ),
@@ -145,20 +136,32 @@ class _ProviderSignUpState extends State<ProviderSignUp> {
     );
   }
 
-  Future<void> _handleSignUp() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      setState(() => _isLoading = true);
-      try {
-        // TODO: Implement actual sign up logic
-        await Future.delayed(Duration(seconds: 2)); // Simulate network request
-        // Navigate to provider dashboard on success
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sign up failed: ${e.toString()}')),
-        );
-      } finally {
-        setState(() => _isLoading = false);
-      }
+Future<void> _handleSignUp() async {
+  if (_formKey.currentState?.validate() ?? false) {
+    setState(() => _isLoading = true);
+    try {
+      final authService = ProviderAuthService();
+      final response = await authService.signUp(
+        _nameController.text,
+        _emailController.text,
+        _passwordController.text,
+      );
+      
+      // Store token and navigate
+      // TODO: Add secure storage for token
+      final token = response['token'];
+      
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => BookingHomePage()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
+}
 }

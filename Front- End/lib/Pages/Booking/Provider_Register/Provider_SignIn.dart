@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/Booking/Provider_Register/provide_signUp.dart';
 import 'package:travel_app/Pages/Booking/booking_home.dart';
+import 'package:travel_app/auth_service.dart';
+
 
 class ProviderSignIn extends StatefulWidget {
   @override
@@ -103,20 +105,31 @@ appBar: AppBar(
     );
   }
 
-  Future<void> _handleSignIn() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      setState(() => _isLoading = true);
-      try {
-        // TODO: Implement actual sign in logic
-        await Future.delayed(Duration(seconds: 2)); // Simulate network request
-        // Navigate to provider dashboard on success
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sign in failed: ${e.toString()}')),
-        );
-      } finally {
-        setState(() => _isLoading = false);
-      }
+Future<void> _handleSignIn() async {
+  if (_formKey.currentState?.validate() ?? false) {
+    setState(() => _isLoading = true);
+    try {
+      final authService = ProviderAuthService();
+      final response = await authService.signIn(
+        _emailController.text,
+        _passwordController.text,
+      );
+      
+      // Store token and navigate
+      // TODO: Add secure storage for token
+      final token = response['token'];
+      
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => BookingHomePage()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
+}
 }

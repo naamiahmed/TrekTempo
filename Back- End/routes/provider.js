@@ -1,9 +1,9 @@
+// routes/providerRoutes.js
 const express = require('express');
 const router = express.Router();
 const providerController = require('../controllers/providerController');
 
-// Auth routes
-router.post('/providersignup', providerController.signup);
-router.post('/providersignin', providerController.signin);
+router.post('/signup', providerController.signup);
+router.post('/signin', providerController.signin);
 
 module.exports = router;
