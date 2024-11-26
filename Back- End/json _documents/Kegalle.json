@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Pinnawala Elephant Orphanage, located in Pinnawala, was established in 1975 to care for orphaned and injured elephants. Visitors can see elephants up close and watch them bathe and feed. The best time to visit is from May to September during the dry season. Ticket prices for locals are 500 LKR for adults and 250 LKR for children; for foreigners, it is 2,500 LKR for adults and 1,250 LKR for children.",
     "images": [
-      "http://localhost:5000/uploads/places/Pinnawala_Elephant_Orphanage1.jpg",
-      "http://localhost:5000/uploads/places/Pinnawala_Elephant_Orphanage2.jpg",
-      "http://localhost:5000/uploads/places/Pinnawala_Elephant_Orphanage3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Pinnawala_Elephant_Orphanage1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Pinnawala_Elephant_Orphanage2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Pinnawala_Elephant_Orphanage3.jpg"
     ]
   },
   {"district": "Kegalle",
@@ -17,9 +17,9 @@
     "likes": 0,
     "description": "Kurulu Kele Sanctuary is popular for its diverse bird species and scenic trails, making it an ideal destination for birdwatchers and nature lovers. The best time to visit is from December to April. Tickets cost $10 for locals and $20 for foreigners, with children's tickets half the adult price.",
     "images": [
-      "http://localhost:5000/uploads/places/Kurulu_Kele_Sanctuary1.jpg",
-      "http://localhost:5000/uploads/places/Kurulu_Kele_Sanctuary2.jpg",
-      "http://localhost:5000/uploads/places/Kurulu_Kele_Sanctuary3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Kurulu_Kele_Sanctuary1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Kurulu_Kele_Sanctuary2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Kurulu_Kele_Sanctuary3.jpg"
     ]
   },
   {"district": "Kegalle",
@@ -28,9 +28,9 @@
     "likes": 0,
     "description": "Algama Falls is a beautiful waterfall located in the Kegalle District of Sri Lanka. It's known for its scenic beauty and the peaceful environment surrounding it. The falls are popular for their stunning views and are a great spot for photography and nature walks. The best time to visit is from May to September when the weather is good for exploring. No tickets are required to visit Algama Falls itself.",
     "images": [
-      "http://localhost:5000/uploads/places/Algama_Falls1.jpg",
-      "http://localhost:5000/uploads/places/Algama_Falls2.jpg",
-      "http://localhost:5000/uploads/places/Algama_Falls3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Algama_Falls1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Algama_Falls2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Algama_Falls3.jpg"
     ]
   },
   {"district": "Kegalle",
@@ -39,9 +39,9 @@
     "likes": 0,
     "description": "Huluganga Ella is a stunning waterfall surrounded by lush greenery, perfect for photography and picnics. The best time to visit is from May to September during the rainy season when the waterfall is at its fullest. No tickets are required to visit.",
     "images": [
-      "http://localhost:5000/uploads/places/Huluganga_Ella1.jpg",
-      "http://localhost:5000/uploads/places/Huluganga_Ella2.jpg",
-      "http://localhost:5000/uploads/places/Huluganga_Ella3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Huluganga_Ella1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Huluganga_Ella2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Huluganga_Ella3.jpg"
     ]
   },
   {"district": "Kegalle",
@@ -50,9 +50,9 @@
     "likes": 0,
     "description": "Pinnawala Open Zoo is a large wildlife park offering a natural-like environment for animals. Visitors can see elephants, leopards, and various birds. The best time to visit is from December to April. Ticket prices are 300 LKR for adults and 150 LKR for children (locals), and 3,000 LKR for adults and 1,500 LKR for children (foreigners).",
     "images": [
-      "http://localhost:5000/uploads/places/Pinnawala_Open_Zoo1.jpg",
-      "http://localhost:5000/uploads/places/Pinnawala_Open_Zoo2.jpg",
-      "http://localhost:5000/uploads/places/Pinnawala_Open_Zoo3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Pinnawala_Open_Zoo1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Pinnawala_Open_Zoo2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Pinnawala_Open_Zoo3.jpg"
     ]
   }
 ]

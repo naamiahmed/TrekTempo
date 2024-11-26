@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Batticaloa Gate is a historic landmark located on the shores of the Batticaloa Lagoon, serving as a symbolic gateway to the region. Once a key point of entry for traders and colonial ships, the gate is now a popular attraction for its historical significance and picturesque views of the lagoon. Visitors often come to see the remnants of this colonial-era structure and enjoy the scenic surroundings. The site is particularly attractive at sunset when the view of the lagoon is most stunning.",
     "images": [
-      "http://localhost:5000/uploads/places/Batticaloa_Gate1.jpg",
-      "http://localhost:5000/uploads/places/Batticaloa_Gate2.jpg",
-      "http://localhost:5000/uploads/places/Batticaloa_Gate3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Gate1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Gate2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Gate3.jpg"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Batticaloa Lagoon is a scenic body of water located in the Eastern Province of Sri Lanka, known for its serene beauty and calm waters. This lagoon stretches over 56 kilometers and is dotted with small islands, making it a popular destination for boat rides and birdwatching. One of the unique features of the lagoon is the mysterious 'singing fish' phenomenon, where locals claim that certain types of fish produce a musical sound. Visitors are also drawn to the picturesque sunsets over the lagoon, which create a stunning reflection on the water. The best time to visit Batticaloa Lagoon is from April to September, as the weather is generally dry, providing perfect conditions for outdoor activities. There is no entry fee, but boat rides and guided tours might have separate charges.",
     "images": [
-      "http://localhost:5000/uploads/places/Batticaloa_Lagoon1.jpg",
-      "http://localhost:5000/uploads/places/Batticaloa_Lagoon2.jpg",
-      "http://localhost:5000/uploads/places/Batticaloa_Lagoon3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Lagoon1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Lagoon2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Lagoon3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "Batticaloa Lighthouse, located near the shores of the Batticaloa Lagoon, stands as a historical beacon guiding ships along the eastern coast of Sri Lanka. Built in 1913, this towering lighthouse is popular for its panoramic views of the surrounding lagoon and coastline. Visitors often climb to the top to capture stunning photos of the landscape, especially at sunset when the skies are painted with vibrant colors. The structure itself is a charming piece of colonial architecture, adding to the experience. The best time to visit is during the early morning or late afternoon when the heat is less intense, making it easier to explore.",
     "images": [
-      "http://localhost:5000/uploads/places/Batticaloa_Lighthouse1.jpg",
-      "http://localhost:5000/uploads/places/Batticaloa_Lighthouse2.jpg",
-      "http://localhost:5000/uploads/places/Batticaloa_Lighthouse3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Lighthouse1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Lighthouse2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Batticaloa_Lighthouse3.jpg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "Kalkudah Beach, situated just north of Pasikudah on Sri Lanka's eastern coast, is celebrated for its serene environment and stunning natural beauty. This idyllic beach features fine, white sand and crystal-clear waters that are perfect for swimming and relaxing. Kalkudah Beach is popular for its tranquility, making it a great spot for those looking to escape the crowds and enjoy a peaceful day by the sea. The shallow waters stretch far from the shore, providing safe and enjoyable conditions for families and water sports enthusiasts.",
     "images": [
-      "http://localhost:5000/uploads/places/Kalkudah_Beach1.jpg",
-      "http://localhost:5000/uploads/places/Kalkudah_Beach2.jpg",
-      "http://localhost:5000/uploads/places/Kalkudah_Beach3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Kalkudah_Beach1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Kalkudah_Beach2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Kalkudah_Beach3.jpg"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "likes": 0,
     "description": "Pasikudah Beach, located on the eastern coast of Sri Lanka, is renowned for its stunningly clear waters and pristine, white sandy shores. This popular beach destination is famous for its shallow, calm waters, which make it ideal for swimming and water sports. The beach is also well-known for its picturesque beauty, with breathtaking views of the horizon and gentle waves lapping against the shore. The best time to visit Pasikudah Beach is between May and October, during the dry season, when the weather is warm and sunny, perfect for beach activities.",
     "images": [
-      "http://localhost:5000/uploads/places/Pasikudah_Beach1.jpg",
-      "http://localhost:5000/uploads/places/Pasikudah_Beach2.jpg",
-      "http://localhost:5000/uploads/places/Pasikudah_Beach3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Pasikudah_Beach1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Pasikudah_Beach2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Pasikudah_Beach3.jpg"
     ]
   }
 ]

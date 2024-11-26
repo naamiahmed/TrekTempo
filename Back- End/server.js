@@ -28,7 +28,7 @@ const app = express();
 
 // CORS Configuration
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://your-frontend-domain.com'],
+    origin: ['https://trektempo.onrender.com3000', 'https://your-frontend-domain.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
@@ -79,5 +79,5 @@ app.use('/api/notifications', notificationRoutes);
 const PORT = process.env.PORT || 5001;
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on https://trektempo.onrender.com${PORT}`);
 });

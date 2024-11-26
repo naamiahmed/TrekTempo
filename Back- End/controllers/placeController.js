@@ -18,7 +18,7 @@ const upload = multer({ storage: storage });
 const createPlace = async (req, res) => {
   try {
     const { district, city, name, location, direction, description } = req.body;
-    const images = req.files.map(file => `http://localhost:5000/uploads/places/${file.filename}`);
+    const images = req.files.map(file => `https://trektempo.onrender.com/uploads/places/${file.filename}`);
 
     const newPlace = new Place({
       district,
