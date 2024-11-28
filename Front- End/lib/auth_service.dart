@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  final String baseUrl = 'http://localhost:5000/api/auth'; // Update with your backend URL
+  final String baseUrl =
+      'http://localhost:5000/api/auth'; // Update with your backend URL
 
   // Sign Up Method
   Future<bool> signUp(String name, String email, String password) async {

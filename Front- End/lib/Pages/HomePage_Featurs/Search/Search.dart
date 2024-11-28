@@ -93,7 +93,6 @@ class _SearchState extends State<Search> {
           ),
         ),
         backgroundColor: Colors.white,
-
       ),
       body: Column(
         children: [

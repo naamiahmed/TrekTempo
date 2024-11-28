@@ -1,12 +1,12 @@
-const Place = require('../models/Place');
-const multer = require('multer');
-const path = require('path');
-const mongoose = require('mongoose');
+const Place = require("../models/Place");
+const multer = require("multer");
+const path = require("path");
+const mongoose = require("mongoose");
 
 // Configure multer for image upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/places/');
+    cb(null, "uploads/places/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -18,7 +18,9 @@ const upload = multer({ storage: storage });
 const createPlace = async (req, res) => {
   try {
     const { district, city, name, location, direction, description } = req.body;
-    const images = req.files.map(file => `http://localhost:5000/uploads/places/${file.filename}`);
+    const images = req.files.map(
+      (file) => `http://localhost:5000/uploads/places/${file.filename}`
+    );
 
     const newPlace = new Place({
       district,
@@ -31,7 +33,9 @@ const createPlace = async (req, res) => {
     });
 
     await newPlace.save();
-    res.status(201).json({ message: 'Place created successfully!', place: newPlace });
+    res
+      .status(201)
+      .json({ message: "Place created successfully!", place: newPlace });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -93,13 +97,15 @@ const handleLike = async (req, res) => {
     const place = await Place.findOne({ _id: placeId });
 
     if (!place) {
-      return res.status(404).json({ success: false, message: 'Place not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "Place not found" });
     }
 
     const objectIdUserId = new mongoose.Types.ObjectId(userId);
 
-    if (place.likedBy.some(id => id.equals(objectIdUserId))) {
-      place.likedBy = place.likedBy.filter(id => !id.equals(objectIdUserId));
+    if (place.likedBy.some((id) => id.equals(objectIdUserId))) {
+      place.likedBy = place.likedBy.filter((id) => !id.equals(objectIdUserId));
     } else {
       place.likedBy.push(objectIdUserId);
     }
@@ -110,9 +116,8 @@ const handleLike = async (req, res) => {
 
     const updatedPlace = await Place.findOne({ _id: placeId });
     res.status(200).json({ success: true, place: updatedPlace });
-
   } catch (error) {
-    console.log('error: ', error);
+    console.log("error: ", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -148,12 +153,24 @@ const deletePlace = async (req, res) => {
   try {
     const place = await Place.findByIdAndDelete(req.params.id);
     if (!place) {
-      return res.status(404).json({ success: false, message: 'Place not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "Place not found" });
     }
-    res.json({ success: true, message: 'Place deleted successfully' });
+    res.json({ success: true, message: "Place deleted successfully" });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
-module.exports = { upload, createPlace, getPlaces, getOnePlace, getAllPlaces, deletePlace, handleLike, getTopPlaces, getOnePlaceById };
+module.exports = {
+  upload,
+  createPlace,
+  getPlaces,
+  getOnePlace,
+  getAllPlaces,
+  deletePlace,
+  handleLike,
+  getTopPlaces,
+  getOnePlaceById,
+};

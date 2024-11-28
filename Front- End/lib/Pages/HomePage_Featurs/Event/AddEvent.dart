@@ -24,7 +24,8 @@ class _AddEventPageState extends State<AddEventPage> {
   bool _isMultipleDays = false;
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
@@ -42,7 +43,7 @@ class _AddEventPageState extends State<AddEventPage> {
 
       if (pickedDateRange != null) {
         setState(() {
-          _dateController.text = 
+          _dateController.text =
               "${pickedDateRange.start.toLocal().toString().split(' ')[0]} - "
               "${pickedDateRange.end.toLocal().toString().split(' ')[0]}";
         });
@@ -67,7 +68,7 @@ class _AddEventPageState extends State<AddEventPage> {
     if (_formKey.currentState!.validate()) {
       final url = Uri.parse('http://localhost:5000/api/addEvent');
       var request = http.MultipartRequest('POST', url);
-      
+
       request.fields.addAll({
         'title': _titleController.text,
         'phone': _phoneController.text,
@@ -86,30 +87,26 @@ class _AddEventPageState extends State<AddEventPage> {
       }
 
       if (_image != null) {
-        request.files.add(
-          await http.MultipartFile.fromPath('image', _image!.path)
-        );
+        request.files
+            .add(await http.MultipartFile.fromPath('image', _image!.path));
       }
 
       try {
         final response = await request.send();
         if (response.statusCode == 201) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Event added successfully!'))
-          );
+              const SnackBar(content: Text('Event added successfully!')));
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const EventPage()),
           );
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to add event: ${response.reasonPhrase}'))
-          );
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Failed to add event: ${response.reasonPhrase}')));
         }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'))
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     }
   }
@@ -163,7 +160,8 @@ class _AddEventPageState extends State<AddEventPage> {
               TextFormField(
                 controller: _phoneController,
                 validator: (value) {
-                  if (value!.isEmpty || !RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+                  if (value!.isEmpty ||
+                      !RegExp(r'^[0-9]{10}$').hasMatch(value)) {
                     return "Enter a valid 10-digit phone number";
                   }
                   return null;
@@ -181,19 +179,39 @@ class _AddEventPageState extends State<AddEventPage> {
                 onChanged: (String? newValue) {
                   setState(() => _selectedDistrict = newValue);
                 },
-                validator: (value) =>
-                    value == null || value.isEmpty ? "District can't be empty" : null,
+                validator: (value) => value == null || value.isEmpty
+                    ? "District can't be empty"
+                    : null,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.public),
                   labelText: 'District',
                   border: OutlineInputBorder(),
                 ),
                 items: <String>[
-                  'Colombo', 'Kandy', 'Jaffna', 'Batticaloa', 'Puttalam',
-                  'Trincomalee', 'Galle', 'Matara', 'Hambantota', 'Kurunegala',
-                  'Gampaha', 'Kalutara', 'Kegalle', 'Ratnapura', 'Nuwara Eliya',
-                  'Matale', 'Monaragala', 'Badulla', 'Vavuniya', 'Mannar',
-                  'Kilinochchi', 'Anuradhapura', 'Polonnaruwa', 'Sabaragamuwa'
+                  'Colombo',
+                  'Kandy',
+                  'Jaffna',
+                  'Batticaloa',
+                  'Puttalam',
+                  'Trincomalee',
+                  'Galle',
+                  'Matara',
+                  'Hambantota',
+                  'Kurunegala',
+                  'Gampaha',
+                  'Kalutara',
+                  'Kegalle',
+                  'Ratnapura',
+                  'Nuwara Eliya',
+                  'Matale',
+                  'Monaragala',
+                  'Badulla',
+                  'Vavuniya',
+                  'Mannar',
+                  'Kilinochchi',
+                  'Anuradhapura',
+                  'Polonnaruwa',
+                  'Sabaragamuwa'
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,

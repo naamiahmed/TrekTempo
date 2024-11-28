@@ -71,13 +71,16 @@ class _ProfilePageState extends State<ProfilePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    const MainHomePage(), 
+                builder: (context) => const MainHomePage(),
               ),
             );
           },
         ),
-        title: const Text('Profile', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),),
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -94,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
         backgroundColor: Colors.white,
-         bottom: PreferredSize(
+        bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
             color: Colors.black,
@@ -141,17 +144,18 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(height: 5),
                       Text(
                         user.email, // User's email
-                        style: const TextStyle(fontSize: 16, color: Colors.grey),
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                       const SizedBox(height: 16),
                       Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Text(
-                      user.bio ?? 'No bio added yet',
-                      style: const TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
-                     ),
-                    ),
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Text(
+                          user.bio ?? 'No bio added yet',
+                          style: const TextStyle(fontSize: 16),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ],
                   );
                 } else {
@@ -180,20 +184,20 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
-                  // children: [
-                  //   Icon(Icons.favorite, color: Colors.red),
-                  //   SizedBox(height: 5),
-                  //   Text('23 likes'),
-                  // ],
-                ),
+                    // children: [
+                    //   Icon(Icons.favorite, color: Colors.red),
+                    //   SizedBox(height: 5),
+                    //   Text('23 likes'),
+                    // ],
+                    ),
                 SizedBox(width: 40),
                 Column(
-                  // children: [
-                  //   Icon(Icons.bookmark, color: Colors.grey),
-                  //   SizedBox(height: 5),
-                  //   Text('5 Saved'),
-                  // ],
-                ),
+                    // children: [
+                    //   Icon(Icons.bookmark, color: Colors.grey),
+                    //   SizedBox(height: 5),
+                    //   Text('5 Saved'),
+                    // ],
+                    ),
               ],
             ),
 

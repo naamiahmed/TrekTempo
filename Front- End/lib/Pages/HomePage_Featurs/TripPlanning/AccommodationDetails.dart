@@ -49,7 +49,8 @@ class _AccommodationDetailsState extends State<AccommodationDetails> {
         print(jsonData);
         List<dynamic> accommodationJson = jsonData['Accommodation'];
         for (var accommodationJson in accommodationJson) {
-          Accommodation accommodation = Accommodation.fromJson(accommodationJson);
+          Accommodation accommodation =
+              Accommodation.fromJson(accommodationJson);
           setState(() {
             fetchedAccommodations.add(accommodation);
           });

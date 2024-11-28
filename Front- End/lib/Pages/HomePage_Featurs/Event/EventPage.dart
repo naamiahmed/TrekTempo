@@ -35,7 +35,8 @@ class _HomeState extends State<EventPage> {
 
   Future<void> fetchEvents() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5000/api/getAllAcceptedEvents'));
+      final response = await http
+          .get(Uri.parse('http://localhost:5000/api/getAllAcceptedEvents'));
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final List fetchedEvents = responseData['events'];
@@ -64,8 +65,12 @@ class _HomeState extends State<EventPage> {
             );
           },
         ),
-        title: const Text('Events', style: TextStyle(
-              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
+        title: const Text('Events',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+            )),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -110,7 +115,8 @@ class _HomeState extends State<EventPage> {
                       place: event["place"] ?? 'No Place',
                       location: event["location"] ?? 'No Location',
                       date: event["date"] ?? 'No Date',
-                      imageUrl: event["imageUrl"] ?? 'https://via.placeholder.com/150',
+                      imageUrl: event["imageUrl"] ??
+                          'https://via.placeholder.com/150',
                       isSelected: false,
                       onTap: () {
                         Navigator.push(
