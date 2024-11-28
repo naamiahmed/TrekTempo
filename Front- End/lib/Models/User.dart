@@ -5,6 +5,7 @@ class User {
   final String password;
   final String? address;
   final String? profilePicURL;
+  final String? bio;
 
   User({
     required this.id,
@@ -13,6 +14,7 @@ class User {
     required this.password,
     this.address,
     this.profilePicURL,
+    this.bio,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class User {
       password: json['password'],
       address: json['address'], 
       profilePicURL: json['profilePicURL'],
+      bio: json['bio'],
     );
   }
 
@@ -35,6 +38,7 @@ class User {
       'password': password, // Again, usually you avoid sending passwords in JSON
       'address': address,
       'profilePicURL': profilePicURL,
+      'bio': bio,
     };
   }
 }

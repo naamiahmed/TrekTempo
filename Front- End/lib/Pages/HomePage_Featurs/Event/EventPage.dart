@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async'; // Import the dart:async package
 import 'package:travel_app/Pages/HomePage_Featurs/Event/AddEvent.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/Event/EventCard';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
@@ -15,20 +16,30 @@ class EventPage extends StatefulWidget {
 
 class _HomeState extends State<EventPage> {
   List events = [];
+  Timer? _timer; // Declare a Timer
 
   @override
   void initState() {
     super.initState();
     fetchEvents();
+    _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+      fetchEvents(); // Fetch events every 30 seconds
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   Future<void> fetchEvents() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5000/api/getAllAcceptedEvents'));
+      final response = await http
+          .get(Uri.parse('http://localhost:5000/api/getAllAcceptedEvents'));
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-        final List fetchedEvents = responseData['events']; 
-                // print('Fetched Events: $fetchedEvents'); // Debug print statement
+        final List fetchedEvents = responseData['events'];
         setState(() {
           events = fetchedEvents;
         });
@@ -54,8 +65,12 @@ class _HomeState extends State<EventPage> {
             );
           },
         ),
-        title: const Text('Events', style: TextStyle(
-              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600,)),
+        title: const Text('Events',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+            )),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -63,7 +78,7 @@ class _HomeState extends State<EventPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddEventPage(),
+                  builder: (context) => const AddEventPage(),
                 ),
               );
             },
@@ -100,7 +115,8 @@ class _HomeState extends State<EventPage> {
                       place: event["place"] ?? 'No Place',
                       location: event["location"] ?? 'No Location',
                       date: event["date"] ?? 'No Date',
-                      imageUrl: event["imageUrl"] ?? 'https://via.placeholder.com/150',
+                      imageUrl: event["imageUrl"] ??
+                          'https://via.placeholder.com/150',
                       isSelected: false,
                       onTap: () {
                         Navigator.push(

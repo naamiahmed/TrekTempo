@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_app/Models/Accommodation.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/AddAccommodation.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/accomadation_card.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/new_accomadation_form.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/AddAccommodation/show_accomadation_details.dart';
 
 class AccommodationPage extends StatefulWidget {
   const AccommodationPage({super.key});
@@ -18,15 +20,35 @@ class _AccommodationPageState extends State<AccommodationPage> {
   Future<List<Accommodation>>? futureAccommodations;
   String? selectedDistrict;
   String? selectedBudget;
+  String? userId;
 
- final List<String> districts = [
-  'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle',
-  'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle',
-  'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala',
-  'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura',
-  'Trincomalee', 'Vavuniya'
-];
-
+  final List<String> districts = [
+    'Ampara',
+    'Anuradhapura',
+    'Badulla',
+    'Batticaloa',
+    'Colombo',
+    'Galle',
+    'Gampaha',
+    'Hambantota',
+    'Jaffna',
+    'Kalutara',
+    'Kandy',
+    'Kegalle',
+    'Kilinochchi',
+    'Kurunegala',
+    'Mannar',
+    'Matale',
+    'Matara',
+    'Moneragala',
+    'Mullaitivu',
+    'Nuwara Eliya',
+    'Polonnaruwa',
+    'Puttalam',
+    'Ratnapura',
+    'Trincomalee',
+    'Vavuniya'
+  ];
 
   final List<String> budgetRanges = ['Low', 'Medium', 'High'];
 
@@ -34,12 +56,21 @@ class _AccommodationPageState extends State<AccommodationPage> {
   void initState() {
     super.initState();
     futureAccommodations = fetchAccommodationsData();
+    _loadUserId();
+  }
+
+  Future<void> _loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId');
+    });
   }
 
   Future<List<Accommodation>> fetchAccommodationsData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getAccommodation/${selectedDistrict ?? ''}/${selectedBudget ?? ''}'),
+        Uri.parse(
+            'http://localhost:5000/api/getAccommodation/${selectedDistrict ?? ''}/${selectedBudget ?? ''}'),
       );
 
       if (response.statusCode == 200) {
@@ -47,7 +78,8 @@ class _AccommodationPageState extends State<AccommodationPage> {
         List<dynamic> accommodationsJson = jsonData['accommodations'];
 
         return accommodationsJson
-            .map((accommodationJson) => Accommodation.fromJson(accommodationJson))
+            .map((accommodationJson) =>
+                Accommodation.fromJson(accommodationJson))
             .toList();
       } else {
         throw Exception('Failed to load accommodations');
@@ -61,6 +93,22 @@ class _AccommodationPageState extends State<AccommodationPage> {
     setState(() {
       futureAccommodations = fetchAccommodationsData();
     });
+  }
+
+  void _navigateToNewAccommodation() async {
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please login first')),
+      );
+      return;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NewAccommodationForm(userId: userId!),
+      ),
+    );
   }
 
   @override
@@ -84,12 +132,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const AddAccommodation()),
-              // );
-            },
+            onPressed: _navigateToNewAccommodation, // Use the existing function
           ),
         ],
         backgroundColor: Colors.white,
@@ -113,20 +156,25 @@ class _AccommodationPageState extends State<AccommodationPage> {
                       child: DropdownButtonFormField<String>(
                         decoration: const InputDecoration(
                           labelText: 'Select District',
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         ),
                         value: selectedDistrict,
                         items: districts.map((String district) {
                           return DropdownMenuItem<String>(
                             value: district,
-                            child: Row(
-                              children: [
-                                Text(
-                                  district,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ],
+                            child: Text(
+                              district,
+                              style: const TextStyle(fontSize: 14),
                             ),
                           );
                         }).toList(),
@@ -137,25 +185,30 @@ class _AccommodationPageState extends State<AccommodationPage> {
                         },
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: DropdownButtonFormField<String>(
                         decoration: const InputDecoration(
                           labelText: 'Select Budget',
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         ),
                         value: selectedBudget,
                         items: budgetRanges.map((String budget) {
                           return DropdownMenuItem<String>(
                             value: budget,
-                            child: Row(
-                              children: [
-                                Text(
-                                  budget,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ],
+                            child: Text(
+                              budget,
+                              style: const TextStyle(fontSize: 14),
                             ),
                           );
                         }).toList(),
@@ -168,12 +221,18 @@ class _AccommodationPageState extends State<AccommodationPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                     onPressed: _onSearch,
-                    child: const Text('Search'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      'Search',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
@@ -191,7 +250,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
                   ));
                 } else if (snapshot.hasError) {
                   // Show an empty container or a specific message indicating no data is available
-                  return const Center(child: Text('No data available.'));
+                  return const Center(child: Text('No Place Selected.'));
                 } else if (snapshot.hasData && snapshot.data!.isEmpty) {
                   return const Center(child: Text('No accommodations found.'));
                 } else if (snapshot.hasData) {
@@ -202,7 +261,20 @@ class _AccommodationPageState extends State<AccommodationPage> {
                       final accommodation = snapshot.data![index];
                       return Column(
                         children: [
-                          AccommodationCard(accommodation: accommodation),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ShowAccommodationDetails(
+                                          accommodation: accommodation),
+                                ),
+                              );
+                            },
+                            child:
+                                AccommodationCard(accommodation: accommodation),
+                          ),
                           const SizedBox(height: 16),
                         ],
                       );

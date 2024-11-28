@@ -1,11 +1,11 @@
 const NewPlace = require("../models/NewPlace");
-const multer = require('multer');
-const path = require('path');
+const multer = require("multer");
+const path = require("path");
 
 // Configure multer for image upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/request_places_images/');
+    cb(null, "uploads/request_places_images/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -14,11 +14,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Creating new place entries in the database
+// user Creating new place entries in the database
 const createNewPlace = async (req, res) => {
   try {
     const { district, city, name, location, direction, description } = req.body;
-    const images = req.files.map(file => `http://localhost:5000/uploads/request_places_images/${file.filename}`);
+    const images = req.files.map(
+      (file) =>
+        `http://localhost:5000/uploads/request_places_images/${file.filename}`
+    );
 
     const newPlace = new NewPlace({
       district,
@@ -31,7 +34,9 @@ const createNewPlace = async (req, res) => {
     });
 
     await newPlace.save();
-    res.status(201).json({ message: 'New place created successfully!', place: newPlace });
+    res
+      .status(201)
+      .json({ message: "New place created successfully!", place: newPlace });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -58,12 +63,33 @@ const deleteRequestPlace = async (req, res) => {
   try {
     const requestedPlace = await NewPlace.findByIdAndDelete(req.params.id);
     if (!requestedPlace) {
-      return res.status(404).json({ success: false, message: 'Place not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "Place not found" });
     }
-    res.json({ success: true, message: 'Requested Place deleted successfully' });
+    res.json({
+      success: true,
+      message: "Requested Place deleted successfully",
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
-module.exports = { upload, createNewPlace, getAllNewPlaces, deleteRequestPlace };
+// Add this function to newPlacesController.js
+const getPlaceCount = async (req, res) => {
+  try {
+    const count = await NewPlace.countDocuments();
+    res.json({ success: true, count });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = {
+  upload,
+  createNewPlace,
+  getAllNewPlaces,
+  deleteRequestPlace,
+  getPlaceCount,
+};

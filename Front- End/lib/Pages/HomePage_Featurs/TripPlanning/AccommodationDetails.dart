@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:travel_app/Models/Accommodation.dart';
-import 'package:travel_app/Models/TripPlanInputs.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/Trip_Cards/AccommodationCard.dart';
 import 'package:http/http.dart' as http;
 
@@ -50,7 +49,8 @@ class _AccommodationDetailsState extends State<AccommodationDetails> {
         print(jsonData);
         List<dynamic> accommodationJson = jsonData['Accommodation'];
         for (var accommodationJson in accommodationJson) {
-          Accommodation accommodation = Accommodation.fromJson(accommodationJson);
+          Accommodation accommodation =
+              Accommodation.fromJson(accommodationJson);
           setState(() {
             fetchedAccommodations.add(accommodation);
           });

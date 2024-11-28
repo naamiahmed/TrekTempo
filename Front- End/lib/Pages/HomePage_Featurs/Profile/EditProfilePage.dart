@@ -17,11 +17,29 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String? userId;
   Future<User>? futureProfile;
   String? profileImagePath;
+  bool _isEditingBio = false;
+  TextEditingController _bioController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     loadUserId();
+    loadUserBio();
+  }
+
+  @override
+  void dispose() {
+    _bioController.dispose();
+    super.dispose();
+  }
+
+  Future<void> loadUserBio() async {
+    final profile = await futureProfile;
+    if (profile != null) {
+      setState(() {
+        _bioController.text = profile.bio ?? '';
+      });
+    }
   }
 
   Future<void> loadUserId() async {
@@ -62,47 +80,130 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
- Future<void> _pickImage(ImageSource source) async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? image = await picker.pickImage(source: source);
-  if (image != null) {
-    setState(() {
-      profileImagePath = image.path; // Update the profile image path
-    });
+  Future<void> _pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: source);
+    if (image != null) {
+      setState(() {
+        profileImagePath = image.path; // Update the profile image path
+      });
 
-    // Upload the image to the server
-    await _uploadProfilePicture(image);
+      // Upload the image to the server
+      await _uploadProfilePicture(image);
+    }
   }
-}
 
-Future<void> _uploadProfilePicture(XFile image) async {
-  try {
-    final request = http.MultipartRequest(
-      'POST',
-      Uri.parse('http://localhost:5000/api/auth/updateProfilePicture/$userId'),
-    );
+  Future<void> _uploadProfilePicture(XFile image) async {
+    try {
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            'http://localhost:5000/api/auth/updateProfilePicture/$userId'),
+      );
 
-    request.files.add(await http.MultipartFile.fromPath('profilePic', image.path));
+      request.files
+          .add(await http.MultipartFile.fromPath('profilePic', image.path));
 
-    final response = await request.send();
+      final response = await request.send();
 
-    if (response.statusCode == 200) {
-      final responseBody = await response.stream.bytesToString();
-      final jsonResponse = json.decode(responseBody);
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        final jsonResponse = json.decode(responseBody);
 
-      if (jsonResponse['success'] == true) {
-        print('Profile picture updated successfully');
-        // Optionally, update the UI with the new profile picture URL
+        if (jsonResponse['success'] == true) {
+          // Refresh profile data
+          setState(() {
+            futureProfile = fetchProfileData(userId!);
+          });
+
+          // Show success message
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Profile picture updated successfully'),
+                backgroundColor: Colors.green,
+                duration: Duration(seconds: 2),
+              ),
+            );
+          }
+        } else {
+          throw Exception('Failed to update profile picture');
+        }
       } else {
         throw Exception('Failed to update profile picture');
       }
-    } else {
-      throw Exception('Failed to update profile picture');
+    } catch (e) {
+      print('Error uploading profile picture: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error updating profile picture: $e'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
     }
-  } catch (e) {
-    print('Error uploading profile picture: $e');
   }
-}
+
+  Future<void> updateBio(String newBio) async {
+    try {
+      final response = await http.put(
+        Uri.parse('http://localhost:5000/api/auth/updateBio/$userId'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'bio': newBio}),
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          futureProfile = fetchProfileData(userId!);
+        });
+      } else {
+        throw Exception('Failed to update bio');
+      }
+    } catch (e) {
+      print('Error updating bio: $e');
+    }
+  }
+
+  Future<void> _changePassword(
+      String currentPassword, String newPassword) async {
+    try {
+      final response = await http.put(
+        Uri.parse('http://localhost:5000/api/auth/changePassword/$userId'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'currentPassword': currentPassword,
+          'newPassword': newPassword,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Password changed successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.of(context).pop();
+      } else {
+        final error = json.decode(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error['message'] ?? 'Failed to change password'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   // Show the bottom sheet with options to change the profile picture
   void _showImageSourceOptions() {
@@ -159,30 +260,19 @@ Future<void> _uploadProfilePicture(XFile image) async {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    const ProfilePage(), 
+                builder: (context) => const ProfilePage(),
               ),
             );
           },
         ),
-        title: const Text('Edit Profile', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),),
+        title: const Text(
+          'Edit Profile',
+          style: TextStyle(
+              color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      EditProfilePage(), // Navigate to EditProfilePage
-                ),
-              );
-            },
-          ),
-        ],
         backgroundColor: Colors.white,
-         bottom: PreferredSize(
+        bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
             color: Colors.black,
@@ -228,21 +318,24 @@ Future<void> _uploadProfilePicture(XFile image) async {
                   const SizedBox(height: 16),
                   Text(
                     user.name,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     user.email,
                     style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
+                  const SizedBox(height: 16),
+                  _buildBioSection(),
                   const SizedBox(height: 32),
                   GestureDetector(
                     onTap: () {
                       _showChangePasswordDialog(context);
                     },
                     child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 24),
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(8),
@@ -274,49 +367,162 @@ Future<void> _uploadProfilePicture(XFile image) async {
     final currentPasswordController = TextEditingController();
     final newPasswordController = TextEditingController();
     final confirmPasswordController = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('Change Password'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: currentPasswordController,
-                decoration: const InputDecoration(labelText: 'Current Password'),
-                obscureText: true,
-              ),
-              TextField(
-                controller: newPasswordController,
-                decoration: const InputDecoration(labelText: 'New Password'),
-                obscureText: true,
-              ),
-              TextField(
-                controller: confirmPasswordController,
-                decoration: const InputDecoration(labelText: 'Confirm New Password'),
-                obscureText: true,
-              ),
-            ],
+          content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: currentPasswordController,
+                  decoration: const InputDecoration(
+                    labelText: 'Current Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter current password';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: newPasswordController,
+                  decoration: const InputDecoration(
+                    labelText: 'New Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter new password';
+                    }
+                    if (value.length < 6) {
+                      return 'Password must be at least 6 characters';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: confirmPasswordController,
+                  decoration: const InputDecoration(
+                    labelText: 'Confirm New Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value != newPasswordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () {
-                // Implement your password change logic here
                 Navigator.of(context).pop();
               },
-              child: const Text('Submit'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
               child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _changePassword(
+                    currentPasswordController.text,
+                    newPasswordController.text,
+                  );
+                }
+              },
+              child: const Text('Change Password'),
             ),
           ],
         );
       },
     );
+  }
+
+  Widget _buildBioSection() {
+    return FutureBuilder<User>(
+        future: futureProfile,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
+
+          if (snapshot.hasData) {
+            // Initialize the controller with existing bio if not already set
+            if (_bioController.text.isEmpty) {
+              _bioController.text = snapshot.data?.bio ?? '';
+            }
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Bio',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(_isEditingBio ? Icons.check : Icons.edit),
+                        onPressed: () async {
+                          if (_isEditingBio) {
+                            await updateBio(_bioController.text);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Bio updated successfully'),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          }
+                          setState(() {
+                            _isEditingBio = !_isEditingBio;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  _isEditingBio
+                      ? TextField(
+                          controller: _bioController,
+                          decoration: const InputDecoration(
+                            hintText: 'Write something about yourself...',
+                            border: OutlineInputBorder(),
+                          ),
+                          maxLines: 3,
+                        )
+                      : Text(
+                          _bioController.text.isEmpty
+                              ? 'No bio added yet'
+                              : _bioController.text,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                ],
+              ),
+            );
+          }
+
+          return const Text('Failed to load bio');
+        });
   }
 }

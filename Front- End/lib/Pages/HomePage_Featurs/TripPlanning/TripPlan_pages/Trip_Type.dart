@@ -19,7 +19,31 @@ class _TripTypePageState extends State<TripTypePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(' ')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Trip Type',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -38,15 +62,15 @@ class _TripTypePageState extends State<TripTypePage> {
                   _buildRadioCard('Relaxation', 'Relaxation', Icons.spa, Colors.green),
                   _buildRadioCard('Cultural', 'Cultural', Icons.museum, Colors.purple),
                   const SizedBox(height: 16),
-                   Button(
-                text: 'Plan Trip',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TripPlanDetails(endPoint: widget.endPoint, budget: widget.budget, tripPersonType: widget.tripPersonType, tripType: _tripType)),
-                  );
-                },
-              ),
+                  Button(
+                    text: 'Plan Trip',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TripPlanDetails(endPoint: widget.endPoint, budget: widget.budget, tripPersonType: widget.tripPersonType, tripType: _tripType)),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

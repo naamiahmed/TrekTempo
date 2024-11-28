@@ -6,7 +6,8 @@ import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/MainHomePage.dart';
-import 'package:travel_app/auth_service.dart'; // Make sure this points to your ApiService
+import 'package:travel_app/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -19,7 +20,27 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final ApiService apiService = ApiService(); // Create an instance of ApiService
+  final ApiService apiService = ApiService(); 
+
+  bool _obscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainHomePage()),
+      );
+    }
+  }
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -48,7 +69,7 @@ class _SignInPageState extends State<SignInPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: TrekTempo_Appbar(),
+      appBar: const TrekTempo_Appbar(showBackButton: false),
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
@@ -84,6 +105,12 @@ class _SignInPageState extends State<SignInPage> {
                       isPassword: true,
                       controller: _passwordController,
                       validator: _validatePassword,
+                      obscureText: _obscurePassword,
+                      toggleObscureText: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -113,24 +140,28 @@ class _SignInPageState extends State<SignInPage> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             // Call the sign-in method
-                            bool success = await apiService.signIn(
+                            String? errorMessage = await apiService.signIn(
                               _emailController.text,
                               _passwordController.text,
                             );
-                            if (success) {
+                            if (errorMessage == null) {
+                              // Save login status
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                              await prefs.setBool('isLoggedIn', true);
+
                               // Navigate to the home page
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(builder: (context) => const MainHomePage()),
                               );
                             } else {
                               // Show an error message
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Sign in failed! Please try again.')),
+                                SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
                               );
                             }
                           } else {
-                            print("Validation failed");
+                            // print("Validation failed");
                           }
                         },
                         textColor: Colors.white,
@@ -147,7 +178,7 @@ class _SignInPageState extends State<SignInPage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignUpPage()),
+                                MaterialPageRoute(builder: (context) => const SignUpPage()),
                               );
                             },
                             child: const Text(

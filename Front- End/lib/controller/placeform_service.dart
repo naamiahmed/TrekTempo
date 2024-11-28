@@ -31,7 +31,8 @@ class PlaceService {
     for (File image in images) {
       String fileName = basename(image.path);
       request.files.add(
-        await http.MultipartFile.fromPath('images', image.path, filename: fileName),
+        await http.MultipartFile.fromPath('images', image.path,
+            filename: fileName),
       );
     }
 

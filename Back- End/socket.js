@@ -2,30 +2,51 @@
 const socketIO = require('socket.io');
 
 const initializeSocket = (server) => {
-  const io = socketIO(server); // Bind socket.io to the server
+  const io = socketIO(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
 
   io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
-    // Listen for new request events from the mobile app
-    socket.on('newRequest', (data) => {
-      console.log('New request:', data);
-      // Emit notification to the admin
-      io.emit('adminNotification', data);
+    socket.on('error', (error) => {
+      console.error('Socket error:', error);
     });
 
-    // Listen for request acceptance by admin
-    socket.on('acceptRequest', (data) => {
-      console.log('Request accepted:', data);
-      // Emit notification to the user
-      io.emit('userNotification', data);
+    socket.on('joinRoom', (data) => {
+      const room = [data.userId, data.partnerId].sort().join('-');
+      socket.join(room);
+      console.log(`User ${data.userId} joined room ${room}`);
     });
 
-    // Handle disconnection
+    socket.on('sendMessage', (data) => {
+      const room = [data.userId, data.partnerId].sort().join('-');
+      io.to(room).emit('message', {
+        userId: data.userId,
+        userName: data.userName,
+        message: data.message
+      });
+    });
+
+    // Handle location updates
+    socket.on('locationUpdate', (data) => {
+      const room = [data.userId, data.partnerId].sort().join('-');
+      io.to(room).emit('locationUpdate', {
+        userId: data.userId,
+        latitude: data.latitude,
+        longitude: data.longitude
+      });
+    });
+
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id);
     });
   });
+
+  return io;
 };
 
 module.exports = initializeSocket;

@@ -26,7 +26,7 @@ class SettingsPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AboutPage()),
+                MaterialPageRoute(builder: (context) => const AboutPage()),
               );
             },
           ),
@@ -36,7 +36,7 @@ class SettingsPage extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ContactUsPage()),
+              MaterialPageRoute(builder: (context) => const ContactUsPage()),
             );
           },
         ),
@@ -46,7 +46,7 @@ class SettingsPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FeedbackSupportPage()),
+                MaterialPageRoute(builder: (context) => const FeedbackSupportPage()),
               );
             },
           ),
@@ -56,7 +56,7 @@ class SettingsPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => OfflineMapSettingsPage()),
+                MaterialPageRoute(builder: (context) => const OfflineMapSettingsPage()),
               );
             },
           ),
@@ -78,7 +78,7 @@ class SettingsPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => shareplus()),
+                MaterialPageRoute(builder: (context) => const shareplus()),
               );
             },
           ),

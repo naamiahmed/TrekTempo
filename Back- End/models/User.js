@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    bio:{
+        type: String,
+        required: false,
+    },
 });
 
 const User = mongoose.model('User', userSchema);

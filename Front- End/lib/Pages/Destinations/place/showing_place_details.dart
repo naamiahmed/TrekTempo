@@ -281,7 +281,10 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   _buildUnderlinedTitle("Weather"),
                   const SizedBox(height: 5),
                   if (isLoadingWeather)
-                    const Center(child: CircularProgressIndicator(color: Colors.blueAccent,))
+                    const Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.blueAccent,
+                    ))
                   else if (weatherData != null) ...[
                     WeatherCard(weatherData: weatherData!),
                   ] else if (errorMessage != null) ...[

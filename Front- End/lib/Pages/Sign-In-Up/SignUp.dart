@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Pages/Sign-In-Up/mail_verify.dart';
 import 'package:travel_app/Pages/Sign-In-Up/signIn.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/Button.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/TopImage.dart';
 import 'package:travel_app/Pages/PageCommonComponents/TrekTempo_Appbar.dart';
 import 'package:travel_app/Pages/Sign-In-Up/Components/InputTextBox.dart';
-import 'package:travel_app/auth_service.dart'; // Make sure this points to your ApiService
-
+import 'package:travel_app/auth_service.dart';
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -20,6 +20,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final ApiService apiService = ApiService(); // Create an instance of ApiService
+
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -54,25 +57,71 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _signUp() async {
     if (_formKey.currentState!.validate()) {
-      // Call the API service to sign up
-      bool success = await apiService.signUp(
-        _nameController.text,
-        _emailController.text,
-        _passwordController.text,
+      // Show loading dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(color: Colors.blue),
+          );
+        },
       );
-      
-      if (success) {
-        // Navigate to Sign In Page or show success message
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage()));
-      } else {
-        // Show an error message
+
+      try {
+        bool otpSent = await apiService.sendSignUpOTP(_emailController.text);
+        
+        // Close loading dialog
+        Navigator.pop(context);
+        
+        if (otpSent) {
+          _showVerificationDialog();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to send OTP. Please try again.')),
+          );
+        }
+      } catch (e) {
+        // Close loading dialog in case of error
+        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Sign up failed! Please try again.')),
+          const SnackBar(content: Text('An error occurred. Please try again.')),
         );
       }
-    } else {
-      print("Validation failed");
     }
+  }
+
+  void _showVerificationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Verify Email Address'),
+          content: const Text('Check your email for the OTP.'),
+          actions: <Widget>[
+            TextButton(
+              
+              child: const Text('OK', style: TextStyle(color: Colors.blue),),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                _navigateToOtpPage(); // Navigate to OTP page
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _navigateToOtpPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MailVerifyPage(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      )),
+    );
   }
 
   @override
@@ -81,7 +130,8 @@ class _SignUpPageState extends State<SignUpPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: TrekTempo_Appbar(),
+      backgroundColor: Colors.white,
+      appBar: const TrekTempo_Appbar(showBackButton: true), // Ensure back button is shown
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
@@ -137,6 +187,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       isPassword: true,
                       controller: _passwordController,
                       validator: _validatePassword,
+                      obscureText: _obscurePassword,
+                      toggleObscureText: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
                     ),
                     const SizedBox(height: 8),
                     InputTextBox(
@@ -145,6 +201,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       isPassword: true,
                       controller: _confirmPasswordController,
                       validator: (value) => _validateConfirmPassword(value, _passwordController.text),
+                      obscureText: _obscureConfirmPassword,
+                      toggleObscureText: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
+                      },
                     ),
                     const SizedBox(height: 16),
                     Center(
@@ -155,7 +217,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         buttonColor: Colors.blueAccent,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 14),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -165,7 +227,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignInPage()),
+                                MaterialPageRoute(builder: (context) => const SignInPage()),
                               );
                             },
                             child: const Text(

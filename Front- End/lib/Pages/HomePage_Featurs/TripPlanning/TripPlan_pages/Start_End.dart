@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/TripPlan_pages/Budget.dart';
-import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/DistrictNameList.dart';
+import 'package:travel_app/Pages/HomePage_Featurs/TripPlanning/DistrictNameList.dart'; // Import itemList
 import 'package:travel_app/Pages/HomePage_Featurs/Components/Button.dart';
 
 class StartEndPage extends StatefulWidget {
@@ -15,35 +15,34 @@ class _StartEndPageState extends State<StartEndPage> {
   final _endPointController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  // Future<void> fetchAndNavigate(String endPoint) async {
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse('http://localhost:5000/api/getTripPlaces/$endPoint'),
-  //       headers: {},
-  //     );
-  //     if (response.statusCode == 200) {
-  //       Map<String, dynamic> jsonData = json.decode(response.body);
-  //       List<dynamic> placesJson = jsonData['TripPlaces'];
-  //       List<TripPlace> fetchedPlaces = placesJson.map((placeJson) => TripPlace.fromJson(placeJson)).toList();
-
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => TripPlaceCard(district: endPoint),
-  //         ),
-  //       );
-  //     } else {
-  //       print('Failed to fetch data ${response.body}');
-  //     }
-  //   } catch (er) {
-  //     print(er);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('   ')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Start and End Points',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.black,
+            height: 0.5,
+          ),
+        ),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -84,6 +83,9 @@ class _StartEndPageState extends State<StartEndPage> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a starting point';
                           }
+                          if (!itemList.contains(value)) {
+                            return 'Please select a valid district';
+                          }
                           return null;
                         },
                       );
@@ -104,7 +106,6 @@ class _StartEndPageState extends State<StartEndPage> {
                     },
                     onSelected: (String selection) async {
                       _endPointController.text = selection;
- //                     await fetchAndNavigate(selection);
                     },
                     fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
                       _endPointController.text = textEditingController.text;
@@ -118,6 +119,9 @@ class _StartEndPageState extends State<StartEndPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter an ending point';
+                          }
+                          if (!itemList.contains(value)) {
+                            return 'Please select a valid district';
                           }
                           return null;
                         },
