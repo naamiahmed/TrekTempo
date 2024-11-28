@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Adam’s Peak, also known as Sri Pada, is one of the most sacred pilgrimage sites in Sri Lanka, revered by Buddhists, Hindus, Christians, and Muslims alike. At its summit lies a large footprint, believed by Buddhists to be the footprint of the Buddha, while others attribute it to Lord Shiva or Adam. Pilgrims and adventurers alike trek to the top, usually starting their ascent at night to witness the breathtaking sunrise from the peak. The climb is physically challenging but spiritually fulfilling, especially during the pilgrimage season from December to May. Entry is free, but donations are appreciated to maintain the site.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Adams_Peak1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Adams_Peak2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Adams_Peak3.jpg"
+      "http://localhost:5000/uploads/places/Adams_Peak1.jpg",
+      "http://localhost:5000/uploads/places/Adams_Peak2.jpg",
+      "http://localhost:5000/uploads/places/Adams_Peak3.jpg"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Sinharaja Forest Reserve is a globally recognized tropical rainforest and UNESCO World Heritage Site located in the heart of the Ratnapura District. Established in 1978, it is celebrated for its incredible biodiversity, housing many rare and endemic species of flora and fauna. The forest is an ecological treasure trove, attracting biologists, bird watchers, and nature lovers. Visitors are encouraged to visit between December and April, during the dry season, to fully experience the beauty of this pristine environment. Entry requires a ticket, and guided tours are recommended for safety and a more immersive experience.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Sinharaja_Forest_Reserve1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Sinharaja_Forest_Reserve2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Sinharaja_Forest_Reserve3.jpg"
+      "http://localhost:5000/uploads/places/Sinharaja_Forest_Reserve1.jpg",
+      "http://localhost:5000/uploads/places/Sinharaja_Forest_Reserve2.jpg",
+      "http://localhost:5000/uploads/places/Sinharaja_Forest_Reserve3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "Located in the gem capital of Sri Lanka, the Ratnapura Gem Museum is a must-visit for anyone interested in the country's rich history of gemstone mining. The museum showcases an extensive collection of precious and semi-precious stones, including sapphires, rubies, and emeralds, some of which are unique to Sri Lanka. Visitors can explore exhibits that explain the traditional methods of gem mining and the process of transforming raw gems into polished masterpieces. Open year-round, the museum attracts tourists especially during the Ratnapura Gem Festival in August, where rare gems are displayed. A small entry fee applies, with guided tours available.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Ratnapura_Gem_Museum1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Ratnapura_Gem_Museum3.jpg",
-      "http://192.168.1.5:5000/uploads/places/Ratnapura_Gem_Museum2.jpg"
+      "http://localhost:5000/uploads/places/Ratnapura_Gem_Museum1.jpg",
+      "http://localhost:5000/uploads/places/Ratnapura_Gem_Museum3.jpg",
+      "http://localhost:5000/uploads/places/Ratnapura_Gem_Museum2.jpg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "Kalutara Bodhiya is a significant religious landmark for Buddhists, known for its ancient and sacred Bo tree. The tree is believed to be a sapling from the Jaya Sri Maha Bodhi, the tree under which Buddha attained enlightenment. Thousands of devotees visit Kalutara Bodhiya annually to offer prayers and seek blessings. The peaceful and spiritual ambiance of the site draws visitors seeking both religious and cultural experiences. The best time to visit is between December and April. While entry is free, donations to maintain the site are welcomed.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Kalutara_Bodhiya1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Kalutara_Bodhiya2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Kalutara_Bodhiya3.jpg"
+      "http://localhost:5000/uploads/places/Kalutara_Bodhiya1.jpg",
+      "http://localhost:5000/uploads/places/Kalutara_Bodhiya2.jpg",
+      "http://localhost:5000/uploads/places/Kalutara_Bodhiya3.jpg"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "likes": 0,
     "description": "Udawalawe National Park is one of Sri Lanka’s most popular wildlife reserves, renowned for its elephant herds that roam freely across the savannah-like landscape. In addition to elephants, the park is home to a variety of wildlife including leopards, crocodiles, and numerous bird species, making it a paradise for wildlife enthusiasts and photographers. Safaris are the best way to explore the park, with jeep tours operating year-round. The park is especially beautiful during the dry season from May to September when animals gather around waterholes. A ticket is required for entry, with guided tours available for an immersive experience.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Udawalawe_National_Park1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Udawalawe_National_Park2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Udawalawe_National_Park3.jpg"
+      "http://localhost:5000/uploads/places/Udawalawe_National_Park1.jpg",
+      "http://localhost:5000/uploads/places/Udawalawe_National_Park2.jpg",
+      "http://localhost:5000/uploads/places/Udawalawe_National_Park3.jpg"
     ]
   }
 ]

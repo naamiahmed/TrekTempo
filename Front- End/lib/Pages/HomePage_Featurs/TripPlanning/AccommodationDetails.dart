@@ -38,7 +38,7 @@ class _AccommodationDetailsState extends State<AccommodationDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://192.168.1.5:5000/api/getAccommodation'),
+        Uri.parse('http://localhost:5000/api/getAccommodation'),
         headers: {
           'Content-Type': 'application/json',
         },

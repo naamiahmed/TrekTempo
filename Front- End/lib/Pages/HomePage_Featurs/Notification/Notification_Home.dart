@@ -43,7 +43,7 @@ class _Notifications_HomeState extends State<Notifications_Home> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://192.168.1.5:5000/api/notifications'), // Update this line with your local IP
+            'http://localhost:5000/api/notifications'), // Update this line with your local IP
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -81,7 +81,7 @@ class _Notifications_HomeState extends State<Notifications_Home> {
     try {
       final response = await http.put(
         Uri.parse(
-            'http://192.168.1.5:5000/api/notifications/$notificationId/read'), // Update this line with your local IP
+            'http://localhost:5000/api/notifications/$notificationId/read'), // Update this line with your local IP
         headers: {'Content-Type': 'application/json'},
       );
 

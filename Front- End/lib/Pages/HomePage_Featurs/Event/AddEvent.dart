@@ -66,7 +66,7 @@ class _AddEventPageState extends State<AddEventPage> {
 
   Future<void> _addEvent() async {
     if (_formKey.currentState!.validate()) {
-      final url = Uri.parse('http://192.168.1.5:5000/api/addEvent');
+      final url = Uri.parse('http://localhost:5000/api/addEvent');
       var request = http.MultipartRequest('POST', url);
 
       request.fields.addAll({

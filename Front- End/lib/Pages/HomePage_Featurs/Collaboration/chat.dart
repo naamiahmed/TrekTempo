@@ -34,7 +34,7 @@ class _ChatPageState extends State<ChatPage> {
 
   void connectSocket() {
     try {
-      socket = IO.io('http://192.168.1.5:5000', <String, dynamic>{
+      socket = IO.io('http://localhost:5000', <String, dynamic>{
         'transports': ['websocket'],
         'autoConnect': true,
         'reconnection': true,

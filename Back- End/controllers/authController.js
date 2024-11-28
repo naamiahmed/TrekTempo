@@ -76,7 +76,7 @@ const updateProfilePicture = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       userId,
       {
-        profilePicURL: `http://192.168.1.5:5000/uploads/users/${req.file.filename}`,
+        profilePicURL: `http://localhost:5000/uploads/users/${req.file.filename}`,
       },
       { new: true }
     );

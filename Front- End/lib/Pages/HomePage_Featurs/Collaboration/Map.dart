@@ -20,7 +20,8 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   LatLng? _currentPosition;
   LatLng? _partnerPosition;
   late IO.Socket socket;
@@ -39,7 +40,7 @@ class MapSampleState extends State<MapSample> {
 
   void _initializeSocket() {
     try {
-      socket = IO.io('http://192.168.1.5:5000', <String, dynamic>{
+      socket = IO.io('http://localhost:5000', <String, dynamic>{
         'transports': ['websocket'],
         'autoConnect': true,
         'reconnection': true,
@@ -79,7 +80,7 @@ class MapSampleState extends State<MapSample> {
 
   void _updateMapElements() {
     if (!mounted) return;
-    
+
     setState(() {
       _markers.clear();
       _polylines.clear();
@@ -120,7 +121,7 @@ class MapSampleState extends State<MapSample> {
 
   Future<void> _updateCameraPosition() async {
     if (!mounted) return;
-    
+
     final GoogleMapController controller = await _controller.future;
     if (_currentPosition != null && _partnerPosition != null) {
       final LatLngBounds bounds = LatLngBounds(
@@ -240,22 +241,22 @@ class MapSampleState extends State<MapSample> {
           ),
         ],
       ),
-      body: _isLoading 
-        ? const Center(child: CircularProgressIndicator())
-        : GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: CameraPosition(
-              target: _currentPosition ?? const LatLng(7.8731, 80.7718),
-              zoom: 15,
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: CameraPosition(
+                target: _currentPosition ?? const LatLng(7.8731, 80.7718),
+                zoom: 15,
+              ),
+              markers: _markers,
+              polylines: _polylines,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
             ),
-            markers: _markers,
-            polylines: _polylines,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-          ),
     );
   }
 

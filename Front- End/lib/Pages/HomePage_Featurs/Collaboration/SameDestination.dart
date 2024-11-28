@@ -41,7 +41,7 @@ class _SameDestinationState extends State<SameDestination> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://192.168.1.5:5000/api/collaboration/matching?startPoint=${Uri.encodeComponent(widget.startPoint)}&endPoint=${Uri.encodeComponent(widget.endPoint)}&userId=${widget.userId}'),
+            'http://localhost:5000/api/collaboration/matching?startPoint=${Uri.encodeComponent(widget.startPoint)}&endPoint=${Uri.encodeComponent(widget.endPoint)}&userId=${widget.userId}'),
       );
 
       if (!mounted) return;
@@ -83,7 +83,7 @@ class _SameDestinationState extends State<SameDestination> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://192.168.1.5:5000/api/collaboration/status/${widget.userId}'),
+            'http://localhost:5000/api/collaboration/status/${widget.userId}'),
       );
 
       if (!mounted) return;
@@ -133,7 +133,7 @@ class _SameDestinationState extends State<SameDestination> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.1.5:5000/api/collaboration/accept'),
+        Uri.parse('http://localhost:5000/api/collaboration/accept'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'userId': widget.userId,

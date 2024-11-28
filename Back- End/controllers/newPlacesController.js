@@ -20,7 +20,7 @@ const createNewPlace = async (req, res) => {
     const { district, city, name, location, direction, description } = req.body;
     const images = req.files.map(
       (file) =>
-        `http://192.168.1.5:5000/uploads/request_places_images/${file.filename}`
+        `http://localhost:5000/uploads/request_places_images/${file.filename}`
     );
 
     const newPlace = new NewPlace({

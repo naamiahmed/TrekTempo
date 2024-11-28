@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
   Future<User> fetchProfileData(String userId) async {
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.5:5000/api/auth/getProfile/$userId'),
+        Uri.parse('http://localhost:5000/api/auth/getProfile/$userId'),
       );
 
       if (response.statusCode == 200) {
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
   Future<List<Place>> fetchTopPlaces() async {
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.5:5000/api/getTopPlaces'),
+        Uri.parse('http://localhost:5000/api/getTopPlaces'),
       );
 
       if (response.statusCode == 200) {

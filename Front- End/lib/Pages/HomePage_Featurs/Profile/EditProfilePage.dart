@@ -59,7 +59,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<User> fetchProfileData(String userId) async {
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.5:5000/api/auth/getProfile/$userId'),
+        Uri.parse('http://localhost:5000/api/auth/getProfile/$userId'),
       );
 
       if (response.statusCode == 200) {
@@ -98,7 +98,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       final request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'http://192.168.1.5:5000/api/auth/updateProfilePicture/$userId'),
+            'http://localhost:5000/api/auth/updateProfilePicture/$userId'),
       );
 
       request.files
@@ -149,7 +149,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<void> updateBio(String newBio) async {
     try {
       final response = await http.put(
-        Uri.parse('http://192.168.1.5:5000/api/auth/updateBio/$userId'),
+        Uri.parse('http://localhost:5000/api/auth/updateBio/$userId'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'bio': newBio}),
       );
@@ -170,7 +170,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       String currentPassword, String newPassword) async {
     try {
       final response = await http.put(
-        Uri.parse('http://192.168.1.5:5000/api/auth/changePassword/$userId'),
+        Uri.parse('http://localhost:5000/api/auth/changePassword/$userId'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
           'currentPassword': currentPassword,

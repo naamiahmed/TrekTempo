@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Chundikulam National Park is known for its beautiful coastal area and rich wildlife, including birds and mangrove forests. The best time to visit is between May and September. There is no ticket required for entry.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Chundikulam_National_Park1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Chundikulam_National_Park2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Chundikulam_National_Park3.jpg"
+      "http://localhost:5000/uploads/places/Chundikulam_National_Park1.jpg",
+      "http://localhost:5000/uploads/places/Chundikulam_National_Park2.jpg",
+      "http://localhost:5000/uploads/places/Chundikulam_National_Park3.jpg"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Iranamadu Tank is a large reservoir popular for its scenic beauty and birdwatching, especially during the migratory season. The best time to visit is during the dry season from May to September. No tickets are required for entry.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Iranamadu_Tank1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Iranamadu_Tank2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Iranamadu_Tank3.jpg"
+      "http://localhost:5000/uploads/places/Iranamadu_Tank1.jpg",
+      "http://localhost:5000/uploads/places/Iranamadu_Tank2.jpg",
+      "http://localhost:5000/uploads/places/Iranamadu_Tank3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "Ramasamy Pillai's Temple is known for its beautiful architecture and peaceful atmosphere. The best time to visit is during the cooler months from November to March. Entry is free for all visitors.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Ramasamy_Pillais_Temple1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Ramasamy_Pillais_Temple2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Ramasamy_Pillais_Temple3.jpg"
+      "http://localhost:5000/uploads/places/Ramasamy_Pillais_Temple1.jpg",
+      "http://localhost:5000/uploads/places/Ramasamy_Pillais_Temple2.jpg",
+      "http://localhost:5000/uploads/places/Ramasamy_Pillais_Temple3.jpg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "Kandasamy Kovil is a Hindu temple known for its vibrant festivals and beautiful architecture. The best time to visit is during festivals or in the cooler months from December to March. No tickets are required for entry.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Kandasamy_Kovil1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Kandasamy_Kovil2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Kandasamy_Kovil3.jpg"
+      "http://localhost:5000/uploads/places/Kandasamy_Kovil1.jpg",
+      "http://localhost:5000/uploads/places/Kandasamy_Kovil2.jpg",
+      "http://localhost:5000/uploads/places/Kandasamy_Kovil3.jpg"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "likes": 0,
     "description": "Raiyaru Tank is a large, historic tank important for local agriculture, offering peaceful views and birdwatching. The best time to visit is from December to March. No tickets are required for entry.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Raiyaru_Tank1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Raiyaru_Tank2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Raiyaru_Tank3.jpg"
+      "http://localhost:5000/uploads/places/Raiyaru_Tank1.jpg",
+      "http://localhost:5000/uploads/places/Raiyaru_Tank2.jpg",
+      "http://localhost:5000/uploads/places/Raiyaru_Tank3.jpg"
     ]
   }
 ]

@@ -45,7 +45,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://192.168.1.5:5000/api/getTripPlaces'),
+        Uri.parse('http://localhost:5000/api/getTripPlaces'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -80,7 +80,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://192.168.1.5:5000/api/getAccommodation'),
+        Uri.parse('http://localhost:5000/api/getAccommodation'),
         headers: {
           'Content-Type': 'application/json',
         },

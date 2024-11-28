@@ -70,7 +70,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://192.168.1.5:5000/api/getAccommodation/${selectedDistrict ?? ''}/${selectedBudget ?? ''}'),
+            'http://localhost:5000/api/getAccommodation/${selectedDistrict ?? ''}/${selectedBudget ?? ''}'),
       );
 
       if (response.statusCode == 200) {

@@ -27,7 +27,7 @@ const createAccommodation = async (req, res) => {
       dayCost,
     } = req.body;
     const image = req.file
-      ? `http://192.168.1.5:5000/uploads/ReqAccommodation/${req.file.filename}`
+      ? `http://localhost:5000/uploads/ReqAccommodation/${req.file.filename}`
       : null;
 
     const newAccommodation = new Accommodation({

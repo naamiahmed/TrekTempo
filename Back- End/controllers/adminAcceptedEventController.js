@@ -38,7 +38,7 @@ const createAcceptedEvent = async (req, res) => {
       dateRange,
     } = req.body;
     const imageUrl = req.file
-      ? `http://192.168.1.5:5000/uploads/ReqEvent/${req.file.filename}`
+      ? `http://localhost:5000/uploads/ReqEvent/${req.file.filename}`
       : "";
 
     const newAcceptedEvent = new AcceptedEvent({

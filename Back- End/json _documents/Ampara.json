@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Arugam Bay, located in the Ampara District, is one of the most popular surf spots in Sri Lanka. Known for its perfect waves, especially between May and September, it attracts surfers from around the world. Beyond surfing, the bay offers beautiful, calm beaches ideal for relaxation, along with nearby wildlife sanctuaries like Kumana National Park, which adds to its appeal. The best time to visit Arugam Bay is during the dry season, from April to October, when the weather is ideal for beach activities. No tickets are required to access the beach, making it a free and accessible destination for all.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/ArugamBay1.jpg",
-      "http://192.168.1.5:5000/uploads/places/ArugamBay12.jpg",
-      "http://192.168.1.5:5000/uploads/places/ArugamBay3.jpg"
+      "http://localhost:5000/uploads/places/ArugamBay1.jpg",
+      "http://localhost:5000/uploads/places/ArugamBay12.jpg",
+      "http://localhost:5000/uploads/places/ArugamBay3.jpg"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Crocodile Rock, located near Arugam Bay in the Ampara District, is a scenic viewpoint known for its breathtaking panoramic views and the chance to spot wildlife, especially crocodiles, sunbathing by the lagoon. The rock itself offers a short, adventurous hike, rewarding visitors with a peaceful spot to take in the surrounding landscapes. It's a great place for nature lovers and photographers. The best time to visit is early morning or late afternoon, especially between April and October, when the weather is pleasant, and wildlife is more active.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Crocodile_Rock1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Crocodile_Rock2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Crocodile_Rock3.jpg"
+      "http://localhost:5000/uploads/places/Crocodile_Rock1.jpg",
+      "http://localhost:5000/uploads/places/Crocodile_Rock2.jpg",
+      "http://localhost:5000/uploads/places/Crocodile_Rock3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "Lahugala Kithulana National Park, located in the Ampara District, is a small but significant wildlife sanctuary known for its large elephant population. The park's natural beauty is enhanced by its three reservoirs, which attract herds of elephants during the dry season, making it an ideal spot for wildlife viewing. Birdwatchers will also enjoy the variety of species that visit the park’s wetlands. The best time to visit is from June to September, when elephants are more easily spotted near the water sources. Tickets are required for entry, with prices around LKR 1,000 for locals and LKR 3,000 for foreigners, and guided safaris offer a more immersive experience of the park's natural beauty.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Lahugala_Kithulana_National_Park1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Lahugala_Kithulana_National_Park2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Lahugala_Kithulana_National_Park3.jpg"
+      "http://localhost:5000/uploads/places/Lahugala_Kithulana_National_Park1.jpg",
+      "http://localhost:5000/uploads/places/Lahugala_Kithulana_National_Park2.jpg",
+      "http://localhost:5000/uploads/places/Lahugala_Kithulana_National_Park3.jpg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "Oluvil Lighthouse, situated in the Ampara District, is a prominent coastal landmark guiding ships safely through the area. This historic lighthouse offers stunning views of the Indian Ocean and the surrounding coastline. The nearby area is also known for its beautiful beaches and serene environment, making it a nice spot for a scenic visit. The best time to visit is during the dry season from May to September when the weather is ideal for exploring and enjoying the views.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Oluvil_Lighthouse1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Oluvil_Lighthouse2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Oluvil_Lighthouse3.jpg"
+      "http://localhost:5000/uploads/places/Oluvil_Lighthouse1.jpg",
+      "http://localhost:5000/uploads/places/Oluvil_Lighthouse2.jpg",
+      "http://localhost:5000/uploads/places/Oluvil_Lighthouse3.jpg"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "likes": 0,
     "description": "Kumana National Park, situated in the southeast of the Ampara District, is renowned for its rich wildlife and bird-watching opportunities. The park is home to a variety of animals, including elephants, leopards, and crocodiles, but it is especially famous for its large number of migratory birds. From April to July, bird enthusiasts can spot rare species like the black-necked stork and painted stork, making it an ideal time to visit. The park's diverse ecosystem, which includes lagoons, mangroves, and grasslands, adds to its unique appeal. Tickets are required to enter the park, and guided safaris are available for a better experience of its natural beauty.",
     "images": [
-      "http://192.168.1.5:5000/uploads/places/Kumana_National_Park1.jpg",
-      "http://192.168.1.5:5000/uploads/places/Kumana_National_Park2.jpg",
-      "http://192.168.1.5:5000/uploads/places/Kumana_National_Park3.jpg"
+      "http://localhost:5000/uploads/places/Kumana_National_Park1.jpg",
+      "http://localhost:5000/uploads/places/Kumana_National_Park2.jpg",
+      "http://localhost:5000/uploads/places/Kumana_National_Park3.jpg"
     ]
   }
 ]
