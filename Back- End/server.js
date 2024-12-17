@@ -28,7 +28,7 @@ const app = express();
 
 // CORS Configuration
 app.use(cors({
-    origin: ['https://trektempo.onrender.com3000', 'https://your-frontend-domain.com'],
+    origin: ['https://trektempo.onrender.com', 'https://your-frontend-domain.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
