@@ -28,7 +28,7 @@ class _DestinationCardState extends State<DestinationCard> {
   Future<List<Place>> fetchPlacesData(String district) async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getPlaces/$district'),
+        Uri.parse('https://trektempo.onrender.com/api/getPlaces/$district'),
       );
 
       if (response.statusCode == 200) {

@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Nilaveli Beach is a serene and picturesque beach known for its golden sands and calm waters. It’s an ideal destination for relaxation and water activities, offering a peaceful environment for visitors. The beach is perfect for those looking to enjoy swimming, snorkeling, and boat trips to the nearby Pigeon Island.",
     "images": [
-      "http://localhost:5000/uploads/places/Nilaveli_Beach1.jpg",
-      "http://localhost:5000/uploads/places/Nilaveli_Beach2.jpg",
-      "http://localhost:5000/uploads/places/Nilaveli_Beach3.webp"
+      "https://trektempo.onrender.com/uploads/places/Nilaveli_Beach1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Nilaveli_Beach2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Nilaveli_Beach3.webp"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Mora Wewa is a vast and tranquil area known for its serene environment and expansive landscapes. It provides a perfect escape for relaxation and enjoyment of Sri Lanka's natural beauty. The best time to visit is during the dry season from May to September. Generally, there is no entry fee, making it an accessible destination for all.",
     "images": [
-      "http://localhost:5000/uploads/places/Mora_Wewa1.webp",
-      "http://localhost:5000/uploads/places/Mora_Wewa2.webp",
-      "http://localhost:5000/uploads/places/Mora_Wewa3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Mora_Wewa1.webp",
+      "https://trektempo.onrender.com/uploads/places/Mora_Wewa2.webp",
+      "https://trektempo.onrender.com/uploads/places/Mora_Wewa3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "A marine national park, Pigeon Island is known for its vibrant coral reefs and diverse marine life. It is a great spot for snorkeling and diving, offering a close-up view of colorful fish and coral. Visitors can explore the underwater beauty and observe wildlife in this picturesque island setting.",
     "images": [
-      "http://localhost:5000/uploads/places/Pigeon_Island_National_Park1.jpg",
-      "http://localhost:5000/uploads/places/Pigeon_Island_National_Park2.jpg",
-      "http://localhost:5000/uploads/places/Pigeon_Island_National_Park3.jpeg"
+      "https://trektempo.onrender.com/uploads/places/Pigeon_Island_National_Park1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Pigeon_Island_National_Park2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Pigeon_Island_National_Park3.jpeg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "The Ancient Sluice of Kantale Tank is one of Sri Lanka’s largest and oldest reservoirs, showcasing advanced reservoir-building technology. It offers a fascinating look at ancient engineering feats and provides beautiful scenic views. The dry season from May to September is the best time to visit, with typically no fee required.",
     "images": [
-      "http://localhost:5000/uploads/places/Ancient_Sluice_of_Kantale_Tank1.jpg",
-      "http://localhost:5000/uploads/places/Ancient_Sluice_of_Kantale_Tank2.webp",
-      "http://localhost:5000/uploads/places/Ancient_Sluice_of_Kantale_Tank3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Ancient_Sluice_of_Kantale_Tank1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Ancient_Sluice_of_Kantale_Tank2.webp",
+      "https://trektempo.onrender.com/uploads/places/Ancient_Sluice_of_Kantale_Tank3.jpg"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "likes": 0,
     "description": "Thirugoneswara Kovil is a significant Hindu temple dedicated to Lord Shiva, known for its vibrant festivals and rituals. The intricate carvings and colorful statues reflect the rich cultural heritage of the region. The best time to visit is during the annual festival in January-February, with no entry fee, but donations are welcomed for temple maintenance.",
     "images": [
-      "http://localhost:5000/uploads/places/Thirugoneswara_Kovil1.jpg",
-      "http://localhost:5000/uploads/places/Thirugoneswara_Kovil2.jpeg",
-      "http://localhost:5000/uploads/places/Thirugoneswara_Kovil3.webp"
+      "https://trektempo.onrender.com/uploads/places/Thirugoneswara_Kovil1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Thirugoneswara_Kovil2.jpeg",
+      "https://trektempo.onrender.com/uploads/places/Thirugoneswara_Kovil3.webp"
     ]
   }
 ]

@@ -28,7 +28,7 @@ const upload = multer({ storage, fileFilter });
 const createAcceptedEvent = async (req, res) => {
     try {
         const { title, phone, district, place, location, date, description, dateRange } = req.body;
-        const imageUrl = req.file ? `http://localhost:5000/uploads/ReqEvent/${req.file.filename}` : '';
+        const imageUrl = req.file ? `https://trektempo.onrender.com/uploads/ReqEvent/${req.file.filename}` : '';
 
         const newAcceptedEvent = new AcceptedEvent({
             title,

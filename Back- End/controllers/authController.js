@@ -69,7 +69,7 @@ const updateProfilePicture = async (req, res) => {
 
     const user = await User.findByIdAndUpdate(
       userId,
-      { profilePicURL: `http://localhost:5000/uploads/users/${req.file.filename}` },
+      { profilePicURL: `https://trektempo.onrender.com/uploads/users/${req.file.filename}` },
       { new: true }
     );
 

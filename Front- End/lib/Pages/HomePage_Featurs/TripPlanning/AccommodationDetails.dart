@@ -38,7 +38,7 @@ class _AccommodationDetailsState extends State<AccommodationDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/getAccommodation'),
+        Uri.parse('https://trektempo.onrender.com/api/getAccommodation'),
         headers: {
           'Content-Type': 'application/json',
         },

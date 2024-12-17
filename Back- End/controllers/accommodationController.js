@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 const createAccommodation = async (req, res) => {
   try {
     const { name, description, phone, district, place, budget, locationLink, dayCost } = req.body;
-    const image = req.file ? `http://localhost:5000/uploads/ReqAccommodation/${req.file.filename}` : null;
+    const image = req.file ? `https://trektempo.onrender.com/uploads/ReqAccommodation/${req.file.filename}` : null;
 
     const newAccommodation = new Accommodation({
       name,

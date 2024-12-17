@@ -49,7 +49,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
   Future<List<Accommodation>> fetchAccommodationsData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getAccommodation/${selectedDistrict ?? ''}/${selectedBudget ?? ''}'),
+        Uri.parse('https://trektempo.onrender.com/api/getAccommodation/${selectedDistrict ?? ''}/${selectedBudget ?? ''}'),
       );
 
       if (response.statusCode == 200) {

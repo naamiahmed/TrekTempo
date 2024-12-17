@@ -65,7 +65,7 @@ class _AddEventPageState extends State<AddEventPage> {
 
   Future<void> _addEvent() async {
     if (_formKey.currentState!.validate()) {
-      final url = Uri.parse('http://localhost:5000/api/addEvent');
+      final url = Uri.parse('https://trektempo.onrender.com/api/addEvent');
       var request = http.MultipartRequest('POST', url);
       
       request.fields.addAll({

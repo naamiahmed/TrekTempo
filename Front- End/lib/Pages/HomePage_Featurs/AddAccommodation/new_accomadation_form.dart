@@ -47,7 +47,7 @@ class _NewAccommodationFormState extends State<NewAccommodationForm> {
       try {
         var request = http.MultipartRequest(
           'POST',
-          Uri.parse('http://localhost:5000/api/addAccommodation'),
+          Uri.parse('https://trektempo.onrender.com/api/addAccommodation'),
         );
 
         request.fields.addAll({

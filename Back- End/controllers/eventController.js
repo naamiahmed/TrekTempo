@@ -21,7 +21,7 @@ const addEvent = async (req, res) => {
 
     const { title, phone, district, place, date, location, description } = req.body;
     const dateRange = req.body.dateRange;
-    const imageUrl = req.file ? `http://localhost:5000/uploads/ReqEvent/${req.file.filename}` : null;
+    const imageUrl = req.file ? `https://trektempo.onrender.com/uploads/ReqEvent/${req.file.filename}` : null;
 
     const newEvent = new Event({
       title,

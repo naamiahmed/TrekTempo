@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Gal Vihara, an iconic rock temple in Polonnaruwa, is celebrated for its extraordinary Buddha statues carved directly into a granite rock face. Constructed in the 12th century by King Parakramabahu I, it features four impressive Buddha statues: a seated Buddha, a standing Buddha, and a grand reclining Buddha. The site is renowned for its historical and architectural significance. The optimal time to visit is between May and September, when the weather is dry and suitable for exploration. Admission is included in the Polonnaruwa Archaeological Zone ticket.",
     "images": [
-      "http://localhost:5000/uploads/places/Gal_Vihara1.jpg",
-      "http://localhost:5000/uploads/places/Gal_Vihara2.jpg",
-      "http://localhost:5000/uploads/places/Gal_Vihara3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Gal_Vihara1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Gal_Vihara2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Gal_Vihara3.jpg"
     ]
   },
   {
@@ -18,9 +18,9 @@
     "likes": 0,
     "description": "Parakrama Samudra, also known as the Sea of Parakrama, is an ancient reservoir built by King Parakramabahu I in the 12th century. It was essential for irrigation and agriculture, showcasing the advanced engineering of ancient Sri Lanka. The reservoir is famous for its serene environment and historical significance. The best time to visit is during the dry season, from May to September.",
     "images": [
-      "http://localhost:5000/uploads/places/Parakrama_Samudra1.jpg",
-      "http://localhost:5000/uploads/places/Parakrama_Samudra2.jpg",
-      "http://localhost:5000/uploads/places/Parakrama_Samudra3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Parakrama_Samudra1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Parakrama_Samudra2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Parakrama_Samudra3.jpg"
     ]
   },
   {
@@ -30,9 +30,9 @@
     "likes": 0,
     "description": "The Vatadage, an ancient circular relic house, is a standout site in the Polonnaruwa Archaeological Zone. Built in the 12th century, it served as a shrine for sacred relics and features intricately carved stone pillars. It is best visited between May and September for its historical and architectural value. Admission is included in the general ticket for the archaeological sites.",
     "images": [
-      "http://localhost:5000/uploads/places/Vatadage1.jpg",
-      "http://localhost:5000/uploads/places/Vatadage2.jpg",
-      "http://localhost:5000/uploads/places/Vatadage3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Vatadage1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Vatadage2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Vatadage3.jpg"
     ]
   },
   {
@@ -42,9 +42,9 @@
     "likes": 0,
     "description": "Thuparama, one of the oldest stupas in Polonnaruwa, dates back to the 11th century. Known for its distinctive architectural style, it is surrounded by ancient ruins and provides a peaceful environment. Ideal for those interested in Buddhist heritage, the best time to visit is during the dry season from May to September. Admission is included in the general ticket for archaeological sites.",
     "images": [
-      "http://localhost:5000/uploads/places/Thuparama1.jpg",
-      "http://localhost:5000/uploads/places/Thuparama2.jpg",
-      "http://localhost:5000/uploads/places/Thuparama3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Thuparama1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Thuparama2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Thuparama3.jpg"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "likes": 0,
     "description": "Nissanka Latha Mandapaya is a unique structure located in the Dalada Maluwa quadrangle of the Polonnaruwa district in Sri Lanka's North Central Province. This architectural marvel, built by King Nissanka Latha in the 20th century, was designed for the purpose of reciting and hearing Buddhist scriptures. The term 'Mandapa' refers to a sheltered structure with pillars, which in this case, was used for religious recitals, particularly during after-death ceremonies. The structure's design is one-of-a-kind, featuring intricate craftsmanship and a historical significance linked to Buddhist traditions.",
     "images": [
-      "http://localhost:5000/uploads/places/Nissanka_Latha_Mandapaya1.jpg",
-      "http://localhost:5000/uploads/places/Nissanka_Latha_Mandapaya2.jpg",
-      "http://localhost:5000/uploads/places/Nissanka_Latha_Mandapaya3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Nissanka_Latha_Mandapaya1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Nissanka_Latha_Mandapaya2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Nissanka_Latha_Mandapaya3.jpg"
     ]
   }
 ]

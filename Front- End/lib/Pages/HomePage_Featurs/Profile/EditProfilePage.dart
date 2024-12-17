@@ -59,7 +59,7 @@ void dispose() {
   Future<User> fetchProfileData(String userId) async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/auth/getProfile/$userId'),
+        Uri.parse('https://trektempo.onrender.com/api/auth/getProfile/$userId'),
       );
 
       if (response.statusCode == 200) {
@@ -97,7 +97,7 @@ Future<void> _uploadProfilePicture(XFile image) async {
   try {
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://localhost:5000/api/auth/updateProfilePicture/$userId'),
+      Uri.parse('https://trektempo.onrender.com/api/auth/updateProfilePicture/$userId'),
     );
 
     request.files.add(await http.MultipartFile.fromPath('profilePic', image.path));
@@ -147,7 +147,7 @@ Future<void> _uploadProfilePicture(XFile image) async {
 Future<void> updateBio(String newBio) async {
     try {
       final response = await http.put(
-        Uri.parse('http://localhost:5000/api/auth/updateBio/$userId'),
+        Uri.parse('https://trektempo.onrender.com/api/auth/updateBio/$userId'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'bio': newBio}),
       );
@@ -167,7 +167,7 @@ Future<void> updateBio(String newBio) async {
   Future<void> _changePassword(String currentPassword, String newPassword) async {
   try {
     final response = await http.put(
-      Uri.parse('http://localhost:5000/api/auth/changePassword/$userId'),
+      Uri.parse('https://trektempo.onrender.com/api/auth/changePassword/$userId'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
         'currentPassword': currentPassword,

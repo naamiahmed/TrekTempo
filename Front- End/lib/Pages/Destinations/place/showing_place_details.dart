@@ -61,7 +61,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   Future<void> fetchUpdatedPlace(String placeId) async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/getOnePlaceById/$placeId'),
+        Uri.parse('https://trektempo.onrender.com/api/getOnePlaceById/$placeId'),
       );
 
       if (response.statusCode == 200) {
@@ -111,7 +111,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/handleLike/${widget.place.id}'),
+        Uri.parse('https://trektempo.onrender.com/api/handleLike/${widget.place.id}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

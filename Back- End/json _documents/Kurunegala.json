@@ -6,9 +6,9 @@
     "likes": 0,
     "description": "Ridi Viharaya is a historic Buddhist temple known for its rich history, dating back to the 2nd century BC, and impressive cave temples. It features ancient rock carvings and sacred relics, with beautiful statues and paintings inside the caves. The best time to visit is during the dry season, from December to April, when the weather is pleasant. There is no entrance fee for the temple.",
     "images": [
-      "http://localhost:5000/uploads/places/Ridi_Viharaya1.jpg",
-      "http://localhost:5000/uploads/places/Ridi_Viharaya2.jpg",
-      "http://localhost:5000/uploads/places/Ridi_Viharaya3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Ridi_Viharaya1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Ridi_Viharaya2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Ridi_Viharaya3.jpg"
     ]
   },
   {"district": "Kurunegala",
@@ -17,9 +17,9 @@
     "likes": 0,
     "description": "Yapahuwa Rock Fortress was a royal palace and fortress during the 13th century. It is popular for its historical significance and stunning views from the top. Main attractions include ancient ruins, rock carvings, and panoramic views. The best time to visit is during the dry season, from May to September. Tickets are required: Local adults pay LKR 300, local children LKR 150, foreign adults USD 10, and foreign children USD 5.",
     "images": [
-      "http://localhost:5000/uploads/places/Yapahuwa_Rock_Fortress1.jpg",
-      "http://localhost:5000/uploads/places/Yapahuwa_Rock_Fortress2.jpg",
-      "http://localhost:5000/uploads/places/Yapahuwa_Rock_Fortress3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Yapahuwa_Rock_Fortress1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Yapahuwa_Rock_Fortress2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Yapahuwa_Rock_Fortress3.jpg"
     ]
   },
   {"district": "Kurunegala",
@@ -28,9 +28,9 @@
     "likes": 0,
     "description": "Arankele Monastery is an ancient Buddhist site popular for its historical ruins and serene atmosphere. It features old rock-cut caves, ancient stupas, and inscriptions. The best time to visit is during the dry season, from May to September. No tickets are required to visit.",
     "images": [
-      "http://localhost:5000/uploads/places/Arankele_Monastery1.jpg",
-      "http://localhost:5000/uploads/places/Arankele_Monastery2.jpg",
-      "http://localhost:5000/uploads/places/Arankele_Monastery3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Arankele_Monastery1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Arankele_Monastery2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Arankele_Monastery3.jpg"
     ]
   },
   {"district": "Kurunegala",
@@ -39,9 +39,9 @@
     "likes": 0,
     "description": "Wellagala Rajamaha Viharaya is known for its ancient architecture and serene environment. It features beautiful, well-preserved ruins. The best time to visit is during the cooler months from November to April. There is no entrance fee.",
     "images": [
-      "http://localhost:5000/uploads/places/Wellagala_Rajamaha_Viharaya1.jpg",
-      "http://localhost:5000/uploads/places/Wellagala_Rajamaha_Viharaya2.jpg",
-      "http://localhost:5000/uploads/places/Wellagala_Rajamaha_Viharaya3.jpg"
+      "https://trektempo.onrender.com/uploads/places/Wellagala_Rajamaha_Viharaya1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Wellagala_Rajamaha_Viharaya2.jpg",
+      "https://trektempo.onrender.com/uploads/places/Wellagala_Rajamaha_Viharaya3.jpg"
     ]
   },
   {"district": "Kurunegala",
@@ -50,9 +50,9 @@
     "likes": 0,
     "description": "Mahamevnawa Buddhist Monastery is known for its serene atmosphere and beautiful architecture. It stands out for its peaceful environment and spiritual teachings, attracting visitors seeking meditation and tranquility. Key attractions include elegant pagodas, meditation halls, and learning about Buddhist practices. The best time to visit is during the cooler months from December to March. No tickets are required.",
     "images": [
-      "http://localhost:5000/uploads/places/Mahamevnawa_Buddhist_Monastery1.jpg",
-      "http://localhost:5000/uploads/places/Mahamevnawa_Buddhist_Monastery2.JPG",
-      "http://localhost:5000/uploads/places/Mahamevnawa_Buddhist_Monastery3.jpeg"
+      "https://trektempo.onrender.com/uploads/places/Mahamevnawa_Buddhist_Monastery1.jpg",
+      "https://trektempo.onrender.com/uploads/places/Mahamevnawa_Buddhist_Monastery2.JPG",
+      "https://trektempo.onrender.com/uploads/places/Mahamevnawa_Buddhist_Monastery3.jpeg"
     ]
   }
 ]

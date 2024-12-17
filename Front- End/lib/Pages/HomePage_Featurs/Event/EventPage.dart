@@ -35,7 +35,7 @@ class _HomeState extends State<EventPage> {
 
   Future<void> fetchEvents() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5000/api/getAllAcceptedEvents'));
+      final response = await http.get(Uri.parse('https://trektempo.onrender.com/api/getAllAcceptedEvents'));
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final List fetchedEvents = responseData['events'];

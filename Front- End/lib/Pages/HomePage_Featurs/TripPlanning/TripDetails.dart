@@ -45,7 +45,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/getTripPlaces'),
+        Uri.parse('https://trektempo.onrender.com/api/getTripPlaces'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -80,7 +80,7 @@ class _TripPlanDetailsState extends State<TripPlanDetails> {
         "tripType": widget.tripType
       };
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/getAccommodation'),
+        Uri.parse('https://trektempo.onrender.com/api/getAccommodation'),
         headers: {
           'Content-Type': 'application/json',
         },
