@@ -28,10 +28,17 @@ const app = express();
 
 // CORS Configuration
 app.use(cors({
-    origin: ['https://trektempo.onrender.com', 'https://your-frontend-domain.com'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
+    origin: [
+        'https://trektempo.onrender.com', 
+        'http://localhost:5173',  
+        'http://localhost:3000'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
+
+app.options('*', cors());
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -77,7 +84,7 @@ app.use('/api/notifications', notificationRoutes);
 // initializeSocket(server);
 
 const PORT = process.env.PORT || 5001;
-// Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on https://trektempo.onrender.com${PORT}`);
+    // Fix server URL logging
+    console.log(`Server is running on port ${PORT}`);
 });
