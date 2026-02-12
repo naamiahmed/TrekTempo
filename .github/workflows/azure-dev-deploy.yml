@@ -1,0 +1,38 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Login ACR
+      run: az acr login --name traktempo
+
+    - name: Build Image
+      run: docker build -t traktempo.azurecr.io/backend:${{ github.sha }} .
+
+    - name: Push Image
+      run: docker push traktempo.azurecr.io/backend:${{ github.sha }}
+
+    - name: Deploy to VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USERNAME }}
+        key: ${{ secrets.VM_SSH_KEY }}
+        script: |
+          docker pull traktempo.azurecr.io/backend:${{ github.sha }}
+          docker stop backend || true
+          docker rm backend || true
+          docker run -d -p 5000:5000 --name backend traktempo.azurecr.io/backend:${{ github.sha }}
