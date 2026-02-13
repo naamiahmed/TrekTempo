@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Docker Login to ACR
-      run: docker login traktempo.azurecr.io -u tracktempo -p Dde3FWSBafTnv3uO5gL5zzvgL5D0PLljYLHmiwLSSxDpHCvc3dALJQQJ99CBACqBBLyEqg7NAAACAZCRPlky
+      run: echo "Dde3FWSBafTnv3uO5gL5zzvgL5D0PLljYLHmiwLSSxDpHCvc3dALJQQJ99CBACqBBLyEqg7NAAACAZCRPlky" | docker login traktempo.azurecr.io -u tracktempo --password-stdin
 
     - name: Build Image
       run: docker build -t traktempo.azurecr.io/backend
