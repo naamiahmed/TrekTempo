@@ -2,7 +2,7 @@ name: Deploy Backend
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
 
 jobs:
   build-deploy:
@@ -13,8 +13,8 @@ jobs:
 
     - name: Docker Login to ACR
       run: docker login traktempo.azurecr.io \
-        -u ${{ secrets.ACR_USERNAME }} \
-        -p ${{ secrets.ACR_PASSWORD }}
+        -u "tracktempo" \
+        -p "7mY2TMY5Igsd1aPyNGu1KBzajRgRizwp1E0w7ALUHcal6OLKXRcvJQQJ99CBACqBBLyEqg7NAAACAZCR2xEc"
 
     - name: Build Image
       run: docker build -t traktempo.azurecr.io/backend:${{ github.sha }} .
@@ -25,11 +25,50 @@ jobs:
     - name: Deploy to VM
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.VM_HOST }}
-        username: ${{ secrets.VM_USERNAME }}
-        key: ${{ secrets.VM_SSH_KEY }}
+        host: "YOUR_VM_PUBLIC_IP"
+        username: "azureuser"
+        key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          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
+          -----END RSA PRIVATE KEY-----
         script: |
-          docker login traktempo.azurecr.io -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
+          docker login traktempo.azurecr.io -u "tracktempo" -p "7mY2TMY5Igsd1aPyNGu1KBzajRgRizwp1E0w7ALUHcal6OLKXRcvJQQJ99CBACqBBLyEqg7NAAACAZCR2xEc"
           docker pull traktempo.azurecr.io/backend:${{ github.sha }}
           docker stop backend || true
           docker rm backend || true
