@@ -12,15 +12,13 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Docker Login to ACR
-      run: docker login traktempo.azurecr.io \
-        -u "tracktempo" \
-        -p "7mY2TMY5Igsd1aPyNGu1KBzajRgRizwp1E0w7ALUHcal6OLKXRcvJQQJ99CBACqBBLyEqg7NAAACAZCR2xEc"
+      run: docker login traktempo.azurecr.io -u tracktempo -p 7mY2TMY5Igsd1aPyNGu1KBzajRgRizwp1E0w7ALUHcal6OLKXRcvJQQJ99CBACqBBLyEqg7NAAACAZCR2xEc
 
     - name: Build Image
-      run: docker build -t traktempo.azurecr.io/backend:${{ github.sha }} .
+      run: docker build -t traktempo.azurecr.io/backend
 
     - name: Push Image
-      run: docker push traktempo.azurecr.io/backend:${{ github.sha }}
+      run: docker push traktempo.azurecr.io
 
     - name: Deploy to VM
       uses: appleboy/ssh-action@master
