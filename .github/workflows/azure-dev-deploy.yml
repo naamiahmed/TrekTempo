@@ -2,7 +2,7 @@ name: Deploy Backend
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
 
 jobs:
   build-deploy:
@@ -11,13 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Login Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Login ACR
-      run: az acr login --name traktempo
+    - name: Docker Login to ACR
+      run: docker login traktempo.azurecr.io \
+        -u ${{ secrets.ACR_USERNAME }} \
+        -p ${{ secrets.ACR_PASSWORD }}
 
     - name: Build Image
       run: docker build -t traktempo.azurecr.io/backend:${{ github.sha }} .
@@ -32,7 +29,10 @@ jobs:
         username: ${{ secrets.VM_USERNAME }}
         key: ${{ secrets.VM_SSH_KEY }}
         script: |
+          docker login traktempo.azurecr.io -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
           docker pull traktempo.azurecr.io/backend:${{ github.sha }}
           docker stop backend || true
           docker rm backend || true
-          docker run -d -p 5000:5000 --name backend traktempo.azurecr.io/backend:${{ github.sha }}
+          docker run -d -p 5000:5000 \
+          --name backend \
+          traktempo.azurecr.io/backend:${{ github.sha }}
